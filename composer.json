@@ -1,0 +1,46 @@
+{
+    "name": "adshares/esc-php-api",
+    "description": "PHP API for Adshares ESC blockchain",
+    "keywords": ["adshares", "esc", "php", "API"],
+    "license": "MIT",
+    "homepage": "https://github.com/adshares/esc-php-api",
+    "support": {
+        "issues": "https://github.com/adshares/esc-php-api/issues",
+        "source": "https://github.com/adshares/esc-php-api"
+    },
+    "authors": [
+        {
+            "name": "Jacek",
+            "homepage": "https://github.com/jzemlo",
+            "role": "Lead"
+        },
+        {
+            "name": "Tomek",
+            "homepage": "https://github.com/yodahack",
+            "role": "Refactoring"
+        }
+    ],
+    "require": {
+        "php": ">=7.0",
+        "symfony/process": "^4.0"
+    },
+    "autoload": {
+        "files": [
+        ],
+        "psr-4": {
+            "Adshares\\Esc\\": "src/Adshares/Esc/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "master": "master"
+        }
+    },
+    "suggest": {
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
