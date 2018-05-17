@@ -89,7 +89,7 @@ class EscMessage
         }
 
         if (!$messages) {
-            throw new ApiException("Empty response", 500);
+            throw new EscException("Empty response", 500);
         }
         return $messages;
     }
