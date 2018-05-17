@@ -2,7 +2,6 @@
 
 namespace Adshares\Esc;
 
-use Symfony\Component\Process\ProcessBuilder;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\InputStream;
 
@@ -27,6 +26,8 @@ class Esc
 
     private $my_account;
 
+    private $timeout = 30;
+
     /* args
      * --pk      ==> pkey *
      * --msid    ==> msid
@@ -50,30 +51,33 @@ class Esc
 
     private function getProcess()
     {
-        $builder = new ProcessBuilder();
-        if ($this->workingDir) {
-            $builder->setWorkingDirectory($this->workingDir);
-            if (!file_exists($this->workingDir)) {
-                mkdir($this->workingDir, 0775, true);
-            }
+        if ($this->workingDir && !file_exists($this->workingDir)) {
+            mkdir($this->workingDir, 0775, true);
         }
 
-        $args = [
+        $cmd = [
+            $this->walletCommand,
             //'--secret=' . $this->secret,
             '--address=' . $this->address,
             '--host=' . $this->host,
             '--port=' . $this->port,
             '--nice=0',
         ];
-        if ($this->my_account) {
-            $args[] = '--hash=' . $this->my_account['hash'];
-            $args[] = '--msid=' . $this->my_account['msid'];
-        }
-        $builder->setPrefix($this->walletCommand)
-            ->setArguments($args)
-            ->setTimeout(30);
 
-        return $builder->getProcess();
+        if ($this->my_account) {
+            $cmd[] = '--hash=' . $this->my_account['hash'];
+            $cmd[] = '--msid=' . $this->my_account['msid'];
+        }
+
+        // __construct(string|array $commandline, string|null $cwd = null, array $env = null, mixed|null $input = null, int|float|null $timeout = 60, array $options = null)
+
+        return new Process(
+          $cmd,
+          $this->workingDir,
+          null,
+          null,
+          $this->timeout
+        );
     }
 
     private function executeCommand(EscMessage $message)
