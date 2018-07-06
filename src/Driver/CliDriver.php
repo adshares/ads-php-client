@@ -20,7 +20,7 @@ class CliDriver implements DriverInterface
     /**
      * @var string
      */
-    private $workingDir = '~/ads';
+    private $workingDir = '~/.ads';
 
     /**
      * @var string

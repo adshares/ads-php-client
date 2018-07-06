@@ -33,7 +33,7 @@ class Client
      * @return GetMeResponse
      * @throws CommandException
      */
-    public function getMe()
+    public function getMe(): GetMeResponse
     {
         $command = new GetMeCommand();
         $response = $this->driver->executeCommand($command);
