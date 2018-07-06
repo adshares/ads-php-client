@@ -12,7 +12,7 @@ use Adshares\Ads\Response\GetMeResponse;
  * Wrapper class used to interact with ADS wallet client
  *
  */
-class Client
+class AdsClient
 {
 
     /**

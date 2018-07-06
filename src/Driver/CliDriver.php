@@ -48,24 +48,100 @@ class CliDriver implements DriverInterface
     private $timeout = 30;
 
     /**
+     * CliDriver constructor.
+     * @param null|string $address
+     * @param null|string $secret
+     * @param null|string $host
+     * @param int|null $port
+     */
+    public function __construct(?string $address = null, ?string $secret = null, ?string $host = null, ?int $port = null)
+    {
+        $this->address = $address;
+        $this->secret = $secret;
+        if (null !== $host) {
+            $this->host = $host;
+        }
+        if (null !== $port) {
+            $this->port = $port;
+        }
+    }
+
+    /**
+     * @param string $command
+     */
+    public function setCommand(string $command): void
+    {
+        $this->command = $command;
+    }
+
+    /**
+     * @param string $workingDir
+     */
+    public function setWorkingDir(string $workingDir): void
+    {
+        $this->workingDir = $workingDir;
+    }
+
+    /**
+     * @param string $host
+     * @param int $port
+     */
+    public function setHost(string $host, int $port = 9001): void
+    {
+        $this->host = $host;
+        $this->port = $port;
+    }
+
+    /**
+     * @param string $address
+     * @param ?string $secret
+     */
+    public function setAddress(string $address, ?string $secret = null): void
+    {
+        $this->address = $address;
+        if (null !== $secret) {
+            $this->secret = $secret;
+        }
+    }
+
+    /**
+     * @param string $secret
+     */
+    public function setSecret(string $secret): void
+    {
+        $this->secret = $secret;
+    }
+
+    /**
+     * @param int $timeout
+     */
+    public function setTimeout(int $timeout): void
+    {
+        $this->timeout = $timeout;
+    }
+
+    /**
      * @param null|string $hash
      * @param null|string $messageId
      * @return Process
      */
     private function getProcess(?string $hash = null, ?string $messageId = null): Process
     {
-        if ($this->workingDir && !file_exists($this->workingDir)) {
-            mkdir($this->workingDir, 0775, true);
-        }
-
         $cmd = [
             $this->command,
-            '--address=' . $this->address,
-            '--host=' . $this->host,
-            '--port=' . $this->port,
-            '--nice=0',
+            '--work-dir=' . $this->workingDir,
+            '--nice=0'
         ];
 
+        if (null !== $this->address) {
+            $cmd[] = '--address=' . $this->address;
+        }
+        if (null !== $this->host) {
+            $cmd[] = '--host=' . $this->host;
+        }
+        if (null !== $this->port) {
+            $cmd[] = '--port=' . $this->port;
+        }
         if (null !== $hash) {
             $cmd[] = '--hash=' . $hash;
         }
@@ -75,7 +151,7 @@ class CliDriver implements DriverInterface
 
         return new Process(
             $cmd,
-            $this->workingDir,
+            null,
             null,
             null,
             $this->timeout
@@ -129,22 +205,18 @@ class CliDriver implements DriverInterface
      */
     public function executeCommand(CommandInterface $command): ResponseInterface
     {
-        $process = $this->getProcess($command->getLastHash(), $command->getLastMessageId());
-
         $input = new InputStream();
-
+        $process = $this->getProcess($command->getLastHash(), $command->getLastMessageId());
         $process->setInput($input);
         $process->start();
 
-        $input->write("{$this->secret}\n");
+        if (null !== $this->secret) {
+            $input->write("{$this->secret}\n");
+        }
         $input->write($this->prepareInput($command));
         $input->close();
 
         $process->wait();
-
-//         echo("{$this->secret}\n");
-//         echo($message->getText() . "\n");
-//         die($process->getCommandLine());
 
         if ($process->getExitCode()) {
             throw new CommandException($process->getErrorOutput());
@@ -157,7 +229,7 @@ class CliDriver implements DriverInterface
             throw new CommandException($process->getOutput() . "\n" . $process->getErrorOutput(), $e->getCode(), $e);
         }
 
-        if ($message['error']) {
+        if (isset($message['error'])) {
             throw new CommandException($message);
         }
 
