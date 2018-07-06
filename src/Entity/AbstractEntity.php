@@ -87,7 +87,7 @@ abstract class AbstractEntity implements EntityInterface
             $name[0] = strtolower($name[0]);
 
             if (property_exists($entity, $name)) {
-                $entity->$name = self::castProperty($name, $value, $refClass);
+                $entity->$name = static::castProperty($name, $value, $refClass);
             }
         }
 
