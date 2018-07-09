@@ -4,7 +4,6 @@ namespace Adshares\Ads\Entity;
 
 use Adshares\Ads\Util\AdsConverter;
 
-
 /**
  * @package Adshares\Ads\Entity
  */

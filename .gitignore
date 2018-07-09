@@ -1,2 +1,5 @@
-/.idea/
-/vendor/
+.idea/
+.scannerwork/
+vendor/
+bin/
+var/report

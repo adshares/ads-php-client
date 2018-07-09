@@ -1,0 +1,64 @@
+# Project language
+language: php
+sudo: false
+
+# PHP version
+php:
+  - 7.2
+
+# Cache composer packages so "composer install" is faster
+cache:
+  directories:
+    - ${HOME}/.composer/cache/files
+
+addons:
+  sonarcloud:
+    organization: "adshares-github"
+    token:
+      secure: "VHRMyXjOAqui+dk89GG90YXKPsELarNzGqz00BmSKRT6Fwikaex1ZZcS2YFFhwhlWJvMgSLGQNr45eGnqEItknt+gjXfYactV5gKwdN7F0EP34mTtKQMLXmpDsbrAqtbjkDot4jmyMIGVdVnBnkhc4jeVnhKggwAlBruiQAnp0QTx8DQkLJuRVX4hiEiaIMtce+bA1yz7mYNK3p0FSgfvJ7yoNJKzWOkXei0+m41wX8QKH0FG3Au8TUSjXQpGjoiSo3bYulaypxWbIcuyhbwmbpGP+WTCW26+/eex5d1arJmr2Mdsylqev2CJMjXjYT6xGH47z8c0ODq6JSeRQnjbXOtgR8gxUZ//AZnIvfJvgqK127lQ/kgV0q551op0L38dT6HrUJh9DLcJwuNvuvgUVQIizzJIzFfXdcmmLSc04wlN1mEC6hUr/ZOpsZEReZ+PxSvhxMKaTRTo2gil5tgDYI46zLWMVTzh5TkkRi+HeSZfdOQ9aQB2nnoLf4wnBXTXCi5Xny2l/Jz43dWf0agi14im8yszzuQeuQbV7FOf5E2odonLmW+/VLM20SawuyXfZG3jr1WbBLUjZjNzl8JDQTWyNRBd9xT7Gfldgbt1XfKorQXuRXn+BdJmZzxOd3LpOH+gwCvFOpRXAu548jdHFYtXpzFxxN87ftI+T7Yw7g="
+    github_token:
+      secure: "WZwVh8X2UzQa/n0riLibSjgpAegEZsNbfIwv/BFJF/OAS+yuAzN9H9vekSFwC2KHvsDz9V2aJ0wBwamznNOgTa696qTvHGOWqzkPDDO4DnN+hEq20nXWGNwzXZ3YdONEjyN8cKIIvBCTijH9RN8AgFPundclib0KX66iOIkaj3KyijHgL+KBnI5OEAYzWVygoEF/zNJ2WrtinyrC3E8VXM2osFXXpTyDpS3/LA3x/zVQ4RaSnJjVdXbvfMM2C7PNs9UjZ+UKW4PeOOsH7M35p7XNmWxbR4mZ3FMdtswgOyQm/tL9n6qyBMwMi11rMSBCumHsa9XlNtUgIfAnau8fFH/dC7vrt8Z2TRAxtWQf6omHsyrjr+YrP71HFKAEcE1joSBT7EGUFtRH/KxglDVkulNywPCa9Pae2UjUIW/IJKGq4XJ4bw15kzVszACS9PRjf4G7dTdQA25ICWq0L3bbmX+2FcVgsBZPo6Bs8KTrXPbDaBJdjYW5ch5tzLJU+YCOAiFBper7mG2ebIjqSKdUumguiYjQMIOf3fEEPPT3lzxuTtSbE2liSingKUwef12CB2ot00sB5MpBqa522wmdd3XvvQGxa2yeEb/cJrenjpLvTD/vszT1LkVSAxUPRqRXXDg94Gs95A/6qHRx/ve7/+7FxmcXI4+DJRfaP+UF7c8="
+
+# Install composer dependencies
+install:
+  - composer install --no-ansi --no-scripts --no-interaction --no-progress --no-suggest
+  - composer run-script install-codestandards
+
+stages:
+  - build
+  - quality
+  - test
+
+jobs:
+  include:
+    - stage: build
+      script:
+        # PHP Lint: check syntax errors in all PHP files
+        - ./bin/parallel-lint --no-colors --blame --exclude vendor .
+
+    - stage: test
+      script:
+        # PHP unit tests
+        - alias php='php -dzend_extension=xdebug.so'
+        - alias phpunit='php ./bin/phpunit'
+        - phpunit
+
+    - stage: quality
+      script:
+        # PHP_CodeSniffer: check PHP compatibility
+        - ./bin/phpcs -s src --standard=PHPCompatibility
+        # PHP_CodeSniffer: check PSR2 standard
+        - ./bin/phpcs -s src --standard=PSR2
+        # PHP Static Analysis Tool
+        - ./bin/phpstan --no-ansi --no-progress analyse -c phpstan.neon -l 7 src
+        # SonarQube
+        - sonar-scanners
+
+# After a build, send email notification with the build results
+notifications:
+  email: false
+  slack:
+    rooms:
+      secure: "bcZ/6zIfZ4D68+8Tdg4PEXy1nM4Yto+JNdcaYCTkTefpuBbu5hAoGtETpLbSZpg/xfONtOp8NDvxTKCjnsRR+DHHWbxYTszlZxgp0d8ir7TAwuCsqbOwJZFckfuN6OqORbBEfQpeFKujf1m39X+MFCECjGFgB5vujC3MiHrlsfT/bwgcBQ6ROhxX2d0oAtMsAW+GqQjKiwqoxr+eC3YPLh7r/+0XS7H6nFo/dJmrYpAupRVG/H3QgXOcIpYUR5RtB1YM+ZGQ20fQnrqgppFPJM2LRnDoGUrjd5N9LOg0QL+0LuydocH5iwKhPi5FGUq+6PH0IqmXCgNHKxbmPiPXhbT8EScSHJaLdUprmYZJ6Y47vrsJGP0mb3xmNKPnKveqOWF061hE7ugLYb5m4dOla+2IZzYjqBYQd8P55ENp4MR4NamJnbAJZQxhhNqGnVWf0lz83JBQUFxkbREqwj5ogNK/hpg4KH1ZJSPprZz34OzF5GOlvb10n1lRLSZm8Up2EFGh/L9mx0S0m6JL//rLoP+yi2Kdq6ZBKEzPu+PLRiAwYUyZ+oiWFAf9pNDcwbzKJZOe/u8GvA5Mye0QmrfCAnvTnUJNduNynn9Spg3omRZMreY8IuuQegz1N0xMu97YXkJuL8cUzFL9TlnJBWygIUFISP72JakBvM2o73KipDc="
+    on_success: change
+    on_failure: always

@@ -2,7 +2,6 @@
 
 namespace Adshares\Ads\Command;
 
-
 class GetMeCommand extends AbstractCommand
 {
 

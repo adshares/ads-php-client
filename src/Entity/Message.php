@@ -2,7 +2,6 @@
 
 namespace Adshares\Ads\Entity;
 
-
 /**
  * Message from getMessageList.
  * @package Adshares\Ads\Entity
@@ -47,5 +46,4 @@ class Message extends AbstractEntity
     {
         return $this->hash;
     }
-
 }

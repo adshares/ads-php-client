@@ -72,11 +72,11 @@ class Esc
         // __construct(string|array $commandline, string|null $cwd = null, array $env = null, mixed|null $input = null, int|float|null $timeout = 60, array $options = null)
 
         return new Process(
-          $cmd,
-          $this->workingDir,
-          null,
-          null,
-          $this->timeout
+            $cmd,
+            $this->workingDir,
+            null,
+            null,
+            $this->timeout
         );
     }
 

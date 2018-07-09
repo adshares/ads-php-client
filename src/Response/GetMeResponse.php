@@ -46,6 +46,4 @@ class GetMeResponse extends AbstractResponse
     {
         return $this->networkAccount;
     }
-
-
 }

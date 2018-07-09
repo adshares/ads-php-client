@@ -4,7 +4,6 @@ namespace Adshares\Ads\Entity;
 
 use Adshares\Ads\Util\AdsConverter;
 
-
 /**
  * Txn from getTransaction.
  * @package Adshares\Ads\Entity
@@ -193,5 +192,4 @@ class Txn extends AbstractEntity
             return parent::castProperty($name, $value, $refClass);
         }
     }
-
 }

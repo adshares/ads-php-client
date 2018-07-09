@@ -2,7 +2,6 @@
 
 namespace Adshares\Ads\Entity;
 
-
 /**
  * Transaction from getMessage.
  * @package Adshares\Ads\Entity
@@ -60,5 +59,4 @@ class Transaction extends AbstractEntity
     {
         return $this->size;
     }
-
 }

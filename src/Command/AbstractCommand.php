@@ -2,7 +2,6 @@
 
 namespace Adshares\Ads\Command;
 
-
 abstract class AbstractCommand implements CommandInterface
 {
 
@@ -55,5 +54,4 @@ abstract class AbstractCommand implements CommandInterface
     {
         return [];
     }
-
 }

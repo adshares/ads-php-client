@@ -3,7 +3,6 @@
 
 namespace Adshares\Ads\Util;
 
-
 class AdsConverter
 {
     /**
@@ -36,6 +35,4 @@ class AdsConverter
         $amountAsString = substr_replace($amountAsString, '.', strlen($amountAsString) - 11, 0);
         return $amountAsString;
     }
-
-
 }

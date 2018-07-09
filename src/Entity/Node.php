@@ -4,7 +4,6 @@ namespace Adshares\Ads\Entity;
 
 use Adshares\Ads\Util\AdsConverter;
 
-
 /**
  * Node from getBlock.
  * @package Adshares\Ads\Entity

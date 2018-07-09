@@ -2,7 +2,6 @@
 
 namespace Adshares\Ads\Entity;
 
-
 /**
  * Base class for response entities.
  *
@@ -81,7 +80,6 @@ abstract class AbstractEntity implements EntityInterface
         }
 
         foreach ($data as $key => $value) {
-
             $name = ucwords(str_replace('_', ' ', $key));
             $name = str_replace(' ', '', $name);
             $name[0] = strtolower($name[0]);
@@ -131,6 +129,4 @@ abstract class AbstractEntity implements EntityInterface
         $text[0] = strtolower($text[0]);
         return $text;
     }
-
-
 }

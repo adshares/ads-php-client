@@ -8,7 +8,6 @@
 
 namespace Adshares\Ads\Command;
 
-
 interface CommandInterface
 {
     /**

@@ -2,7 +2,6 @@
 
 namespace Adshares\Ads\Entity;
 
-
 /**
  * NetworkTx from getTransaction.
  * @package Adshares\Ads\Entity
@@ -126,5 +125,4 @@ class NetworkTx extends AbstractEntity
     {
         return $this->position;
     }
-
 }

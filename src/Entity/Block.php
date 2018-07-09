@@ -2,7 +2,6 @@
 
 namespace Adshares\Ads\Entity;
 
-
 /**
  * Class Block
  * @package Adshares\Ads\Entity
@@ -243,5 +242,4 @@ class Block extends AbstractEntity
     {
         return $this->voteYes;
     }
-
 }

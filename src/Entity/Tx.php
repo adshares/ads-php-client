@@ -4,7 +4,6 @@ namespace Adshares\Ads\Entity;
 
 use Adshares\Ads\Util\AdsConverter;
 
-
 /**
  * Tx is common element of response.
  * @package Adshares\Ads\Entity
@@ -141,5 +140,4 @@ class Tx extends AbstractEntity
             return parent::castProperty($name, $value, $refClass);
         }
     }
-
 }
