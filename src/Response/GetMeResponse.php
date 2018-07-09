@@ -21,7 +21,7 @@ class GetMeResponse extends AbstractResponse
      */
     protected function loadData(array $data): void
     {
-        parent::loadData();
+        parent::loadData($data);
 
         if (array_key_exists('account', $data)) {
             $this->account = Account::createFromRaw($data['account']);
