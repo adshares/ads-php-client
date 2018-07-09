@@ -10,16 +10,6 @@ namespace Adshares\Ads\Entity;
 abstract class AbstractEntity implements EntityInterface
 {
 
-    protected function fillWithData(array $data): void
-    {
-        foreach ($data as $key => $value) {
-            $key = $this->toCamelCase($key);
-            if (property_exists($this, $key)) {
-                $this->key = $value;
-            }
-        }
-    }
-
     /**
      *
      * @param  string $type
@@ -71,6 +61,10 @@ abstract class AbstractEntity implements EntityInterface
         return $value;
     }
 
+    /**
+     * @param array $data
+     * @return EntityInterface
+     */
     public static function createFromRaw(array $data): EntityInterface
     {
         $entity = new static();
@@ -95,8 +89,8 @@ abstract class AbstractEntity implements EntityInterface
 
     /**
      *
-     * @param  string           $name
-     * @param  mixed            $value
+     * @param  string $name
+     * @param  mixed $value
      * @param  \ReflectionClass $refClass
      * @return mixed
      */
@@ -105,13 +99,13 @@ abstract class AbstractEntity implements EntityInterface
         if (null !== $refClass) {
             $comment = $refClass->getProperty($name)->getDocComment();
             $matches = [];
-            if (preg_match('/@var\s+([^\s]+)/', $comment, $matches)) {
+            if (preg_match('/@var\s+([^\s]+)/', (string)$comment, $matches)) {
                 $types = explode('|', $matches[1]);
                 $type = array_shift($types);
                 if ('null' == $type) {
                     $type = array_shift($types);
                 }
-                $value = self::convertType($type, $value);
+                $value = self::convertType((string)$type, $value);
             }
         }
 
