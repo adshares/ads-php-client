@@ -101,7 +101,7 @@ class CliDriver implements DriverInterface
 
     /**
      * @param string $address
-     * @param ?string $secret
+     * @param null|string $secret
      */
     public function setAddress(string $address, ?string $secret = null): void
     {

@@ -16,12 +16,13 @@ abstract class AbstractEntity implements EntityInterface
      * @param  string $text text to change case
      * @return string text in camelCase
      */
-    private function toCamelCase(string $text): string
+    private static function toCamelCase(string $text): string
     {
         if (strpos($text, "_") !== false) {
             $text = str_replace(' ', '', ucwords(str_replace('_', ' ', $text)));
         }
         $text[0] = strtolower($text[0]);
+
         return $text;
     }
 
@@ -67,7 +68,8 @@ abstract class AbstractEntity implements EntityInterface
                     $interfaces = class_implements($type);
 
                     if (isset($interfaces['Adshares\Ads\Entity\EntityInterface'])) {
-                        $value = $type::createFromRaw($value);
+                        /* @var $type EntityInterface*/
+                        $value = $type::createFromRawData($value);
                     }
                     break;
                 }
@@ -113,9 +115,7 @@ abstract class AbstractEntity implements EntityInterface
         }
 
         foreach ($data as $key => $value) {
-            $name = ucwords(str_replace('_', ' ', $key));
-            $name = str_replace(' ', '', $name);
-            $name[0] = strtolower($name[0]);
+            $name = self::toCamelCase($key);
 
             if (property_exists($this, $name)) {
                 $this->$name = static::castProperty($name, $value, $refClass);
