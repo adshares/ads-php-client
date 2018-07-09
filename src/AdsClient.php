@@ -5,11 +5,13 @@ namespace Adshares\Ads;
 use Adshares\Ads\Command\AbstractTransaction;
 use Adshares\Ads\Command\BroadcastCommand;
 use Adshares\Ads\Command\GetAccountCommand;
+use Adshares\Ads\Command\GetBroadcastCommand;
 use Adshares\Ads\Command\GetMeCommand;
 use Adshares\Ads\Driver\DriverInterface;
 use Adshares\Ads\Exception\CommandException;
 use Adshares\Ads\Response\BroadcastResponse;
 use Adshares\Ads\Response\GetAccountResponse;
+use Adshares\Ads\Response\GetBroadcastResponse;
 use Adshares\Ads\Response\GetMeResponse;
 
 /**
@@ -67,12 +69,26 @@ class AdsClient
      * @return GetAccountResponse
      * @throws CommandException
      */
-    public function getAccount($address): GetAccountResponse
+    public function getAccount(string $address): GetAccountResponse
     {
         $command = new GetAccountCommand($address);
         $response = $this->driver->executeCommand($command);
 
         return new GetAccountResponse($response->getRawData());
+    }
+
+    /**
+     *
+     * @param null|string $from block time in Unix Epoch seconds as hexadecimal String, 0 for last block
+     * @return GetBroadcastResponse
+     * @throws CommandException
+     */
+    public function getBroadcast(string $from = null): GetBroadcastResponse
+    {
+        $command = new GetBroadcastCommand($from);
+        $response = $this->driver->executeCommand($command);
+
+        return new GetBroadcastResponse($response->getRawData());
     }
 
     /**
