@@ -2,6 +2,7 @@
 
 namespace Adshares\Ads\Driver;
 
+use Adshares\Ads\Command\TransactionInterface;
 use Adshares\Ads\Exception\CommandException;
 use Adshares\Ads\Command\CommandInterface;
 use Adshares\Ads\Response\ResponseInterface;
@@ -13,25 +14,21 @@ class CliDriver implements DriverInterface
 {
 
     /**
-     *
      * @var string
      */
     private $command = 'ads';
 
     /**
-     *
      * @var string
      */
     private $workingDir = '~/.ads';
 
     /**
-     *
      * @var string
      */
     private $host;
 
     /**
-     *
      * @var int
      */
     private $port;
@@ -49,14 +46,12 @@ class CliDriver implements DriverInterface
     private $secret;
 
     /**
-     *
      * @var int
      */
     private $timeout = 30;
 
     /**
      * CliDriver constructor.
-     *
      * @param null|string $address
      * @param null|string $secret
      * @param null|string $host
@@ -79,7 +74,6 @@ class CliDriver implements DriverInterface
     }
 
     /**
-     *
      * @param string $command
      */
     public function setCommand(string $command): void
@@ -88,7 +82,6 @@ class CliDriver implements DriverInterface
     }
 
     /**
-     *
      * @param string $workingDir
      */
     public function setWorkingDir(string $workingDir): void
@@ -97,7 +90,6 @@ class CliDriver implements DriverInterface
     }
 
     /**
-     *
      * @param string $host
      * @param int $port
      */
@@ -108,7 +100,6 @@ class CliDriver implements DriverInterface
     }
 
     /**
-     *
      * @param string $address
      * @param ?string $secret
      */
@@ -121,7 +112,6 @@ class CliDriver implements DriverInterface
     }
 
     /**
-     *
      * @param string $secret
      */
     public function setSecret(string $secret): void
@@ -130,7 +120,6 @@ class CliDriver implements DriverInterface
     }
 
     /**
-     *
      * @param int $timeout
      */
     public function setTimeout(int $timeout): void
@@ -178,8 +167,7 @@ class CliDriver implements DriverInterface
     }
 
     /**
-     *
-     * @param  CommandInterface $command
+     * @param CommandInterface $command
      * @return string
      */
     private function prepareInput(CommandInterface $command): string
@@ -187,16 +175,24 @@ class CliDriver implements DriverInterface
         $data = $command->getAttributes();
         $data['run'] = $command->getName();
 
-        return json_encode($data);
+        if (false === ($input = json_encode($data))) {
+            throw new CommandException(
+                $command,
+                sprintf('Json error: %s', json_last_error_msg()),
+                400
+            );
+        }
+
+        return (string)$input;
     }
 
     /**
-     *
-     * @param  string $data
+     * @param string $data
+     * @param CommandInterface $command
      * @return array
      * @throws CommandException
      */
-    private function prepareOutput(string $data): array
+    private function prepareOutput(CommandInterface $command, string $data): array
     {
         $messages = [];
         $lines = explode("\n", $data);
@@ -207,28 +203,34 @@ class CliDriver implements DriverInterface
             }
             $message = json_decode($line, true);
             if (json_last_error() !== JSON_ERROR_NONE) {
-                throw new CommandException(sprintf('Json error: %s', json_last_error_msg()), 400);
+                throw new CommandException(
+                    $command,
+                    sprintf('Json error: %s', json_last_error_msg()),
+                    400
+                );
             }
             $messages[] = $message;
         }
 
         if (empty($messages)) {
-            throw new CommandException('Empty response', 500);
+            throw new CommandException($command, 'Empty response', 500);
         }
 
         return $messages;
     }
 
     /**
-     *
-     * @param  CommandInterface $command
+     * @param CommandInterface $command
      * @return ResponseInterface
      * @throws CommandException
      */
     public function executeCommand(CommandInterface $command): ResponseInterface
     {
         $input = new InputStream();
-        $process = $this->getProcess($command->getLastHash(), $command->getLastMessageId());
+        $process =
+            $command instanceof TransactionInterface ?
+                $this->getProcess($command->getLastHash(), $command->getLastMessageId()) :
+                $this->getProcess();
         $process->setInput($input);
         $process->start();
 
@@ -241,18 +243,23 @@ class CliDriver implements DriverInterface
         $process->wait();
 
         if ($process->getExitCode()) {
-            throw new CommandException($process->getErrorOutput());
+            throw new CommandException($command, $process->getErrorOutput());
         }
 
         try {
-            $messages = $this->prepareOutput($process->getOutput());
+            $messages = $this->prepareOutput($command, $process->getOutput());
             $message = array_shift($messages);
         } catch (\Exception $e) {
-            throw new CommandException($process->getOutput() . "\n" . $process->getErrorOutput(), $e->getCode(), $e);
+            throw new CommandException(
+                $command,
+                sprintf("%s\n%s", $process->getOutput(), $process->getErrorOutput()),
+                $e->getCode(),
+                $e
+            );
         }
 
         if (isset($message['error'])) {
-            throw new CommandException($message['error']);
+            throw new CommandException($command, $message['error']);
         }
 
         return new RawResponse($message);

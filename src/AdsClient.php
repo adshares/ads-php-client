@@ -2,6 +2,7 @@
 
 namespace Adshares\Ads;
 
+use Adshares\Ads\Command\AbstractTransaction;
 use Adshares\Ads\Command\BroadcastCommand;
 use Adshares\Ads\Command\GetAccountCommand;
 use Adshares\Ads\Command\GetMeCommand;
@@ -35,23 +36,33 @@ class AdsClient
 
     /**
      *
+     * @param AbstractTransaction $transaction
+     * @throws CommandException
+     */
+    private function prepareTransaction(AbstractTransaction $transaction)
+    {
+        $getMeResponse = $this->getMe();
+        $transaction->setLastHash($getMeResponse->getAccount()->getHash());
+        $transaction->setLastMessageId($getMeResponse->getAccount()->getMsid());
+    }
+
+    /**
+     *
      * @param  string $message hexadecimal string with even number of characters
      * @return BroadcastResponse
      * @throws CommandException
      */
     public function broadcast($message): BroadcastResponse
     {
-        $getMeResponse = $this->getMe();
-
         $command = new BroadcastCommand($message);
-        $command->setLastHash($getMeResponse->getAccount()->getHash());
-        $command->setLastMessageId($getMeResponse->getAccount()->getMsid());
+        $this->prepareTransaction($command);
         $response = $this->driver->executeCommand($command);
 
         return new BroadcastResponse($response->getRawData());
     }
 
     /**
+     *
      * @param string $address
      * @return GetAccountResponse
      * @throws CommandException
