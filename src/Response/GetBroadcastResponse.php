@@ -10,7 +10,7 @@ class GetBroadcastResponse extends AbstractResponse
      *
      * @var array[Broadcast]
      */
-    protected $broadcast;
+    protected $broadcast = [];
 
     /**
      *
@@ -21,9 +21,7 @@ class GetBroadcastResponse extends AbstractResponse
         parent::loadData($data);
 
         if (array_key_exists('broadcast', $data)) {
-            $broadcastArray = $data['broadcast'];
-            $this->broadcast = [];
-            foreach ($broadcastArray as $key => $value) {
+            foreach ($data['broadcast'] as $value) {
                 $this->broadcast[] = Broadcast::createFromRaw($value);
             }
         }

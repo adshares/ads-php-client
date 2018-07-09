@@ -1,5 +1,6 @@
 <?php
 
+
 namespace Adshares\Ads\Tests\Unit\Entity;
 
 use \Adshares\Ads\Entity\Block;
