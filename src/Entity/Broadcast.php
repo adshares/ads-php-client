@@ -259,4 +259,16 @@ class Broadcast extends AbstractEntity
             return parent::castProperty($name, $value, $refClass);
         }
     }
+
+    /**
+     * @param array $data
+     * @return Broadcast
+     */
+    public static function createFromRaw(array $data): Broadcast
+    {
+        $entity = new Broadcast();
+        $entity->fillWithRawData($data);
+
+        return $entity;
+    }
 }

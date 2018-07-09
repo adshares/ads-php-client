@@ -2,10 +2,8 @@
 
 namespace Adshares\Ads\Tests\E2E\Entity;
 
-
 use Adshares\Ads\AdsClient;
 use Adshares\Ads\Driver\CliDriver;
-
 
 class GetAccountTest extends \PHPUnit\Framework\TestCase
 {
@@ -23,8 +21,5 @@ class GetAccountTest extends \PHPUnit\Framework\TestCase
 
         $str = $account = $response->getAccount()->getAddress();
         $this->assertEquals($accountAddress, $str);
-
     }
-
 }
-

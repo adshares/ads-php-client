@@ -187,8 +187,8 @@ class CliDriver implements DriverInterface
     }
 
     /**
-     * @param string $data
      * @param CommandInterface $command
+     * @param string $data
      * @return array
      * @throws CommandException
      */

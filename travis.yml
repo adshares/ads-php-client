@@ -41,16 +41,16 @@ jobs:
         # PHP unit tests
         - alias php='php -dzend_extension=xdebug.so'
         - alias phpunit='php ./bin/phpunit'
-        - phpunit
+        - phpunit --testsuit Unit
 
     - stage: quality
       script:
         # PHP_CodeSniffer: check PHP compatibility
-        - ./bin/phpcs -s src --standard=PHPCompatibility
+        - ./bin/phpcs -s --standard=PHPCompatibility src tests
         # PHP_CodeSniffer: check PSR2 standard
-        - ./bin/phpcs -s src --standard=PSR2
+        - ./bin/phpcs -s --standard=PSR2 src tests
         # PHP Static Analysis Tool
-        - ./bin/phpstan --no-ansi --no-progress analyse -c phpstan.neon -l 7 src
+        - ./bin/phpstan --no-ansi --no-progress analyse -c phpstan.neon -l 7 src tests
         # SonarQube
         - sonar-scanners
 

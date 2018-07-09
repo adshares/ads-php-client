@@ -213,4 +213,16 @@ class Account extends AbstractEntity
             return parent::castProperty($name, $value, $refClass);
         }
     }
+
+    /**
+     * @param array $data
+     * @return Account
+     */
+    public static function createFromRaw(array $data): Account
+    {
+        $entity = new Account();
+        $entity->fillWithRawData($data);
+
+        return $entity;
+    }
 }

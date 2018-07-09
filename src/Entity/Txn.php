@@ -219,4 +219,17 @@ class Txn extends AbstractEntity
             return parent::castProperty($name, $value, $refClass);
         }
     }
+
+
+    /**
+     * @param array $data
+     * @return Txn
+     */
+    public static function createFromRaw(array $data): Txn
+    {
+        $entity = new Txn();
+        $entity->fillWithRawData($data);
+
+        return $entity;
+    }
 }

@@ -183,4 +183,16 @@ class Node extends AbstractEntity
             return parent::castProperty($name, $value, $refClass);
         }
     }
+
+    /**
+     * @param array $data
+     * @return Node
+     */
+    public static function createFromRaw(array $data): Node
+    {
+        $entity = new Node();
+        $entity->fillWithRawData($data);
+
+        return $entity;
+    }
 }

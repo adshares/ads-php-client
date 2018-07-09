@@ -297,4 +297,3 @@ class BlockTest extends \PHPUnit\Framework\TestCase
 	}', true);
     }
 }
-

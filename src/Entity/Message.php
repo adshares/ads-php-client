@@ -53,4 +53,16 @@ class Message extends AbstractEntity
     {
         return $this->hash;
     }
+
+    /**
+     * @param array $data
+     * @return Message
+     */
+    public static function createFromRaw(array $data): Message
+    {
+        $entity = new Message();
+        $entity->fillWithRawData($data);
+
+        return $entity;
+    }
 }

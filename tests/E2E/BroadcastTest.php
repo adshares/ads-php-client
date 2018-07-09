@@ -2,12 +2,10 @@
 
 namespace Adshares\Ads\Tests\E2E\Entity;
 
-
 use Adshares\Ads\AdsClient;
 use Adshares\Ads\Driver\CliDriver;
 use Adshares\Ads\Entity\Broadcast;
 use Adshares\Ads\Exception\CommandException;
-
 
 class BroadcastTest extends \PHPUnit\Framework\TestCase
 {
@@ -68,6 +66,4 @@ class BroadcastTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($message, $broadcast->getMessage());
         print_r($broadcast->getMessage());
     }
-
 }
-

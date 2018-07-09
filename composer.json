@@ -1,54 +1,58 @@
 {
-    "name": "adshares/php-ads-client",
-    "description": "PHP Client for ADS blockchain",
-    "keywords": ["adshares", "ads", "php", "esc"],
-    "homepage": "https://github.com/adshares/php-ads-client",
-    "support": {
-        "issues": "https://github.com/adshares/php-ads-client/issues",
-        "source": "https://github.com/adshares/php-ads-client"
-    },
-    "authors": [
-        {
-            "name": "Adshares",
-            "homepage": "https://adshares.pl/team"
-        }
-    ],
-    "require": {
-        "php": ">=7.2.0",
-        "symfony/process": "^4.1"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "~7.0",
-        "dealerdirect/phpcodesniffer-composer-installer": "^0.4.4",
-        "jakub-onderka/php-parallel-lint": "^1.0",
-        "phpstan/phpstan": "^0.10.1",
-        "sensiolabs/security-checker": "^4.1",
-        "wimg/php-compatibility": "^8.1"
-    },
-    "autoload": {
-        "psr-4": {
-            "Adshares\\Ads\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Adshares\\Ads\\Tests\\": "tests/"
-        }
-    },
+  "name": "adshares/php-ads-client",
+  "description": "PHP Client for ADS blockchain",
+  "keywords": [
+    "adshares",
+    "ads",
+    "php",
+    "esc"
+  ],
+  "homepage": "https://github.com/adshares/php-ads-client",
+  "support": {
+    "issues": "https://github.com/adshares/php-ads-client/issues",
+    "source": "https://github.com/adshares/php-ads-client"
+  },
+  "authors": [
+    {
+      "name": "Adshares",
+      "homepage": "https://adshares.pl/team"
+    }
+  ],
+  "require": {
+    "php": ">=7.2.0",
+    "symfony/process": "^4.1"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~7.0",
+    "dealerdirect/phpcodesniffer-composer-installer": "^0.4.4",
+    "jakub-onderka/php-parallel-lint": "^1.0",
+    "wimg/php-compatibility": "^8.1",
+    "phpstan/phpstan": "^0.10"
+  },
+  "autoload": {
+    "psr-4": {
+      "Adshares\\Ads\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Adshares\\Ads\\Tests\\": "tests/"
+    }
+  },
   "scripts": {
     "install-codestandards": [
       "Dealerdirect\\Composer\\Plugin\\Installers\\PHPCodeSniffer\\Plugin::run"
     ]
   },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "0.1.x-dev"
-        }
-    },
-    "config": {
-        "sort-packages": true,
-        "bin-dir": "bin"
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true
+  "extra": {
+    "branch-alias": {
+      "dev-master": "0.1.x-dev"
+    }
+  },
+  "config": {
+    "sort-packages": true,
+    "bin-dir": "bin"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
 }

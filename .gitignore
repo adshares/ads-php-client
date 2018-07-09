@@ -1,5 +1,9 @@
-.idea/
-.scannerwork/
+# build
 vendor/
 bin/
+# IDE
+.idea/
+# QA
+phpunit.xml
 var/report
+.scannerwork/

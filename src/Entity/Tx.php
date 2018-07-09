@@ -159,4 +159,16 @@ class Tx extends AbstractEntity
             return parent::castProperty($name, $value, $refClass);
         }
     }
+
+    /**
+     * @param array $data
+     * @return Tx
+     */
+    public static function createFromRaw(array $data): Tx
+    {
+        $entity = new Tx();
+        $entity->fillWithRawData($data);
+
+        return $entity;
+    }
 }

@@ -279,4 +279,16 @@ class Block extends AbstractEntity
     {
         return $this->voteYes;
     }
+
+    /**
+     * @param array $data
+     * @return Block
+     */
+    public static function createFromRaw(array $data): Block
+    {
+        $entity = new Block();
+        $entity->fillWithRawData($data);
+
+        return $entity;
+    }
 }

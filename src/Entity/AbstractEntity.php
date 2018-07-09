@@ -11,6 +11,21 @@ abstract class AbstractEntity implements EntityInterface
 {
 
     /**
+     * Changes string with underscores to camelCase string. First letter is low.
+     *
+     * @param  string $text text to change case
+     * @return string text in camelCase
+     */
+    private function toCamelCase(string $text): string
+    {
+        if (strpos($text, "_") !== false) {
+            $text = str_replace(' ', '', ucwords(str_replace('_', ' ', $text)));
+        }
+        $text[0] = strtolower($text[0]);
+        return $text;
+    }
+
+    /**
      *
      * @param  string $type
      * @param  mixed $value
@@ -62,36 +77,10 @@ abstract class AbstractEntity implements EntityInterface
     }
 
     /**
-     * @param array $data
-     * @return EntityInterface
-     */
-    public static function createFromRaw(array $data): EntityInterface
-    {
-        $entity = new static();
-        try {
-            $refClass = new \ReflectionClass($entity);
-        } catch (\ReflectionException $e) {
-            $refClass = null;
-        }
-
-        foreach ($data as $key => $value) {
-            $name = ucwords(str_replace('_', ' ', $key));
-            $name = str_replace(' ', '', $name);
-            $name[0] = strtolower($name[0]);
-
-            if (property_exists($entity, $name)) {
-                $entity->$name = static::castProperty($name, $value, $refClass);
-            }
-        }
-
-        return $entity;
-    }
-
-    /**
      *
      * @param  string $name
      * @param  mixed $value
-     * @param  \ReflectionClass $refClass
+     * @param  \ReflectionClass|null $refClass
      * @return mixed
      */
     protected static function castProperty(string $name, $value, \ReflectionClass $refClass = null)
@@ -113,17 +102,36 @@ abstract class AbstractEntity implements EntityInterface
     }
 
     /**
-     * Changes string with underscores to camelCase string. First letter is low.
-     *
-     * @param  string $text text to change case
-     * @return string text in camelCase
+     * @param array $data
      */
-    private function toCamelCase(string $text): string
+    public function fillWithRawData(array $data): void
     {
-        if (strpos($text, "_") !== false) {
-            $text = str_replace(' ', '', ucwords(str_replace('_', ' ', $text)));
+        try {
+            $refClass = new \ReflectionClass($this);
+        } catch (\ReflectionException $e) {
+            $refClass = null;
         }
-        $text[0] = strtolower($text[0]);
-        return $text;
+
+        foreach ($data as $key => $value) {
+            $name = ucwords(str_replace('_', ' ', $key));
+            $name = str_replace(' ', '', $name);
+            $name[0] = strtolower($name[0]);
+
+            if (property_exists($this, $name)) {
+                $this->$name = static::castProperty($name, $value, $refClass);
+            }
+        }
+    }
+
+    /**
+     * @param array $data
+     * @return EntityInterface
+     */
+    public static function createFromRawData(array $data): EntityInterface
+    {
+        $entity = new static();
+        $entity->fillWithRawData($data);
+
+        return $entity;
     }
 }

@@ -144,4 +144,16 @@ class NetworkTx extends AbstractEntity
     {
         return $this->position;
     }
+
+    /**
+     * @param array $data
+     * @return NetworkTx
+     */
+    public static function createFromRaw(array $data): NetworkTx
+    {
+        $entity = new NetworkTx();
+        $entity->fillWithRawData($data);
+
+        return $entity;
+    }
 }
