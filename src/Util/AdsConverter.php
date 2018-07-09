@@ -7,7 +7,8 @@ class AdsConverter
 {
     /**
      * Converts Ads to clicks.
-     * @param $amount
+     *
+     * @param mixed $amount
      * @return int
      */
     public static function adsToClicks($amount): int
@@ -25,7 +26,8 @@ class AdsConverter
 
     /**
      * Converts clicks to Ads.
-     * @param $amount
+     *
+     * @param int $amount
      * @return string
      */
     public static function clicksToAds($amount): string

@@ -13,49 +13,61 @@ class CliDriver implements DriverInterface
 {
 
     /**
+     *
      * @var string
      */
     private $command = 'ads';
 
     /**
+     *
      * @var string
      */
     private $workingDir = '~/.ads';
 
     /**
+     *
      * @var string
      */
     private $host;
 
     /**
+     *
      * @var int
      */
     private $port;
 
     /**
-     * @var string
+     *
+     * @var null|string
      */
     private $address;
 
     /**
-     * @var string
+     *
+     * @var null|string
      */
     private $secret;
 
     /**
+     *
      * @var int
      */
     private $timeout = 30;
 
     /**
      * CliDriver constructor.
+     *
      * @param null|string $address
      * @param null|string $secret
      * @param null|string $host
      * @param int|null $port
      */
-    public function __construct(?string $address = null, ?string $secret = null, ?string $host = null, ?int $port = null)
-    {
+    public function __construct(
+        ?string $address = null,
+        ?string $secret = null,
+        ?string $host = null,
+        ?int $port = null
+    ) {
         $this->address = $address;
         $this->secret = $secret;
         if (null !== $host) {
@@ -67,6 +79,7 @@ class CliDriver implements DriverInterface
     }
 
     /**
+     *
      * @param string $command
      */
     public function setCommand(string $command): void
@@ -75,6 +88,7 @@ class CliDriver implements DriverInterface
     }
 
     /**
+     *
      * @param string $workingDir
      */
     public function setWorkingDir(string $workingDir): void
@@ -83,6 +97,7 @@ class CliDriver implements DriverInterface
     }
 
     /**
+     *
      * @param string $host
      * @param int $port
      */
@@ -93,6 +108,7 @@ class CliDriver implements DriverInterface
     }
 
     /**
+     *
      * @param string $address
      * @param ?string $secret
      */
@@ -105,6 +121,7 @@ class CliDriver implements DriverInterface
     }
 
     /**
+     *
      * @param string $secret
      */
     public function setSecret(string $secret): void
@@ -113,6 +130,7 @@ class CliDriver implements DriverInterface
     }
 
     /**
+     *
      * @param int $timeout
      */
     public function setTimeout(int $timeout): void
@@ -121,11 +139,12 @@ class CliDriver implements DriverInterface
     }
 
     /**
-     * @param null|string $hash
-     * @param null|string $messageId
+     *
+     * @param  null|string $hash
+     * @param  null|int $messageId
      * @return Process
      */
-    private function getProcess(?string $hash = null, ?string $messageId = null): Process
+    private function getProcess(?string $hash = null, ?int $messageId = null): Process
     {
         $cmd = [
             $this->command,
@@ -159,7 +178,8 @@ class CliDriver implements DriverInterface
     }
 
     /**
-     * @param CommandInterface $command
+     *
+     * @param  CommandInterface $command
      * @return string
      */
     private function prepareInput(CommandInterface $command): string
@@ -171,7 +191,8 @@ class CliDriver implements DriverInterface
     }
 
     /**
-     * @param string $data
+     *
+     * @param  string $data
      * @return array
      * @throws CommandException
      */
@@ -199,7 +220,8 @@ class CliDriver implements DriverInterface
     }
 
     /**
-     * @param CommandInterface $command
+     *
+     * @param  CommandInterface $command
      * @return ResponseInterface
      * @throws CommandException
      */
@@ -230,7 +252,7 @@ class CliDriver implements DriverInterface
         }
 
         if (isset($message['error'])) {
-            throw new CommandException($message);
+            throw new CommandException($message['error']);
         }
 
         return new RawResponse($message);

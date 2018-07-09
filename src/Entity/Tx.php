@@ -6,6 +6,7 @@ use Adshares\Ads\Util\AdsConverter;
 
 /**
  * Tx is common element of response.
+ *
  * @package Adshares\Ads\Entity
  */
 class Tx extends AbstractEntity
@@ -16,51 +17,61 @@ class Tx extends AbstractEntity
     const MONEY_FIELDS = ["deduct", "fee"];
 
     /**
+     *
      * @var null|int
      */
     protected $accountMsid;
 
     /**
+     *
      * @var null|string
      */
     protected $accountHashin;
 
     /**
+     *
      * @var null|string
      */
     protected $accountHashout;
 
     /**
+     *
      * @var string
      */
     protected $data;
 
     /**
+     *
      * @var null|int
      */
     protected $deduct;
 
     /**
+     *
      * @var null|int
      */
     protected $fee;
 
     /**
+     *
      * @var null|string
      */
     protected $id;
 
     /**
+     *
      * @var null|int
      */
     protected $nodeMpos;
 
     /**
+     *
      * @var null|int
      */
     protected $nodeMsid;
 
     /**
+     *
      * @return int|null
      */
     public function getAccountMsid(): ?int
@@ -69,6 +80,7 @@ class Tx extends AbstractEntity
     }
 
     /**
+     *
      * @return null|string
      */
     public function getAccountHashin(): ?string
@@ -77,6 +89,7 @@ class Tx extends AbstractEntity
     }
 
     /**
+     *
      * @return null|string
      */
     public function getAccountHashout(): ?string
@@ -85,6 +98,7 @@ class Tx extends AbstractEntity
     }
 
     /**
+     *
      * @return string
      */
     public function getData(): string
@@ -93,6 +107,7 @@ class Tx extends AbstractEntity
     }
 
     /**
+     *
      * @return int|null
      */
     public function getDeduct(): ?int
@@ -101,6 +116,7 @@ class Tx extends AbstractEntity
     }
 
     /**
+     *
      * @return int|null
      */
     public function getFee(): ?int
@@ -109,6 +125,7 @@ class Tx extends AbstractEntity
     }
 
     /**
+     *
      * @return null|string
      */
     public function getId(): ?string
@@ -117,6 +134,7 @@ class Tx extends AbstractEntity
     }
 
     /**
+     *
      * @return int|null
      */
     public function getNodeMpos(): ?int
@@ -125,6 +143,7 @@ class Tx extends AbstractEntity
     }
 
     /**
+     *
      * @return int|null
      */
     public function getNodeMsid(): ?int

@@ -6,6 +6,7 @@ use Adshares\Ads\Util\AdsConverter;
 
 /**
  * Txn from getTransaction.
+ *
  * @package Adshares\Ads\Entity
  */
 class Txn extends AbstractEntity
@@ -16,71 +17,85 @@ class Txn extends AbstractEntity
     const MONEY_FIELDS = ["amount", "senderFee"];
 
     /**
+     *
      * @var int
      */
     protected $amount;
 
     /**
+     *
      * @var int
      */
     protected $destinationNode;
 
     /**
+     *
      * @var int
      */
     protected $destinationUser;
 
     /**
+     *
      * @var string
      */
     protected $message;
 
     /**
+     *
      * @var int
      */
     protected $msg_id;
 
     /**
+     *
      * @var int
      */
     protected $node;
 
     /**
+     *
      * @var string;
      */
     protected $senderAddress;
 
     /**
+     *
      * @var int
      */
     protected $senderFee;
 
     /**
+     *
      * @var string;
      */
     protected $signature;
 
     /**
+     *
      * @var string;
      */
     protected $targetAddress;
 
     /**
+     *
      * @var \DateTime
      */
     protected $time;
 
     /**
+     *
      * @var string;
      */
     protected $type;
 
     /**
+     *
      * @var int
      */
     protected $user;
 
     /**
+     *
      * @return int
      */
     public function getAmount(): int
@@ -89,6 +104,7 @@ class Txn extends AbstractEntity
     }
 
     /**
+     *
      * @return int
      */
     public function getDestinationNode(): int
@@ -97,6 +113,7 @@ class Txn extends AbstractEntity
     }
 
     /**
+     *
      * @return int
      */
     public function getDestinationUser(): int
@@ -105,6 +122,7 @@ class Txn extends AbstractEntity
     }
 
     /**
+     *
      * @return string
      */
     public function getMessage(): string
@@ -113,6 +131,7 @@ class Txn extends AbstractEntity
     }
 
     /**
+     *
      * @return int
      */
     public function getMsgId(): int
@@ -121,6 +140,7 @@ class Txn extends AbstractEntity
     }
 
     /**
+     *
      * @return int
      */
     public function getNode(): int
@@ -129,6 +149,7 @@ class Txn extends AbstractEntity
     }
 
     /**
+     *
      * @return string
      */
     public function getSenderAddress(): string
@@ -137,6 +158,7 @@ class Txn extends AbstractEntity
     }
 
     /**
+     *
      * @return int
      */
     public function getSenderFee(): int
@@ -145,6 +167,7 @@ class Txn extends AbstractEntity
     }
 
     /**
+     *
      * @return string
      */
     public function getSignature(): string
@@ -153,6 +176,7 @@ class Txn extends AbstractEntity
     }
 
     /**
+     *
      * @return string
      */
     public function getTargetAddress(): string
@@ -161,6 +185,7 @@ class Txn extends AbstractEntity
     }
 
     /**
+     *
      * @return \DateTime
      */
     public function getTime(): \DateTime
@@ -169,6 +194,7 @@ class Txn extends AbstractEntity
     }
 
     /**
+     *
      * @return string
      */
     public function getType(): string
@@ -177,6 +203,7 @@ class Txn extends AbstractEntity
     }
 
     /**
+     *
      * @return int
      */
     public function getUser(): int

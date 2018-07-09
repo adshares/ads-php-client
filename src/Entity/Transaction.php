@@ -4,31 +4,37 @@ namespace Adshares\Ads\Entity;
 
 /**
  * Transaction from getMessage.
+ *
  * @package Adshares\Ads\Entity
  */
 class Transaction extends AbstractEntity
 {
 
     /**
+     *
      * @var string
      */
     protected $id;
 
     /**
+     *
      * @var string
      */
     protected $type;
 
     /**
+     *
      * @var int
      */
     protected $messageLength;
     /**
+     *
      * @var int
      */
     protected $size;
 
     /**
+     *
      * @return string
      */
     public function getId(): string
@@ -37,6 +43,7 @@ class Transaction extends AbstractEntity
     }
 
     /**
+     *
      * @return string
      */
     public function getType(): string
@@ -45,6 +52,7 @@ class Transaction extends AbstractEntity
     }
 
     /**
+     *
      * @return int
      */
     public function getMessageLength(): int
@@ -53,6 +61,7 @@ class Transaction extends AbstractEntity
     }
 
     /**
+     *
      * @return int
      */
     public function getSize(): int

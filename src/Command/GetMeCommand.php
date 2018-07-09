@@ -6,6 +6,7 @@ class GetMeCommand extends AbstractCommand
 {
 
     /**
+     *
      * @return string
      */
     public function getName(): string

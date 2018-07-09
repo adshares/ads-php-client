@@ -6,16 +6,19 @@ abstract class AbstractCommand implements CommandInterface
 {
 
     /**
+     *
      * @var null|string
      */
     protected $lastHash;
 
     /**
-     * @var null|string
+     *
+     * @var null|int
      */
     protected $lastMessageId;
 
     /**
+     *
      * @return null|string
      */
     public function getLastHash(): ?string
@@ -24,6 +27,7 @@ abstract class AbstractCommand implements CommandInterface
     }
 
     /**
+     *
      * @param string $lastHash
      */
     public function setLastHash(string $lastHash): void
@@ -32,22 +36,24 @@ abstract class AbstractCommand implements CommandInterface
     }
 
     /**
-     * @return null|string
+     * @return null|int
      */
-    public function getLastMessageId(): ?string
+    public function getLastMessageId(): ?int
     {
         return $this->lastMessageId;
     }
 
     /**
-     * @param string $lastMessageId
+     *
+     * @param int $lastMessageId
      */
-    public function setLastMessageId(string $lastMessageId): void
+    public function setLastMessageId(int $lastMessageId): void
     {
         $this->lastMessageId = $lastMessageId;
     }
 
     /**
+     *
      * @return array
      */
     public function getAttributes(): array

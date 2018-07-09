@@ -6,65 +6,78 @@ use Adshares\Ads\Util\AdsConverter;
 
 /**
  * Node from getBlock.
+ *
  * @package Adshares\Ads\Entity
  */
 class Node extends AbstractEntity
 {
     /**
+     *
      * @var int
      */
     protected $accountCount;
 
     /**
+     *
      * @var int
      */
     protected $balance;
 
     /**
+     *
      * @var string
      */
     protected $hash;
 
     /**
+     *
      * @var string
      */
     protected $id;
 
     /**
+     *
      * @var string
      */
     protected $ipv4;
 
     /**
+     *
      * @var string
      */
     protected $message_hash;
     /**
+     *
      * @var int
      */
     protected $msid;
 
     /**
+     *
      * @var \DateTime
      */
     protected $mtim;
 
     /**
+     *
      * @var int
      */
     protected $port;
 
     /**
+     *
      * @var string
      */
     protected $publicKey;
 
     /**
+     *
      * @var int
      */
     protected $status;
 
     /**
+     *
      * @return int
      */
     public function getAccountCount(): int
@@ -73,6 +86,7 @@ class Node extends AbstractEntity
     }
 
     /**
+     *
      * @return int
      */
     public function getBalance(): int
@@ -81,6 +95,7 @@ class Node extends AbstractEntity
     }
 
     /**
+     *
      * @return string
      */
     public function getHash(): string
@@ -89,6 +104,7 @@ class Node extends AbstractEntity
     }
 
     /**
+     *
      * @return string
      */
     public function getId(): string
@@ -97,6 +113,7 @@ class Node extends AbstractEntity
     }
 
     /**
+     *
      * @return string
      */
     public function getIpv4(): string
@@ -105,6 +122,7 @@ class Node extends AbstractEntity
     }
 
     /**
+     *
      * @return string
      */
     public function getMessageHash(): string
@@ -113,6 +131,7 @@ class Node extends AbstractEntity
     }
 
     /**
+     *
      * @return int
      */
     public function getMsid(): int
@@ -121,6 +140,7 @@ class Node extends AbstractEntity
     }
 
     /**
+     *
      * @return \DateTime
      */
     public function getMtim(): \DateTime
@@ -129,6 +149,7 @@ class Node extends AbstractEntity
     }
 
     /**
+     *
      * @return int
      */
     public function getPort(): int
@@ -137,6 +158,7 @@ class Node extends AbstractEntity
     }
 
     /**
+     *
      * @return string
      */
     public function getPublicKey(): string
@@ -145,6 +167,7 @@ class Node extends AbstractEntity
     }
 
     /**
+     *
      * @return int
      */
     public function getStatus(): int

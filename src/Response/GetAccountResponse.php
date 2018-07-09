@@ -4,7 +4,7 @@ namespace Adshares\Ads\Response;
 
 use Adshares\Ads\Entity\Account;
 
-class GetMeResponse extends AbstractResponse
+class GetAccountResponse extends AbstractResponse
 {
     /**
      *

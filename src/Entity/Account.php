@@ -5,76 +5,91 @@ namespace Adshares\Ads\Entity;
 use Adshares\Ads\Util\AdsConverter;
 
 /**
+ *
  * @package Adshares\Ads\Entity
  */
 class Account extends AbstractEntity
 {
     /**
+     *
      * @var string
      */
     protected $address;
 
     /**
+     *
      * @var int
      */
     protected $balance;
 
     /**
+     *
      * @var string
      */
     protected $hash;
 
     /**
+     *
      * @var int
      */
     protected $id;
 
     /**
+     *
      * @var \DateTime
      */
     protected $localChange;
 
     /**
+     *
      * @var int
      */
     protected $msid;
 
     /**
+     *
      * @var int
      */
     protected $node;
 
     /**
+     *
      * @var int
      */
     protected $pairedId;
 
     /**
+     *
      * @var int
      */
     protected $pairedNode;
 
     /**
+     *
      * @var string
      */
     protected $publicKey;
 
     /**
+     *
      * @var \DateTime
      */
     protected $remoteChange;
 
     /**
+     *
      * @var int
      */
     protected $status;
 
     /**
+     *
      * @var \DateTime
      */
     protected $time;
 
     /**
+     *
      * @return string
      */
     public function getAddress(): string
@@ -83,6 +98,7 @@ class Account extends AbstractEntity
     }
 
     /**
+     *
      * @return int
      */
     public function getBalance(): int
@@ -91,6 +107,7 @@ class Account extends AbstractEntity
     }
 
     /**
+     *
      * @return string
      */
     public function getHash(): string
@@ -99,6 +116,7 @@ class Account extends AbstractEntity
     }
 
     /**
+     *
      * @return int
      */
     public function getId(): int
@@ -107,6 +125,7 @@ class Account extends AbstractEntity
     }
 
     /**
+     *
      * @return \DateTime
      */
     public function getLocalChange(): \DateTime
@@ -115,6 +134,7 @@ class Account extends AbstractEntity
     }
 
     /**
+     *
      * @return int
      */
     public function getMsid(): int
@@ -123,6 +143,7 @@ class Account extends AbstractEntity
     }
 
     /**
+     *
      * @return int
      */
     public function getNode(): int
@@ -131,6 +152,7 @@ class Account extends AbstractEntity
     }
 
     /**
+     *
      * @return int
      */
     public function getPairedId(): int
@@ -139,6 +161,7 @@ class Account extends AbstractEntity
     }
 
     /**
+     *
      * @return int
      */
     public function getPairedNode(): int
@@ -147,6 +170,7 @@ class Account extends AbstractEntity
     }
 
     /**
+     *
      * @return string
      */
     public function getPublicKey(): string
@@ -155,6 +179,7 @@ class Account extends AbstractEntity
     }
 
     /**
+     *
      * @return \DateTime
      */
     public function getRemoteChange(): \DateTime
@@ -163,6 +188,7 @@ class Account extends AbstractEntity
     }
 
     /**
+     *
      * @return int
      */
     public function getStatus(): int
@@ -171,6 +197,7 @@ class Account extends AbstractEntity
     }
 
     /**
+     *
      * @return \DateTime
      */
     public function getTime(): \DateTime

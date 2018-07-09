@@ -4,57 +4,68 @@ namespace Adshares\Ads\Entity;
 
 /**
  * NetworkTx from getTransaction.
+ *
  * @package Adshares\Ads\Entity
  */
 class NetworkTx extends AbstractEntity
 {
 
     /**
+     *
      * @var \DateTime
      */
     protected $blockId;
 
     /**
+     *
      * @var array[string]
      */
     protected $hashPath;
 
     /**
+     *
      * @var int
      */
     protected $hashPathLen;
 
     /**
+     *
      * @var string
      */
     protected $hexstring;
 
     /**
+     *
      * @var string
      */
     protected $id;
 
     /**
+     *
      * @var int
      */
     protected $len;
 
     /**
+     *
      * @var int
      */
     protected $nodeId;
 
     /**
+     *
      * @var int
      */
     protected $nodeMsid;
 
     /**
+     *
      * @var int
      */
     protected $position;
 
     /**
+     *
      * @return \DateTime
      */
     public function getBlockId(): \DateTime
@@ -63,6 +74,7 @@ class NetworkTx extends AbstractEntity
     }
 
     /**
+     *
      * @return array
      */
     public function getHashPath(): array
@@ -71,6 +83,7 @@ class NetworkTx extends AbstractEntity
     }
 
     /**
+     *
      * @return int
      */
     public function getHashPathLen(): int
@@ -79,6 +92,7 @@ class NetworkTx extends AbstractEntity
     }
 
     /**
+     *
      * @return string
      */
     public function getHexstring(): string
@@ -87,6 +101,7 @@ class NetworkTx extends AbstractEntity
     }
 
     /**
+     *
      * @return string
      */
     public function getId(): string
@@ -95,6 +110,7 @@ class NetworkTx extends AbstractEntity
     }
 
     /**
+     *
      * @return int
      */
     public function getLen(): int
@@ -103,6 +119,7 @@ class NetworkTx extends AbstractEntity
     }
 
     /**
+     *
      * @return int
      */
     public function getNodeId(): int
@@ -111,6 +128,7 @@ class NetworkTx extends AbstractEntity
     }
 
     /**
+     *
      * @return int
      */
     public function getNodeMsid(): int
@@ -119,6 +137,7 @@ class NetworkTx extends AbstractEntity
     }
 
     /**
+     *
      * @return int
      */
     public function getPosition(): int

@@ -8,27 +8,32 @@ abstract class AbstractResponse implements ResponseInterface
 {
 
     /**
+     *
      * @var array
      */
     protected $data = [];
 
     /**
+     *
      * @var \DateTime
      */
     protected $currentBlockTime;
 
     /**
+     *
      * @var \DateTime
      */
     protected $previousBlockTime;
 
     /**
+     *
      * @var Tx
      */
     protected $tx;
 
     /**
      * AbstractResponse constructor.
+     *
      * @param array $data
      */
     public function __construct(array $data)
@@ -37,6 +42,7 @@ abstract class AbstractResponse implements ResponseInterface
     }
 
     /**
+     *
      * @return \DateTime
      */
     public function getCurrentBlockTime(): \DateTime
@@ -45,6 +51,7 @@ abstract class AbstractResponse implements ResponseInterface
     }
 
     /**
+     *
      * @return \DateTime
      */
     public function getPreviousBlockTime(): \DateTime
@@ -53,6 +60,7 @@ abstract class AbstractResponse implements ResponseInterface
     }
 
     /**
+     *
      * @return Tx
      */
     public function getTx(): Tx
@@ -61,6 +69,7 @@ abstract class AbstractResponse implements ResponseInterface
     }
 
     /**
+     *
      * @param array $data
      */
     protected function loadData(array $data): void
@@ -79,7 +88,8 @@ abstract class AbstractResponse implements ResponseInterface
     }
 
     /**
-     * @param null|string $key
+     *
+     * @param  null|string $key
      * @return mixed
      */
     public function getRawData(?string $key = null)

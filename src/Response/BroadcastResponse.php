@@ -4,19 +4,13 @@ namespace Adshares\Ads\Response;
 
 use Adshares\Ads\Entity\Account;
 
-class GetMeResponse extends AbstractResponse
+class BroadcastResponse extends AbstractResponse
 {
     /**
      *
      * @var Account
      */
     protected $account;
-
-    /**
-     *
-     * @var Account
-     */
-    protected $networkAccount;
 
     /**
      *
@@ -29,9 +23,6 @@ class GetMeResponse extends AbstractResponse
         if (array_key_exists('account', $data)) {
             $this->account = Account::createFromRaw($data['account']);
         }
-        if (array_key_exists('network_account', $data)) {
-            $this->networkAccount = Account::createFromRaw($data['network_account']);
-        }
     }
 
     /**
@@ -41,14 +32,5 @@ class GetMeResponse extends AbstractResponse
     public function getAccount(): Account
     {
         return $this->account;
-    }
-
-    /**
-     *
-     * @return Account
-     */
-    public function getNetworkAccount(): Account
-    {
-        return $this->networkAccount;
     }
 }

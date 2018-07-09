@@ -11,22 +11,26 @@ namespace Adshares\Ads\Command;
 interface CommandInterface
 {
     /**
+     *
      * @return string
      */
     public function getName(): string;
 
     /**
+     *
      * @return array
      */
     public function getAttributes(): array;
 
     /**
+     *
      * @return null|string
      */
     public function getLastHash(): ?string;
 
     /**
-     * @return null|string
+     *
+     * @return null|int
      */
-    public function getLastMessageId(): ?string;
+    public function getLastMessageId(): ?int;
 }

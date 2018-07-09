@@ -5,92 +5,110 @@ namespace Adshares\Ads\Entity;
 use Adshares\Ads\Util\AdsConverter;
 
 /**
+ *
  * @package Adshares\Ads\Entity
  */
 class Broadcast extends AbstractEntity
 {
     /**
+     *
      * @var int
      */
     protected $account;
 
     /**
+     *
      * @var int
      */
     protected $accountMsid;
 
     /**
+     *
      * @var string
      */
     protected $address;
 
     /**
+     *
      * @var \DateTime
      */
     protected $blockTime;
 
     /**
+     *
      * @var string
      */
     protected $data;
 
     /**
+     *
      * @var int
      */
     protected $fee;
 
     /**
+     *
      * @var string
      */
     protected $id;
 
     /**
+     *
      * @var string
      */
     protected $inputHash;
 
     /**
+     *
      * @var string
      */
     protected $message;
 
     /**
+     *
      * @var int
      */
     protected $node;
 
     /**
+     *
      * @var int
      */
     protected $nodeMpos;
 
     /**
+     *
      * @var int
      */
     protected $nodeMsid;
 
     /**
+     *
      * @var string
      */
     protected $publicKey;
 
     /**
+     *
      * @var string
      */
     protected $signature;
 
     /**
+     *
      * @var \DateTime
      */
     protected $time;
 
     /**
      * true if verification passed, false if verification failed
+     *
      * @var boolean
      */
     protected $verify;
 
     /**
+     *
      * @return int
      */
     public function getAccount(): int
@@ -99,6 +117,7 @@ class Broadcast extends AbstractEntity
     }
 
     /**
+     *
      * @return int
      */
     public function getAccountMsid(): int
@@ -107,6 +126,7 @@ class Broadcast extends AbstractEntity
     }
 
     /**
+     *
      * @return string
      */
     public function getAddress(): string
@@ -115,6 +135,7 @@ class Broadcast extends AbstractEntity
     }
 
     /**
+     *
      * @return \DateTime
      */
     public function getBlockTime(): \DateTime
@@ -123,6 +144,7 @@ class Broadcast extends AbstractEntity
     }
 
     /**
+     *
      * @return string
      */
     public function getData(): string
@@ -131,6 +153,7 @@ class Broadcast extends AbstractEntity
     }
 
     /**
+     *
      * @return int
      */
     public function getFee(): int
@@ -139,6 +162,7 @@ class Broadcast extends AbstractEntity
     }
 
     /**
+     *
      * @return string
      */
     public function getId(): string
@@ -147,6 +171,7 @@ class Broadcast extends AbstractEntity
     }
 
     /**
+     *
      * @return string
      */
     public function getInputHash(): string
@@ -155,6 +180,7 @@ class Broadcast extends AbstractEntity
     }
 
     /**
+     *
      * @return string
      */
     public function getMessage(): string
@@ -163,6 +189,7 @@ class Broadcast extends AbstractEntity
     }
 
     /**
+     *
      * @return int
      */
     public function getNode(): int
@@ -171,6 +198,7 @@ class Broadcast extends AbstractEntity
     }
 
     /**
+     *
      * @return int
      */
     public function getNodeMpos(): int
@@ -179,6 +207,7 @@ class Broadcast extends AbstractEntity
     }
 
     /**
+     *
      * @return int
      */
     public function getNodeMsid(): int
@@ -187,6 +216,7 @@ class Broadcast extends AbstractEntity
     }
 
     /**
+     *
      * @return string
      */
     public function getPublicKey(): string
@@ -195,6 +225,7 @@ class Broadcast extends AbstractEntity
     }
 
     /**
+     *
      * @return string
      */
     public function getSignature(): string
@@ -203,6 +234,7 @@ class Broadcast extends AbstractEntity
     }
 
     /**
+     *
      * @return \DateTime
      */
     public function getTime(): \DateTime
@@ -211,6 +243,7 @@ class Broadcast extends AbstractEntity
     }
 
     /**
+     *
      * @return bool true if verification passed, false if verification failed
      */
     public function isVerify(): bool

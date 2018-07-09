@@ -4,102 +4,122 @@ namespace Adshares\Ads\Entity;
 
 /**
  * Class Block
+ *
  * @package Adshares\Ads\Entity
  */
 class Block extends AbstractEntity
 {
 
     /**
+     *
      * @var string
      */
     protected $dividendBalance;
 
     /**
+     *
      * @var bool
      */
     protected $dividendPay;
 
     /**
+     *
      * @var string
      */
     protected $hash;
 
     /**
+     *
      * @var string
      */
     protected $id;
 
     /**
+     *
      * @var int
      */
     protected $messageCount;
 
     /**
+     *
      * @var string
      */
     protected $messageHash;
 
     /**
+     *
      * @var string
      */
     protected $minhash;
 
     /**
+     *
      * @var string
      */
     protected $msghash;
 
     /**
+     *
      * @var int
      */
     protected $nodeCount;
 
     /**
+     *
      * @var array[Node]
      */
     protected $nodes;
 
     /**
+     *
      * @var string
      */
     protected $nodhash;
 
     /**
+     *
      * @var string
      */
     protected $nowhash;
 
     /**
+     *
      * @var string
      */
     protected $oldhash;
 
     /**
+     *
      * @var \DateTime
      */
     protected $time;
 
     /**
+     *
      * @var string
      */
     protected $viphash;
 
     /**
+     *
      * @var int
      */
     protected $voteNo;
 
     /**
+     *
      * @var int
      */
     protected $voteTotal;
 
     /**
+     *
      * @var int
      */
     protected $voteYes;
 
     /**
+     *
      * @return string
      */
     public function getDividendBalance(): string
@@ -108,6 +128,7 @@ class Block extends AbstractEntity
     }
 
     /**
+     *
      * @return bool
      */
     public function isDividendPay(): bool
@@ -116,6 +137,7 @@ class Block extends AbstractEntity
     }
 
     /**
+     *
      * @return string
      */
     public function getHash(): string
@@ -124,6 +146,7 @@ class Block extends AbstractEntity
     }
 
     /**
+     *
      * @return string
      */
     public function getId(): string
@@ -132,6 +155,7 @@ class Block extends AbstractEntity
     }
 
     /**
+     *
      * @return int
      */
     public function getMessageCount(): int
@@ -140,6 +164,7 @@ class Block extends AbstractEntity
     }
 
     /**
+     *
      * @return string
      */
     public function getMessageHash(): string
@@ -148,6 +173,7 @@ class Block extends AbstractEntity
     }
 
     /**
+     *
      * @return string
      */
     public function getMinhash(): string
@@ -156,6 +182,7 @@ class Block extends AbstractEntity
     }
 
     /**
+     *
      * @return string
      */
     public function getMsghash(): string
@@ -164,6 +191,7 @@ class Block extends AbstractEntity
     }
 
     /**
+     *
      * @return int
      */
     public function getNodeCount(): int
@@ -172,6 +200,7 @@ class Block extends AbstractEntity
     }
 
     /**
+     *
      * @return array
      */
     public function getNodes(): array
@@ -180,6 +209,7 @@ class Block extends AbstractEntity
     }
 
     /**
+     *
      * @return string
      */
     public function getNodhash(): string
@@ -188,6 +218,7 @@ class Block extends AbstractEntity
     }
 
     /**
+     *
      * @return string
      */
     public function getNowhash(): string
@@ -196,6 +227,7 @@ class Block extends AbstractEntity
     }
 
     /**
+     *
      * @return string
      */
     public function getOldhash(): string
@@ -204,6 +236,7 @@ class Block extends AbstractEntity
     }
 
     /**
+     *
      * @return \DateTime
      */
     public function getTime(): \DateTime
@@ -212,6 +245,7 @@ class Block extends AbstractEntity
     }
 
     /**
+     *
      * @return string
      */
     public function getViphash(): string
@@ -220,6 +254,7 @@ class Block extends AbstractEntity
     }
 
     /**
+     *
      * @return int
      */
     public function getVoteNo(): int
@@ -228,6 +263,7 @@ class Block extends AbstractEntity
     }
 
     /**
+     *
      * @return int
      */
     public function getVoteTotal(): int
@@ -236,6 +272,7 @@ class Block extends AbstractEntity
     }
 
     /**
+     *
      * @return int
      */
     public function getVoteYes(): int

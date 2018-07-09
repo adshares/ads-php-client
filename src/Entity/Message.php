@@ -4,26 +4,31 @@ namespace Adshares\Ads\Entity;
 
 /**
  * Message from getMessageList.
+ *
  * @package Adshares\Ads\Entity
  */
 class Message extends AbstractEntity
 {
     /**
+     *
      * @var string
      */
     protected $node;
 
     /**
+     *
      * @var int
      */
     protected $nodeMsid;
 
     /**
+     *
      * @var string
      */
     protected $hash;
 
     /**
+     *
      * @return string
      */
     public function getNode(): string
@@ -32,6 +37,7 @@ class Message extends AbstractEntity
     }
 
     /**
+     *
      * @return int
      */
     public function getNodeMsid(): int
@@ -40,6 +46,7 @@ class Message extends AbstractEntity
     }
 
     /**
+     *
      * @return string
      */
     public function getHash(): string

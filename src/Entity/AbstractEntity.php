@@ -21,8 +21,9 @@ abstract class AbstractEntity implements EntityInterface
     }
 
     /**
-     * @param string $type
-     * @param $value
+     *
+     * @param  string $type
+     * @param  mixed $value
      * @return mixed
      */
     protected static function convertType(string $type, $value)
@@ -93,9 +94,10 @@ abstract class AbstractEntity implements EntityInterface
     }
 
     /**
-     * @param string $name
-     * @param mixed $value
-     * @param \ReflectionClass $refClass
+     *
+     * @param  string           $name
+     * @param  mixed            $value
+     * @param  \ReflectionClass $refClass
      * @return mixed
      */
     protected static function castProperty(string $name, $value, \ReflectionClass $refClass = null)
@@ -118,7 +120,8 @@ abstract class AbstractEntity implements EntityInterface
 
     /**
      * Changes string with underscores to camelCase string. First letter is low.
-     * @param string text to change case
+     *
+     * @param  string $text text to change case
      * @return string text in camelCase
      */
     private function toCamelCase(string $text): string
