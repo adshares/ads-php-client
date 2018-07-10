@@ -2,7 +2,7 @@
 
 namespace Adshares\Ads\Command;
 
-class GetMessageCommand extends AbstractCommand
+class GetPackageCommand extends AbstractCommand
 {
     /**
      *
@@ -21,7 +21,6 @@ class GetMessageCommand extends AbstractCommand
     private $nodeMsid;
 
     /**
-     * GetMessageCommand constructor.
      *
      * @param string $node
      * @param int $nodeMsid

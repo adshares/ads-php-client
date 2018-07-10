@@ -3,11 +3,11 @@
 namespace Adshares\Ads\Entity;
 
 /**
- * Message from getMessageList.
+ * Package included in getPackageList response.
  *
  * @package Adshares\Ads\Entity
  */
-class Message extends AbstractEntity
+class Package extends AbstractEntity
 {
     /**
      *
@@ -56,11 +56,11 @@ class Message extends AbstractEntity
 
     /**
      * @param array $data
-     * @return Message
+     * @return Package
      */
-    public static function createFromRaw(array $data): Message
+    public static function createFromRaw(array $data): Package
     {
-        $entity = new Message();
+        $entity = new Package();
         $entity->fillWithRawData($data);
 
         return $entity;

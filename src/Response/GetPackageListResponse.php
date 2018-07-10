@@ -2,15 +2,15 @@
 
 namespace Adshares\Ads\Response;
 
-use Adshares\Ads\Entity\Message;
+use Adshares\Ads\Entity\Package;
 
-class GetMessageListResponse extends AbstractResponse
+class GetPackageListResponse extends AbstractResponse
 {
     /**
      *
-     * @var array[Message]
+     * @var array[Package]
      */
-    protected $messages = [];
+    protected $packages = [];
 
     /**
      *
@@ -22,7 +22,7 @@ class GetMessageListResponse extends AbstractResponse
 
         if (array_key_exists('messages', $data)) {
             foreach ($data['messages'] as $value) {
-                $this->messages[] = Message::createFromRaw($value);
+                $this->packages[] = Package::createFromRaw($value);
             }
         }
     }
@@ -31,8 +31,8 @@ class GetMessageListResponse extends AbstractResponse
      *
      * @return array
      */
-    public function getMessages(): array
+    public function getPackages(): array
     {
-        return $this->messages;
+        return $this->packages;
     }
 }

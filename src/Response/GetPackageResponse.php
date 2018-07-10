@@ -4,7 +4,7 @@ namespace Adshares\Ads\Response;
 
 use Adshares\Ads\Entity\Transaction;
 
-class GetMessageResponse extends AbstractResponse
+class GetPackageResponse extends AbstractResponse
 {
     /**
      *

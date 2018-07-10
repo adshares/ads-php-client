@@ -10,8 +10,8 @@ use Adshares\Ads\Command\GetBlockCommand;
 use Adshares\Ads\Command\GetBlocksCommand;
 use Adshares\Ads\Command\GetBroadcastCommand;
 use Adshares\Ads\Command\GetMeCommand;
-use Adshares\Ads\Command\GetMessageCommand;
-use Adshares\Ads\Command\GetMessageListCommand;
+use Adshares\Ads\Command\GetPackageCommand;
+use Adshares\Ads\Command\GetPackageListCommand;
 use Adshares\Ads\Driver\DriverInterface;
 use Adshares\Ads\Exception\CommandException;
 use Adshares\Ads\Response\BroadcastResponse;
@@ -21,8 +21,8 @@ use Adshares\Ads\Response\GetBlockResponse;
 use Adshares\Ads\Response\GetBlocksResponse;
 use Adshares\Ads\Response\GetBroadcastResponse;
 use Adshares\Ads\Response\GetMeResponse;
-use Adshares\Ads\Response\GetMessageListResponse;
-use Adshares\Ads\Response\GetMessageResponse;
+use Adshares\Ads\Response\GetPackageListResponse;
+use Adshares\Ads\Response\GetPackageResponse;
 
 /**
  * Wrapper class used to interact with ADS wallet client
@@ -164,42 +164,30 @@ class AdsClient
      * @param string $node
      * @param int $nodeMsid
      * @param null|string $block
-     * @return GetMessageResponse
+     * @return GetPackageResponse
      * @throws CommandException
      */
-    public function getMessage(string $node, int $nodeMsid, string $block = null): GetMessageResponse
+    public function getPackage(string $node, int $nodeMsid, string $block = null): GetPackageResponse
     {
-        $command = new GetMessageCommand($node, $nodeMsid, $block);
+        $command = new GetPackageCommand($node, $nodeMsid, $block);
         $response = $this->driver->executeCommand($command);
 
-        return new GetMessageResponse($response->getRawData());
+        return new GetPackageResponse($response->getRawData());
     }
 
     /**
      *
      * @param null|string $from
-     * @return GetMessageListResponse
+     * @return GetPackageListResponse
      * @throws CommandException
      */
-    public function getMessageList(string $from = null): GetMessageListResponse
+    public function getPackageList(string $from = null): GetPackageListResponse
     {
-        $command = new GetMessageListCommand($from);
+        $command = new GetPackageListCommand($from);
         $response = $this->driver->executeCommand($command);
 
-        return new GetMessageListResponse($response->getRawData());
+        return new GetPackageListResponse($response->getRawData());
     }
-
-    //    public function broadcast($message)
-    //    {
-    //        if (!$this->my_account) {
-    //            $this->getAccount();
-    //        }
-    //
-    //        $cmd = new EscMessage();
-    //        $cmd->setHeader('broadcast');
-    //        $cmd->message = bin2hex($message);
-    //        return $this->executeCommand($cmd)[0];
-    //    }
 
     //    public static function normalizeAddress($address)
     //    {

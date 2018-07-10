@@ -2,7 +2,7 @@
 
 namespace Adshares\Ads\Command;
 
-class GetMessageListCommand extends AbstractCommand
+class GetPackageListCommand extends AbstractCommand
 {
     /**
      *
@@ -11,7 +11,6 @@ class GetMessageListCommand extends AbstractCommand
     private $from;
 
     /**
-     * GetMessageListCommand constructor.
      *
      * @param null|string $from
      */

@@ -3,7 +3,7 @@
 namespace Adshares\Ads\Entity;
 
 /**
- * Transaction from getMessage.
+ * Transaction included in getPackage response.
  *
  * @package Adshares\Ads\Entity
  */

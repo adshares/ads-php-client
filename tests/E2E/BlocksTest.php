@@ -36,7 +36,7 @@ class BlocksTest extends \PHPUnit\Framework\TestCase
                     echo $block . "\n";
                 }
             } catch (CommandException $ce) {
-                $this->assertEquals($ce->getMessage(), self::NO_NEW_BLOCKS);
+                $this->assertEquals(self::NO_NEW_BLOCKS, $ce->getMessage());
                 break;
             }
         }
@@ -53,12 +53,12 @@ class BlocksTest extends \PHPUnit\Framework\TestCase
 
         $blockTime = dechex($blockTime);
 
-        $messages = [];
+        $packages = [];
         $isMessageList = false;
         do {
             try {
-                $response = $client->getMessageList($blockTime);
-                $messages = $response->getMessages();
+                $response = $client->getPackageList($blockTime);
+                $packages = $response->getPackages();
                 $isMessageList = true;
             } catch (CommandException $ce) {
                 $this->assertEquals($ce->getMessage(), self::NO_MESSAGE_LIST_FILE);
@@ -66,12 +66,12 @@ class BlocksTest extends \PHPUnit\Framework\TestCase
             }
         } while (!$isMessageList);
 
-        $this->assertGreaterThan(0, count($messages));
-        foreach ($messages as $message) {
-            /* @var \Adshares\Ads\Entity\Message $message */
-            echo $message->getNode() . '-' . $message->getNodeMsid() . "\n";
+        $this->assertGreaterThan(0, count($packages));
+        foreach ($packages as $package) {
+            /* @var \Adshares\Ads\Entity\Package $package */
+            echo $package->getNode() . '-' . $package->getNodeMsid() . "\n";
 
-            $response = $client->getMessage($message->getNode(), $message->getNodeMsid(), $blockTime);
+            $response = $client->getPackage($package->getNode(), $package->getNodeMsid(), $blockTime);
             $transactions = $response->getTransactions();
             foreach ($transactions as $transaction) {
                 /* @var \Adshares\Ads\Entity\Transaction $transaction */
