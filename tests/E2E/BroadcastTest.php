@@ -10,15 +10,6 @@ use Adshares\Ads\Response\GetBroadcastResponse;
 
 class BroadcastTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * Broadcast not ready. Need to wait and retry.
-     */
-    const BROADCAST_NOT_READY = "Broadcast not ready, try again later";
-    /**
-     * No messages. Need to check next block.
-     */
-    const BROADCAST_NO_FILE = "No broadcast file to send";
-
     const BLOCK_TIME_SECONDS = 32;
 
     public function testBroadcast()
@@ -54,12 +45,12 @@ class BroadcastTest extends \PHPUnit\Framework\TestCase
                 $from = dechex($blockTime);
                 $getBroadcastResponse = $client->getBroadcast($from);
             } catch (CommandException $ce) {
-                $exceptionMessage = $ce->getMessage();
-                if (self::BROADCAST_NOT_READY === $exceptionMessage) {
+                $exceptionCode = $ce->getCode();
+                if (5022 === $exceptionCode) {
                     $this->assertLessThan($delayMax, $delay);
                     sleep(self::BLOCK_TIME_SECONDS);
                     ++$delay;
-                } elseif (self::BROADCAST_NO_FILE === $exceptionMessage) {
+                } elseif (5023 === $exceptionCode) {
                     $this->assertLessThan($nextBlockAttemptMax, $nextBlockAttempt);
                     $blockTime += self::BLOCK_TIME_SECONDS;
                     ++$nextBlockAttempt;

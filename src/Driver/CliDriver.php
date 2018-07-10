@@ -259,7 +259,7 @@ class CliDriver implements DriverInterface
         }
 
         if (isset($message['error'])) {
-            throw new CommandException($command, $message['error']);
+            throw new CommandException($command, $message['error'], CommandError::getCodeByMessage($message['error']));
         }
 
         return new RawResponse($message);
