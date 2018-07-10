@@ -12,6 +12,12 @@ class Transaction extends AbstractEntity
 
     /**
      *
+     * @var array[string]
+     */
+    protected $data;
+
+    /**
+     *
      * @var string
      */
     protected $id;
@@ -21,17 +27,19 @@ class Transaction extends AbstractEntity
      * @var string
      */
     protected $type;
-
-    /**
-     *
-     * @var int
-     */
-    protected $messageLength;
     /**
      *
      * @var int
      */
     protected $size;
+
+    /**
+     * @return array
+     */
+    public function getData(): array
+    {
+        return $this->data;
+    }
 
     /**
      *
@@ -55,15 +63,6 @@ class Transaction extends AbstractEntity
      *
      * @return int
      */
-    public function getMessageLength(): int
-    {
-        return $this->messageLength;
-    }
-
-    /**
-     *
-     * @return int
-     */
     public function getSize(): int
     {
         return $this->size;
@@ -77,6 +76,7 @@ class Transaction extends AbstractEntity
     {
         $entity = new Transaction();
         $entity->fillWithRawData($data);
+        $entity->data = $data;
 
         return $entity;
     }

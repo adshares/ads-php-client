@@ -5,14 +5,20 @@ namespace Adshares\Ads;
 use Adshares\Ads\Command\AbstractTransaction;
 use Adshares\Ads\Command\BroadcastCommand;
 use Adshares\Ads\Command\GetAccountCommand;
+use Adshares\Ads\Command\GetBlocksCommand;
 use Adshares\Ads\Command\GetBroadcastCommand;
 use Adshares\Ads\Command\GetMeCommand;
+use Adshares\Ads\Command\GetMessageCommand;
+use Adshares\Ads\Command\GetMessageListCommand;
 use Adshares\Ads\Driver\DriverInterface;
 use Adshares\Ads\Exception\CommandException;
 use Adshares\Ads\Response\BroadcastResponse;
 use Adshares\Ads\Response\GetAccountResponse;
+use Adshares\Ads\Response\GetBlocksResponse;
 use Adshares\Ads\Response\GetBroadcastResponse;
 use Adshares\Ads\Response\GetMeResponse;
+use Adshares\Ads\Response\GetMessageListResponse;
+use Adshares\Ads\Response\GetMessageResponse;
 
 /**
  * Wrapper class used to interact with ADS wallet client
@@ -79,6 +85,22 @@ class AdsClient
 
     /**
      *
+     * @param null|string $from [optional] block time in Unix Epoch seconds as hexadecimal String
+     * @param null|string $to [optional] block time in Unix Epoch seconds as hexadecimal String
+     * @return GetBlocksResponse
+     * @throws CommandException
+     */
+    public function getBlocks(string $from = null, string $to = null): GetBlocksResponse
+    {
+        $command = new GetBlocksCommand($from, $to);
+        $response = $this->driver->executeCommand($command);
+
+        return new GetBlocksResponse($response->getRawData());
+    }
+
+
+    /**
+     *
      * @param null|string $from block time in Unix Epoch seconds as hexadecimal String, 0 for last block
      * @return GetBroadcastResponse
      * @throws CommandException
@@ -102,6 +124,36 @@ class AdsClient
         $response = $this->driver->executeCommand($command);
 
         return new GetMeResponse($response->getRawData());
+    }
+
+    /**
+     *
+     * @param string $node
+     * @param int $nodeMsid
+     * @param null|string $block
+     * @return GetMessageResponse
+     * @throws CommandException
+     */
+    public function getMessage(string $node, int $nodeMsid, string $block = null): GetMessageResponse
+    {
+        $command = new GetMessageCommand($node, $nodeMsid, $block);
+        $response = $this->driver->executeCommand($command);
+
+        return new GetMessageResponse($response->getRawData());
+    }
+
+    /**
+     *
+     * @param null|string $from
+     * @return GetMessageListResponse
+     * @throws CommandException
+     */
+    public function getMessageList(string $from = null): GetMessageListResponse
+    {
+        $command = new GetMessageListCommand($from);
+        $response = $this->driver->executeCommand($command);
+
+        return new GetMessageListResponse($response->getRawData());
     }
 
     //    public function broadcast($message)

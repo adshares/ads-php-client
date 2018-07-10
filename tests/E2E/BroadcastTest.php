@@ -10,7 +10,13 @@ use Adshares\Ads\Response\GetBroadcastResponse;
 
 class BroadcastTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * Broadcast not ready. Need to wait and retry.
+     */
     const BROADCAST_NOT_READY = "Broadcast not ready, try again later";
+    /**
+     * No messages. Need to check next block.
+     */
     const BROADCAST_NO_FILE = "No broadcast file to send";
 
     const BLOCK_TIME_SECONDS = 32;
@@ -28,6 +34,7 @@ class BroadcastTest extends \PHPUnit\Framework\TestCase
         $response = $client->broadcast($message);
 
         $txId = $response->getTx()->getId();
+        echo $txId . "\n";
 
         $this->assertInternalType("string", $txId);
 
