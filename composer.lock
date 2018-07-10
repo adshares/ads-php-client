@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "a510d09dd77d1643dcc8a6de2032bcf6",
+    "content-hash": "528d89b031ee0870b833d6561a5931f9",
     "packages": [
         {
             "name": "symfony/process",

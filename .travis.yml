@@ -26,16 +26,16 @@ install:
 
 script:
   # PHP Lint: check syntax errors in all PHP files
-  - ./bin/parallel-lint --no-colors --blame --exclude vendor .
+  - ./bin/vendor/parallel-lint --no-colors --blame --exclude vendor .
   # PHP_CodeSniffer: check PHP compatibility
-  - ./bin/phpcs -s --standard=PHPCompatibility src tests
+  - ./bin/vendor/phpcs -s --standard=PHPCompatibility src tests
   # PHP_CodeSniffer: check PSR2 standard
-  - ./bin/phpcs -s --standard=PSR2 src tests
+  - ./bin/vendor/phpcs -s --standard=PSR2 src tests
   # PHP Static Analysis Tool
-  - ./bin/phpstan --no-ansi --no-progress analyse -c phpstan.neon -l 7 src tests
+  - ./bin/vendor/phpstan --no-ansi --no-progress analyse -c phpstan.neon -l 7 src tests
   # PHP unit tests
   - alias php='php -dzend_extension=xdebug.so'
-  - alias phpunit='php ./bin/phpunit'
+  - alias phpunit='php ./bin/vendor/phpunit'
   - phpunit --testsuit Unit
   # SonarQube
   - sonar-scanner
