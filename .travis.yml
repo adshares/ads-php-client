@@ -25,17 +25,19 @@ install:
   - composer run-script install-codestandards
 
 script:
+  # SensioLabs Security Checker: checks security issues
+  - ./vendor/bin/security-checker security:check
   # PHP Lint: check syntax errors in all PHP files
-  - ./bin/vendor/parallel-lint --no-colors --blame --exclude vendor .
+  - ./vendor/bin/parallel-lint --no-colors --blame --exclude vendor .
   # PHP_CodeSniffer: check PHP compatibility
-  - ./bin/vendor/phpcs -s --standard=PHPCompatibility src tests
+  - ./vendor/bin/phpcs -s --standard=PHPCompatibility src tests
   # PHP_CodeSniffer: check PSR2 standard
-  - ./bin/vendor/phpcs -s --standard=PSR2 src tests
+  - ./vendor/bin/phpcs -s --standard=PSR2 src tests
   # PHP Static Analysis Tool
-  - ./bin/vendor/phpstan --no-ansi --no-progress analyse -c phpstan.neon -l 7 src tests
+  - ./vendor/bin/phpstan --no-ansi --no-progress analyse -c phpstan.neon -l 7 src tests
   # PHP unit tests
   - alias php='php -dzend_extension=xdebug.so'
-  - alias phpunit='php ./bin/vendor/phpunit'
+  - alias phpunit='php ./vendor/bin/phpunit'
   - phpunit --testsuit Unit
   # SonarQube
   - sonar-scanner
