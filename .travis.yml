@@ -24,35 +24,21 @@ install:
   - composer install --no-ansi --no-scripts --no-interaction --no-progress --no-suggest
   - composer run-script install-codestandards
 
-stages:
-  - build
-  - test
-  - quality
-
-jobs:
-  include:
-    - stage: build
-      script:
-        # PHP Lint: check syntax errors in all PHP files
-        - ./bin/parallel-lint --no-colors --blame --exclude vendor .
-
-    - stage: test
-      script:
-        # PHP unit tests
-        - alias php='php -dzend_extension=xdebug.so'
-        - alias phpunit='php ./bin/phpunit'
-        - phpunit --testsuit Unit
-
-    - stage: quality
-      script:
-        # PHP_CodeSniffer: check PHP compatibility
-        - ./bin/phpcs -s --standard=PHPCompatibility src tests
-        # PHP_CodeSniffer: check PSR2 standard
-        - ./bin/phpcs -s --standard=PSR2 src tests
-        # PHP Static Analysis Tool
-        - ./bin/phpstan --no-ansi --no-progress analyse -c phpstan.neon -l 7 src tests
-        # SonarQube
-        - sonar-scanner
+script:
+  # PHP Lint: check syntax errors in all PHP files
+  - ./bin/parallel-lint --no-colors --blame --exclude vendor .
+  # PHP_CodeSniffer: check PHP compatibility
+  - ./bin/phpcs -s --standard=PHPCompatibility src tests
+  # PHP_CodeSniffer: check PSR2 standard
+  - ./bin/phpcs -s --standard=PSR2 src tests
+  # PHP Static Analysis Tool
+  - ./bin/phpstan --no-ansi --no-progress analyse -c phpstan.neon -l 7 src tests
+  # PHP unit tests
+  - alias php='php -dzend_extension=xdebug.so'
+  - alias phpunit='php ./bin/phpunit'
+  - phpunit --testsuit Unit
+  # SonarQube
+  - sonar-scanner
 
 # After a build, send email notification with the build results
 notifications:
