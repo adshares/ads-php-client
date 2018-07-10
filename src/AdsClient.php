@@ -5,6 +5,8 @@ namespace Adshares\Ads;
 use Adshares\Ads\Command\AbstractTransaction;
 use Adshares\Ads\Command\BroadcastCommand;
 use Adshares\Ads\Command\GetAccountCommand;
+use Adshares\Ads\Command\GetAccountsCommand;
+use Adshares\Ads\Command\GetBlockCommand;
 use Adshares\Ads\Command\GetBlocksCommand;
 use Adshares\Ads\Command\GetBroadcastCommand;
 use Adshares\Ads\Command\GetMeCommand;
@@ -14,6 +16,8 @@ use Adshares\Ads\Driver\DriverInterface;
 use Adshares\Ads\Exception\CommandException;
 use Adshares\Ads\Response\BroadcastResponse;
 use Adshares\Ads\Response\GetAccountResponse;
+use Adshares\Ads\Response\GetAccountsResponse;
+use Adshares\Ads\Response\GetBlockResponse;
 use Adshares\Ads\Response\GetBlocksResponse;
 use Adshares\Ads\Response\GetBroadcastResponse;
 use Adshares\Ads\Response\GetMeResponse;
@@ -81,6 +85,35 @@ class AdsClient
         $response = $this->driver->executeCommand($command);
 
         return new GetAccountResponse($response->getRawData());
+    }
+
+    /**
+     *
+     * @param int $node
+     * @param null|string $block
+     * @return GetAccountsResponse
+     * @throws CommandException
+     */
+    public function getAccounts(int $node, string $block = null): GetAccountsResponse
+    {
+        $command = new GetAccountsCommand($node, $block);
+        $response = $this->driver->executeCommand($command);
+
+        return new GetAccountsResponse($response->getRawData());
+    }
+
+    /**
+     *
+     * @param null|string $block [optional] block time in Unix Epoch seconds as hexadecimal String
+     * @return GetBlockResponse
+     * @throws CommandException
+     */
+    public function getBlock(string $block = null): GetBlockResponse
+    {
+        $command = new GetBlockCommand($block);
+        $response = $this->driver->executeCommand($command);
+
+        return new GetBlockResponse($response->getRawData());
     }
 
     /**
