@@ -53,18 +53,19 @@ class BlocksTest extends \PHPUnit\Framework\TestCase
 
         $blockTime = dechex($blockTime);
 
+        $messages = [];
         $isMessageList = false;
         do {
             try {
                 $response = $client->getMessageList($blockTime);
+                $messages = $response->getMessages();
                 $isMessageList = true;
             } catch (CommandException $ce) {
                 $this->assertEquals($ce->getMessage(), self::NO_MESSAGE_LIST_FILE);
                 sleep(4);
             }
-        } while(!$isMessageList);
+        } while (!$isMessageList);
 
-        $messages = $response->getMessages();
         $this->assertGreaterThan(0, count($messages));
         foreach ($messages as $message) {
             /* @var \Adshares\Ads\Entity\Message $message */
@@ -77,7 +78,5 @@ class BlocksTest extends \PHPUnit\Framework\TestCase
                 echo "\t" . $transaction->getType() . '-' . $transaction->getId() . "\n";
             }
         }
-
     }
-
 }
