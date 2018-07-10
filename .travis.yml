@@ -52,7 +52,7 @@ jobs:
         # PHP Static Analysis Tool
         - ./bin/phpstan --no-ansi --no-progress analyse -c phpstan.neon -l 7 src tests
         # SonarQube
-        - sonar-scanners
+        - sonar-scanner
 
 # After a build, send email notification with the build results
 notifications:
