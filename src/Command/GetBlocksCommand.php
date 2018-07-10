@@ -42,8 +42,8 @@ class GetBlocksCommand extends AbstractCommand
         if ($this->from) {
             $attributes["from"] = $this->from;
         }
-        if ($this->from) {
-            $attributes["to"] = $this->from;
+        if ($this->to) {
+            $attributes["to"] = $this->to;
         }
         return $attributes;
     }
