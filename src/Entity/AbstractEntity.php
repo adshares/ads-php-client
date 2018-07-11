@@ -28,7 +28,7 @@ abstract class AbstractEntity implements EntityInterface
 
     /**
      * @param string $type
-     * @param $value
+     * @param mixed $value
      * @return mixed
      */
     protected static function convertType(string $type, $value)
@@ -70,7 +70,8 @@ abstract class AbstractEntity implements EntityInterface
                         try {
                             /* @var $type EntityInterface*/
                             $value = EntityFactory::create((new \ReflectionClass($type))->getShortName(), $value);
-                        } catch (\ReflectionException $e) { }
+                        } catch (\ReflectionException $e) {
+                        }
                     }
                     break;
                 }

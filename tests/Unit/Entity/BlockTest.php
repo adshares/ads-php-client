@@ -14,14 +14,12 @@ class BlockTest extends \PHPUnit\Framework\TestCase
         /* @var Block $block */
         $block = EntityFactory::createBlock($this->getRawBlockData());
 
-        $this->assertEquals(123, $block->getDividendBalance());
+        $this->assertEquals(12300000000, $block->getDividendBalance());
         $this->assertEquals(true, $block->isDividendPay());
-        $this->assertEquals('DDD2F343184A8BFF7FC9DE1704B9956D89B0573D7C27FE1F55D9646470B8B12C', $block->getHash());
         $this->assertEquals('5B3A1E80', $block->getId());
         $this->assertEquals(27, $block->getMessageCount());
-        $this->assertEquals('F41152F6FDB5C50697B1BCF8562F35848C7D679CAC8A69883341FF55040B684B', $block->getMessageHash());
         $this->assertEquals('41FB7933B8BE623E0D8C087E0AAC91F56999AB892ED1DC9B1DCB39D057427639', $block->getMinhash());
-        $this->assertEquals('F41152F6FDB5C50697B1BCF8562F35848C7D679CAC8A69883341FF55040B684B', $block-> getMsghash());
+        $this->assertEquals('F41152F6FDB5C50697B1BCF8562F35848C7D679CAC8A69883341FF55040B684B', $block->getMsghash());
         $this->assertEquals(2, $block->getNodeCount());
         $this->assertEquals('DEE608AFF65371FD14AC7118528BAAAF620931B2B261E5964C632B908D1C57EA', $block->getNodhash());
         $this->assertEquals('DDD2F343184A8BFF7FC9DE1704B9956D89B0573D7C27FE1F55D9646470B8B12C', $block->getNowhash());
@@ -38,8 +36,20 @@ class BlockTest extends \PHPUnit\Framework\TestCase
         /* @var Node $node */
         $node = $nodes[1];
         $this->assertInstanceOf(Node::class, $node);
-        $this->assertInternalType('int', $node->getBalance());
+        $this->assertEquals("0001", $node->getId());
+        $this->assertEquals("73A5C92FA5142599B1C9863B43E026AFEFA6B57AEE8D189241C7F50C90BA5122", $node->getPublicKey());
+        $this->assertEquals("B1C1E0BF92C7C398BD885269F6912EFC22810477065E8C5BF6B5AC8DC05FEC1F", $node->getHash());
+        $this->assertEquals(
+            "14AC6CA024A5FBF06251554849BD9B9521B348A63DBEAE57E59DC4C85E00B64A",
+            $node->getMessageHash()
+        );
+        $this->assertEquals(8, $node->getMsid());
+        $this->assertEquals(new \DateTime('@1530535574'), $node->getMtim());
         $this->assertEquals(254152169691701433, $node->getBalance());
+        $this->assertEquals(6, $node->getStatus());
+        $this->assertEquals(20, $node->getAccountCount());
+        $this->assertEquals(8001, $node->getPort());
+        $this->assertEquals("172.16.222.101", $node->getIpv4());
     }
 
     private function getRawBlockData()

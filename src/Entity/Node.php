@@ -45,7 +45,7 @@ class Node extends AbstractEntity
      *
      * @var string
      */
-    protected $message_hash;
+    protected $messageHash;
     /**
      *
      * @var int
@@ -127,7 +127,7 @@ class Node extends AbstractEntity
      */
     public function getMessageHash(): string
     {
-        return $this->message_hash;
+        return $this->messageHash;
     }
 
     /**

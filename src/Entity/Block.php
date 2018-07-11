@@ -2,6 +2,8 @@
 
 namespace Adshares\Ads\Entity;
 
+use Adshares\Ads\Util\AdsConverter;
+
 /**
  * Class Block
  *
@@ -12,7 +14,7 @@ class Block extends AbstractEntity
 
     /**
      *
-     * @var string
+     * @var int
      */
     protected $dividendBalance;
 
@@ -26,12 +28,6 @@ class Block extends AbstractEntity
      *
      * @var string
      */
-    protected $hash;
-
-    /**
-     *
-     * @var string
-     */
     protected $id;
 
     /**
@@ -39,12 +35,6 @@ class Block extends AbstractEntity
      * @var int
      */
     protected $messageCount;
-
-    /**
-     *
-     * @var string
-     */
-    protected $messageHash;
 
     /**
      *
@@ -120,9 +110,9 @@ class Block extends AbstractEntity
 
     /**
      *
-     * @return string
+     * @return int
      */
-    public function getDividendBalance(): string
+    public function getDividendBalance(): int
     {
         return $this->dividendBalance;
     }
@@ -134,15 +124,6 @@ class Block extends AbstractEntity
     public function isDividendPay(): bool
     {
         return $this->dividendPay;
-    }
-
-    /**
-     *
-     * @return string
-     */
-    public function getHash(): string
-    {
-        return $this->hash;
     }
 
     /**
@@ -161,15 +142,6 @@ class Block extends AbstractEntity
     public function getMessageCount(): int
     {
         return $this->messageCount;
-    }
-
-    /**
-     *
-     * @return string
-     */
-    public function getMessageHash(): string
-    {
-        return $this->messageHash;
     }
 
     /**
@@ -278,5 +250,17 @@ class Block extends AbstractEntity
     public function getVoteYes(): int
     {
         return $this->voteYes;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected static function castProperty(string $name, $value, \ReflectionClass $refClass = null)
+    {
+        if ("dividendBalance" === $name) {
+            return AdsConverter::adsToClicks($value);
+        } else {
+            return parent::castProperty($name, $value, $refClass);
+        }
     }
 }

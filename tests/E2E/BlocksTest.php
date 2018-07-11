@@ -33,7 +33,7 @@ class BlocksTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    public function testGetMessageList()
+    public function testGetPackageList()
     {
         $driver = new CliDriver($this->address, $this->secret, $this->host, $this->port);
         $client = new AdsClient($driver);
