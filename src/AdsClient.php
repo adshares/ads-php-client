@@ -28,13 +28,11 @@ use Adshares\Ads\Response\GetPackageResponse;
 use Adshares\Ads\Response\SendOneResponse;
 
 /**
- * Wrapper class used to interact with ADS wallet client
+ * Wrapper class used to interact with ADS wallet client.
  */
 class AdsClient
 {
-
     /**
-     *
      * @var DriverInterface
      */
     protected $driver;
@@ -58,8 +56,8 @@ class AdsClient
     }
 
     /**
-     *
      * @param AbstractTransaction $transaction
+     *
      * @throws CommandException
      */
     private function prepareTransaction(AbstractTransaction $transaction)
@@ -70,9 +68,10 @@ class AdsClient
     }
 
     /**
+     * @param string $message hexadecimal string with even number of characters
      *
-     * @param  string $message hexadecimal string with even number of characters
      * @return BroadcastResponse
+     *
      * @throws CommandException
      */
     public function broadcast($message): BroadcastResponse
@@ -85,9 +84,10 @@ class AdsClient
     }
 
     /**
-     *
      * @param string $address
+     *
      * @return GetAccountResponse
+     *
      * @throws CommandException
      */
     public function getAccount(string $address): GetAccountResponse
@@ -99,10 +99,11 @@ class AdsClient
     }
 
     /**
-     *
-     * @param int $node
+     * @param int         $node
      * @param null|string $block
+     *
      * @return GetAccountsResponse
+     *
      * @throws CommandException
      */
     public function getAccounts(int $node, string $block = null): GetAccountsResponse
@@ -114,9 +115,10 @@ class AdsClient
     }
 
     /**
-     *
      * @param null|string $block [optional] block time in Unix Epoch seconds as hexadecimal String
+     *
      * @return GetBlockResponse
+     *
      * @throws CommandException
      */
     public function getBlock(string $block = null): GetBlockResponse
@@ -128,10 +130,11 @@ class AdsClient
     }
 
     /**
-     *
      * @param null|string $from [optional] block time in Unix Epoch seconds as hexadecimal String
-     * @param null|string $to [optional] block time in Unix Epoch seconds as hexadecimal String
+     * @param null|string $to   [optional] block time in Unix Epoch seconds as hexadecimal String
+     *
      * @return GetBlocksResponse
+     *
      * @throws CommandException
      */
     public function getBlocks(string $from = null, string $to = null): GetBlocksResponse
@@ -142,11 +145,11 @@ class AdsClient
         return new GetBlocksResponse($response->getRawData());
     }
 
-
     /**
-     *
      * @param null|string $from block time in Unix Epoch seconds as hexadecimal String, 0 for last block
+     *
      * @return GetBroadcastResponse
+     *
      * @throws CommandException
      */
     public function getBroadcast(string $from = null): GetBroadcastResponse
@@ -158,8 +161,8 @@ class AdsClient
     }
 
     /**
-     *
      * @return GetMeResponse
+     *
      * @throws CommandException
      */
     public function getMe(): GetMeResponse
@@ -171,11 +174,12 @@ class AdsClient
     }
 
     /**
-     *
-     * @param string $node
-     * @param int $nodeMsid
+     * @param string      $node
+     * @param int         $nodeMsid
      * @param null|string $block
+     *
      * @return GetPackageResponse
+     *
      * @throws CommandException
      */
     public function getPackage(string $node, int $nodeMsid, string $block = null): GetPackageResponse
@@ -187,9 +191,10 @@ class AdsClient
     }
 
     /**
-     *
      * @param null|string $from
+     *
      * @return GetPackageListResponse
+     *
      * @throws CommandException
      */
     public function getPackageList(string $from = null): GetPackageListResponse
@@ -201,11 +206,12 @@ class AdsClient
     }
 
     /**
-     *
-     * @param string $address address to which funds will be transferred
-     * @param int $amount transfer amount in clicks
+     * @param string      $address address to which funds will be transferred
+     * @param int         $amount  transfer amount in clicks
      * @param null|string $message optional message, 32 bytes hexadecimal string without leading 0x
+     *
      * @return SendOneResponse
+     *
      * @throws CommandException
      */
     public function sendOne(string $address, int $amount, $message = null): SendOneResponse
@@ -217,6 +223,7 @@ class AdsClient
         return new SendOneResponse($response->getRawData());
     }
 
+    //    TODO: (Yodahack) : disscuss placement of this methods (currently copied to Adshares\Adserver\Http\Utils)
     //    public static function normalizeAddress($address)
     //    {
     //        $x = preg_replace('/[^0-9A-FX]+/', '', strtoupper($address));
