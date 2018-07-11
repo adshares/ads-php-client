@@ -38,7 +38,7 @@ class EntityFactory
     /**
      * @param array $map
      */
-    public static function seEntityMap(array $map): void
+    public static function setEntityMap(array $map): void
     {
         foreach ($map as $type => $className) {
             self::setEntityClass($type, $className);

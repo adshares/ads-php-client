@@ -13,6 +13,7 @@ use Adshares\Ads\Command\GetMeCommand;
 use Adshares\Ads\Command\GetPackageCommand;
 use Adshares\Ads\Command\GetPackageListCommand;
 use Adshares\Ads\Driver\DriverInterface;
+use Adshares\Ads\Entity\EntityFactory;
 use Adshares\Ads\Exception\CommandException;
 use Adshares\Ads\Response\BroadcastResponse;
 use Adshares\Ads\Response\GetAccountResponse;
@@ -44,6 +45,14 @@ class AdsClient
     public function __construct(DriverInterface $driver)
     {
         $this->driver = $driver;
+    }
+
+    /**
+     * @param array $map
+     */
+    public static function setEntityMap(array $map): void
+    {
+        EntityFactory::setEntityMap($map);
     }
 
     /**
