@@ -16,8 +16,8 @@
     },
     "authors": [
         {
-            "name": "Adshares",
-            "homepage": "https://adshares.pl/team"
+            "name": "Contributors",
+            "homepage": "https://github.com/adshares/php-ads-client/graphs/contributors"
         }
     ],
     "require": {
