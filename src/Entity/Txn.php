@@ -44,7 +44,7 @@ class Txn extends AbstractEntity
      *
      * @var int
      */
-    protected $msg_id;
+    protected $msgId;
 
     /**
      *
@@ -136,7 +136,7 @@ class Txn extends AbstractEntity
      */
     public function getMsgId(): int
     {
-        return $this->msg_id;
+        return $this->msgId;
     }
 
     /**

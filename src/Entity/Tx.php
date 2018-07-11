@@ -72,6 +72,18 @@ class Tx extends AbstractEntity
 
     /**
      *
+     * @var string
+     */
+    protected $signature;
+
+    /**
+     *
+     * @var \DateTime
+     */
+    protected $time;
+
+    /**
+     *
      * @return int|null
      */
     public function getAccountMsid(): ?int
@@ -149,6 +161,22 @@ class Tx extends AbstractEntity
     public function getNodeMsid(): ?int
     {
         return $this->nodeMsid;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSignature(): string
+    {
+        return $this->signature;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getTime(): \DateTime
+    {
+        return $this->time;
     }
 
     /**

@@ -12,6 +12,7 @@ use Adshares\Ads\Command\GetBroadcastCommand;
 use Adshares\Ads\Command\GetMeCommand;
 use Adshares\Ads\Command\GetPackageCommand;
 use Adshares\Ads\Command\GetPackageListCommand;
+use Adshares\Ads\Command\SendOneCommand;
 use Adshares\Ads\Driver\DriverInterface;
 use Adshares\Ads\Entity\EntityFactory;
 use Adshares\Ads\Exception\CommandException;
@@ -24,6 +25,7 @@ use Adshares\Ads\Response\GetBroadcastResponse;
 use Adshares\Ads\Response\GetMeResponse;
 use Adshares\Ads\Response\GetPackageListResponse;
 use Adshares\Ads\Response\GetPackageResponse;
+use Adshares\Ads\Response\SendOneResponse;
 
 /**
  * Wrapper class used to interact with ADS wallet client
@@ -196,6 +198,23 @@ class AdsClient
         $response = $this->driver->executeCommand($command);
 
         return new GetPackageListResponse($response->getRawData());
+    }
+
+    /**
+     *
+     * @param string $address address to which funds will be transferred
+     * @param int $amount transfer amount in clicks
+     * @param null|string $message optional message, 32 bytes hexadecimal string without leading 0x
+     * @return SendOneResponse
+     * @throws CommandException
+     */
+    public function sendOne(string $address, int $amount, $message = null): SendOneResponse
+    {
+        $command = new SendOneCommand($address, $amount, $message);
+        $this->prepareTransaction($command);
+        $response = $this->driver->executeCommand($command);
+
+        return new SendOneResponse($response->getRawData());
     }
 
     //    public static function normalizeAddress($address)
