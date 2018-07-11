@@ -2,7 +2,7 @@
 
 namespace Adshares\Ads\Response;
 
-use Adshares\Ads\Entity\Broadcast;
+use Adshares\Ads\Entity\EntityFactory;
 
 class GetBroadcastResponse extends AbstractResponse
 {
@@ -22,7 +22,7 @@ class GetBroadcastResponse extends AbstractResponse
 
         if (array_key_exists('broadcast', $data)) {
             foreach ($data['broadcast'] as $value) {
-                $this->broadcast[] = Broadcast::createFromRaw($value);
+                $this->broadcast[] = EntityFactory::createBroadcast($value);
             }
         }
     }

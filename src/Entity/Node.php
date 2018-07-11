@@ -175,6 +175,9 @@ class Node extends AbstractEntity
         return $this->status;
     }
 
+    /**
+     * @inheritdoc
+     */
     protected static function castProperty(string $name, $value, \ReflectionClass $refClass = null)
     {
         if ("balance" === $name) {
@@ -182,17 +185,5 @@ class Node extends AbstractEntity
         } else {
             return parent::castProperty($name, $value, $refClass);
         }
-    }
-
-    /**
-     * @param array $data
-     * @return Node
-     */
-    public static function createFromRaw(array $data): Node
-    {
-        $entity = new Node();
-        $entity->fillWithRawData($data);
-
-        return $entity;
     }
 }

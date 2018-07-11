@@ -2,7 +2,7 @@
 
 namespace Adshares\Ads\Response;
 
-use Adshares\Ads\Entity\Transaction;
+use Adshares\Ads\Entity\EntityFactory;
 
 class GetPackageResponse extends AbstractResponse
 {
@@ -22,7 +22,7 @@ class GetPackageResponse extends AbstractResponse
 
         if (array_key_exists('transactions', $data)) {
             foreach ($data['transactions'] as $value) {
-                $this->transactions[] = Transaction::createFromRaw($value);
+                $this->transactions[] = EntityFactory::createTransaction($value);
             }
         }
     }

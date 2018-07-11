@@ -3,6 +3,7 @@
 namespace Adshares\Ads\Response;
 
 use Adshares\Ads\Entity\Block;
+use Adshares\Ads\Entity\EntityFactory;
 
 class GetBlockResponse extends AbstractResponse
 {
@@ -21,7 +22,7 @@ class GetBlockResponse extends AbstractResponse
         parent::loadData($data);
 
         if (array_key_exists('block', $data)) {
-            $this->block = Block::createFromRaw($data['block']);
+            $this->block = EntityFactory::createBlock($data['block']);
         }
     }
 

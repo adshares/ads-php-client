@@ -211,6 +211,9 @@ class Txn extends AbstractEntity
         return $this->user;
     }
 
+    /**
+     * @inheritdoc
+     */
     protected static function castProperty(string $name, $value, \ReflectionClass $refClass = null)
     {
         if (in_array($name, self::MONEY_FIELDS)) {
@@ -218,18 +221,5 @@ class Txn extends AbstractEntity
         } else {
             return parent::castProperty($name, $value, $refClass);
         }
-    }
-
-
-    /**
-     * @param array $data
-     * @return Txn
-     */
-    public static function createFromRaw(array $data): Txn
-    {
-        $entity = new Txn();
-        $entity->fillWithRawData($data);
-
-        return $entity;
     }
 }

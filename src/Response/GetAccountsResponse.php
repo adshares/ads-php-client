@@ -2,7 +2,7 @@
 
 namespace Adshares\Ads\Response;
 
-use Adshares\Ads\Entity\Account;
+use Adshares\Ads\Entity\EntityFactory;
 
 class GetAccountsResponse extends AbstractResponse
 {
@@ -22,7 +22,7 @@ class GetAccountsResponse extends AbstractResponse
 
         if (array_key_exists('accounts', $data)) {
             foreach ($data['accounts'] as $value) {
-                $this->accounts[] = Account::createFromRaw($value);
+                $this->accounts[] = EntityFactory::createAccount($value);
             }
         }
     }

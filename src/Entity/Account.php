@@ -205,6 +205,9 @@ class Account extends AbstractEntity
         return $this->time;
     }
 
+    /**
+     * @inheritdoc
+     */
     protected static function castProperty(string $name, $value, \ReflectionClass $refClass = null)
     {
         if ("balance" === $name) {
@@ -212,17 +215,5 @@ class Account extends AbstractEntity
         } else {
             return parent::castProperty($name, $value, $refClass);
         }
-    }
-
-    /**
-     * @param array $data
-     * @return Account
-     */
-    public static function createFromRaw(array $data): Account
-    {
-        $entity = new Account();
-        $entity->fillWithRawData($data);
-
-        return $entity;
     }
 }

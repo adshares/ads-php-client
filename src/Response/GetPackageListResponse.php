@@ -2,7 +2,7 @@
 
 namespace Adshares\Ads\Response;
 
-use Adshares\Ads\Entity\Package;
+use Adshares\Ads\Entity\EntityFactory;
 
 class GetPackageListResponse extends AbstractResponse
 {
@@ -22,7 +22,7 @@ class GetPackageListResponse extends AbstractResponse
 
         if (array_key_exists('messages', $data)) {
             foreach ($data['messages'] as $value) {
-                $this->packages[] = Package::createFromRaw($value);
+                $this->packages[] = EntityFactory::createPackage($value);
             }
         }
     }

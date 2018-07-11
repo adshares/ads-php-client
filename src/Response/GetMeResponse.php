@@ -3,6 +3,7 @@
 namespace Adshares\Ads\Response;
 
 use Adshares\Ads\Entity\Account;
+use Adshares\Ads\Entity\EntityFactory;
 
 class GetMeResponse extends AbstractResponse
 {
@@ -27,10 +28,10 @@ class GetMeResponse extends AbstractResponse
         parent::loadData($data);
 
         if (array_key_exists('account', $data)) {
-            $this->account = Account::createFromRaw($data['account']);
+            $this->account = EntityFactory::createAccount($data['account']);
         }
         if (array_key_exists('network_account', $data)) {
-            $this->networkAccount = Account::createFromRaw($data['network_account']);
+            $this->networkAccount = EntityFactory::createAccount($data['network_account']);
         }
     }
 

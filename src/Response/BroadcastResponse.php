@@ -3,6 +3,7 @@
 namespace Adshares\Ads\Response;
 
 use Adshares\Ads\Entity\Account;
+use Adshares\Ads\Entity\EntityFactory;
 
 class BroadcastResponse extends AbstractResponse
 {
@@ -21,7 +22,7 @@ class BroadcastResponse extends AbstractResponse
         parent::loadData($data);
 
         if (array_key_exists('account', $data)) {
-            $this->account = Account::createFromRaw($data['account']);
+            $this->account = EntityFactory::createAccount($data['account']);
         }
     }
 

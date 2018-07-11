@@ -27,9 +27,8 @@ abstract class AbstractEntity implements EntityInterface
     }
 
     /**
-     *
-     * @param  string $type
-     * @param  mixed $value
+     * @param string $type
+     * @param $value
      * @return mixed
      */
     protected static function convertType(string $type, $value)
@@ -68,8 +67,10 @@ abstract class AbstractEntity implements EntityInterface
                     $interfaces = class_implements($type);
 
                     if (isset($interfaces['Adshares\Ads\Entity\EntityInterface'])) {
-                        /* @var $type EntityInterface*/
-                        $value = $type::createFromRawData($value);
+                        try {
+                            /* @var $type EntityInterface*/
+                            $value = EntityFactory::create((new \ReflectionClass($type))->getShortName(), $value);
+                        } catch (\ReflectionException $e) { }
                     }
                     break;
                 }
@@ -79,11 +80,7 @@ abstract class AbstractEntity implements EntityInterface
     }
 
     /**
-     *
-     * @param  string $name
-     * @param  mixed $value
-     * @param  \ReflectionClass|null $refClass
-     * @return mixed
+     * @inheritdoc
      */
     protected static function castProperty(string $name, $value, \ReflectionClass $refClass = null)
     {

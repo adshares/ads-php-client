@@ -53,16 +53,4 @@ class Package extends AbstractEntity
     {
         return $this->hash;
     }
-
-    /**
-     * @param array $data
-     * @return Package
-     */
-    public static function createFromRaw(array $data): Package
-    {
-        $entity = new Package();
-        $entity->fillWithRawData($data);
-
-        return $entity;
-    }
 }

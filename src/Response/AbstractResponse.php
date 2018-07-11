@@ -2,6 +2,7 @@
 
 namespace Adshares\Ads\Response;
 
+use Adshares\Ads\Entity\EntityFactory;
 use Adshares\Ads\Entity\Tx;
 
 abstract class AbstractResponse implements ResponseInterface
@@ -83,7 +84,7 @@ abstract class AbstractResponse implements ResponseInterface
             $this->previousBlockTime = new \DateTime("@{$data['previous_block_time']}");
         }
         if (array_key_exists('tx', $data)) {
-            $this->tx = Tx::createFromRaw($data['tx']);
+            $this->tx = EntityFactory::createTx($data['tx']);
         }
     }
 
