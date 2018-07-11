@@ -150,6 +150,10 @@ class CliDriver implements DriverInterface
         if (null !== $this->port) {
             $cmd[] = '--port=' . $this->port;
         }
+        if (null !== $this->secret) {
+            // empty secret means that secret will be read from standard input
+            $cmd[] = '--secret';
+        }
         if (null !== $hash) {
             $cmd[] = '--hash=' . $hash;
         }

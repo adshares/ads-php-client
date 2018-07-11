@@ -146,7 +146,7 @@ class CommandError
 
     public static function getMessageByCode(int $code)
     {
-        return (array_key_exists($code, self::MESSAGES)) ? self::MESSAGES[$code] : self::UNKNOWN_ERROR;
+        return (array_key_exists($code, self::MESSAGES)) ? self::MESSAGES[$code] : self::MESSAGES[self::UNKNOWN_ERROR];
     }
 
     public static function getCodeByMessage(string $errorMessage)

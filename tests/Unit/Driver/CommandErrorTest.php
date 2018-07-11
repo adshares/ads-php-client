@@ -18,10 +18,20 @@ class CommandErrorTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(5028, CommandError::getCodeByMessage($errorDescription));
     }
 
+    public function testGetCodeUnknown()
+    {
+        $this->assertEquals(5000, CommandError::getCodeByMessage("qwerty12345"));
+    }
+
     public function testGetMessage()
     {
         $code = self::ERROR_ID_MAX;
         $this->assertEquals("No new blocks to download", CommandError::getMessageByCode($code));
+    }
+
+    public function testGetMessageUnknown()
+    {
+        $this->assertEquals("Unknown error.", CommandError::getMessageByCode(4999));
     }
 
     public function testRandomConversion()
