@@ -67,4 +67,19 @@ class Transaction extends AbstractEntity
     {
         return $this->size;
     }
+
+    /**
+     * @param array $data
+     *
+     * @return EntityInterface
+     */
+    public static function createFromRawData(array $data): EntityInterface
+    {
+
+        $entity = new static();
+        $entity->fillWithRawData($data);
+        $entity->data = $data;
+
+        return $entity;
+    }
 }

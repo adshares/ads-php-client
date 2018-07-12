@@ -66,7 +66,14 @@ class BlocksTest extends \PHPUnit\Framework\TestCase
             $transactions = $response->getTransactions();
             foreach ($transactions as $transaction) {
                 /* @var \Adshares\Ads\Entity\Transaction $transaction */
-                echo "\t" . $transaction->getType() . '-' . $transaction->getId() . "\n";
+//                echo "\t" . $transaction->getType() . '-' . $transaction->getId() . "\n";
+                $data = $transaction->getData();
+                $this->assertInternalType("array", $data);
+//                echo "\tData:\n";
+//                foreach ($data as $k => $d) {
+//                    echo "\t\t" . $k . " => " . $d . "\n";
+//                }
+//                echo "\n";
             }
         }
     }
