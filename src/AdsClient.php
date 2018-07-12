@@ -12,6 +12,7 @@ use Adshares\Ads\Command\GetBroadcastCommand;
 use Adshares\Ads\Command\GetMeCommand;
 use Adshares\Ads\Command\GetPackageCommand;
 use Adshares\Ads\Command\GetPackageListCommand;
+use Adshares\Ads\Command\SendManyCommand;
 use Adshares\Ads\Command\SendOneCommand;
 use Adshares\Ads\Driver\DriverInterface;
 use Adshares\Ads\Entity\EntityFactory;
@@ -25,6 +26,7 @@ use Adshares\Ads\Response\GetBroadcastResponse;
 use Adshares\Ads\Response\GetMeResponse;
 use Adshares\Ads\Response\GetPackageListResponse;
 use Adshares\Ads\Response\GetPackageResponse;
+use Adshares\Ads\Response\SendManyResponse;
 use Adshares\Ads\Response\SendOneResponse;
 
 /**
@@ -203,6 +205,23 @@ class AdsClient
         $response = $this->driver->executeCommand($command);
 
         return new GetPackageListResponse($response->getRawData());
+    }
+
+    /**
+     * @param array $wires array of wires. Each entry is pair: account address => amount in clicks.
+     *                     Example: ['0001-00000000-XXXX'=>200,'0001-00000001-XXXX'=>10]
+     *
+     * @return SendManyResponse
+     *
+     * @throws CommandException
+     */
+    public function sendMany(array $wires): SendManyResponse
+    {
+        $command = new SendManyCommand($wires);
+        $this->prepareTransaction($command);
+        $response = $this->driver->executeCommand($command);
+
+        return new SendManyResponse($response->getRawData());
     }
 
     /**

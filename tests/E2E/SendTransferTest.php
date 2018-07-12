@@ -27,4 +27,26 @@ class SendTransferTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($amount, $tx->getDeduct() - $tx->getFee());
         $this->assertInternalType("string", $tx->getId());
     }
+
+    public function testSendMany()
+    {
+        $driver = new CliDriver($this->address, $this->secret, $this->host, $this->port);
+        $client = new AdsClient($driver);
+
+        $amount = 1;
+        $wires = [
+            "0001-00000000-XXXX" => $amount,
+            "0001-00000001-XXXX" => $amount,
+            "0002-00000000-XXXX" => $amount,
+            "0002-00000001-XXXX" => $amount,
+        ];
+        $response = $client->sendMany($wires);
+        $account = $response->getAccount();
+        $this->assertEquals($this->address, $account->getAddress());
+
+        $tx = $response->getTx();
+        $expectedAmount = $amount * count($wires);
+        $this->assertEquals($expectedAmount, $tx->getDeduct() - $tx->getFee());
+        $this->assertInternalType("string", $tx->getId());
+    }
 }
