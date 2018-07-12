@@ -6,17 +6,17 @@ class GetPackageListCommand extends AbstractCommand
 {
     /**
      *
-     * @var null|string $from
+     * @var null|string $block
      */
-    private $from;
+    private $block;
 
     /**
      *
-     * @param null|string $from
+     * @param null|string $block
      */
-    public function __construct($from)
+    public function __construct($block)
     {
-        $this->from = $from;
+        $this->block = $block;
     }
 
     /**
@@ -30,8 +30,8 @@ class GetPackageListCommand extends AbstractCommand
 
     public function getAttributes(): array
     {
-        if ($this->from) {
-            return ["from" => $this->from];
+        if ($this->block) {
+            return ["block" => $this->block];
         } else {
             return parent::getAttributes();
         }

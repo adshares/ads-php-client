@@ -204,15 +204,15 @@ class AdsClient implements LoggerAwareInterface
     }
 
     /**
-     * @param null|string $from
+     * @param null|string $block
      *
      * @return GetPackageListResponse
      *
      * @throws CommandException
      */
-    public function getPackageList(string $from = null): GetPackageListResponse
+    public function getPackageList(string $block = null): GetPackageListResponse
     {
-        $command = new GetPackageListCommand($from);
+        $command = new GetPackageListCommand($block);
         $response = $this->driver->executeCommand($command);
 
         return new GetPackageListResponse($response->getRawData());
