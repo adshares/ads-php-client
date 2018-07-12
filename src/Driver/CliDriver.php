@@ -190,6 +190,8 @@ class CliDriver implements DriverInterface, LoggerAwareInterface
         $data = $command->getAttributes();
         $data['run'] = $command->getName();
 
+        $this->logger->debug('[ADS] SEND REQUEST', $data);
+
         if (false === ($input = json_encode($data))) {
             throw new CommandException(
                 $command,
