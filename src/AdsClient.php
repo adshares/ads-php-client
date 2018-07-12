@@ -28,25 +28,36 @@ use Adshares\Ads\Response\GetPackageListResponse;
 use Adshares\Ads\Response\GetPackageResponse;
 use Adshares\Ads\Response\SendManyResponse;
 use Adshares\Ads\Response\SendOneResponse;
+use Psr\Log\LoggerAwareInterface;
+use Psr\Log\LoggerAwareTrait;
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 
 /**
  * Wrapper class used to interact with ADS wallet client.
  */
-class AdsClient
+class AdsClient implements LoggerAwareInterface
 {
+    use LoggerAwareTrait;
+
     /**
      * @var DriverInterface
      */
     protected $driver;
 
     /**
-     * Client constructor.
+     * AdsClient constructor.
      *
      * @param DriverInterface $driver
+     * @param LoggerInterface|null $logger
      */
-    public function __construct(DriverInterface $driver)
+    public function __construct(DriverInterface $driver, LoggerInterface $logger = null)
     {
         $this->driver = $driver;
+        if (null === $logger) {
+            $logger = new NullLogger();
+        }
+        $this->logger = $logger;
     }
 
     /**
