@@ -51,7 +51,7 @@ abstract class AbstractEntity implements EntityInterface
             case '\DateTime':
                 if (is_numeric($value)) { // unix timestamp
                     $date = new \DateTime();
-                    $date->setTimestamp($value);
+                    $date->setTimestamp((int)$value);
                     $value = $date;
                 } else {
                     $value = new \DateTime($value);
