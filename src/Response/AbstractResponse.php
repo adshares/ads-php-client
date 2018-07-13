@@ -78,11 +78,19 @@ abstract class AbstractResponse implements ResponseInterface
         $this->data = $data;
 
         if (array_key_exists('current_block_time', $data)) {
-            $this->currentBlockTime = new \DateTime("@{$data['current_block_time']}");
+            $date = new \DateTime();
+            $date->setTimestamp($data['current_block_time']);
+
+            $this->currentBlockTime = $date;
         }
+
         if (array_key_exists('previous_block_time', $data)) {
-            $this->previousBlockTime = new \DateTime("@{$data['previous_block_time']}");
+            $date = new \DateTime();
+            $date->setTimestamp($data['previous_block_time']);
+
+            $this->previousBlockTime = $date;
         }
+
         if (array_key_exists('tx', $data)) {
             $this->tx = EntityFactory::createTx($data['tx']);
         }

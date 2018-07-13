@@ -49,7 +49,13 @@ abstract class AbstractEntity implements EntityInterface
             case 'string':
                 break;
             case '\DateTime':
-                $value = is_numeric($value) ? new \DateTime("@$value") : new \DateTime($value);
+                if (is_numeric($value)) { // unix timestamp
+                    $date = new \DateTime();
+                    $date->setTimestamp($value);
+                    $value = $date;
+                } else {
+                    $value = new \DateTime($value);
+                }
                 break;
             default:
                 if (preg_match('/array\[([^\s]+)\]/', $type, $matches)) {
