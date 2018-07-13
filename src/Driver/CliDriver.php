@@ -190,8 +190,6 @@ class CliDriver implements DriverInterface, LoggerAwareInterface
         $data = $command->getAttributes();
         $data['run'] = $command->getName();
 
-        $this->logger->debug('[ADS] SEND REQUEST', $data);
-
         if (false === ($input = json_encode($data))) {
             throw new CommandException(
                 $command,
@@ -254,9 +252,12 @@ class CliDriver implements DriverInterface, LoggerAwareInterface
         if (null !== $this->secret) {
             $input->write("{$this->secret}\n");
         }
-        $input->write($this->prepareInput($command));
+
+        $preparedInputData = $this->prepareInput($command);
+        $input->write($preparedInputData);
         $input->close();
 
+        $start = microtime(true);
         $process->wait();
 
         if ($process->getExitCode()) {
@@ -274,6 +275,12 @@ class CliDriver implements DriverInterface, LoggerAwareInterface
                 $e
             );
         }
+
+        $context = [
+            'time' => microtime(true) - $start,
+        ];
+
+        $this->logger->debug(sprintf('[ADS_CLIENT] %s %s', $command->getName(), $preparedInputData), $context);
 
         if (isset($message['error'])) {
             throw new CommandException($command, $message['error'], CommandError::getCodeByMessage($message['error']));
