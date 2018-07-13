@@ -105,7 +105,7 @@ class CommandError
         self::AMOUNT_BELOW_ZERO =>  "Amount below zero",
         self::USER_BAD_TARGET =>  "Bad target user",
         self::NODE_BAD_TARGET =>  "Bad target node",
-        self::TIME_IN_FUTURE =>  "Can't perform operation, inserted time value is in feature",
+        self::TIME_IN_FUTURE =>  "Can't perform operation, inserted time value is in future",
         self::BROADCAST_NOT_READY =>  "Broadcast not ready, try again later",
         self::NO_BROADCAST_FILE =>  "No broadcast file to send",
         self::NO_MESSAGE_LIST_FILE =>  "No message list file",
