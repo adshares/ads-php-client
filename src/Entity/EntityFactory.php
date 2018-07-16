@@ -26,6 +26,7 @@ class EntityFactory
         'LogAccountTransaction' => '\Adshares\Ads\Entity\Transaction\LogAccountTransaction',
         'NetworkTransaction' => '\Adshares\Ads\Entity\Transaction\NetworkTransaction',
         'SendManyTransaction' => '\Adshares\Ads\Entity\Transaction\SendManyTransaction',
+        'SendManyTransactionWire' => '\Adshares\Ads\Entity\Transaction\SendManyTransactionWire',
         'SendOneTransaction' => '\Adshares\Ads\Entity\Transaction\SendOneTransaction',
         'StatusTransaction' => '\Adshares\Ads\Entity\Transaction\StatusTransaction',
     ];
@@ -165,7 +166,7 @@ class EntityFactory
                 return self::create('LogAccountTransaction', $data);
             case 'send_many':
                 return self::create('SendManyTransaction', $data);
-            case 'send_one' :
+            case 'send_one':
                 return self::create('SendOneTransaction', $data);
             case 'set_account_status':
             case 'set_node_status':

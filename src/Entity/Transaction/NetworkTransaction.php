@@ -43,4 +43,60 @@ class NetworkTransaction extends AbstractTransaction
      * @var int
      */
     protected $user;
+
+    /**
+     * @return int
+     */
+    public function getMsgId(): int
+    {
+        return $this->msgId;
+    }
+
+    /**
+     * @return int
+     */
+    public function getNode(): int
+    {
+        return $this->node;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSignature(): string
+    {
+        return $this->signature;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getTargetNode(): ?int
+    {
+        return $this->targetNode;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getTargetUser(): ?int
+    {
+        return $this->targetUser;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getTime(): \DateTime
+    {
+        return $this->time;
+    }
+
+    /**
+     * @return int
+     */
+    public function getUser(): int
+    {
+        return $this->user;
+    }
 }

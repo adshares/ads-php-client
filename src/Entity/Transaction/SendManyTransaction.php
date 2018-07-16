@@ -52,7 +52,7 @@ class SendManyTransaction extends AbstractTransaction
     protected $user;
 
     /**
-     * @var array[SendManyTransactionWire]
+     * @var array[\Adshares\Ads\Entity\Transaction\SendManyTransactionWire]
      */
     protected $wires;
 
