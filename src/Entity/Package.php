@@ -11,7 +11,7 @@ class Package extends AbstractEntity
 {
     /**
      *
-     * @var string
+     * @var int
      */
     protected $node;
 
@@ -29,9 +29,9 @@ class Package extends AbstractEntity
 
     /**
      *
-     * @return string
+     * @return int
      */
-    public function getNode(): string
+    public function getNode(): int
     {
         return $this->node;
     }

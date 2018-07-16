@@ -35,15 +35,15 @@ class CommandError
     public const NODE_BAD_TARGET = 5020;
     public const TIME_IN_FUTURE = 5021;
     /**
-     * Broadcast not ready. Need to wait and retry.
+     * For getBroadcast: Broadcast not ready. Need to wait and retry.
      */
     public const BROADCAST_NOT_READY = 5022;
     /**
-     * No messages. Need to check next block.
+     * For getBroadcast: No messages. Need to check next block.
      */
     public const NO_BROADCAST_FILE = 5023;
     /**
-     * No message list. Need to retry after short delay.
+     * For getPackageList: No message list. Need to retry after short delay.
      */
     public const NO_MESSAGE_LIST_FILE = 5024;
     public const INCORRECT_TRANSACTION = 5025;
@@ -51,6 +51,10 @@ class CommandError
     public const SET_KEY_REMOTE_BANK_FAIL = 5027;
     public const CONNECT_SERVER_ERROR = 5028;
     public const GET_BLOCK_INFO_UNAVAILABLE = 5029;
+    /**
+     * For getBlocks: This error means that some of the signatures for block are collected, but not all.
+     * Node waits for missing blocks. Need to retry after short delay.
+     */
     public const GET_SIGNATURE_UNAVAILABLE = 5030;
     public const INCORRECT_TYPE = 5031;
     public const BAD_LENGTH = 5032;
@@ -79,7 +83,10 @@ class CommandError
     public const NO_BLOCK_IN_SPECIFIED_RANGE = 5055;
     public const COULD_NOT_READ_CORRECT_VIP_KEYS = 5056;
     /**
-     * No new blocks. All blocks were downloaded at this moment.
+     * Legacy error. This error is inactive, because field updatedBlocks was introduced in getBlocks response.
+     *
+     * Original description:
+     * For getBlocks: No new blocks. All blocks were downloaded at this moment.
      */
     public const NO_NEW_BLOCKS = 5057;
 

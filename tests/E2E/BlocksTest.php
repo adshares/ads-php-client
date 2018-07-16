@@ -4,6 +4,7 @@ namespace Adshares\Ads\Tests\E2E;
 
 use Adshares\Ads\AdsClient;
 use Adshares\Ads\Driver\CliDriver;
+use Adshares\Ads\Driver\CommandError;
 use Adshares\Ads\Exception\CommandException;
 
 class BlocksTest extends \PHPUnit\Framework\TestCase
@@ -18,19 +19,27 @@ class BlocksTest extends \PHPUnit\Framework\TestCase
         $driver = new CliDriver($this->address, $this->secret, $this->host, $this->port);
         $client = new AdsClient($driver);
 
-        while (true) {
+        $attempt = 0;
+        $attemptMax = 10;
+        while ($attempt < $attemptMax) {
             try {
                 $response = $client->getBlocks();
-
-                $blocks = $response->getBlocks();
-                foreach ($blocks as $block) {
-                    echo $block . "\n";
+                $blockCount = $response->getUpdatedBlocks();
+                if (0 === $blockCount) {
+                    break;
                 }
+                $blocks = $response->getBlocks();
+                $this->assertCount($blockCount, $blocks);
+//                foreach ($blocks as $block) {
+//                    echo $block . "\n";
+//                }
             } catch (CommandException $ce) {
-                $this->assertEquals(5057, $ce->getCode());
-                break;
+                $this->assertEquals(CommandError::GET_SIGNATURE_UNAVAILABLE, $ce->getCode());
+                sleep(4);
             }
+            $attempt++;
         }
+        $this->assertLessThan($attemptMax, $attempt, "Didn't update blocks in expected attempts.");
     }
 
     public function testGetPackageList()
@@ -52,7 +61,7 @@ class BlocksTest extends \PHPUnit\Framework\TestCase
                 $packages = $response->getPackages();
                 $isMessageList = true;
             } catch (CommandException $ce) {
-                $this->assertEquals(5024, $ce->getCode());
+                $this->assertEquals(CommandError::NO_MESSAGE_LIST_FILE, $ce->getCode());
                 sleep(4);
             }
         } while (!$isMessageList);
@@ -65,15 +74,15 @@ class BlocksTest extends \PHPUnit\Framework\TestCase
             $response = $client->getPackage($package->getNode(), $package->getNodeMsid(), $blockTime);
             $transactions = $response->getTransactions();
             foreach ($transactions as $transaction) {
-                /* @var \Adshares\Ads\Entity\Transaction $transaction */
-//                echo "\t" . $transaction->getType() . '-' . $transaction->getId() . "\n";
-                $data = $transaction->getData();
-                $this->assertInternalType("array", $data);
-//                echo "\tData:\n";
-//                foreach ($data as $k => $d) {
-//                    echo "\t\t" . $k . " => " . $d . "\n";
-//                }
-//                echo "\n";
+                /* @var \Adshares\Ads\Entity\Transaction\AbstractTransaction $transaction */
+                echo "\t" . $transaction->getType() . '-' . $transaction->getId() . "\n";
+                if ('connection' ===$transaction->getType()) {
+                    /* @var \Adshares\Ads\Entity\Transaction\ConnectionTransaction $connectionTx */
+                    $connectionTx = $transaction;
+                    $ipAddress = $connectionTx->getIpAddress();
+                    $port = $connectionTx->getPort();
+                    echo "\t\t$ipAddress:$port\n";
+                }
             }
         }
     }

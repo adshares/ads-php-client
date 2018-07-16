@@ -11,7 +11,7 @@ class GetPackageCommand extends AbstractCommand
     private $block;
     /**
      *
-     * @var string $node
+     * @var int $node
      */
     private $node;
     /**
@@ -22,11 +22,11 @@ class GetPackageCommand extends AbstractCommand
 
     /**
      *
-     * @param string $node
+     * @param int $node
      * @param int $nodeMsid
      * @param null|string $block
      */
-    public function __construct(string $node, int $nodeMsid, string $block = null)
+    public function __construct(int $node, int $nodeMsid, string $block = null)
     {
         $this->node = $node;
         $this->nodeMsid = $nodeMsid;

@@ -4,7 +4,7 @@ namespace Adshares\Ads\Command;
 
 use Adshares\Ads\Util\AdsConverter;
 
-class SendManyCommand extends AbstractTransaction
+class SendManyCommand extends AbstractTransactionCommand
 {
 
     /**

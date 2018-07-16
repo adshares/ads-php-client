@@ -6,7 +6,6 @@ use Adshares\Ads\Exception\AdsException;
 
 class EntityFactory
 {
-
     /**
      * @var array[string]
      */
@@ -17,9 +16,19 @@ class EntityFactory
         'NetworkTx' => '\Adshares\Ads\Entity\NetworkTx',
         'Node' => '\Adshares\Ads\Entity\Node',
         'Package' => '\Adshares\Ads\Entity\Package',
-        'Transaction' => '\Adshares\Ads\Entity\Transaction',
         'Tx' => '\Adshares\Ads\Entity\Tx',
         'Txn' => '\Adshares\Ads\Entity\Txn',
+        // Transactions
+        'BroadcastTransaction' => '\Adshares\Ads\Entity\Transaction\BroadcastTransaction',
+        'ConnectionTransaction' => '\Adshares\Ads\Entity\Transaction\ConnectionTransaction',
+        'EmptyTransaction' => '\Adshares\Ads\Entity\Transaction\EmptyTransaction',
+        'KeyTransaction' => '\Adshares\Ads\Entity\Transaction\KeyTransaction',
+        'LogAccountTransaction' => '\Adshares\Ads\Entity\Transaction\LogAccountTransaction',
+        'NetworkTransaction' => '\Adshares\Ads\Entity\Transaction\NetworkTransaction',
+        'SendManyTransaction' => '\Adshares\Ads\Entity\Transaction\SendManyTransaction',
+        'SendManyTransactionWire' => '\Adshares\Ads\Entity\Transaction\SendManyTransactionWire',
+        'SendOneTransaction' => '\Adshares\Ads\Entity\Transaction\SendOneTransaction',
+        'StatusTransaction' => '\Adshares\Ads\Entity\Transaction\StatusTransaction',
     ];
 
     /**
@@ -133,14 +142,42 @@ class EntityFactory
 
     /**
      * @param array $data
-     * @return Transaction
+     *
+     * @return mixed
+     *
+     * @throws AdsException
      */
-    public static function createTransaction(array $data = []): Transaction
+    public static function createTransaction(array $data = [])
     {
-        /* @var $entity Transaction */
-        $entity = self::create('Transaction', $data);
-
-        return $entity;
+        switch ($data['type']) {
+            case 'broadcast':
+                return self::create('BroadcastTransaction', $data);
+            case 'account_created':
+            case 'change_account_key':
+            case 'change_node_key':
+                return self::create('KeyTransaction', $data);
+            case 'connection':
+                return self::create('ConnectionTransaction', $data);
+            case 'create_account':
+            case 'create_node':
+            case 'retrieve_funds':
+                return self::create('NetworkTransaction', $data);
+            case 'log_account':
+                return self::create('LogAccountTransaction', $data);
+            case 'send_many':
+                return self::create('SendManyTransaction', $data);
+            case 'send_one':
+                return self::create('SendOneTransaction', $data);
+            case 'set_account_status':
+            case 'set_node_status':
+            case 'unset_account_status':
+            case 'unset_node_status':
+                return self::create('StatusTransaction', $data);
+            case 'empty':
+                return self::create('EmptyTransaction', $data);
+            default:
+                throw new AdsException(sprintf('Unsupported transaction type "%s".', $data['type']));
+        }
     }
 
     /**
