@@ -2,6 +2,8 @@
 
 namespace Adshares\Ads\Entity\Transaction;
 
+use Adshares\Ads\Util\AdsConverter;
+
 /**
  * Transaction type=<'send_many'>.
  *
@@ -53,4 +55,88 @@ class SendManyTransaction extends AbstractTransaction
      * @var array[SendManyTransactionWire]
      */
     protected $wires;
+
+    /**
+     * @return int
+     */
+    public function getMsgId(): int
+    {
+        return $this->msgId;
+    }
+
+    /**
+     * @return int
+     */
+    public function getNode(): int
+    {
+        return $this->node;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSenderAddress(): string
+    {
+        return $this->senderAddress;
+    }
+
+    /**
+     * @return int
+     */
+    public function getSenderFee(): int
+    {
+        return $this->senderFee;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSignature(): string
+    {
+        return $this->signature;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getTime(): \DateTime
+    {
+        return $this->time;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTransactionCount(): int
+    {
+        return $this->transactionCount;
+    }
+
+    /**
+     * @return int
+     */
+    public function getUser(): int
+    {
+        return $this->user;
+    }
+
+    /**
+     * @return array
+     */
+    public function getWires(): array
+    {
+        return $this->wires;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected static function castProperty(string $name, $value, \ReflectionClass $refClass = null)
+    {
+        if ('senderFee' === $name) {
+            return AdsConverter::adsToClicks($value);
+        } else {
+            return parent::castProperty($name, $value, $refClass);
+        }
+    }
 }

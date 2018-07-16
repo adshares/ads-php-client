@@ -172,10 +172,12 @@ class SendOneTransaction extends AbstractTransaction
      */
     protected static function castProperty(string $name, $value, \ReflectionClass $refClass = null)
     {
-        if ("amount" === $name) {
-            return AdsConverter::adsToClicks($value);
-        } else {
-            return parent::castProperty($name, $value, $refClass);
+        switch ($name) {
+            case 'amount':
+            case 'senderFee':
+                return AdsConverter::adsToClicks($value);
+            default:
+                return parent::castProperty($name, $value, $refClass);
         }
     }
 }
