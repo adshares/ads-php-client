@@ -99,5 +99,4 @@ class BroadcastTransaction extends AbstractTransaction
     {
         return $this->user;
     }
-
 }

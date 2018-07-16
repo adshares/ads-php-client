@@ -1,6 +1,7 @@
 <?php
 
 namespace Adshares\Ads\Entity\Transaction;
+
 use Adshares\Ads\Entity\Account;
 
 /**

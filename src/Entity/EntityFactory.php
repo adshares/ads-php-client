@@ -152,19 +152,19 @@ class EntityFactory
         $type = $data['type'];
         if ('broadcast' === $type) {
             $entity = self::create('BroadcastTransaction', $data);
-        } else if ('account_created' === $type || 'change_account_key' === $type || 'change_node_key' === $type) {
+        } elseif ('account_created' === $type || 'change_account_key' === $type || 'change_node_key' === $type) {
             $entity = self::create('KeyTransaction', $data);
-        } else if ('connection' === $type) {
+        } elseif ('connection' === $type) {
             $entity = self::create('ConnectionTransaction', $data);
-        } else if ('create_account' === $type || 'create_node' === $type || 'retrieve_funds' === $type) {
+        } elseif ('create_account' === $type || 'create_node' === $type || 'retrieve_funds' === $type) {
             $entity = self::create('NetworkTransaction', $data);
-        } else if ('log_account' === $type) {
+        } elseif ('log_account' === $type) {
             $entity = self::create('LogAccountTransaction', $data);
-        } else if ('send_many' === $type) {
+        } elseif ('send_many' === $type) {
             $entity = self::create('SendManyTransaction', $data);
-        } else if ('send_one' === $type) {
+        } elseif ('send_one' === $type) {
             $entity = self::create('SendOneTransaction', $data);
-        } else if ('set_account_status' === $type || 'set_node_status' === $type
+        } elseif ('set_account_status' === $type || 'set_node_status' === $type
             || 'unset_account_status' === $type || 'unset_node_status' === $type) {
             $entity = self::create('StatusTransaction', $data);
         } else {

@@ -76,7 +76,7 @@ class BlocksTest extends \PHPUnit\Framework\TestCase
             foreach ($transactions as $transaction) {
                 /* @var \Adshares\Ads\Entity\Transaction\AbstractTransaction $transaction */
                 echo "\t" . $transaction->getType() . '-' . $transaction->getId() . "\n";
-                if ('connection' ===$transaction->getType() ) {
+                if ('connection' ===$transaction->getType()) {
                     /* @var \Adshares\Ads\Entity\Transaction\ConnectionTransaction $connectionTx */
                     $connectionTx = $transaction;
                     $ipAddress = $connectionTx->getIpAddress();

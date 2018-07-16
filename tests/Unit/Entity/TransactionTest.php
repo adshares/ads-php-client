@@ -48,7 +48,9 @@ class TransactionTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals('A8', $transaction->getMessage());
         $this->assertEquals(
             'B6CBDF52096ABFF56E1A0DEC09A52DF0E3C513067F4BDA69D1F760664B612142'
-            . '6298009BD659420F7C39C6C3A42EAF067C0DC8BCD7AA8127AB179F3A0CE3240C', $transaction->getSignature());
+            . '6298009BD659420F7C39C6C3A42EAF067C0DC8BCD7AA8127AB179F3A0CE3240C',
+            $transaction->getSignature()
+        );
         $this->assertEquals(82, $transaction->getSize());
     }
 
