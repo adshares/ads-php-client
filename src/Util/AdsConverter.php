@@ -33,8 +33,20 @@ class AdsConverter
     public static function clicksToAds($amount): string
     {
         $amountAsString = (string)$amount;
+        $isNegativeValue = false;
+        if ('-' === $amountAsString[0]) {
+            $isNegativeValue = true;
+            // cut minus sign from negative value
+            $amountAsString = substr($amountAsString, 1, strlen($amountAsString));
+        }
+        //add leading zeros
         $amountAsString = str_pad($amountAsString, 12, "0", STR_PAD_LEFT);
+        // insert decimal separator
         $amountAsString = substr_replace($amountAsString, '.', strlen($amountAsString) - 11, 0);
+        if ($isNegativeValue) {
+            // prepend minus sign for negative value
+            $amountAsString = '-' . $amountAsString;
+        }
         return $amountAsString;
     }
 }
