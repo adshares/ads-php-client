@@ -2,7 +2,7 @@
 
 namespace Adshares\Ads\Command;
 
-abstract class AbstractTransaction extends AbstractCommand implements TransactionInterface
+abstract class AbstractTransactionCommand extends AbstractCommand implements TransactionInterface
 {
 
     /**

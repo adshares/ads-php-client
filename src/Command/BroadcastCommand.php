@@ -2,7 +2,7 @@
 
 namespace Adshares\Ads\Command;
 
-class BroadcastCommand extends AbstractTransaction
+class BroadcastCommand extends AbstractTransactionCommand
 {
     /**
      *

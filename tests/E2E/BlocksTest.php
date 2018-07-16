@@ -74,15 +74,15 @@ class BlocksTest extends \PHPUnit\Framework\TestCase
             $response = $client->getPackage($package->getNode(), $package->getNodeMsid(), $blockTime);
             $transactions = $response->getTransactions();
             foreach ($transactions as $transaction) {
-                /* @var \Adshares\Ads\Entity\Transaction $transaction */
-//                echo "\t" . $transaction->getType() . '-' . $transaction->getId() . "\n";
-                $data = $transaction->getData();
-                $this->assertInternalType("array", $data);
-//                echo "\tData:\n";
-//                foreach ($data as $k => $d) {
-//                    echo "\t\t" . $k . " => " . $d . "\n";
-//                }
-//                echo "\n";
+                /* @var \Adshares\Ads\Entity\Transaction\AbstractTransaction $transaction */
+                echo "\t" . $transaction->getType() . '-' . $transaction->getId() . "\n";
+                if ('connection' ===$transaction->getType() ) {
+                    /* @var \Adshares\Ads\Entity\Transaction\ConnectionTransaction $connectionTx */
+                    $connectionTx = $transaction;
+                    $ipAddress = $connectionTx->getIpAddress();
+                    $port = $connectionTx->getPort();
+                    echo "\t\t$ipAddress:$port\n";
+                }
             }
         }
     }

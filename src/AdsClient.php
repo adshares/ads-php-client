@@ -2,7 +2,7 @@
 
 namespace Adshares\Ads;
 
-use Adshares\Ads\Command\AbstractTransaction;
+use Adshares\Ads\Command\AbstractTransactionCommand;
 use Adshares\Ads\Command\BroadcastCommand;
 use Adshares\Ads\Command\GetAccountCommand;
 use Adshares\Ads\Command\GetAccountsCommand;
@@ -69,11 +69,11 @@ class AdsClient implements LoggerAwareInterface
     }
 
     /**
-     * @param AbstractTransaction $transaction
+     * @param AbstractTransactionCommand $transaction
      *
      * @throws CommandException
      */
-    private function prepareTransaction(AbstractTransaction $transaction)
+    private function prepareTransaction(AbstractTransactionCommand $transaction)
     {
         $getMeResponse = $this->getMe();
         $transaction->setLastHash($getMeResponse->getAccount()->getHash());

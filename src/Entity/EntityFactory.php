@@ -2,11 +2,11 @@
 
 namespace Adshares\Ads\Entity;
 
+use Adshares\Ads\Entity\Transaction\AbstractTransaction;
 use Adshares\Ads\Exception\AdsException;
 
 class EntityFactory
 {
-
     /**
      * @var array[string]
      */
@@ -17,9 +17,18 @@ class EntityFactory
         'NetworkTx' => '\Adshares\Ads\Entity\NetworkTx',
         'Node' => '\Adshares\Ads\Entity\Node',
         'Package' => '\Adshares\Ads\Entity\Package',
-        'Transaction' => '\Adshares\Ads\Entity\Transaction',
         'Tx' => '\Adshares\Ads\Entity\Tx',
         'Txn' => '\Adshares\Ads\Entity\Txn',
+        // Transactions
+        'BroadcastTransaction' => '\Adshares\Ads\Entity\Transaction\BroadcastTransaction',
+        'ConnectionTransaction' => '\Adshares\Ads\Entity\Transaction\ConnectionTransaction',
+        'EmptyTransaction' => '\Adshares\Ads\Entity\Transaction\EmptyTransaction',
+        'KeyTransaction' => '\Adshares\Ads\Entity\Transaction\KeyTransaction',
+        'LogAccountTransaction' => '\Adshares\Ads\Entity\Transaction\LogAccountTransaction',
+        'NetworkTransaction' => '\Adshares\Ads\Entity\Transaction\NetworkTransaction',
+        'SendManyTransaction' => '\Adshares\Ads\Entity\Transaction\SendManyTransaction',
+        'SendOneTransaction' => '\Adshares\Ads\Entity\Transaction\SendOneTransaction',
+        'StatusTransaction' => '\Adshares\Ads\Entity\Transaction\StatusTransaction',
     ];
 
     /**
@@ -133,12 +142,35 @@ class EntityFactory
 
     /**
      * @param array $data
-     * @return Transaction
+     * @return AbstractTransaction
      */
-    public static function createTransaction(array $data = []): Transaction
+    public static function createTransaction(array $data = []): AbstractTransaction
     {
-        /* @var $entity Transaction */
-        $entity = self::create('Transaction', $data);
+        /* @var $entity AbstractTransaction */
+        $entity = null;
+
+        $type = $data['type'];
+        if ('broadcast' === $type) {
+            $entity = self::create('BroadcastTransaction', $data);
+        } else if ('account_created' === $type || 'change_account_key' === $type || 'change_node_key' === $type) {
+            $entity = self::create('KeyTransaction', $data);
+        } else if ('connection' === $type) {
+            $entity = self::create('ConnectionTransaction', $data);
+        } else if ('create_account' === $type || 'create_node' === $type || 'retrieve_funds' === $type) {
+            $entity = self::create('NetworkTransaction', $data);
+        } else if ('log_account' === $type) {
+            $entity = self::create('LogAccountTransaction', $data);
+        } else if ('send_many' === $type) {
+            $entity = self::create('SendManyTransaction', $data);
+        } else if ('send_one' === $type) {
+            $entity = self::create('SendOneTransaction', $data);
+        } else if ('set_account_status' === $type || 'set_node_status' === $type
+            || 'unset_account_status' === $type || 'unset_node_status' === $type) {
+            $entity = self::create('StatusTransaction', $data);
+        } else {
+            //'empty' === $type
+            $entity = self::create('EmptyTransaction', $data);
+        }
 
         return $entity;
     }

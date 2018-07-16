@@ -7,13 +7,11 @@ use Adshares\Ads\Entity\EntityFactory;
 class GetPackageResponse extends AbstractResponse
 {
     /**
-     *
-     * @var array[Transaction]
+     * @var array[AbstractTransaction]
      */
     protected $transactions = [];
 
     /**
-     *
      * @param array $data
      */
     protected function loadData(array $data): void
@@ -28,7 +26,6 @@ class GetPackageResponse extends AbstractResponse
     }
 
     /**
-     *
      * @return array
      */
     public function getTransactions(): array
