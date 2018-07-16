@@ -187,15 +187,15 @@ class AdsClient implements LoggerAwareInterface
     }
 
     /**
-     * @param string      $node
-     * @param int         $nodeMsid
+     * @param int $node
+     * @param int $nodeMsid
      * @param null|string $block
      *
      * @return GetPackageResponse
      *
      * @throws CommandException
      */
-    public function getPackage(string $node, int $nodeMsid, string $block = null): GetPackageResponse
+    public function getPackage(int $node, int $nodeMsid, string $block = null): GetPackageResponse
     {
         $command = new GetPackageCommand($node, $nodeMsid, $block);
         $response = $this->driver->executeCommand($command);

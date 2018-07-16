@@ -4,6 +4,7 @@ namespace Adshares\Ads\Tests\E2E;
 
 use Adshares\Ads\AdsClient;
 use Adshares\Ads\Driver\CliDriver;
+use Adshares\Ads\Driver\CommandError;
 use Adshares\Ads\Exception\CommandException;
 
 class BlocksTest extends \PHPUnit\Framework\TestCase
@@ -52,7 +53,7 @@ class BlocksTest extends \PHPUnit\Framework\TestCase
                 $packages = $response->getPackages();
                 $isMessageList = true;
             } catch (CommandException $ce) {
-                $this->assertEquals(5024, $ce->getCode());
+                $this->assertEquals(CommandError::NO_MESSAGE_LIST_FILE, $ce->getCode());
                 sleep(4);
             }
         } while (!$isMessageList);
