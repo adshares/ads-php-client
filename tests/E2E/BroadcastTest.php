@@ -4,6 +4,7 @@ namespace Adshares\Ads\Tests\E2E;
 
 use Adshares\Ads\AdsClient;
 use Adshares\Ads\Driver\CliDriver;
+use Adshares\Ads\Driver\CommandError;
 use Adshares\Ads\Entity\Broadcast;
 use Adshares\Ads\Exception\CommandException;
 use Adshares\Ads\Response\GetBroadcastResponse;
@@ -46,11 +47,11 @@ class BroadcastTest extends \PHPUnit\Framework\TestCase
                 $getBroadcastResponse = $client->getBroadcast($from);
             } catch (CommandException $ce) {
                 $exceptionCode = $ce->getCode();
-                if (5022 === $exceptionCode) {
+                if (CommandError::BROADCAST_NOT_READY === $exceptionCode) {
                     $this->assertLessThan($delayMax, $delay);
                     sleep(self::BLOCK_TIME_SECONDS);
                     ++$delay;
-                } elseif (5023 === $exceptionCode) {
+                } elseif (CommandError::NO_BROADCAST_FILE === $exceptionCode) {
                     $this->assertLessThan($nextBlockAttemptMax, $nextBlockAttempt);
                     $blockTime += self::BLOCK_TIME_SECONDS;
                     ++$nextBlockAttempt;

@@ -19,19 +19,27 @@ class BlocksTest extends \PHPUnit\Framework\TestCase
         $driver = new CliDriver($this->address, $this->secret, $this->host, $this->port);
         $client = new AdsClient($driver);
 
-        while (true) {
+        $attempt = 0;
+        $attemptMax = 10;
+        while ($attempt < $attemptMax) {
             try {
                 $response = $client->getBlocks();
-
-                $blocks = $response->getBlocks();
-                foreach ($blocks as $block) {
-                    echo $block . "\n";
+                $blockCount = $response->getUpdatedBlocks();
+                if (0 === $blockCount) {
+                    break;
                 }
+                $blocks = $response->getBlocks();
+                $this->assertCount($blockCount, $blocks);
+//                foreach ($blocks as $block) {
+//                    echo $block . "\n";
+//                }
             } catch (CommandException $ce) {
-                $this->assertEquals(5057, $ce->getCode());
-                break;
+                $this->assertEquals(CommandError::GET_SIGNATURE_UNAVAILABLE, $ce->getCode());
+                sleep(4);
             }
+            $attempt++;
         }
+        $this->assertLessThan($attemptMax, $attempt, "Didn't update blocks in expected attempts.");
     }
 
     public function testGetPackageList()
