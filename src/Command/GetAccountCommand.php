@@ -30,10 +30,6 @@ class GetAccountCommand extends AbstractCommand
 
     public function getAttributes(): array
     {
-//        if ($this->address) {
         return ["address" => $this->address];
-//        } else {
-//            return parent::getAttributes();
-//        }
     }
 }
