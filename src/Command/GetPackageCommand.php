@@ -5,36 +5,26 @@ namespace Adshares\Ads\Command;
 class GetPackageCommand extends AbstractCommand
 {
     /**
-     *
      * @var null|string $block
      */
     private $block;
-    /**
-     *
-     * @var int $node
-     */
-    private $node;
-    /**
-     *
-     * @var int $nodeMsid
-     */
-    private $nodeMsid;
 
     /**
-     *
-     * @param int $node
-     * @param int $nodeMsid
+     * @var string $packageId
+     */
+    private $packageId;
+
+    /**
+     * @param string $packageId
      * @param null|string $block
      */
-    public function __construct(int $node, int $nodeMsid, string $block = null)
+    public function __construct($packageId, string $block = null)
     {
-        $this->node = $node;
-        $this->nodeMsid = $nodeMsid;
+        $this->packageId = $packageId;
         $this->block = $block;
     }
 
     /**
-     *
      * @return string
      */
     public function getName(): string
@@ -45,8 +35,7 @@ class GetPackageCommand extends AbstractCommand
     public function getAttributes(): array
     {
         $attributes = [];
-        $attributes["node"] = $this->node;
-        $attributes["node_msid"] = $this->nodeMsid;
+        $attributes["message_id"] = $this->packageId;
         if ($this->block) {
             $attributes["block"] = $this->block;
         }

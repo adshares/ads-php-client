@@ -23,12 +23,12 @@ class BlocksTest extends \PHPUnit\Framework\TestCase
         $attemptMax = 10;
         while ($attempt < $attemptMax) {
             try {
-                $response = $client->getBlocks();
+                $response = $client->getBlockIds();
                 $blockCount = $response->getUpdatedBlocks();
                 if (0 === $blockCount) {
                     break;
                 }
-                $blocks = $response->getBlocks();
+                $blocks = $response->getBlockIds();
                 $this->assertCount($blockCount, $blocks);
 //                foreach ($blocks as $block) {
 //                    echo $block . "\n";
@@ -53,12 +53,12 @@ class BlocksTest extends \PHPUnit\Framework\TestCase
 
         $blockTime = dechex($blockTime);
 
-        $packages = [];
+        $packageIds = [];
         $isMessageList = false;
         do {
             try {
-                $response = $client->getPackageList($blockTime);
-                $packages = $response->getPackages();
+                $response = $client->getPackageIds($blockTime);
+                $packageIds = $response->getPackageIds();
                 $isMessageList = true;
             } catch (CommandException $ce) {
                 $this->assertEquals(CommandError::NO_MESSAGE_LIST_FILE, $ce->getCode());
@@ -66,12 +66,12 @@ class BlocksTest extends \PHPUnit\Framework\TestCase
             }
         } while (!$isMessageList);
 
-        $this->assertGreaterThan(0, count($packages));
-        foreach ($packages as $package) {
-            /* @var \Adshares\Ads\Entity\Package $package */
-            echo $package->getNode() . '-' . $package->getNodeMsid() . "\n";
+        $this->assertGreaterThan(0, count($packageIds));
+        foreach ($packageIds as $packageId) {
+            echo "$packageId\n";
 
-            $response = $client->getPackage($package->getNode(), $package->getNodeMsid(), $blockTime);
+//            $response = $client->getPackage($packageId, $blockTime);
+            $response = $client->getPackage($packageId);
             $transactions = $response->getTransactions();
             foreach ($transactions as $transaction) {
                 /* @var \Adshares\Ads\Entity\Transaction\AbstractTransaction $transaction */

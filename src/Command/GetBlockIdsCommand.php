@@ -2,7 +2,7 @@
 
 namespace Adshares\Ads\Command;
 
-class GetBlocksCommand extends AbstractCommand
+class GetBlockIdsCommand extends AbstractCommand
 {
     /**
      *

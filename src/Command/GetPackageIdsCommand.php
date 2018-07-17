@@ -2,7 +2,7 @@
 
 namespace Adshares\Ads\Command;
 
-class GetPackageListCommand extends AbstractCommand
+class GetPackageIdsCommand extends AbstractCommand
 {
     /**
      *
