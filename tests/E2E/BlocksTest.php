@@ -42,7 +42,7 @@ class BlocksTest extends \PHPUnit\Framework\TestCase
         $this->assertLessThan($attemptMax, $attempt, "Didn't update blocks in expected attempts.");
     }
 
-    public function testGetPackageList()
+    public function testGetPackageIds()
     {
         $driver = new CliDriver($this->address, $this->secret, $this->host, $this->port);
         $client = new AdsClient($driver);
@@ -57,7 +57,7 @@ class BlocksTest extends \PHPUnit\Framework\TestCase
         $isMessageList = false;
         do {
             try {
-                $response = $client->getPackageIds($blockTime);
+                $response = $client->getMessageIds($blockTime);
                 $packageIds = $response->getPackageIds();
                 $isMessageList = true;
             } catch (CommandException $ce) {
@@ -71,12 +71,12 @@ class BlocksTest extends \PHPUnit\Framework\TestCase
             echo "$packageId\n";
 
 //            $response = $client->getPackage($packageId, $blockTime);
-            $response = $client->getPackage($packageId);
+            $response = $client->getMessage($packageId);
             $transactions = $response->getTransactions();
             foreach ($transactions as $transaction) {
                 /* @var \Adshares\Ads\Entity\Transaction\AbstractTransaction $transaction */
                 echo "\t" . $transaction->getType() . '-' . $transaction->getId() . "\n";
-                if ('connection' ===$transaction->getType()) {
+                if ('connection' === $transaction->getType()) {
                     /* @var \Adshares\Ads\Entity\Transaction\ConnectionTransaction $connectionTx */
                     $connectionTx = $transaction;
                     $ipAddress = $connectionTx->getIpAddress();

@@ -7,7 +7,7 @@ namespace Adshares\Ads\Response;
  *
  * @package Adshares\Ads\Response
  */
-class GetPackageIdsResponse extends AbstractResponse
+class GetMessageIdsResponse extends AbstractResponse
 {
     /**
      * Array of package ids

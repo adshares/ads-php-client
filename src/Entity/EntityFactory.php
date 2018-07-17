@@ -15,7 +15,6 @@ class EntityFactory
         'Broadcast' => '\Adshares\Ads\Entity\Broadcast',
         'NetworkTx' => '\Adshares\Ads\Entity\NetworkTx',
         'Node' => '\Adshares\Ads\Entity\Node',
-        'Package' => '\Adshares\Ads\Entity\Package',
         'Tx' => '\Adshares\Ads\Entity\Tx',
         'Txn' => '\Adshares\Ads\Entity\Txn',
         // Transactions
@@ -124,18 +123,6 @@ class EntityFactory
     {
         /* @var $entity Node */
         $entity = self::create('Node', $data);
-
-        return $entity;
-    }
-
-    /**
-     * @param array $data
-     * @return Package
-     */
-    public static function createPackage(array $data = []): Package
-    {
-        /* @var $entity Package */
-        $entity = self::create('Package', $data);
 
         return $entity;
     }

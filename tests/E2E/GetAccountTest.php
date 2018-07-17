@@ -19,7 +19,10 @@ class GetAccountTest extends \PHPUnit\Framework\TestCase
         $client = new AdsClient($driver);
         $response = $client->getAccount($accountAddress);
 
-        $str = $account = $response->getAccount()->getAddress();
+        $str = $response->getAccount()->getAddress();
+        $this->assertEquals($accountAddress, $str);
+
+        $str = $response->getNetworkAccount()->getAddress();
         $this->assertEquals($accountAddress, $str);
     }
 }

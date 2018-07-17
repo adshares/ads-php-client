@@ -4,7 +4,7 @@ namespace Adshares\Ads\Response;
 
 use Adshares\Ads\Entity\EntityFactory;
 
-class GetPackageResponse extends AbstractResponse
+class GetMessageResponse extends AbstractResponse
 {
     /**
      * @var array[AbstractTransaction]

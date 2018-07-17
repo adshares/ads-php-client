@@ -3,6 +3,7 @@
 namespace Adshares\Ads\Tests\E2E;
 
 use Adshares\Ads\AdsClient;
+use Adshares\Ads\Command\BroadcastCommand;
 use Adshares\Ads\Driver\CliDriver;
 use Adshares\Ads\Driver\CommandError;
 use Adshares\Ads\Entity\Broadcast;
@@ -24,6 +25,7 @@ class BroadcastTest extends \PHPUnit\Framework\TestCase
         $driver = new CliDriver($address, $secret, $host, $port);
         $client = new AdsClient($driver);
         $response = $client->broadcast($message);
+        $this->assertEquals($address, $response->getAccount()->getAddress());
 
         $txId = $response->getTx()->getId();
         echo $txId . "\n";

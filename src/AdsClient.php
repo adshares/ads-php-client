@@ -10,8 +10,8 @@ use Adshares\Ads\Command\GetBlockCommand;
 use Adshares\Ads\Command\GetBlockIdsCommand;
 use Adshares\Ads\Command\GetBroadcastCommand;
 use Adshares\Ads\Command\GetMeCommand;
-use Adshares\Ads\Command\GetPackageCommand;
-use Adshares\Ads\Command\GetPackageIdsCommand;
+use Adshares\Ads\Command\GetMessageCommand;
+use Adshares\Ads\Command\GetMessageIdsCommand;
 use Adshares\Ads\Command\SendManyCommand;
 use Adshares\Ads\Command\SendOneCommand;
 use Adshares\Ads\Driver\DriverInterface;
@@ -23,8 +23,8 @@ use Adshares\Ads\Response\GetAccountsResponse;
 use Adshares\Ads\Response\GetBlockResponse;
 use Adshares\Ads\Response\GetBlockIdsResponse;
 use Adshares\Ads\Response\GetBroadcastResponse;
-use Adshares\Ads\Response\GetPackageIdsResponse;
-use Adshares\Ads\Response\GetPackageResponse;
+use Adshares\Ads\Response\GetMessageIdsResponse;
+use Adshares\Ads\Response\GetMessageResponse;
 use Adshares\Ads\Response\SendManyResponse;
 use Adshares\Ads\Response\SendOneResponse;
 use Psr\Log\LoggerAwareInterface;
@@ -206,38 +206,38 @@ class AdsClient implements LoggerAwareInterface
     }
 
     /**
-     * Returns package data. Each package contains one or more transactions.
+     * Returns message data. Each message contains one or more transactions.
      *
-     * @param string $packageId package id
+     * @param string $messageId message id
      * @param null|string $block
      *
-     * @return GetPackageResponse
+     * @return GetMessageResponse
      *
      * @throws CommandException
      */
-    public function getPackage(string $packageId, string $block = null): GetPackageResponse
+    public function getMessage(string $messageId, string $block = null): GetMessageResponse
     {
-        $command = new GetPackageCommand($packageId, $block);
+        $command = new GetMessageCommand($messageId, $block);
         $response = $this->driver->executeCommand($command);
 
-        return new GetPackageResponse($response->getRawData());
+        return new GetMessageResponse($response->getRawData());
     }
 
     /**
-     * Returns package ids for selected block.
+     * Returns message ids for selected block.
      *
      * @param null|string $block
      *
-     * @return GetPackageIdsResponse
+     * @return GetMessageIdsResponse
      *
      * @throws CommandException
      */
-    public function getPackageIds(string $block = null): GetPackageIdsResponse
+    public function getMessageIds(string $block = null): GetMessageIdsResponse
     {
-        $command = new GetPackageIdsCommand($block);
+        $command = new GetMessageIdsCommand($block);
         $response = $this->driver->executeCommand($command);
 
-        return new GetPackageIdsResponse($response->getRawData());
+        return new GetMessageIdsResponse($response->getRawData());
     }
 
     /**
