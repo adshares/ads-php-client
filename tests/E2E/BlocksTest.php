@@ -14,7 +14,7 @@ class BlocksTest extends \PHPUnit\Framework\TestCase
     private $host = "10.69.3.43";
     private $port = 9001;
 
-    public function testGetBlocks()
+    public function testGetBlockIds()
     {
         $driver = new CliDriver($this->address, $this->secret, $this->host, $this->port);
         $client = new AdsClient($driver);
@@ -42,7 +42,29 @@ class BlocksTest extends \PHPUnit\Framework\TestCase
         $this->assertLessThan($attemptMax, $attempt, "Didn't update blocks in expected attempts.");
     }
 
-    public function testGetPackageIds()
+    public function testGetBlockIdsWithInvalidTime()
+    {
+        $driver = new CliDriver($this->address, $this->secret, $this->host, $this->port);
+        $client = new AdsClient($driver);
+
+        $response = null;
+        try {
+            $response = $client->getBlockIds('10000000', '10000033');
+        } catch (CommandException $ce) {
+            $this->assertEquals(CommandError::NO_BLOCK_IN_SPECIFIED_RANGE, $ce->getCode());
+        }
+        $this->assertNull($response);
+    }
+
+    public function testGetMessageIdsWithoutTime()
+    {
+        $driver = new CliDriver($this->address, $this->secret, $this->host, $this->port);
+        $client = new AdsClient($driver);
+
+        $this->checkMessageIds($client, null);
+    }
+
+    public function testGetMessageIds()
     {
         $driver = new CliDriver($this->address, $this->secret, $this->host, $this->port);
         $client = new AdsClient($driver);
@@ -53,6 +75,43 @@ class BlocksTest extends \PHPUnit\Framework\TestCase
 
         $blockTime = dechex($blockTime);
 
+        $this->checkMessageIds($client, $blockTime);
+    }
+
+    public function testGetMessageIdsFromInvalidBlock()
+    {
+        $driver = new CliDriver($this->address, $this->secret, $this->host, $this->port);
+        $client = new AdsClient($driver);
+
+        $response = null;
+        try {
+            $response = $client->getMessageIds('10000000');
+        } catch (CommandException $ce) {
+            $this->assertEquals(CommandError::NO_MESSAGE_LIST_FILE, $ce->getCode());
+        }
+        $this->assertNull($response);
+    }
+
+    public function testGetMessageFromInvalidBlock()
+    {
+        $driver = new CliDriver($this->address, $this->secret, $this->host, $this->port);
+        $client = new AdsClient($driver);
+
+        $response = null;
+        try {
+            $response = $client->getMessage('0001:00000001', '10000000');
+        } catch (CommandException $ce) {
+            $this->assertEquals(CommandError::BAD_LENGTH, $ce->getCode());
+        }
+        $this->assertNull($response);
+    }
+
+    /**
+     * @param AdsClient $client
+     * @param string|null $blockTime
+     */
+    protected function checkMessageIds(AdsClient $client, ?string $blockTime): void
+    {
         $packageIds = [];
         $isMessageList = false;
         do {

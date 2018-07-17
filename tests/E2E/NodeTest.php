@@ -39,6 +39,20 @@ class NodeTest extends \PHPUnit\Framework\TestCase
         }
     }
 
+    public function testGetBlockWithInvalidTime()
+    {
+        $driver = new CliDriver($this->address, $this->secret, $this->host, $this->port);
+        $client = new AdsClient($driver);
+
+        $response = null;
+        try {
+            $response = $client->getBlock('10000000');
+        } catch (CommandException $ce) {
+            $this->assertEquals(CommandError::GET_BLOCK_INFO_UNAVAILABLE, $ce->getCode());
+        }
+        $this->assertNull($response);
+    }
+
     public function testGetAccounts()
     {
         $driver = new CliDriver($this->address, $this->secret, $this->host, $this->port);

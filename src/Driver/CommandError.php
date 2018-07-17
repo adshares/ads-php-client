@@ -43,7 +43,7 @@ class CommandError
      */
     public const NO_BROADCAST_FILE = 5023;
     /**
-     * For getPackageList: No message list. Need to retry after short delay.
+     * For getMessageIds: No message list. Need to retry after short delay.
      */
     public const NO_MESSAGE_LIST_FILE = 5024;
     public const INCORRECT_TRANSACTION = 5025;
@@ -80,6 +80,9 @@ class CommandError
     public const FEE_BELOW_ZERO = 5052;
     public const FAILED_TO_READ_BLOCK_START = 5053;
     public const FAILED_TO_READ_BLOCK_AT_START = 5054;
+    /**
+     * For getBlocks: Parameter 'from' is before genesis or there are no blocks in defined period.
+     */
     public const NO_BLOCK_IN_SPECIFIED_RANGE = 5055;
     public const COULD_NOT_READ_CORRECT_VIP_KEYS = 5056;
     /**
