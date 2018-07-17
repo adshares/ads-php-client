@@ -148,7 +148,7 @@ class Block extends AbstractEntity
      *
      * @return string
      */
-    public function getMinhash(): string
+    public function getMinHash(): string
     {
         return $this->minhash;
     }
@@ -157,7 +157,7 @@ class Block extends AbstractEntity
      *
      * @return string
      */
-    public function getMsghash(): string
+    public function getMsgHash(): string
     {
         return $this->msghash;
     }
@@ -184,7 +184,7 @@ class Block extends AbstractEntity
      *
      * @return string
      */
-    public function getNodhash(): string
+    public function getNodHash(): string
     {
         return $this->nodhash;
     }
@@ -193,7 +193,7 @@ class Block extends AbstractEntity
      *
      * @return string
      */
-    public function getNowhash(): string
+    public function getNowHash(): string
     {
         return $this->nowhash;
     }
@@ -202,7 +202,7 @@ class Block extends AbstractEntity
      *
      * @return string
      */
-    public function getOldhash(): string
+    public function getOldHash(): string
     {
         return $this->oldhash;
     }
@@ -220,7 +220,7 @@ class Block extends AbstractEntity
      *
      * @return string
      */
-    public function getViphash(): string
+    public function getVipHash(): string
     {
         return $this->viphash;
     }
