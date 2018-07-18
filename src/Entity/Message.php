@@ -93,7 +93,7 @@ class Message extends AbstractEntity
     {
         $entity = new static();
         $entity->fillWithRawData($data);
-        $entity->nodeId = sprintf("%04X", $data['node']);
+        $entity->nodeId = sprintf('%04X', $data['node']);
 
         return $entity;
     }

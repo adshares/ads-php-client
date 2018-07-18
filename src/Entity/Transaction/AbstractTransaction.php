@@ -14,7 +14,22 @@ abstract class AbstractTransaction extends AbstractEntity
     /**
      * @var string
      */
+    protected $blockId;
+
+    /**
+     * @var string
+     */
     protected $id;
+
+    /**
+     * @var string
+     */
+    protected $messageId;
+
+    /**
+     * @var string
+     */
+    protected $nodeId;
 
     /**
      * @var string
@@ -29,9 +44,33 @@ abstract class AbstractTransaction extends AbstractEntity
     /**
      * @return string
      */
+    public function getBlockId(): string
+    {
+        return $this->blockId;
+    }
+
+    /**
+     * @return string
+     */
     public function getId(): string
     {
         return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMessageId(): string
+    {
+        return $this->messageId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNodeId(): string
+    {
+        return $this->nodeId;
     }
 
     /**
