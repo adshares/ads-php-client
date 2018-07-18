@@ -7,24 +7,25 @@ use Adshares\Ads\Util\AdsConverter;
 class SendOneCommand extends AbstractTransactionCommand
 {
     /**
-     * @var string $address
+     * @var string $address address to which funds will be transferred
      */
     private $address;
 
     /**
-     * @var int $amount
+     * @var int $amount transfer amount in clicks
      */
     private $amount;
 
     /**
-     * @var null|string $message
+     * @var null|string $message transfer message, 32 bytes hexadecimal string without leading 0x (64 characters)
      */
     private $message;
 
     /**
-     * @param string $address
-     * @param int $amount
-     * @param null|string $message
+     * @param string $address address to which funds will be transferred
+     * @param int $amount transfer amount in clicks
+     * @param null|string $message transfer  message, 32 bytes hexadecimal string without leading 0x (64 characters)
+     *
      */
     public function __construct(string $address, int $amount, ?string $message)
     {

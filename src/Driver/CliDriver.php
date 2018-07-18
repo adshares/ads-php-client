@@ -142,9 +142,10 @@ class CliDriver implements DriverInterface, LoggerAwareInterface
      *
      * @param  null|string $hash
      * @param  null|int $messageId
+     * @param bool $isDryRun
      * @return Process
      */
-    private function getProcess(?string $hash = null, ?int $messageId = null): Process
+    private function getProcess(?string $hash = null, ?int $messageId = null, bool $isDryRun = false): Process
     {
         $cmd = [
             $this->command,
@@ -171,6 +172,9 @@ class CliDriver implements DriverInterface, LoggerAwareInterface
         if (null !== $messageId) {
             $cmd[] = '--msid=' . $messageId;
         }
+        if ($isDryRun) {
+            $cmd[] = '--dry-run=1';
+        }
 
         return new Process(
             $cmd,
@@ -183,13 +187,11 @@ class CliDriver implements DriverInterface, LoggerAwareInterface
 
     /**
      * @param CommandInterface $command
+     * @param array $data
      * @return string
      */
-    private function prepareInput(CommandInterface $command): string
+    private function prepareInput(CommandInterface $command, array $data): string
     {
-        $data = $command->getAttributes();
-        $data['run'] = $command->getName();
-
         if (false === ($input = json_encode($data))) {
             throw new CommandException(
                 $command,
@@ -241,11 +243,43 @@ class CliDriver implements DriverInterface, LoggerAwareInterface
      */
     public function executeCommand(CommandInterface $command): ResponseInterface
     {
+        $process = $this->getProcess();
+        $data = $command->getAttributes();
+        $data['run'] = $command->getName();
+
+        return $this->runProcess($command, $data, $process);
+    }
+
+    /**
+     * @param TransactionInterface $transaction
+     * @param bool $isDryRun if true, transaction will not be send to network
+     * @return ResponseInterface
+     */
+    public function executeTransaction(TransactionInterface $transaction, bool $isDryRun = false): ResponseInterface
+    {
+        $process = $this->getProcess(
+            $transaction->getLastHash(),
+            $transaction->getLastMessageId(),
+            $isDryRun
+        );
+        $data = $transaction->getAttributes();
+        $data['run'] = $transaction->getName();
+        // TODO: add signature, time, ?sender.
+
+        return $this->runProcess($transaction, $data, $process);
+    }
+
+    /**
+     * @param CommandInterface $command
+     * @param array $data
+     * @param Process $process
+     * @return RawResponse
+     */
+    protected function runProcess(CommandInterface $command, array $data, Process $process): RawResponse
+    {
+        $preparedInputData = $this->prepareInput($command, $data);
+
         $input = new InputStream();
-        $process =
-            $command instanceof TransactionInterface ?
-                $this->getProcess($command->getLastHash(), $command->getLastMessageId()) :
-                $this->getProcess();
         $process->setInput($input);
         $process->start();
 
@@ -253,7 +287,6 @@ class CliDriver implements DriverInterface, LoggerAwareInterface
             $input->write("{$this->secret}\n");
         }
 
-        $preparedInputData = $this->prepareInput($command);
         $input->write($preparedInputData);
         $input->close();
 

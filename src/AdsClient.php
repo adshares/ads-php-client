@@ -87,18 +87,15 @@ class AdsClient implements LoggerAwareInterface
     /**
      * Sends broadcast message to blockchain network.
      *
-     * @param string $message hexadecimal string with even number of characters
-     *      (each two characters represents one byte). Maximum size of message is 32000 bytes.
+     * @param BroadcastCommand $command BroadcastCommand
+     * @param bool $isDryRun if true, transaction won't be send to network
      *
      * @return BroadcastResponse
-     *
-     * @throws CommandException
      */
-    public function broadcast(string $message): BroadcastResponse
+    public function broadcast(BroadcastCommand $command, bool $isDryRun = false): BroadcastResponse
     {
-        $command = new BroadcastCommand($message);
         $this->prepareTransaction($command);
-        $response = $this->driver->executeCommand($command);
+        $response = $this->driver->executeTransaction($command, $isDryRun);
 
         return new BroadcastResponse($response->getRawData());
     }
@@ -250,18 +247,14 @@ class AdsClient implements LoggerAwareInterface
     /**
      * Transfers funds to many accounts.
      *
-     * @param array $wires array of wires. Each entry is pair: account address => amount in clicks.
-     *                     Example: ['0001-00000000-XXXX'=>200,'0001-00000001-XXXX'=>10]
-     *
+     * @param SendManyCommand $command SendManyCommand
+     * @param bool $isDryRun if true, transaction won't be send to network
      * @return SendManyResponse
-     *
-     * @throws CommandException
      */
-    public function sendMany(array $wires): SendManyResponse
+    public function sendMany(SendManyCommand $command, bool $isDryRun = false): SendManyResponse
     {
-        $command = new SendManyCommand($wires);
         $this->prepareTransaction($command);
-        $response = $this->driver->executeCommand($command);
+        $response = $this->driver->executeTransaction($command, $isDryRun);
 
         return new SendManyResponse($response->getRawData());
     }
@@ -269,19 +262,14 @@ class AdsClient implements LoggerAwareInterface
     /**
      * Transfers funds to one account.
      *
-     * @param string $address address to which funds will be transferred
-     * @param int $amount transfer amount in clicks
-     * @param null|string $message optional message, 32 bytes hexadecimal string without leading 0x (64 characters)
-     *
+     * @param SendOneCommand $command SendOneCommand
+     * @param bool $isDryRun if true, transaction won't be send to network
      * @return SendOneResponse
-     *
-     * @throws CommandException
      */
-    public function sendOne(string $address, int $amount, ?string $message = null): SendOneResponse
+    public function sendOne(SendOneCommand $command, bool $isDryRun = false): SendOneResponse
     {
-        $command = new SendOneCommand($address, $amount, $message);
         $this->prepareTransaction($command);
-        $response = $this->driver->executeCommand($command);
+        $response = $this->driver->executeTransaction($command, $isDryRun);
 
         return new SendOneResponse($response->getRawData());
     }

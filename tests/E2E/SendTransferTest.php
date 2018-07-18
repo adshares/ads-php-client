@@ -3,6 +3,8 @@
 namespace Adshares\Ads\Tests\E2E;
 
 use Adshares\Ads\AdsClient;
+use Adshares\Ads\Command\SendManyCommand;
+use Adshares\Ads\Command\SendOneCommand;
 use Adshares\Ads\Driver\CliDriver;
 
 class SendTransferTest extends \PHPUnit\Framework\TestCase
@@ -19,7 +21,9 @@ class SendTransferTest extends \PHPUnit\Framework\TestCase
 
         $amount = 1;
         $message = "0000111122223333444455556666777700001111222233334444555566667777";
-        $response = $client->sendOne($this->address, $amount, $message);
+
+        $command = new SendOneCommand($this->address, $amount, $message);
+        $response = $client->sendOne($command);
         $account = $response->getAccount();
         $this->assertEquals($this->address, $account->getAddress());
 
@@ -40,7 +44,8 @@ class SendTransferTest extends \PHPUnit\Framework\TestCase
             "0002-00000000-XXXX" => $amount,
             "0002-00000001-XXXX" => $amount,
         ];
-        $response = $client->sendMany($wires);
+        $command = new SendManyCommand($wires);
+        $response = $client->sendMany($command);
         $account = $response->getAccount();
         $this->assertEquals($this->address, $account->getAddress());
 
