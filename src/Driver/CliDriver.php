@@ -19,6 +19,11 @@ class CliDriver implements DriverInterface, LoggerAwareInterface
     use LoggerAwareTrait;
 
     /**
+     * response field in which error message is stored
+     */
+    const LABEL_ERROR = 'error';
+
+    /**
      * @var string
      */
     private $command = 'ads';
@@ -259,12 +264,20 @@ class CliDriver implements DriverInterface, LoggerAwareInterface
     {
         $process = $this->getProcess(
             $transaction->getLastHash(),
-            $transaction->getLastMessageId(),
+            $transaction->getLastMsid(),
             $isDryRun
         );
         $data = $transaction->getAttributes();
         $data['run'] = $transaction->getName();
-        // TODO: add signature, time, ?sender.
+        if ($transaction->getSender()) {
+            $data['sender'] = $transaction->getSender();
+        }
+        if ($transaction->getSignature()) {
+            $data['signature'] = $transaction->getSignature();
+        }
+        if ($transaction->getTimestamp()) {
+            $data['time'] = $transaction->getTimestamp();
+        }
 
         return $this->runProcess($transaction, $data, $process);
     }
@@ -315,8 +328,12 @@ class CliDriver implements DriverInterface, LoggerAwareInterface
 
         $this->logger->debug(sprintf('[ADS_CLIENT] %s %s', $command->getName(), $preparedInputData), $context);
 
-        if (isset($message['error'])) {
-            throw new CommandException($command, $message['error'], CommandError::getCodeByMessage($message['error']));
+        if (isset($message[self::LABEL_ERROR])) {
+            throw new CommandException(
+                $command,
+                $message[self::LABEL_ERROR],
+                CommandError::getCodeByMessage($message[self::LABEL_ERROR])
+            );
         }
 
         return new RawResponse($message);

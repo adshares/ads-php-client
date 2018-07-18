@@ -75,13 +75,24 @@ class AdsClient implements LoggerAwareInterface
      *
      * @param AbstractTransactionCommand $transaction
      *
+     * @param bool $force force set msid and hash
+     *
      * @throws CommandException
      */
-    private function prepareTransaction(AbstractTransactionCommand $transaction)
+    private function prepareTransaction(AbstractTransactionCommand $transaction, bool $force = false): void
     {
-        $getMeResponse = $this->getMe();
-        $transaction->setLastHash($getMeResponse->getAccount()->getHash());
-        $transaction->setLastMessageId($getMeResponse->getAccount()->getMsid());
+        if (!$force && null !== $transaction->getLastMsid()) {
+            return;
+        }
+
+        $sender = $transaction->getSender();
+        if (null !== $sender) {
+            $resp = $this->getAccount($sender);
+        } else {
+            $resp = $this->getMe();
+        }
+        $transaction->setLastMsid($resp->getAccount()->getMsid());
+        $transaction->setLastHash($resp->getAccount()->getHash());
     }
 
     /**
