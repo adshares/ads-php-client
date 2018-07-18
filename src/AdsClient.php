@@ -7,11 +7,11 @@ use Adshares\Ads\Command\BroadcastCommand;
 use Adshares\Ads\Command\GetAccountCommand;
 use Adshares\Ads\Command\GetAccountsCommand;
 use Adshares\Ads\Command\GetBlockCommand;
-use Adshares\Ads\Command\GetBlocksCommand;
+use Adshares\Ads\Command\GetBlockIdsCommand;
 use Adshares\Ads\Command\GetBroadcastCommand;
 use Adshares\Ads\Command\GetMeCommand;
-use Adshares\Ads\Command\GetPackageCommand;
-use Adshares\Ads\Command\GetPackageListCommand;
+use Adshares\Ads\Command\GetMessageCommand;
+use Adshares\Ads\Command\GetMessageIdsCommand;
 use Adshares\Ads\Command\SendManyCommand;
 use Adshares\Ads\Command\SendOneCommand;
 use Adshares\Ads\Driver\DriverInterface;
@@ -21,11 +21,10 @@ use Adshares\Ads\Response\BroadcastResponse;
 use Adshares\Ads\Response\GetAccountResponse;
 use Adshares\Ads\Response\GetAccountsResponse;
 use Adshares\Ads\Response\GetBlockResponse;
-use Adshares\Ads\Response\GetBlocksResponse;
+use Adshares\Ads\Response\GetBlockIdsResponse;
 use Adshares\Ads\Response\GetBroadcastResponse;
-use Adshares\Ads\Response\GetMeResponse;
-use Adshares\Ads\Response\GetPackageListResponse;
-use Adshares\Ads\Response\GetPackageResponse;
+use Adshares\Ads\Response\GetMessageIdsResponse;
+use Adshares\Ads\Response\GetMessageResponse;
 use Adshares\Ads\Response\SendManyResponse;
 use Adshares\Ads\Response\SendOneResponse;
 use Psr\Log\LoggerAwareInterface;
@@ -61,6 +60,8 @@ class AdsClient implements LoggerAwareInterface
     }
 
     /**
+     * Sets response entities map.
+     *
      * @param array $map
      */
     public static function setEntityMap(array $map): void
@@ -69,6 +70,9 @@ class AdsClient implements LoggerAwareInterface
     }
 
     /**
+     * Fills last account hash and message id in request. Function needs to be called before transaction.
+     * Otherwise above parameters should be passed explicitly.
+     *
      * @param AbstractTransactionCommand $transaction
      *
      * @throws CommandException
@@ -81,13 +85,16 @@ class AdsClient implements LoggerAwareInterface
     }
 
     /**
+     * Sends broadcast message to blockchain network.
+     *
      * @param string $message hexadecimal string with even number of characters
+     *      (each two characters represents one byte). Maximum size of message is 32000 bytes.
      *
      * @return BroadcastResponse
      *
      * @throws CommandException
      */
-    public function broadcast($message): BroadcastResponse
+    public function broadcast(string $message): BroadcastResponse
     {
         $command = new BroadcastCommand($message);
         $this->prepareTransaction($command);
@@ -97,7 +104,9 @@ class AdsClient implements LoggerAwareInterface
     }
 
     /**
-     * @param string $address
+     * Returns account data.
+     *
+     * @param string $address account address
      *
      * @return GetAccountResponse
      *
@@ -112,113 +121,135 @@ class AdsClient implements LoggerAwareInterface
     }
 
     /**
-     * @param int         $node
-     * @param null|string $block
+     * Returns account list for node.
+     *
+     * @param int $node node
+     * @param null|string $blockId block id, time in Unix Epoch seconds as hexadecimal string.
+     *                             If null, last block will be taken.
      *
      * @return GetAccountsResponse
      *
      * @throws CommandException
      */
-    public function getAccounts(int $node, string $block = null): GetAccountsResponse
+    public function getAccounts(int $node, ?string $blockId = null): GetAccountsResponse
     {
-        $command = new GetAccountsCommand($node, $block);
+        $command = new GetAccountsCommand($node, $blockId);
         $response = $this->driver->executeCommand($command);
 
         return new GetAccountsResponse($response->getRawData());
     }
 
     /**
-     * @param null|string $block [optional] block time in Unix Epoch seconds as hexadecimal String
+     * Returns block data.
+     *
+     * @param null|string $blockId block id, time in Unix Epoch seconds as hexadecimal string.
+     *                             If null, last block will be taken.
      *
      * @return GetBlockResponse
      *
      * @throws CommandException
      */
-    public function getBlock(string $block = null): GetBlockResponse
+    public function getBlock(?string $blockId = null): GetBlockResponse
     {
-        $command = new GetBlockCommand($block);
+        $command = new GetBlockCommand($blockId);
         $response = $this->driver->executeCommand($command);
 
         return new GetBlockResponse($response->getRawData());
     }
 
     /**
-     * @param null|string $from [optional] block time in Unix Epoch seconds as hexadecimal String
-     * @param null|string $to   [optional] block time in Unix Epoch seconds as hexadecimal String
+     * Updates block data for selected period and returns ids of updated blocks.
      *
-     * @return GetBlocksResponse
+     * @param null|string $blockIdFrom starting block id, time in Unix Epoch seconds as hexadecimal string.
+     *                             If null, first block (genesis) will be taken.
+     * @param null|string $blockIdTo ending block id, time in Unix Epoch seconds as hexadecimal string.
+     *                             If null, last block will be taken.
+     *
+     * @return GetBlockIdsResponse
      *
      * @throws CommandException
      */
-    public function getBlocks(string $from = null, string $to = null): GetBlocksResponse
+    public function getBlockIds(?string $blockIdFrom = null, ?string $blockIdTo = null): GetBlockIdsResponse
     {
-        $command = new GetBlocksCommand($from, $to);
+        $command = new GetBlockIdsCommand($blockIdFrom, $blockIdTo);
         $response = $this->driver->executeCommand($command);
 
-        return new GetBlocksResponse($response->getRawData());
+        return new GetBlockIdsResponse($response->getRawData());
     }
 
     /**
-     * @param null|string $from block time in Unix Epoch seconds as hexadecimal String, 0 for last block
+     * Collects broadcast messages for particular block. Messages are in random order and can be duplicated.
+     *
+     * @param null|string $blockId block id, time in Unix Epoch seconds as hexadecimal string.
+     *                             If null, last block will be taken.
      *
      * @return GetBroadcastResponse
      *
      * @throws CommandException
      */
-    public function getBroadcast(string $from = null): GetBroadcastResponse
+    public function getBroadcast(?string $blockId = null): GetBroadcastResponse
     {
-        $command = new GetBroadcastCommand($from);
+        $command = new GetBroadcastCommand($blockId);
         $response = $this->driver->executeCommand($command);
 
         return new GetBroadcastResponse($response->getRawData());
     }
 
     /**
-     * @return GetMeResponse
+     * Returns current account data. Current account is the account, which was used to initialize AdsClient.
+     *
+     * @return GetAccountResponse
      *
      * @throws CommandException
      */
-    public function getMe(): GetMeResponse
+    public function getMe(): GetAccountResponse
     {
         $command = new GetMeCommand();
         $response = $this->driver->executeCommand($command);
 
-        return new GetMeResponse($response->getRawData());
+        return new GetAccountResponse($response->getRawData());
     }
 
     /**
-     * @param int $node
-     * @param int $nodeMsid
-     * @param null|string $block
+     * Returns message data. Each message contains one or more transactions.
      *
-     * @return GetPackageResponse
+     * @param string $messageId message id
+     * @param null|string $blockId block id, time in Unix Epoch seconds as hexadecimal string.
+     *                             If null, block will be calculated automatically.
+     *
+     * @return GetMessageResponse
      *
      * @throws CommandException
      */
-    public function getPackage(int $node, int $nodeMsid, string $block = null): GetPackageResponse
+    public function getMessage(string $messageId, ?string $blockId = null): GetMessageResponse
     {
-        $command = new GetPackageCommand($node, $nodeMsid, $block);
+        $command = new GetMessageCommand($messageId, $blockId);
         $response = $this->driver->executeCommand($command);
 
-        return new GetPackageResponse($response->getRawData());
+        return new GetMessageResponse($response->getRawData());
     }
 
     /**
-     * @param null|string $block
+     * Returns message ids for selected block.
      *
-     * @return GetPackageListResponse
+     * @param null|string $blockId block id, time in Unix Epoch seconds as hexadecimal string.
+     *                             If null, last block will be taken.
+     *
+     * @return GetMessageIdsResponse
      *
      * @throws CommandException
      */
-    public function getPackageList(string $block = null): GetPackageListResponse
+    public function getMessageIds(?string $blockId = null): GetMessageIdsResponse
     {
-        $command = new GetPackageListCommand($block);
+        $command = new GetMessageIdsCommand($blockId);
         $response = $this->driver->executeCommand($command);
 
-        return new GetPackageListResponse($response->getRawData());
+        return new GetMessageIdsResponse($response->getRawData());
     }
 
     /**
+     * Transfers funds to many accounts.
+     *
      * @param array $wires array of wires. Each entry is pair: account address => amount in clicks.
      *                     Example: ['0001-00000000-XXXX'=>200,'0001-00000001-XXXX'=>10]
      *
@@ -236,15 +267,17 @@ class AdsClient implements LoggerAwareInterface
     }
 
     /**
-     * @param string      $address address to which funds will be transferred
-     * @param int         $amount  transfer amount in clicks
-     * @param null|string $message optional message, 32 bytes hexadecimal string without leading 0x
+     * Transfers funds to one account.
+     *
+     * @param string $address address to which funds will be transferred
+     * @param int $amount transfer amount in clicks
+     * @param null|string $message optional message, 32 bytes hexadecimal string without leading 0x (64 characters)
      *
      * @return SendOneResponse
      *
      * @throws CommandException
      */
-    public function sendOne(string $address, int $amount, $message = null): SendOneResponse
+    public function sendOne(string $address, int $amount, ?string $message = null): SendOneResponse
     {
         $command = new SendOneCommand($address, $amount, $message);
         $this->prepareTransaction($command);

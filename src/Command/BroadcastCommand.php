@@ -5,7 +5,6 @@ namespace Adshares\Ads\Command;
 class BroadcastCommand extends AbstractTransactionCommand
 {
     /**
-     *
      * @var string $message
      */
     private $message;
@@ -31,10 +30,6 @@ class BroadcastCommand extends AbstractTransactionCommand
 
     public function getAttributes(): array
     {
-        if ($this->message) {
-            return ["message" => $this->message];
-        } else {
-            return parent::getAttributes();
-        }
+        return ["message" => $this->message];
     }
 }

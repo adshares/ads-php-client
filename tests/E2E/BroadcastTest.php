@@ -13,20 +13,32 @@ class BroadcastTest extends \PHPUnit\Framework\TestCase
 {
     const BLOCK_TIME_SECONDS = 32;
 
+    private $address = "0001-00000000-9B6F";
+    private $secret = "BB3425F914CA9F661CA6F3B908E07092B5AFB7F2FDAE2E94EDE12C83207CA743";
+    private $host = "10.69.3.43";
+    private $port = 9001;
+
+
+    public function testBroadcastWithoutTime()
+    {
+        $driver = new CliDriver($this->address, $this->secret, $this->host, $this->port);
+        $client = new AdsClient($driver);
+
+        $this->expectException(CommandException::class);
+        $this->expectExceptionCode(CommandError::NO_BROADCAST_FILE);
+        $client->getBroadcast();
+    }
+
     public function testBroadcast()
     {
-        $address = "0001-00000000-9B6F";
-        $secret = "BB3425F914CA9F661CA6F3B908E07092B5AFB7F2FDAE2E94EDE12C83207CA743";
-        $host = "10.69.3.43";
-        $port = 9001;
+        $driver = new CliDriver($this->address, $this->secret, $this->host, $this->port);
+        $client = new AdsClient($driver);
 
         $message = strtoupper("12ab");
-        $driver = new CliDriver($address, $secret, $host, $port);
-        $client = new AdsClient($driver);
         $response = $client->broadcast($message);
+        $this->assertEquals($this->address, $response->getAccount()->getAddress());
 
         $txId = $response->getTx()->getId();
-        echo $txId . "\n";
 
         $this->assertInternalType("string", $txId);
 
@@ -68,6 +80,5 @@ class BroadcastTest extends \PHPUnit\Framework\TestCase
         $this->assertNotNull($broadcast);
         $this->assertInstanceOf(Broadcast::class, $broadcast);
         $this->assertEquals($message, $broadcast->getMessage());
-        print_r($broadcast->getMessage());
     }
 }

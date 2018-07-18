@@ -5,7 +5,7 @@ namespace Adshares\Ads\Entity\Transaction;
 use Adshares\Ads\Entity\AbstractEntity;
 
 /**
- * AbstractTransaction included in getPackage response.
+ * AbstractTransaction is base class for all transactions included in getMessage response.
  *
  * @package Adshares\Ads\Entity
  */

@@ -2,21 +2,21 @@
 
 namespace Adshares\Ads\Command;
 
-class GetPackageListCommand extends AbstractCommand
+class GetMessageIdsCommand extends AbstractCommand
 {
     /**
      *
-     * @var null|string $block
+     * @var null|string $blockId
      */
-    private $block;
+    private $blockId;
 
     /**
      *
-     * @param null|string $block
+     * @param null|string $blockId
      */
-    public function __construct($block)
+    public function __construct(?string $blockId)
     {
-        $this->block = $block;
+        $this->blockId = $blockId;
     }
 
     /**
@@ -30,8 +30,8 @@ class GetPackageListCommand extends AbstractCommand
 
     public function getAttributes(): array
     {
-        if ($this->block) {
-            return ["block" => $this->block];
+        if ($this->blockId) {
+            return ["block" => $this->blockId];
         } else {
             return parent::getAttributes();
         }

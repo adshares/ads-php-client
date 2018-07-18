@@ -14,7 +14,26 @@ class BlocksTest extends \PHPUnit\Framework\TestCase
     private $host = "10.69.3.43";
     private $port = 9001;
 
-    public function testGetBlocks()
+    const TRANSACTION_TYPES = [
+        'account_created',
+        'broadcast',
+        'change_account_key',
+        'change_node_key',
+        'connection',
+        'create_account',
+        'create_node',
+        'empty',
+        'log_account',
+        'retrieve_funds',
+        'send_many',
+        'send_one',
+        'set_account_status',
+        'set_node_status',
+        'unset_account_status',
+        'unset_node_status',
+    ];
+
+    public function testGetBlockIds()
     {
         $driver = new CliDriver($this->address, $this->secret, $this->host, $this->port);
         $client = new AdsClient($driver);
@@ -23,16 +42,13 @@ class BlocksTest extends \PHPUnit\Framework\TestCase
         $attemptMax = 10;
         while ($attempt < $attemptMax) {
             try {
-                $response = $client->getBlocks();
+                $response = $client->getBlockIds();
                 $blockCount = $response->getUpdatedBlocks();
                 if (0 === $blockCount) {
                     break;
                 }
-                $blocks = $response->getBlocks();
+                $blocks = $response->getBlockIds();
                 $this->assertCount($blockCount, $blocks);
-//                foreach ($blocks as $block) {
-//                    echo $block . "\n";
-//                }
             } catch (CommandException $ce) {
                 $this->assertEquals(CommandError::GET_SIGNATURE_UNAVAILABLE, $ce->getCode());
                 sleep(4);
@@ -42,7 +58,25 @@ class BlocksTest extends \PHPUnit\Framework\TestCase
         $this->assertLessThan($attemptMax, $attempt, "Didn't update blocks in expected attempts.");
     }
 
-    public function testGetPackageList()
+    public function testGetBlockIdsWithInvalidTime()
+    {
+        $driver = new CliDriver($this->address, $this->secret, $this->host, $this->port);
+        $client = new AdsClient($driver);
+
+        $this->expectException(CommandException::class);
+        $this->expectExceptionCode(CommandError::NO_BLOCK_IN_SPECIFIED_RANGE);
+        $client->getBlockIds('10000000', '10000033');
+    }
+
+    public function testGetMessageIdsWithoutTime()
+    {
+        $driver = new CliDriver($this->address, $this->secret, $this->host, $this->port);
+        $client = new AdsClient($driver);
+
+        $this->checkMessageIds($client, null);
+    }
+
+    public function testGetMessageIds()
     {
         $driver = new CliDriver($this->address, $this->secret, $this->host, $this->port);
         $client = new AdsClient($driver);
@@ -50,15 +84,43 @@ class BlocksTest extends \PHPUnit\Framework\TestCase
         $response = $client->getMe();
         $blockTime = $response->getPreviousBlockTime();
         $blockTime = $blockTime->getTimestamp();
-
         $blockTime = dechex($blockTime);
 
-        $packages = [];
+        $this->checkMessageIds($client, $blockTime);
+    }
+
+    public function testGetMessageIdsFromInvalidBlock()
+    {
+        $driver = new CliDriver($this->address, $this->secret, $this->host, $this->port);
+        $client = new AdsClient($driver);
+
+        $this->expectException(CommandException::class);
+        $this->expectExceptionCode(CommandError::NO_MESSAGE_LIST_FILE);
+        $client->getMessageIds('10000000');
+    }
+
+    public function testGetMessageFromInvalidBlock()
+    {
+        $driver = new CliDriver($this->address, $this->secret, $this->host, $this->port);
+        $client = new AdsClient($driver);
+
+        $this->expectException(CommandException::class);
+        $this->expectExceptionCode(CommandError::BAD_LENGTH);
+        $client->getMessage('0001:00000001', '10000000');
+    }
+
+    /**
+     * @param AdsClient $client
+     * @param string|null $blockTime
+     */
+    protected function checkMessageIds(AdsClient $client, ?string $blockTime): void
+    {
+        $messageIds = [];
         $isMessageList = false;
         do {
             try {
-                $response = $client->getPackageList($blockTime);
-                $packages = $response->getPackages();
+                $response = $client->getMessageIds($blockTime);
+                $messageIds = $response->getMessageIds();
                 $isMessageList = true;
             } catch (CommandException $ce) {
                 $this->assertEquals(CommandError::NO_MESSAGE_LIST_FILE, $ce->getCode());
@@ -66,23 +128,15 @@ class BlocksTest extends \PHPUnit\Framework\TestCase
             }
         } while (!$isMessageList);
 
-        $this->assertGreaterThan(0, count($packages));
-        foreach ($packages as $package) {
-            /* @var \Adshares\Ads\Entity\Package $package */
-            echo $package->getNode() . '-' . $package->getNodeMsid() . "\n";
-
-            $response = $client->getPackage($package->getNode(), $package->getNodeMsid(), $blockTime);
+        $this->assertGreaterThan(0, count($messageIds));
+        foreach ($messageIds as $messageId) {
+            $response = $client->getMessage($messageId);
             $transactions = $response->getTransactions();
+
+            /* @var \Adshares\Ads\Entity\Transaction\AbstractTransaction $transaction */
             foreach ($transactions as $transaction) {
-                /* @var \Adshares\Ads\Entity\Transaction\AbstractTransaction $transaction */
-                echo "\t" . $transaction->getType() . '-' . $transaction->getId() . "\n";
-                if ('connection' ===$transaction->getType()) {
-                    /* @var \Adshares\Ads\Entity\Transaction\ConnectionTransaction $connectionTx */
-                    $connectionTx = $transaction;
-                    $ipAddress = $connectionTx->getIpAddress();
-                    $port = $connectionTx->getPort();
-                    echo "\t\t$ipAddress:$port\n";
-                }
+                $type = $transaction->getType();
+                $this->assertContains($type, self::TRANSACTION_TYPES);
             }
         }
     }

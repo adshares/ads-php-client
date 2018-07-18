@@ -5,23 +5,19 @@ namespace Adshares\Ads\Command;
 class GetBroadcastCommand extends AbstractCommand
 {
     /**
-     *
-     * @var null|string $from
+     * @var null|string $blockId
      */
-    private $from;
+    private $blockId;
 
     /**
-     * GetBroadcastCommand constructor.
-     *
-     * @param null|string $from
+     * @param null|string $blockId
      */
-    public function __construct($from)
+    public function __construct($blockId)
     {
-        $this->from = $from;
+        $this->blockId = $blockId;
     }
 
     /**
-     *
      * @return string
      */
     public function getName(): string
@@ -31,8 +27,8 @@ class GetBroadcastCommand extends AbstractCommand
 
     public function getAttributes(): array
     {
-        if ($this->from) {
-            return ["from" => $this->from];
+        if ($this->blockId) {
+            return ["from" => $this->blockId];
         } else {
             return parent::getAttributes();
         }

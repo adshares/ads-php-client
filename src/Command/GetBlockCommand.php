@@ -6,22 +6,19 @@ class GetBlockCommand extends AbstractCommand
 {
     /**
      *
-     * @var null|string $block
+     * @var null|string $blockId
      */
-    private $block;
+    private $blockId;
 
     /**
-     * GetBlocksCommand constructor.
-     *
-     * @param null|string $block
+     * @param null|string $blockId
      */
-    public function __construct($block)
+    public function __construct(?string $blockId)
     {
-        $this->block = $block;
+        $this->blockId = $blockId;
     }
 
     /**
-     *
      * @return string
      */
     public function getName(): string
@@ -32,8 +29,8 @@ class GetBlockCommand extends AbstractCommand
     public function getAttributes(): array
     {
         $attributes = [];
-        if ($this->block) {
-            $attributes["block"] = $this->block;
+        if ($this->blockId) {
+            $attributes["block"] = $this->blockId;
         }
         return $attributes;
     }
