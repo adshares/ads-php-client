@@ -3,18 +3,18 @@
 namespace Adshares\Ads\Response;
 
 /**
- * Response for GetPackageIds.
+ * Response for GetMessageIds.
  *
  * @package Adshares\Ads\Response
  */
 class GetMessageIdsResponse extends AbstractResponse
 {
     /**
-     * Array of package ids
+     * Array of message ids
      *
      * @var array[string]
      */
-    protected $packageIds = [];
+    protected $messageIds = [];
 
     /**
      * @param array $data
@@ -25,16 +25,16 @@ class GetMessageIdsResponse extends AbstractResponse
 
         if (array_key_exists('messages', $data)) {
             foreach ($data['messages'] as $value) {
-                $this->packageIds[] = $value;
+                $this->messageIds[] = $value;
             }
         }
     }
 
     /**
-     * @return array Array of package ids
+     * @return array Array of message ids
      */
-    public function getPackageIds(): array
+    public function getMessageIds(): array
     {
-        return $this->packageIds;
+        return $this->messageIds;
     }
 }

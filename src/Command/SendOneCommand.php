@@ -7,31 +7,26 @@ use Adshares\Ads\Util\AdsConverter;
 class SendOneCommand extends AbstractTransactionCommand
 {
     /**
-     *
      * @var string $address
      */
     private $address;
 
     /**
-     *
      * @var int $amount
      */
     private $amount;
 
     /**
-     *
      * @var null|string $message
      */
     private $message;
 
     /**
-     * SendOneCommand constructor.
-     *
      * @param string $address
      * @param int $amount
      * @param null|string $message
      */
-    public function __construct(string $address, int $amount, $message)
+    public function __construct(string $address, int $amount, ?string $message)
     {
         $this->address = $address;
         $this->amount = $amount;
@@ -39,7 +34,6 @@ class SendOneCommand extends AbstractTransactionCommand
     }
 
     /**
-     *
      * @return string
      */
     public function getName(): string

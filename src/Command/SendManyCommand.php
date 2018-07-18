@@ -8,14 +8,11 @@ class SendManyCommand extends AbstractTransactionCommand
 {
 
     /**
-     *
      * @var array $wires
      */
     private $wires;
 
     /**
-     * SendManyCommand constructor.
-     *
      * @param array $wires
      */
     public function __construct(array $wires)
@@ -24,7 +21,6 @@ class SendManyCommand extends AbstractTransactionCommand
     }
 
     /**
-     *
      * @return string
      */
     public function getName(): string

@@ -44,13 +44,9 @@ class NodeTest extends \PHPUnit\Framework\TestCase
         $driver = new CliDriver($this->address, $this->secret, $this->host, $this->port);
         $client = new AdsClient($driver);
 
-        $response = null;
-        try {
-            $response = $client->getBlock('10000000');
-        } catch (CommandException $ce) {
-            $this->assertEquals(CommandError::GET_BLOCK_INFO_UNAVAILABLE, $ce->getCode());
-        }
-        $this->assertNull($response);
+        $this->expectException(CommandException::class);
+        $this->expectExceptionCode(CommandError::GET_BLOCK_INFO_UNAVAILABLE);
+        $client->getBlock('10000000');
     }
 
     public function testGetAccounts()
@@ -61,10 +57,6 @@ class NodeTest extends \PHPUnit\Framework\TestCase
         $response = $client->getAccounts(1);
         $accounts = $response->getAccounts();
         $this->assertGreaterThan(0, count($accounts));
-        foreach ($accounts as $account) {
-            /* @var \Adshares\Ads\Entity\Account $account */
-            echo $account->getAddress() . "\n";
-        }
     }
 
     public function testGetAccountsFromBlock()

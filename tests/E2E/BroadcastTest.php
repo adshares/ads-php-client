@@ -24,13 +24,9 @@ class BroadcastTest extends \PHPUnit\Framework\TestCase
         $driver = new CliDriver($this->address, $this->secret, $this->host, $this->port);
         $client = new AdsClient($driver);
 
-        $response = null;
-        try {
-            $response = $client->getBroadcast();
-        } catch (CommandException $ce) {
-            $this->assertEquals(CommandError::NO_BROADCAST_FILE, $ce->getCode());
-        }
-        $this->assertNull($response);
+        $this->expectException(CommandException::class);
+        $this->expectExceptionCode(CommandError::NO_BROADCAST_FILE);
+        $client->getBroadcast();
     }
 
     public function testBroadcast()
@@ -43,7 +39,6 @@ class BroadcastTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($this->address, $response->getAccount()->getAddress());
 
         $txId = $response->getTx()->getId();
-        echo $txId . "\n";
 
         $this->assertInternalType("string", $txId);
 
@@ -85,6 +80,5 @@ class BroadcastTest extends \PHPUnit\Framework\TestCase
         $this->assertNotNull($broadcast);
         $this->assertInstanceOf(Broadcast::class, $broadcast);
         $this->assertEquals($message, $broadcast->getMessage());
-        print_r($broadcast->getMessage());
     }
 }

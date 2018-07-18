@@ -106,7 +106,7 @@ class AdsClient implements LoggerAwareInterface
     /**
      * Returns account data.
      *
-     * @param string $address
+     * @param string $address account address
      *
      * @return GetAccountResponse
      *
@@ -123,16 +123,17 @@ class AdsClient implements LoggerAwareInterface
     /**
      * Returns account list for node.
      *
-     * @param int $node
-     * @param null|string $block
+     * @param int $node node
+     * @param null|string $blockId block id, time in Unix Epoch seconds as hexadecimal string.
+     *                             If null, last block will be taken.
      *
      * @return GetAccountsResponse
      *
      * @throws CommandException
      */
-    public function getAccounts(int $node, string $block = null): GetAccountsResponse
+    public function getAccounts(int $node, ?string $blockId = null): GetAccountsResponse
     {
-        $command = new GetAccountsCommand($node, $block);
+        $command = new GetAccountsCommand($node, $blockId);
         $response = $this->driver->executeCommand($command);
 
         return new GetAccountsResponse($response->getRawData());
@@ -141,33 +142,36 @@ class AdsClient implements LoggerAwareInterface
     /**
      * Returns block data.
      *
-     * @param null|string $block [optional] block time in Unix Epoch seconds as hexadecimal String
+     * @param null|string $blockId block id, time in Unix Epoch seconds as hexadecimal string.
+     *                             If null, last block will be taken.
      *
      * @return GetBlockResponse
      *
      * @throws CommandException
      */
-    public function getBlock(string $block = null): GetBlockResponse
+    public function getBlock(?string $blockId = null): GetBlockResponse
     {
-        $command = new GetBlockCommand($block);
+        $command = new GetBlockCommand($blockId);
         $response = $this->driver->executeCommand($command);
 
         return new GetBlockResponse($response->getRawData());
     }
 
     /**
-     * Updates block data.
+     * Updates block data for selected period and returns ids of updated blocks.
      *
-     * @param null|string $from [optional] block time in Unix Epoch seconds as hexadecimal String
-     * @param null|string $to [optional] block time in Unix Epoch seconds as hexadecimal String
+     * @param null|string $blockIdFrom starting block id, time in Unix Epoch seconds as hexadecimal string.
+     *                             If null, first block (genesis) will be taken.
+     * @param null|string $blockIdTo ending block id, time in Unix Epoch seconds as hexadecimal string.
+     *                             If null, last block will be taken.
      *
      * @return GetBlockIdsResponse
      *
      * @throws CommandException
      */
-    public function getBlockIds(string $from = null, string $to = null): GetBlockIdsResponse
+    public function getBlockIds(?string $blockIdFrom = null, ?string $blockIdTo = null): GetBlockIdsResponse
     {
-        $command = new GetBlockIdsCommand($from, $to);
+        $command = new GetBlockIdsCommand($blockIdFrom, $blockIdTo);
         $response = $this->driver->executeCommand($command);
 
         return new GetBlockIdsResponse($response->getRawData());
@@ -176,15 +180,16 @@ class AdsClient implements LoggerAwareInterface
     /**
      * Collects broadcast messages for particular block. Messages are in random order and can be duplicated.
      *
-     * @param null|string $from block time in Unix Epoch seconds as hexadecimal String, 0 for last block
+     * @param null|string $blockId block id, time in Unix Epoch seconds as hexadecimal string.
+     *                             If null, last block will be taken.
      *
      * @return GetBroadcastResponse
      *
      * @throws CommandException
      */
-    public function getBroadcast(string $from = null): GetBroadcastResponse
+    public function getBroadcast(?string $blockId = null): GetBroadcastResponse
     {
-        $command = new GetBroadcastCommand($from);
+        $command = new GetBroadcastCommand($blockId);
         $response = $this->driver->executeCommand($command);
 
         return new GetBroadcastResponse($response->getRawData());
@@ -209,15 +214,16 @@ class AdsClient implements LoggerAwareInterface
      * Returns message data. Each message contains one or more transactions.
      *
      * @param string $messageId message id
-     * @param null|string $block
+     * @param null|string $blockId block id, time in Unix Epoch seconds as hexadecimal string.
+     *                             If null, block will be calculated automatically.
      *
      * @return GetMessageResponse
      *
      * @throws CommandException
      */
-    public function getMessage(string $messageId, string $block = null): GetMessageResponse
+    public function getMessage(string $messageId, ?string $blockId = null): GetMessageResponse
     {
-        $command = new GetMessageCommand($messageId, $block);
+        $command = new GetMessageCommand($messageId, $blockId);
         $response = $this->driver->executeCommand($command);
 
         return new GetMessageResponse($response->getRawData());
@@ -226,15 +232,16 @@ class AdsClient implements LoggerAwareInterface
     /**
      * Returns message ids for selected block.
      *
-     * @param null|string $block
+     * @param null|string $blockId block id, time in Unix Epoch seconds as hexadecimal string.
+     *                             If null, last block will be taken.
      *
      * @return GetMessageIdsResponse
      *
      * @throws CommandException
      */
-    public function getMessageIds(string $block = null): GetMessageIdsResponse
+    public function getMessageIds(?string $blockId = null): GetMessageIdsResponse
     {
-        $command = new GetMessageIdsCommand($block);
+        $command = new GetMessageIdsCommand($blockId);
         $response = $this->driver->executeCommand($command);
 
         return new GetMessageIdsResponse($response->getRawData());
@@ -270,7 +277,7 @@ class AdsClient implements LoggerAwareInterface
      *
      * @throws CommandException
      */
-    public function sendOne(string $address, int $amount, $message = null): SendOneResponse
+    public function sendOne(string $address, int $amount, ?string $message = null): SendOneResponse
     {
         $command = new SendOneCommand($address, $amount, $message);
         $this->prepareTransaction($command);

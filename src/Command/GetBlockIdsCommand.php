@@ -6,29 +6,26 @@ class GetBlockIdsCommand extends AbstractCommand
 {
     /**
      *
-     * @var null|string $from
+     * @var null|string $blockIdFrom
      */
-    private $from;
+    private $blockIdFrom;
     /**
      *
-     * @var null|string $from
+     * @var null|string $blockIdTo
      */
-    private $to;
+    private $blockIdTo;
 
     /**
-     * GetBlocksCommand constructor.
-     *
-     * @param null|string $from
-     * @param null|string $to
+     * @param null|string $blockIdFrom
+     * @param null|string $blockIdTo
      */
-    public function __construct($from, $to)
+    public function __construct(?string $blockIdFrom, ?string $blockIdTo)
     {
-        $this->from = $from;
-        $this->to = $to;
+        $this->blockIdFrom = $blockIdFrom;
+        $this->blockIdTo = $blockIdTo;
     }
 
     /**
-     *
      * @return string
      */
     public function getName(): string
@@ -39,11 +36,11 @@ class GetBlockIdsCommand extends AbstractCommand
     public function getAttributes(): array
     {
         $attributes = [];
-        if ($this->from) {
-            $attributes["from"] = $this->from;
+        if ($this->blockIdFrom) {
+            $attributes["from"] = $this->blockIdFrom;
         }
-        if ($this->to) {
-            $attributes["to"] = $this->to;
+        if ($this->blockIdTo) {
+            $attributes["to"] = $this->blockIdTo;
         }
         return $attributes;
     }

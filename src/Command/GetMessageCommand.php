@@ -5,9 +5,9 @@ namespace Adshares\Ads\Command;
 class GetMessageCommand extends AbstractCommand
 {
     /**
-     * @var null|string $block
+     * @var null|string $blockId
      */
-    private $block;
+    private $blockId;
 
     /**
      * @var string $messageId
@@ -15,13 +15,13 @@ class GetMessageCommand extends AbstractCommand
     private $messageId;
 
     /**
-     * @param string $packageId
-     * @param null|string $block
+     * @param string $messageId
+     * @param null|string $blockId
      */
-    public function __construct($packageId, string $block = null)
+    public function __construct(string $messageId, string $blockId = null)
     {
-        $this->messageId = $packageId;
-        $this->block = $block;
+        $this->messageId = $messageId;
+        $this->blockId = $blockId;
     }
 
     /**
@@ -36,8 +36,8 @@ class GetMessageCommand extends AbstractCommand
     {
         $attributes = [];
         $attributes["message_id"] = $this->messageId;
-        if ($this->block) {
-            $attributes["block"] = $this->block;
+        if ($this->blockId) {
+            $attributes["block"] = $this->blockId;
         }
         return $attributes;
     }
