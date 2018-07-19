@@ -8,29 +8,29 @@ namespace Adshares\Ads\Entity;
 class Message extends AbstractEntity
 {
     /**
-     * @var string
+     * @var string block id
      */
     protected $blockId;
 
     /**
-     * @var string
+     * @var string message hash
      */
     protected $hash;
 
     /**
-     * @var int
+     * @var int length
      */
     protected $length;
 
     /**
-     * @var string
+     * @var string message id
      */
     protected $messageId;
 
     /**
-     * @var string
+     * @var int node ordinal number
      */
-    protected $nodeId;
+    protected $node;
 
     /**
      * @var \DateTime
@@ -38,7 +38,7 @@ class Message extends AbstractEntity
     protected $time;
 
     /**
-     * @return string
+     * @return string block id
      */
     public function getBlockId(): string
     {
@@ -46,7 +46,7 @@ class Message extends AbstractEntity
     }
 
     /**
-     * @return string
+     * @return string message hash
      */
     public function getHash(): string
     {
@@ -54,7 +54,7 @@ class Message extends AbstractEntity
     }
 
     /**
-     * @return int
+     * @return int length
      */
     public function getLength(): int
     {
@@ -62,7 +62,7 @@ class Message extends AbstractEntity
     }
 
     /**
-     * @return string
+     * @return string message id
      */
     public function getMessageId(): string
     {
@@ -70,11 +70,11 @@ class Message extends AbstractEntity
     }
 
     /**
-     * @return string
+     * @return string node id
      */
     public function getNodeId(): string
     {
-        return $this->nodeId;
+        return sprintf('%04X', $this->node);
     }
 
     /**
@@ -83,18 +83,5 @@ class Message extends AbstractEntity
     public function getTime(): \DateTime
     {
         return $this->time;
-    }
-
-    /**
-     * @param array $data
-     * @return EntityInterface
-     */
-    public static function createFromRawData(array $data): EntityInterface
-    {
-        $entity = new static();
-        $entity->fillWithRawData($data);
-        $entity->nodeId = sprintf('%04X', $data['node']);
-
-        return $entity;
     }
 }
