@@ -74,10 +74,7 @@ class EntityFactory
      */
     public static function createAccount(array $data = []): Account
     {
-        /* @var $entity Account */
-        $entity = self::create('Account', $data);
-
-        return $entity;
+        return self::create('Account', $data);
     }
 
     /**
@@ -86,10 +83,7 @@ class EntityFactory
      */
     public static function createBlock(array $data = []): Block
     {
-        /* @var $entity Block */
-        $entity = self::create('Block', $data);
-
-        return $entity;
+        return self::create('Block', $data);
     }
 
     /**
@@ -98,18 +92,12 @@ class EntityFactory
      */
     public static function createBroadcast(array $data = []): Broadcast
     {
-        /* @var $entity Broadcast */
-        $entity = self::create('Broadcast', $data);
-
-        return $entity;
+        return self::create('Broadcast', $data);
     }
 
     public static function createMessage(array $data = []): Message
     {
-        /* @var $entity Message */
-        $entity = self::create('Message', $data);
-
-        return $entity;
+        return self::create('Message', $data);
     }
 
     /**
@@ -118,10 +106,7 @@ class EntityFactory
      */
     public static function createNetworkTx(array $data = []): NetworkTx
     {
-        /* @var $entity NetworkTx */
-        $entity = self::create('NetworkTx', $data);
-
-        return $entity;
+        return self::create('NetworkTx', $data);
     }
 
     /**
@@ -130,10 +115,7 @@ class EntityFactory
      */
     public static function createNode(array $data = []): Node
     {
-        /* @var $entity Node */
-        $entity = self::create('Node', $data);
-
-        return $entity;
+        return self::create('Node', $data);
     }
 
     /**
@@ -145,35 +127,46 @@ class EntityFactory
      */
     public static function createTransaction(array $data = [])
     {
+        $entity = null;
         switch ($data['type']) {
             case 'broadcast':
-                return self::create('BroadcastTransaction', $data);
+                $entity = self::create('BroadcastTransaction', $data);
+                break;
             case 'account_created':
             case 'change_account_key':
             case 'change_node_key':
-                return self::create('KeyTransaction', $data);
+                $entity = self::create('KeyTransaction', $data);
+                break;
             case 'connection':
-                return self::create('ConnectionTransaction', $data);
+                $entity = self::create('ConnectionTransaction', $data);
+                break;
             case 'create_account':
             case 'create_node':
             case 'retrieve_funds':
-                return self::create('NetworkTransaction', $data);
+                $entity = self::create('NetworkTransaction', $data);
+                break;
             case 'log_account':
-                return self::create('LogAccountTransaction', $data);
+                $entity = self::create('LogAccountTransaction', $data);
+                break;
             case 'send_many':
-                return self::create('SendManyTransaction', $data);
+                $entity = self::create('SendManyTransaction', $data);
+                break;
             case 'send_one':
-                return self::create('SendOneTransaction', $data);
+                $entity = self::create('SendOneTransaction', $data);
+                break;
             case 'set_account_status':
             case 'set_node_status':
             case 'unset_account_status':
             case 'unset_node_status':
-                return self::create('StatusTransaction', $data);
+                $entity = self::create('StatusTransaction', $data);
+                break;
             case 'empty':
-                return self::create('EmptyTransaction', $data);
+                $entity = self::create('EmptyTransaction', $data);
+                break;
             default:
                 throw new AdsException(sprintf('Unsupported transaction type "%s".', $data['type']));
         }
+        return $entity;
     }
 
     /**
@@ -182,10 +175,7 @@ class EntityFactory
      */
     public static function createTx(array $data = []): Tx
     {
-        /* @var $entity Tx */
-        $entity = self::create('Tx', $data);
-
-        return $entity;
+        return self::create('Tx', $data);
     }
 
     /**
@@ -194,9 +184,6 @@ class EntityFactory
      */
     public static function createTxn(array $data = []): Txn
     {
-        /* @var $entity Txn */
-        $entity = self::create('Txn', $data);
-
-        return $entity;
+        return self::create('Txn', $data);
     }
 }
