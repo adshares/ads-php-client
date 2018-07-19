@@ -25,8 +25,7 @@ use Adshares\Ads\Response\GetBlockIdsResponse;
 use Adshares\Ads\Response\GetBroadcastResponse;
 use Adshares\Ads\Response\GetMessageIdsResponse;
 use Adshares\Ads\Response\GetMessageResponse;
-use Adshares\Ads\Response\SendManyResponse;
-use Adshares\Ads\Response\SendOneResponse;
+use Adshares\Ads\Response\SendTransferResponse;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 use Psr\Log\LoggerInterface;
@@ -260,14 +259,14 @@ class AdsClient implements LoggerAwareInterface
      *
      * @param SendManyCommand $command SendManyCommand
      * @param bool $isDryRun if true, transaction won't be send to network
-     * @return SendManyResponse
+     * @return SendTransferResponse
      */
-    public function sendMany(SendManyCommand $command, bool $isDryRun = false): SendManyResponse
+    public function sendMany(SendManyCommand $command, bool $isDryRun = false): SendTransferResponse
     {
         $this->prepareTransaction($command);
         $response = $this->driver->executeTransaction($command, $isDryRun);
 
-        return new SendManyResponse($response->getRawData());
+        return new SendTransferResponse($response->getRawData());
     }
 
     /**
@@ -275,14 +274,14 @@ class AdsClient implements LoggerAwareInterface
      *
      * @param SendOneCommand $command SendOneCommand
      * @param bool $isDryRun if true, transaction won't be send to network
-     * @return SendOneResponse
+     * @return SendTransferResponse
      */
-    public function sendOne(SendOneCommand $command, bool $isDryRun = false): SendOneResponse
+    public function sendOne(SendOneCommand $command, bool $isDryRun = false): SendTransferResponse
     {
         $this->prepareTransaction($command);
         $response = $this->driver->executeTransaction($command, $isDryRun);
 
-        return new SendOneResponse($response->getRawData());
+        return new SendTransferResponse($response->getRawData());
     }
 
     //    TODO: (Yodahack) : disscuss placement of this methods (currently copied to Adshares\Adserver\Http\Utils)

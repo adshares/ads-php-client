@@ -6,7 +6,7 @@ use Adshares\Ads\Entity\Account;
 use Adshares\Ads\Entity\EntityFactory;
 use Adshares\Ads\Entity\Tx;
 
-class SendManyResponse extends AbstractResponse
+class SendTransferResponse extends AbstractResponse
 {
     /**
      *
