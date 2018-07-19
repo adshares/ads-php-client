@@ -23,7 +23,7 @@ class SendTransferTest extends \PHPUnit\Framework\TestCase
         $message = "0000111122223333444455556666777700001111222233334444555566667777";
 
         $command = new SendOneCommand($this->address, $amount, $message);
-        $response = $client->sendOne($command);
+        $response = $client->runTransaction($command);
         $account = $response->getAccount();
         $this->assertEquals($this->address, $account->getAddress());
 
@@ -45,13 +45,13 @@ class SendTransferTest extends \PHPUnit\Framework\TestCase
         $command = new SendOneCommand($this->address, $amount, $message);
         $command->setTimestamp(1);
 
-        $txDryRun = $client->sendOne($command, true)->getTx();
+        $txDryRun = $client->runTransaction($command, true)->getTx();
         $this->assertNotNull($txDryRun->getAccountHashin());
         $this->assertNotNull($txDryRun->getAccountMsid());
         $this->assertNotNull($txDryRun->getData());
         $this->assertNotNull($txDryRun->getSignature());
 
-        $tx = $client->sendOne($command, false)->getTx();
+        $tx = $client->runTransaction($command, false)->getTx();
         $this->assertNotNull($tx->getAccountHashin());
         $this->assertNotNull($tx->getAccountMsid());
         $this->assertNotNull($tx->getData());
@@ -74,7 +74,7 @@ class SendTransferTest extends \PHPUnit\Framework\TestCase
         $command = new SendOneCommand($this->address, $amount, $message);
         $command->setTimestamp(1);
 
-        $txDryRun = $client->sendOne($command, true)->getTx();
+        $txDryRun = $client->runTransaction($command, true)->getTx();
         $this->assertNotNull($txDryRun->getData());
         $this->assertNotNull($txDryRun->getSignature());
         $this->assertNull($txDryRun->getId());
@@ -85,7 +85,7 @@ class SendTransferTest extends \PHPUnit\Framework\TestCase
         $command2->setTimestamp(1);
         $command2->setSignature($signature);
 
-        $tx = $client->sendOne($command2, false)->getTx();
+        $tx = $client->runTransaction($command2, false)->getTx();
         $this->assertNotNull($tx->getData());
         $this->assertNotNull($tx->getSignature());
         $this->assertNotNull($tx->getId());
@@ -107,7 +107,7 @@ class SendTransferTest extends \PHPUnit\Framework\TestCase
             "0002-00000001-XXXX" => $amount,
         ];
         $command = new SendManyCommand($wires);
-        $response = $client->sendMany($command);
+        $response = $client->runTransaction($command);
         $account = $response->getAccount();
         $this->assertEquals($this->address, $account->getAddress());
 
@@ -132,12 +132,12 @@ class SendTransferTest extends \PHPUnit\Framework\TestCase
         $command = new SendManyCommand($wires);
         $command->setTimestamp(1);
 
-        $txDryRun = $client->sendMany($command, true)->getTx();
+        $txDryRun = $client->runTransaction($command, true)->getTx();
         $this->assertNotNull($txDryRun->getAccountHashin());
         $this->assertNotNull($txDryRun->getAccountMsid());
         $this->assertNotNull($txDryRun->getData());
 
-        $tx = $client->sendMany($command, false)->getTx();
+        $tx = $client->runTransaction($command, false)->getTx();
         $this->assertNotNull($tx->getAccountHashin());
         $this->assertNotNull($tx->getAccountMsid());
         $this->assertNotNull($tx->getData());

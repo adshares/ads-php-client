@@ -3,7 +3,6 @@
 namespace Adshares\Ads;
 
 use Adshares\Ads\Command\AbstractTransactionCommand;
-use Adshares\Ads\Command\BroadcastCommand;
 use Adshares\Ads\Command\GetAccountCommand;
 use Adshares\Ads\Command\GetAccountsCommand;
 use Adshares\Ads\Command\GetBlockCommand;
@@ -12,12 +11,9 @@ use Adshares\Ads\Command\GetBroadcastCommand;
 use Adshares\Ads\Command\GetMeCommand;
 use Adshares\Ads\Command\GetMessageCommand;
 use Adshares\Ads\Command\GetMessageIdsCommand;
-use Adshares\Ads\Command\SendManyCommand;
-use Adshares\Ads\Command\SendOneCommand;
 use Adshares\Ads\Driver\DriverInterface;
 use Adshares\Ads\Entity\EntityFactory;
 use Adshares\Ads\Exception\CommandException;
-use Adshares\Ads\Response\BroadcastResponse;
 use Adshares\Ads\Response\GetAccountResponse;
 use Adshares\Ads\Response\GetAccountsResponse;
 use Adshares\Ads\Response\GetBlockResponse;
@@ -25,7 +21,7 @@ use Adshares\Ads\Response\GetBlockIdsResponse;
 use Adshares\Ads\Response\GetBroadcastResponse;
 use Adshares\Ads\Response\GetMessageIdsResponse;
 use Adshares\Ads\Response\GetMessageResponse;
-use Adshares\Ads\Response\SendTransferResponse;
+use Adshares\Ads\Response\TransactionResponse;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 use Psr\Log\LoggerInterface;
@@ -92,22 +88,6 @@ class AdsClient implements LoggerAwareInterface
         }
         $transaction->setLastMsid($resp->getAccount()->getMsid());
         $transaction->setLastHash($resp->getAccount()->getHash());
-    }
-
-    /**
-     * Sends broadcast message to blockchain network.
-     *
-     * @param BroadcastCommand $command BroadcastCommand
-     * @param bool $isDryRun if true, transaction won't be send to network
-     *
-     * @return BroadcastResponse
-     */
-    public function broadcast(BroadcastCommand $command, bool $isDryRun = false): BroadcastResponse
-    {
-        $this->prepareTransaction($command);
-        $response = $this->driver->executeTransaction($command, $isDryRun);
-
-        return new BroadcastResponse($response->getRawData());
     }
 
     /**
@@ -255,33 +235,22 @@ class AdsClient implements LoggerAwareInterface
     }
 
     /**
-     * Transfers funds to many accounts.
+     * Executes transaction.
+     * AbstractTransactionCommand can be one of:
+     * - BroadcastCommand: Sends broadcast message to blockchain network;
+     * - SendManyCommand: Transfers funds to many accounts;
+     * - SendOneCommand: Transfers funds to one account;
      *
-     * @param SendManyCommand $command SendManyCommand
+     * @param AbstractTransactionCommand $command
      * @param bool $isDryRun if true, transaction won't be send to network
-     * @return SendTransferResponse
+     * @return TransactionResponse
      */
-    public function sendMany(SendManyCommand $command, bool $isDryRun = false): SendTransferResponse
+    public function runTransaction(AbstractTransactionCommand $command, bool $isDryRun = false): TransactionResponse
     {
         $this->prepareTransaction($command);
         $response = $this->driver->executeTransaction($command, $isDryRun);
 
-        return new SendTransferResponse($response->getRawData());
-    }
-
-    /**
-     * Transfers funds to one account.
-     *
-     * @param SendOneCommand $command SendOneCommand
-     * @param bool $isDryRun if true, transaction won't be send to network
-     * @return SendTransferResponse
-     */
-    public function sendOne(SendOneCommand $command, bool $isDryRun = false): SendTransferResponse
-    {
-        $this->prepareTransaction($command);
-        $response = $this->driver->executeTransaction($command, $isDryRun);
-
-        return new SendTransferResponse($response->getRawData());
+        return new TransactionResponse($response->getRawData());
     }
 
     //    TODO: (Yodahack) : disscuss placement of this methods (currently copied to Adshares\Adserver\Http\Utils)

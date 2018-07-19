@@ -37,7 +37,7 @@ class BroadcastTest extends \PHPUnit\Framework\TestCase
 
         $message = strtoupper("12ab");
         $command = new BroadcastCommand($message);
-        $response = $client->broadcast($command);
+        $response = $client->runTransaction($command);
         $this->assertEquals($this->address, $response->getAccount()->getAddress());
 
         $txId = $response->getTx()->getId();
