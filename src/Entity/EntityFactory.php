@@ -13,6 +13,7 @@ class EntityFactory
         'Account' => '\Adshares\Ads\Entity\Account',
         'Block' => '\Adshares\Ads\Entity\Block',
         'Broadcast' => '\Adshares\Ads\Entity\Broadcast',
+        'Message' => '\Adshares\Ads\Entity\Message',
         'NetworkTx' => '\Adshares\Ads\Entity\NetworkTx',
         'Node' => '\Adshares\Ads\Entity\Node',
         'Tx' => '\Adshares\Ads\Entity\Tx',
@@ -99,6 +100,14 @@ class EntityFactory
     {
         /* @var $entity Broadcast */
         $entity = self::create('Broadcast', $data);
+
+        return $entity;
+    }
+
+    public static function createMessage(array $data = []): Message
+    {
+        /* @var $entity Message */
+        $entity = self::create('Message', $data);
 
         return $entity;
     }
