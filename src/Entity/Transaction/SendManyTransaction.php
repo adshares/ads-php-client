@@ -44,12 +44,12 @@ class SendManyTransaction extends AbstractTransaction
     /**
      * @var int
      */
-    protected $transactionCount;
+    protected $user;
 
     /**
      * @var int
      */
-    protected $user;
+    protected $wireCount;
 
     /**
      * @var array[\Adshares\Ads\Entity\Transaction\SendManyTransactionWire]
@@ -107,17 +107,17 @@ class SendManyTransaction extends AbstractTransaction
     /**
      * @return int
      */
-    public function getTransactionCount(): int
+    public function getUser(): int
     {
-        return $this->transactionCount;
+        return $this->user;
     }
 
     /**
      * @return int
      */
-    public function getUser(): int
+    public function getWireCount(): int
     {
-        return $this->user;
+        return $this->wireCount;
     }
 
     /**
