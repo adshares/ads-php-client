@@ -10,6 +10,21 @@ namespace Adshares\Ads\Response;
 class GetMessageIdsResponse extends AbstractResponse
 {
     /**
+     * Field containing array of message ids
+     */
+    const MESSAGES = 'messages';
+
+    /**
+     * Field containing number of messages
+     */
+    const MESSAGE_COUNT = 'message_count';
+
+    /**
+     * Field containing block id
+     */
+    const BLOCK_TIME_HEX = 'block_time_hex';
+
+    /**
      * Block id
      *
      * @var string
@@ -37,14 +52,14 @@ class GetMessageIdsResponse extends AbstractResponse
     {
         parent::loadData($data);
 
-        if (array_key_exists('block_time_hex', $data)) {
-            $this->blockId = $data['block_time_hex'];
+        if (array_key_exists(self::BLOCK_TIME_HEX, $data)) {
+            $this->blockId = $data[self::BLOCK_TIME_HEX];
         }
-        if (array_key_exists('message_count', $data)) {
-            $this->messageCount = $data['message_count'];
+        if (array_key_exists(self::MESSAGE_COUNT, $data)) {
+            $this->messageCount = $data[self::MESSAGE_COUNT];
         }
-        if (array_key_exists('messages', $data) && is_array($data['messages'])) {
-            foreach ($data['messages'] as $value) {
+        if (array_key_exists(self::MESSAGES, $data) && is_array($data[self::MESSAGES])) {
+            foreach ($data[self::MESSAGES] as $value) {
                 $this->messageIds[] = $value;
             }
         }
