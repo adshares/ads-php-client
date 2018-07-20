@@ -7,7 +7,7 @@ use Adshares\Ads\Response\GetMessageIdsResponse;
 
 class GetMessageIdsResponseTest extends \PHPUnit\Framework\TestCase
 {
-    public function testGetMessageIds()
+    public function testGetMessageIdsFromRaw()
     {
         $response = new GetMessageIdsResponse($this->getRawData());
         $time = new \DateTime();
@@ -18,9 +18,11 @@ class GetMessageIdsResponseTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(7, $response->getMessageCount());
         $this->assertCount(7, $response->getMessageIds());
         $this->assertEquals('5B51A3E0', $response->getBlockId());
+
+        $this->assertInstanceOf('Adshares\Ads\Entity\Tx', $response->getTx());
     }
 
-    public function testGetMessageIdsEmpty()
+    public function testGetMessageIdsFromRawEmpty()
     {
         $response = new GetMessageIdsResponse($this->getRawDataEmpty());
         $time = new \DateTime();
@@ -31,6 +33,8 @@ class GetMessageIdsResponseTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(0, $response->getMessageCount());
         $this->assertCount(0, $response->getMessageIds());
         $this->assertEquals('5B51A3C0', $response->getBlockId());
+
+        $this->assertInstanceOf('Adshares\Ads\Entity\Tx', $response->getTx());
     }
 
     private function getRawData(): array

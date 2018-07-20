@@ -17,74 +17,83 @@ class Tx extends AbstractEntity
     const MONEY_FIELDS = ["deduct", "fee"];
 
     /**
+     * Number of account transactions
      *
      * @var null|int
      */
     protected $accountMsid;
 
     /**
+     * Last account transaction hash used in this transaction as input for signing
      *
      * @var null|string
      */
     protected $accountHashin;
 
     /**
+     * New account transaction hash after signing the new transaction
      *
      * @var null|string
      */
     protected $accountHashout;
 
     /**
+     * Complete transaction byte stream (data) as hexadecimal string
      *
      * @var string
      */
     protected $data;
 
     /**
+     * Cost of the transaction (deduction from balance)
      *
      * @var null|int
      */
     protected $deduct;
 
     /**
+     * Transaction fee (part of deduct)
      *
      * @var null|int
      */
     protected $fee;
 
     /**
+     * Transaction id. Transaction identifier is not null if the transaction was submitted to the node
+     * and is scheduled for broadcast on the network.
      *
      * @var null|string
      */
     protected $id;
 
     /**
+     * Transaction position in message
      *
      * @var null|int
      */
     protected $nodeMpos;
 
     /**
+     * Node message id
      *
      * @var null|int
      */
     protected $nodeMsid;
 
     /**
+     * Transaction signature as hexadecimal string
      *
      * @var string
      */
     protected $signature;
 
     /**
-     *
      * @var \DateTime
      */
     protected $time;
 
     /**
-     *
-     * @return int|null
+     * @return int|null Number of account transactions
      */
     public function getAccountMsid(): ?int
     {
@@ -92,8 +101,7 @@ class Tx extends AbstractEntity
     }
 
     /**
-     *
-     * @return null|string
+     * @return null|string Last account transaction hash used in this transaction as input for signing
      */
     public function getAccountHashin(): ?string
     {
@@ -101,8 +109,7 @@ class Tx extends AbstractEntity
     }
 
     /**
-     *
-     * @return null|string
+     * @return null|string New account transaction hash after signing the new transaction
      */
     public function getAccountHashout(): ?string
     {
@@ -110,8 +117,7 @@ class Tx extends AbstractEntity
     }
 
     /**
-     *
-     * @return string
+     * @return string Complete transaction byte stream (data) as hexadecimal string
      */
     public function getData(): string
     {
@@ -119,8 +125,7 @@ class Tx extends AbstractEntity
     }
 
     /**
-     *
-     * @return int|null
+     * @return int|null Cost of the transaction (deduction from balance)
      */
     public function getDeduct(): ?int
     {
@@ -128,8 +133,7 @@ class Tx extends AbstractEntity
     }
 
     /**
-     *
-     * @return int|null
+     * @return int|null Transaction fee (part of deduct)
      */
     public function getFee(): ?int
     {
@@ -137,8 +141,8 @@ class Tx extends AbstractEntity
     }
 
     /**
-     *
-     * @return null|string
+     * @return null|string Transaction id. Transaction identifier is not null if the transaction was submitted
+     * to the node and is scheduled for broadcast on the network.
      */
     public function getId(): ?string
     {
@@ -146,8 +150,7 @@ class Tx extends AbstractEntity
     }
 
     /**
-     *
-     * @return int|null
+     * @return int|null Transaction position in message
      */
     public function getNodeMpos(): ?int
     {
@@ -155,8 +158,7 @@ class Tx extends AbstractEntity
     }
 
     /**
-     *
-     * @return int|null
+     * @return int|null Node message id
      */
     public function getNodeMsid(): ?int
     {
@@ -164,7 +166,7 @@ class Tx extends AbstractEntity
     }
 
     /**
-     * @return string
+     * @return string Transaction signature as hexadecimal string
      */
     public function getSignature(): string
     {

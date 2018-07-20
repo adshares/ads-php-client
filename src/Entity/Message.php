@@ -8,27 +8,37 @@ namespace Adshares\Ads\Entity;
 class Message extends AbstractEntity
 {
     /**
-     * @var string block id
+     * Block id
+     *
+     * @var string
      */
     protected $blockId;
 
     /**
-     * @var string message hash
+     * Message hash
+     *
+     * @var string
      */
     protected $hash;
 
     /**
-     * @var int length
+     * Length
+     *
+     * @var int
      */
     protected $length;
 
     /**
-     * @var string message id
+     * Message id
+     *
+     * @var string
      */
     protected $messageId;
 
     /**
-     * @var int node ordinal number
+     * Node ordinal number
+     *
+     * @var int
      */
     protected $node;
 
@@ -38,7 +48,7 @@ class Message extends AbstractEntity
     protected $time;
 
     /**
-     * @return string block id
+     * @return string Block id
      */
     public function getBlockId(): string
     {
@@ -46,7 +56,7 @@ class Message extends AbstractEntity
     }
 
     /**
-     * @return string message hash
+     * @return string Message hash
      */
     public function getHash(): string
     {
@@ -54,7 +64,7 @@ class Message extends AbstractEntity
     }
 
     /**
-     * @return int length
+     * @return int Length
      */
     public function getLength(): int
     {
@@ -62,7 +72,7 @@ class Message extends AbstractEntity
     }
 
     /**
-     * @return string message id
+     * @return string Message id
      */
     public function getMessageId(): string
     {
@@ -70,7 +80,7 @@ class Message extends AbstractEntity
     }
 
     /**
-     * @return string node id
+     * @return string Node id
      */
     public function getNodeId(): string
     {

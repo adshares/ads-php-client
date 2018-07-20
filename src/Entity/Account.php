@@ -5,92 +5,96 @@ namespace Adshares\Ads\Entity;
 use Adshares\Ads\Util\AdsConverter;
 
 /**
- *
  * @package Adshares\Ads\Entity
  */
 class Account extends AbstractEntity
 {
     /**
+     * Account address
      *
      * @var string
      */
     protected $address;
 
     /**
+     * Balance
      *
      * @var int
      */
     protected $balance;
 
     /**
+     * Hash
      *
      * @var string
      */
     protected $hash;
 
     /**
-     *
-     * @var int
-     */
-    protected $id;
-
-    /**
+     * Block time of an outgoing transaction request
      *
      * @var \DateTime
      */
     protected $localChange;
 
     /**
+     * Msid
      *
      * @var int
      */
     protected $msid;
 
     /**
+     * Node ordinal number
      *
      * @var int
      */
     protected $node;
 
     /**
+     * Paired account address
      *
-     * @var int
+     * @var null|string
      */
-    protected $pairedId;
+    protected $pairedAddress;
 
     /**
+     * Paired node ordinal number
      *
      * @var int
      */
     protected $pairedNode;
 
     /**
+     * Public key
      *
      * @var string
      */
     protected $publicKey;
 
     /**
+     * Block time of an incoming transaction from a remote host
      *
      * @var \DateTime
      */
     protected $remoteChange;
 
     /**
+     * Status
      *
      * @var int
      */
     protected $status;
 
     /**
+     * Time of last transaction
      *
      * @var \DateTime
      */
     protected $time;
 
     /**
-     *
-     * @return string
+     * @return string account address
      */
     public function getAddress(): string
     {
@@ -98,8 +102,7 @@ class Account extends AbstractEntity
     }
 
     /**
-     *
-     * @return int
+     * @return int Balance
      */
     public function getBalance(): int
     {
@@ -107,8 +110,7 @@ class Account extends AbstractEntity
     }
 
     /**
-     *
-     * @return string
+     * @return string Hash
      */
     public function getHash(): string
     {
@@ -116,17 +118,7 @@ class Account extends AbstractEntity
     }
 
     /**
-     *
-     * @return int
-     */
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
-    /**
-     *
-     * @return \DateTime
+     * @return \DateTime Block time of an outgoing transaction request
      */
     public function getLocalChange(): \DateTime
     {
@@ -134,8 +126,7 @@ class Account extends AbstractEntity
     }
 
     /**
-     *
-     * @return int
+     * @return int Msid
      */
     public function getMsid(): int
     {
@@ -143,8 +134,7 @@ class Account extends AbstractEntity
     }
 
     /**
-     *
-     * @return int
+     * @return int Node ordinal number
      */
     public function getNode(): int
     {
@@ -152,17 +142,23 @@ class Account extends AbstractEntity
     }
 
     /**
-     *
-     * @return int
+     * @return string Node id
      */
-    public function getPairedId(): int
+    public function getNodeId(): string
     {
-        return $this->pairedId;
+        return sprintf('%04X', $this->node);
     }
 
     /**
-     *
-     * @return int
+     * @return null|string Paired account address
+     */
+    public function getPairedAddress(): ?string
+    {
+        return $this->pairedAddress;
+    }
+
+    /**
+     * @return int Paired node ordinal number
      */
     public function getPairedNode(): int
     {
@@ -170,8 +166,15 @@ class Account extends AbstractEntity
     }
 
     /**
-     *
-     * @return string
+     * @return string Paired node id
+     */
+    public function getPairedNodeId(): string
+    {
+        return sprintf('%04X', $this->pairedNode);
+    }
+
+    /**
+     * @return string Public key
      */
     public function getPublicKey(): string
     {
@@ -179,8 +182,7 @@ class Account extends AbstractEntity
     }
 
     /**
-     *
-     * @return \DateTime
+     * @return \DateTime Block time of an incoming transaction from a remote host
      */
     public function getRemoteChange(): \DateTime
     {
@@ -188,8 +190,7 @@ class Account extends AbstractEntity
     }
 
     /**
-     *
-     * @return int
+     * @return int Status
      */
     public function getStatus(): int
     {
@@ -197,12 +198,19 @@ class Account extends AbstractEntity
     }
 
     /**
-     *
-     * @return \DateTime
+     * @return \DateTime Time of last transaction
      */
     public function getTime(): \DateTime
     {
         return $this->time;
+    }
+
+    /**
+     * @return bool true if account has been deleted, false otherwise
+     */
+    public function isStatusDeleted(): bool
+    {
+        return ($this->status & 1) != 0;
     }
 
     /**
