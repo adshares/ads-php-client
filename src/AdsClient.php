@@ -3,7 +3,6 @@
 namespace Adshares\Ads;
 
 use Adshares\Ads\Command\AbstractTransactionCommand;
-use Adshares\Ads\Command\BroadcastCommand;
 use Adshares\Ads\Command\GetAccountCommand;
 use Adshares\Ads\Command\GetAccountsCommand;
 use Adshares\Ads\Command\GetBlockCommand;
@@ -12,12 +11,9 @@ use Adshares\Ads\Command\GetBroadcastCommand;
 use Adshares\Ads\Command\GetMeCommand;
 use Adshares\Ads\Command\GetMessageCommand;
 use Adshares\Ads\Command\GetMessageIdsCommand;
-use Adshares\Ads\Command\SendManyCommand;
-use Adshares\Ads\Command\SendOneCommand;
 use Adshares\Ads\Driver\DriverInterface;
 use Adshares\Ads\Entity\EntityFactory;
 use Adshares\Ads\Exception\CommandException;
-use Adshares\Ads\Response\BroadcastResponse;
 use Adshares\Ads\Response\GetAccountResponse;
 use Adshares\Ads\Response\GetAccountsResponse;
 use Adshares\Ads\Response\GetBlockResponse;
@@ -25,8 +21,7 @@ use Adshares\Ads\Response\GetBlockIdsResponse;
 use Adshares\Ads\Response\GetBroadcastResponse;
 use Adshares\Ads\Response\GetMessageIdsResponse;
 use Adshares\Ads\Response\GetMessageResponse;
-use Adshares\Ads\Response\SendManyResponse;
-use Adshares\Ads\Response\SendOneResponse;
+use Adshares\Ads\Response\TransactionResponse;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 use Psr\Log\LoggerInterface;
@@ -75,32 +70,24 @@ class AdsClient implements LoggerAwareInterface
      *
      * @param AbstractTransactionCommand $transaction
      *
-     * @throws CommandException
-     */
-    private function prepareTransaction(AbstractTransactionCommand $transaction)
-    {
-        $getMeResponse = $this->getMe();
-        $transaction->setLastHash($getMeResponse->getAccount()->getHash());
-        $transaction->setLastMessageId($getMeResponse->getAccount()->getMsid());
-    }
-
-    /**
-     * Sends broadcast message to blockchain network.
-     *
-     * @param string $message hexadecimal string with even number of characters
-     *      (each two characters represents one byte). Maximum size of message is 32000 bytes.
-     *
-     * @return BroadcastResponse
+     * @param bool $force force set msid and hash
      *
      * @throws CommandException
      */
-    public function broadcast(string $message): BroadcastResponse
+    private function prepareTransaction(AbstractTransactionCommand $transaction, bool $force = false): void
     {
-        $command = new BroadcastCommand($message);
-        $this->prepareTransaction($command);
-        $response = $this->driver->executeCommand($command);
+        if (!$force && null !== $transaction->getLastMsid()) {
+            return;
+        }
 
-        return new BroadcastResponse($response->getRawData());
+        $sender = $transaction->getSender();
+        if (null !== $sender) {
+            $resp = $this->getAccount($sender);
+        } else {
+            $resp = $this->getMe();
+        }
+        $transaction->setLastMsid($resp->getAccount()->getMsid());
+        $transaction->setLastHash($resp->getAccount()->getHash());
     }
 
     /**
@@ -248,42 +235,22 @@ class AdsClient implements LoggerAwareInterface
     }
 
     /**
-     * Transfers funds to many accounts.
+     * Executes transaction.
+     * AbstractTransactionCommand can be one of:
+     * - BroadcastCommand: Sends broadcast message to blockchain network;
+     * - SendManyCommand: Transfers funds to many accounts;
+     * - SendOneCommand: Transfers funds to one account;
      *
-     * @param array $wires array of wires. Each entry is pair: account address => amount in clicks.
-     *                     Example: ['0001-00000000-XXXX'=>200,'0001-00000001-XXXX'=>10]
-     *
-     * @return SendManyResponse
-     *
-     * @throws CommandException
+     * @param AbstractTransactionCommand $command
+     * @param bool $isDryRun if true, transaction won't be send to network
+     * @return TransactionResponse
      */
-    public function sendMany(array $wires): SendManyResponse
+    public function runTransaction(AbstractTransactionCommand $command, bool $isDryRun = false): TransactionResponse
     {
-        $command = new SendManyCommand($wires);
         $this->prepareTransaction($command);
-        $response = $this->driver->executeCommand($command);
+        $response = $this->driver->executeTransaction($command, $isDryRun);
 
-        return new SendManyResponse($response->getRawData());
-    }
-
-    /**
-     * Transfers funds to one account.
-     *
-     * @param string $address address to which funds will be transferred
-     * @param int $amount transfer amount in clicks
-     * @param null|string $message optional message, 32 bytes hexadecimal string without leading 0x (64 characters)
-     *
-     * @return SendOneResponse
-     *
-     * @throws CommandException
-     */
-    public function sendOne(string $address, int $amount, ?string $message = null): SendOneResponse
-    {
-        $command = new SendOneCommand($address, $amount, $message);
-        $this->prepareTransaction($command);
-        $response = $this->driver->executeCommand($command);
-
-        return new SendOneResponse($response->getRawData());
+        return new TransactionResponse($response->getRawData());
     }
 
     //    TODO: (Yodahack) : disscuss placement of this methods (currently copied to Adshares\Adserver\Http\Utils)

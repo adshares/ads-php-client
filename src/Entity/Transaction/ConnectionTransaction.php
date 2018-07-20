@@ -20,6 +20,11 @@ class ConnectionTransaction extends AbstractTransaction
     protected $port;
 
     /**
+     * @var string
+     */
+    protected $version;
+
+    /**
      * @return string
      */
     public function getIpAddress(): string
@@ -33,5 +38,13 @@ class ConnectionTransaction extends AbstractTransaction
     public function getPort(): int
     {
         return $this->port;
+    }
+
+    /**
+     * @return string
+     */
+    public function getVersion(): string
+    {
+        return $this->version;
     }
 }
