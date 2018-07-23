@@ -9,100 +9,118 @@ namespace Adshares\Ads\Entity;
  */
 class NetworkTx extends AbstractEntity
 {
-
     /**
+     * Block id
      *
-     * @var \DateTime
+     * @var string
      */
     protected $blockId;
 
     /**
+     * Block time
+     *
+     * @var \DateTime
+     */
+    protected $blockTime;
+
+    /**
+     * Hash path to block hash
      *
      * @var array[string]
      */
-    protected $hashPath;
+    protected $hashpath;
 
     /**
+     * Number of hashes in hash path (path to block hash)
      *
      * @var int
      */
-    protected $hashPathLen;
+    protected $hashpathSize;
 
     /**
+     * Transaction data as hexadecimal string
      *
      * @var string
      */
-    protected $hexstring;
+    protected $data;
 
     /**
+     * Transaction id
      *
      * @var string
      */
     protected $id;
 
     /**
+     * Node ordinal number
      *
      * @var int
      */
-    protected $len;
+    protected $node;
 
     /**
-     *
-     * @var int
-     */
-    protected $nodeId;
-
-    /**
+     * Number of last node message
      *
      * @var int
      */
     protected $nodeMsid;
 
     /**
+     * Transaction position in node message
      *
      * @var int
      */
-    protected $position;
+    protected $nodeMpos;
 
     /**
+     * Size of the transaction data
      *
-     * @return \DateTime
+     * @var int
      */
-    public function getBlockId(): \DateTime
+    protected $size;
+
+    /**
+     * @return string Block id
+     */
+    public function getBlockId(): string
     {
         return $this->blockId;
     }
 
     /**
-     *
-     * @return array
+     * @return \DateTime Block time
      */
-    public function getHashPath(): array
+    public function getBlockTime(): \DateTime
     {
-        return $this->hashPath;
+        return $this->blockTime;
     }
 
     /**
-     *
-     * @return int
+     * @return array Hash path to block hash
      */
-    public function getHashPathLen(): int
+    public function getHashpath(): array
     {
-        return $this->hashPathLen;
+        return $this->hashpath;
     }
 
     /**
-     *
-     * @return string
+     * @return int Number of hashes in hash path (path to block hash)
      */
-    public function getHexstring(): string
+    public function getHashpathSize(): int
     {
-        return $this->hexstring;
+        return $this->hashpathSize;
     }
 
     /**
-     *
-     * @return string
+     * @return string Transaction data as hexadecimal string
+     */
+    public function getData(): string
+    {
+        return $this->data;
+    }
+
+    /**
+     * @return string Transaction id
      */
     public function getId(): string
     {
@@ -110,26 +128,23 @@ class NetworkTx extends AbstractEntity
     }
 
     /**
-     *
-     * @return int
+     * @return int Node ordinal number
      */
-    public function getLen(): int
+    public function getNode(): int
     {
-        return $this->len;
+        return $this->node;
     }
 
     /**
-     *
-     * @return int
+     * @return string Node id
      */
-    public function getNodeId(): int
+    public function getNodeId(): string
     {
-        return $this->nodeId;
+        return sprintf('%04X', $this->node);
     }
 
     /**
-     *
-     * @return int
+     * @return int Number of last node message
      */
     public function getNodeMsid(): int
     {
@@ -137,11 +152,18 @@ class NetworkTx extends AbstractEntity
     }
 
     /**
-     *
-     * @return int
+     * @return int Transaction position in node message
      */
-    public function getPosition(): int
+    public function getNodeMpos(): int
     {
-        return $this->position;
+        return $this->nodeMpos;
+    }
+
+    /**
+     * @return int Size of the transaction data
+     */
+    public function getSize(): int
+    {
+        return $this->size;
     }
 }
