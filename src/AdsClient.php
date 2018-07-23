@@ -11,6 +11,7 @@ use Adshares\Ads\Command\GetBroadcastCommand;
 use Adshares\Ads\Command\GetMeCommand;
 use Adshares\Ads\Command\GetMessageCommand;
 use Adshares\Ads\Command\GetMessageIdsCommand;
+use Adshares\Ads\Command\GetTransactionCommand;
 use Adshares\Ads\Driver\DriverInterface;
 use Adshares\Ads\Entity\EntityFactory;
 use Adshares\Ads\Exception\CommandException;
@@ -21,6 +22,7 @@ use Adshares\Ads\Response\GetBlockIdsResponse;
 use Adshares\Ads\Response\GetBroadcastResponse;
 use Adshares\Ads\Response\GetMessageIdsResponse;
 use Adshares\Ads\Response\GetMessageResponse;
+use Adshares\Ads\Response\GetTransactionResponse;
 use Adshares\Ads\Response\TransactionResponse;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
@@ -232,6 +234,23 @@ class AdsClient implements LoggerAwareInterface
         $response = $this->driver->executeCommand($command);
 
         return new GetMessageIdsResponse($response->getRawData());
+    }
+
+    /**
+     * Returns single transaction data.
+     *
+     * @param string $txid transaction id
+     *
+     * @return GetTransactionResponse
+     *
+     * @throws CommandException
+     */
+    public function getTransaction(string $txid): GetTransactionResponse
+    {
+        $command = new GetTransactionCommand($txid);
+        $response = $this->driver->executeCommand($command);
+
+        return new GetTransactionResponse($response->getRawData());
     }
 
     /**
