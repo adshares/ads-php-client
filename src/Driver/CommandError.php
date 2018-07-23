@@ -39,6 +39,9 @@ class CommandError
      */
     public const BROADCAST_NOT_READY = 5022;
     /**
+     * Legacy error. This error is inactive, because field 'broadcastCount' was introduced in getBroadcast response.
+     *
+     * Original description:
      * For getBroadcast: No messages. Need to check next block.
      */
     public const NO_BROADCAST_FILE = 5023;
@@ -86,7 +89,7 @@ class CommandError
     public const NO_BLOCK_IN_SPECIFIED_RANGE = 5055;
     public const COULD_NOT_READ_CORRECT_VIP_KEYS = 5056;
     /**
-     * Legacy error. This error is inactive, because field updatedBlocks was introduced in getBlocks response.
+     * Legacy error. This error is inactive, because field 'updatedBlocks' was introduced in getBlocks response.
      *
      * Original description:
      * For getBlocks: No new blocks. All blocks were downloaded at this moment.

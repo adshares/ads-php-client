@@ -17,6 +17,11 @@ class GetBroadcastResponse extends AbstractResponse
     const BROADCAST = 'broadcast';
 
     /**
+     * Field containing number of broadcast messages
+     */
+    const BROADCAST_COUNT = 'broadcast_count';
+
+    /**
      * Field containing type of log file
      */
     const LOG_FILE = 'log_file';
@@ -34,6 +39,13 @@ class GetBroadcastResponse extends AbstractResponse
      * @var array[Broadcast]
      */
     protected $broadcast = [];
+
+    /**
+     * Number of broadcast messages
+     *
+     * @var int
+     */
+    protected $broadcastCount;
 
     /**
      * Log file type. Two values are possible:
@@ -60,6 +72,9 @@ class GetBroadcastResponse extends AbstractResponse
                 $this->broadcast[] = EntityFactory::createBroadcast($value);
             }
         }
+        if (array_key_exists(self::BROADCAST_COUNT, $data)) {
+            $this->broadcastCount = $data[self::BROADCAST_COUNT];
+        }
         if (array_key_exists(self::LOG_FILE, $data)) {
             $this->logFile = $data[self::LOG_FILE];
         }
@@ -79,6 +94,14 @@ class GetBroadcastResponse extends AbstractResponse
     public function getBroadcast(): array
     {
         return $this->broadcast;
+    }
+
+    /**
+     * @return int Number of broadcast messages
+     */
+    public function getBroadcastCount(): int
+    {
+        return $this->broadcastCount;
     }
 
     /**

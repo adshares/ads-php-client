@@ -25,9 +25,8 @@ class BroadcastTest extends \PHPUnit\Framework\TestCase
         $driver = new CliDriver($this->address, $this->secret, $this->host, $this->port);
         $client = new AdsClient($driver);
 
-        $this->expectException(CommandException::class);
-        $this->expectExceptionCode(CommandError::NO_BROADCAST_FILE);
-        $client->getBroadcast();
+        $response = $client->getBroadcast();
+        $this->assertEquals(0, $response->getBroadcastCount());
     }
 
     public function testBroadcast()
@@ -35,14 +34,14 @@ class BroadcastTest extends \PHPUnit\Framework\TestCase
         $driver = new CliDriver($this->address, $this->secret, $this->host, $this->port);
         $client = new AdsClient($driver);
 
-        $message = strtoupper("12ab");
+        $message = strtoupper('12ab');
         $command = new BroadcastCommand($message);
         $response = $client->runTransaction($command);
         $this->assertEquals($this->address, $response->getAccount()->getAddress());
 
         $txId = $response->getTx()->getId();
 
-        $this->assertInternalType("string", $txId);
+        $this->assertInternalType('string', $txId);
 
         $blockTime = $response->getCurrentBlockTime();
         $blockTime = $blockTime->getTimestamp();
@@ -54,24 +53,25 @@ class BroadcastTest extends \PHPUnit\Framework\TestCase
 
         /* @var GetBroadcastResponse $getBroadcastResponse */
         $getBroadcastResponse = null;
+        $broadcastCount = 0;
         sleep(self::BLOCK_TIME_SECONDS);
         do {
             try {
                 $from = dechex($blockTime);
                 $getBroadcastResponse = $client->getBroadcast($from);
-            } catch (CommandException $ce) {
-                $exceptionCode = $ce->getCode();
-                if (CommandError::BROADCAST_NOT_READY === $exceptionCode) {
-                    $this->assertLessThan($delayMax, $delay);
-                    sleep(self::BLOCK_TIME_SECONDS);
-                    ++$delay;
-                } elseif (CommandError::NO_BROADCAST_FILE === $exceptionCode) {
+                $broadcastCount = $getBroadcastResponse->getBroadcastCount();
+                if ($broadcastCount === 0) {
                     $this->assertLessThan($nextBlockAttemptMax, $nextBlockAttempt);
                     $blockTime += self::BLOCK_TIME_SECONDS;
                     ++$nextBlockAttempt;
                 }
+            } catch (CommandException $ce) {
+                $this->assertEquals(CommandError::BROADCAST_NOT_READY, $ce->getCode());
+                $this->assertLessThan($delayMax, $delay);
+                sleep(self::BLOCK_TIME_SECONDS);
+                ++$delay;
             }
-        } while (null === $getBroadcastResponse);
+        } while (0 === $broadcastCount);
 
         /* @var Broadcast $broadcast */
         $broadcast = null;

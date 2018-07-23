@@ -14,15 +14,16 @@ class GetBroadcastResponseTest extends \PHPUnit\Framework\TestCase
         /* @var GetBroadcastResponse $response */
         $response = new GetBroadcastResponse($this->getRawData());
         $time = new \DateTime();
-        $time->setTimestamp(1532100384);
+        $time->setTimestamp(1532351072);
         $this->assertEquals($time, $response->getCurrentBlockTime());
-        $time->setTimestamp(1532100352);
+        $time->setTimestamp(1532351040);
         $this->assertEquals($time, $response->getPreviousBlockTime());
-        $this->assertEquals('5B51FEE0', $response->getBlockId());
+        $this->assertEquals('5B55D240', $response->getBlockId());
         $this->assertContains($response->getLogFile(), ['archive', 'new']);
 
         $this->assertInstanceOf(Tx::class, $response->getTx());
         $broadcasts = $response->getBroadcast();
+        $this->assertCount(1, $broadcasts);
         foreach ($broadcasts as $broadcast) {
             $this->assertInstanceOf(Broadcast::class, $broadcast);
         }
@@ -31,36 +32,37 @@ class GetBroadcastResponseTest extends \PHPUnit\Framework\TestCase
     private function getRawData(): array
     {
         return json_decode('{
-            "current_block_time": "1532100384",
-            "previous_block_time": "1532100352",
+            "current_block_time": "1532351072",
+            "previous_block_time": "1532351040",
             "tx": {
-                "data": "12010000000000E0FE515B23FF515B",
-                "signature": "2EC66920B2128EC3522DE6B85E55865CF8AC4108A991D4743D9E163D024B966F'
-            . 'A2487C210B596280EE6EC318320443C1A5D288E8D357E3A1F50DE8FCF5E8B701",
-                "time": "1532100387"
+                "data": "1201000100000040D2555B68D2555B",
+                "signature": "2BB90103DF1E8E39CB38FA3A8E0733519010DE0B068278BEC039BA079FF8DEFFACCD7D436'
+            . '886D220A80FD6A3AF1BEE20FA23E4287EE720F6A4A611BF42CDCB08",
+                "time": "1532351080"
             },
-            "log_file": "new",
-            "block_time_hex": "5B51FEE0",
-            "block_time": "1532100320",
+            "block_time_hex": "5B55D240",
+            "block_time": "1532351040",
+            "broadcast_count": "1",
+            "log_file": "archive",
             "broadcast": [{
-                    "block_time": "1532100320",
-                    "block_date": "2018-07-20 17:25:20",
+                    "block_time": "1532351040",
+                    "block_date": "2018-07-23 15:04:00",
                     "node": "1",
                     "account": "0",
                     "address": "0001-00000000-9B6F",
-                    "account_msid": "1",
-                    "time": "1532100323",
-                    "date": "2018-07-20 17:25:23",
-                    "data": "0301000000000001000000E3FE515B0100",
-                    "message": "FE",
-                    "signature": "1FB7A83994767C48F19EBB00946A3E96883FC4E7BE5F2AED3A0111F04FA58'
-            . 'CC34D14D3CD93AA4F5EFCCC86D3C14A222989263B40D5F3BB3A6DA858818497BE00",
-                    "input_hash": "CD3CC372397CFE14F62BF0CD3300DD3C18360A10846E1CBF28E53E6D01C0FCBB",
+                    "account_msid": "26",
+                    "time": "1532351047",
+                    "date": "2018-07-23 15:04:07",
+                    "data": "030100000000001A00000047D2555B0100",
+                    "message": "7E",
+                    "signature": "A12F210C3AC26CCCEAF19301C4985C9C1C86A45470729530C46FDC5999252492C17996F82735'
+            . '9A10C35D456403D7B389D766324976A5145667B82E6193952D04",
+                    "input_hash": "A79B8AC0561B9B7E2B9CB792714377D8DF864B30C87697FD967BA4505445C0A7",
                     "public_key": "A9C0D972D8AAB73805EC4A28291E052E3B5FAFE0ADC9D724917054E5E2690363",
                     "verify": "passed",
-                    "node_msid": "3",
-                    "node_mpos": "2",
-                    "id": "0001:00000003:0002",
+                    "node_msid": "58",
+                    "node_mpos": "1",
+                    "id": "0001:0000003A:0001",
                     "fee": "0.00000010000"
                 }
             ]
