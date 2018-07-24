@@ -33,7 +33,7 @@ class Message extends AbstractEntity
      *
      * @var string
      */
-    protected $messageId;
+    protected $id;
 
     /**
      * Node ordinal number
@@ -74,9 +74,9 @@ class Message extends AbstractEntity
     /**
      * @return string Message id
      */
-    public function getMessageId(): string
+    public function getId(): string
     {
-        return $this->messageId;
+        return $this->id;
     }
 
     /**
@@ -93,5 +93,14 @@ class Message extends AbstractEntity
     public function getTime(): \DateTime
     {
         return $this->time;
+    }
+
+    public static function createFromRawData(array $data): EntityInterface
+    {
+        $entity = new static();
+        $entity->fillWithRawData($data);
+        $entity->id = $data['message_id'];
+
+        return $entity;
     }
 }
