@@ -57,32 +57,43 @@ abstract class AbstractEntity implements EntityInterface
                 }
                 break;
             default:
-                if (preg_match('/array\[([^\s]+)\]/', $type, $matches)) {
-                    list(, $t) = $matches;
-                    foreach ((array)$value as $k => $v) {
-                        $value[$k] = self::convertType($t, $v);
-                    }
-                    break;
-                }
-                $entityType = 'Adshares\Ads\Entity\\' . $type;
-                if (class_exists($entityType)) {
-                    $type = $entityType;
-                }
-                if (class_exists($type)) {
-                    $interfaces = class_implements($type);
-
-                    if (isset($interfaces['Adshares\Ads\Entity\EntityInterface'])) {
-                        try {
-                            /* @var $type EntityInterface*/
-                            $value = EntityFactory::create((new \ReflectionClass($type))->getShortName(), $value);
-                        } catch (\ReflectionException $e) {
-                            // $value will not be overwritten
-                        }
-                    }
-                    break;
-                }
+                $value = self::defaultConvertType($type, $value);
+                break;
         }
 
+        return $value;
+    }
+
+    /**
+     * @param string $type
+     * @param $value
+     * @return mixed
+     */
+    protected static function defaultConvertType(string $type, $value)
+    {
+        if (preg_match('/array\[([^\s]+)\]/', $type, $matches)) {
+            list(, $t) = $matches;
+            foreach ((array)$value as $k => $v) {
+                $value[$k] = self::convertType($t, $v);
+            }
+        } else {
+            $entityType = 'Adshares\Ads\Entity\\' . $type;
+            if (class_exists($entityType)) {
+                $type = $entityType;
+            }
+            if (class_exists($type)) {
+                $interfaces = class_implements($type);
+
+                if (isset($interfaces['Adshares\Ads\Entity\EntityInterface'])) {
+                    try {
+                        /* @var $type EntityInterface */
+                        $value = EntityFactory::create((new \ReflectionClass($type))->getShortName(), $value);
+                    } catch (\ReflectionException $e) {
+                        // $value will not be overwritten
+                    }
+                }
+            }
+        }
         return $value;
     }
 
