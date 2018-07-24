@@ -154,8 +154,11 @@ class AdsClientTest extends \PHPUnit\Framework\TestCase
         /* @var ExtendedAccount $account */
         $account = $response->getAccount();
 
-        $this->assertEquals($this->address, $account->getAddress());
-        $this->assertEquals($this->address, $account->getId());
+        $this->assertInstanceOf(ExtendedAccount::class, $account);
+        if ($account instanceof ExtendedAccount) {
+            $this->assertEquals($this->address, $account->getAddress());
+            $this->assertEquals($this->address, $account->getId());
+        }
     }
 
     /**
@@ -182,7 +185,11 @@ class AdsClientTest extends \PHPUnit\Framework\TestCase
             ->getMock();
         $driver->method('getProcess')->willReturn($process);
         /* @var CliDriver $driver */
-        $client = new AdsClient($driver);
+        if ($driver instanceof CliDriver) {
+            $client = new AdsClient($driver);
+        } else {
+            throw new \RuntimeException();
+        }
 
         return $client;
     }
