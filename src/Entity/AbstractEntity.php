@@ -66,7 +66,7 @@ abstract class AbstractEntity implements EntityInterface
 
     /**
      * @param string $type
-     * @param $value
+     * @param mixed $value
      * @return mixed
      */
     protected static function defaultConvertType(string $type, $value)
@@ -90,6 +90,7 @@ abstract class AbstractEntity implements EntityInterface
                         $value = EntityFactory::create((new \ReflectionClass($type))->getShortName(), $value);
                     } catch (\ReflectionException $e) {
                         // $value will not be overwritten
+                        // Ignore
                     }
                 }
             }
