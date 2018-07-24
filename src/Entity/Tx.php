@@ -14,7 +14,7 @@ class Tx extends AbstractEntity
     /**
      * Class fields, which contain money amount.
      */
-    const MONEY_FIELDS = ["deduct", "fee"];
+    const MONEY_FIELDS = ['deduct', 'fee'];
 
     /**
      * Number of account transactions

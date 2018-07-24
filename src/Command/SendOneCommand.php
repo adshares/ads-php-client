@@ -27,7 +27,7 @@ class SendOneCommand extends AbstractTransactionCommand
      * @param null|string $message transfer  message, 32 bytes hexadecimal string without leading 0x (64 characters)
      *
      */
-    public function __construct(string $address, int $amount, ?string $message)
+    public function __construct(string $address, int $amount, ?string $message = null)
     {
         $this->address = $address;
         $this->amount = $amount;
@@ -44,10 +44,10 @@ class SendOneCommand extends AbstractTransactionCommand
 
     public function getAttributes(): array
     {
-        $attributes["address"] = $this->address;
-        $attributes["amount"] = AdsConverter::clicksToAds($this->amount);
+        $attributes['address'] = $this->address;
+        $attributes['amount'] = AdsConverter::clicksToAds($this->amount);
         if ($this->message) {
-            $attributes["message"] = $this->message;
+            $attributes['message'] = $this->message;
         }
         return $attributes;
     }

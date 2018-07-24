@@ -150,7 +150,7 @@ class CliDriver implements DriverInterface, LoggerAwareInterface
      * @param bool $isDryRun
      * @return Process
      */
-    private function getProcess(?string $hash = null, ?int $messageId = null, bool $isDryRun = false): Process
+    protected function getProcess(?string $hash = null, ?int $messageId = null, bool $isDryRun = false): Process
     {
         $cmd = [
             $this->command,

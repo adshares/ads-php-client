@@ -28,6 +28,6 @@ class GetTransactionCommand extends AbstractCommand
 
     public function getAttributes(): array
     {
-        return ["txid" => $this->txid];
+        return ['txid' => $this->txid];
     }
 }

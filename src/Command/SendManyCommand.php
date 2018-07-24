@@ -34,7 +34,7 @@ class SendManyCommand extends AbstractTransactionCommand
     {
         $attributes = [];
         foreach ($this->wires as $address => $amount) {
-            $attributes["wires"][$address] = AdsConverter::clicksToAds($amount);
+            $attributes['wires'][$address] = AdsConverter::clicksToAds($amount);
         }
         return $attributes;
     }

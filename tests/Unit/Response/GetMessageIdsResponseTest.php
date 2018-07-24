@@ -3,7 +3,9 @@
 
 namespace Adshares\Ads\Tests\Unit\Response;
 
+use Adshares\Ads\Entity\Tx;
 use Adshares\Ads\Response\GetMessageIdsResponse;
+use Adshares\Ads\Tests\Unit\Raw;
 
 class GetMessageIdsResponseTest extends \PHPUnit\Framework\TestCase
 {
@@ -19,7 +21,7 @@ class GetMessageIdsResponseTest extends \PHPUnit\Framework\TestCase
         $this->assertCount(7, $response->getMessageIds());
         $this->assertEquals('5B51A3E0', $response->getBlockId());
 
-        $this->assertInstanceOf('Adshares\Ads\Entity\Tx', $response->getTx());
+        $this->assertInstanceOf(Tx::class, $response->getTx());
     }
 
     public function testGetMessageIdsFromRawEmpty()
@@ -34,28 +36,12 @@ class GetMessageIdsResponseTest extends \PHPUnit\Framework\TestCase
         $this->assertCount(0, $response->getMessageIds());
         $this->assertEquals('5B51A3C0', $response->getBlockId());
 
-        $this->assertInstanceOf('Adshares\Ads\Entity\Tx', $response->getTx());
+        $this->assertInstanceOf(Tx::class, $response->getTx());
     }
 
     private function getRawData(): array
     {
-        return json_decode('{
-            "current_block_time": "1532077312",
-            "previous_block_time": "1532077280",
-            "tx": {
-                "data": "190200000000000EA5515BE0A3515B",
-                "signature": "C33CB56C758FEBAD18D50592350BD720F9143E9CAB06BD981757D'
-            . 'CE8D36DE18DB47F9CC7FAEC406C13BDB58EBAA323878C36D69825528C1F33C1A31E1572530F",
-                "time": "1532077326"
-            },
-            "block_time_hex": "5B51A3E0",
-            "block_time": "1532077024",
-            "msghash": "CC2969C3524B5B94D7835E85FB972AFCF6091256DAC64527D5DB5A67673C3868",
-            "message_count": "7",
-            "confirmed": "yes",
-            "messages": ["0001:00000001", "0001:00000002", "0001:00000003", "0002:00000001", '
-            . '"0002:00000002", "0002:00000003", "0003:00000001"]
-        }', true);
+        return json_decode(Raw::getMessageIds(), true);
     }
 
     private function getRawDataEmpty(): array

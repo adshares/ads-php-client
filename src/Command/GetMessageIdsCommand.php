@@ -30,10 +30,10 @@ class GetMessageIdsCommand extends AbstractCommand
 
     public function getAttributes(): array
     {
+        $attributes = [];
         if ($this->blockId) {
-            return ["block" => $this->blockId];
-        } else {
-            return parent::getAttributes();
+            $attributes['block'] = $this->blockId;
         }
+        return $attributes;
     }
 }

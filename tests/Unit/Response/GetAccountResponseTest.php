@@ -3,6 +3,8 @@
 
 namespace Adshares\Ads\Tests\Unit\Response;
 
+use Adshares\Ads\Entity\Account;
+use Adshares\Ads\Entity\Tx;
 use Adshares\Ads\Response\GetAccountResponse;
 
 class GetAccountResponseTest extends \PHPUnit\Framework\TestCase
@@ -17,9 +19,9 @@ class GetAccountResponseTest extends \PHPUnit\Framework\TestCase
         $time->setTimestamp(1532090976);
         $this->assertEquals($time, $response->getPreviousBlockTime());
 
-        $this->assertInstanceOf('Adshares\Ads\Entity\Tx', $response->getTx());
-        $this->assertInstanceOf('Adshares\Ads\Entity\Account', $response->getAccount());
-        $this->assertInstanceOf('Adshares\Ads\Entity\Account', $response->getNetworkAccount());
+        $this->assertInstanceOf(Tx::class, $response->getTx());
+        $this->assertInstanceOf(Account::class, $response->getAccount());
+        $this->assertInstanceOf(Account::class, $response->getNetworkAccount());
     }
 
     private function getRawData(): array

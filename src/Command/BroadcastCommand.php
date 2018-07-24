@@ -32,6 +32,6 @@ class BroadcastCommand extends AbstractTransactionCommand
 
     public function getAttributes(): array
     {
-        return ["message" => $this->message];
+        return ['message' => $this->message];
     }
 }

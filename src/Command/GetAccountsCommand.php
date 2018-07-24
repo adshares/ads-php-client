@@ -37,9 +37,9 @@ class GetAccountsCommand extends AbstractCommand
     {
         $attributes = [];
         if ($this->blockId) {
-            $attributes["block"] = $this->blockId;
+            $attributes['block'] = $this->blockId;
         }
-        $attributes["node"] = $this->node;
+        $attributes['node'] = $this->node;
         return $attributes;
     }
 }

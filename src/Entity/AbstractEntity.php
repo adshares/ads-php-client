@@ -9,7 +9,6 @@ namespace Adshares\Ads\Entity;
  */
 abstract class AbstractEntity implements EntityInterface
 {
-
     /**
      * Changes string with underscores to camelCase string. First letter is low.
      *
@@ -18,7 +17,7 @@ abstract class AbstractEntity implements EntityInterface
      */
     private static function toCamelCase(string $text): string
     {
-        if (strpos($text, "_") !== false) {
+        if (strpos($text, '_') !== false) {
             $text = str_replace(' ', '', ucwords(str_replace('_', ' ', $text)));
         }
         $text[0] = strtolower($text[0]);
@@ -77,6 +76,7 @@ abstract class AbstractEntity implements EntityInterface
                             /* @var $type EntityInterface*/
                             $value = EntityFactory::create((new \ReflectionClass($type))->getShortName(), $value);
                         } catch (\ReflectionException $e) {
+                            // $value will not be overwritten
                         }
                     }
                     break;

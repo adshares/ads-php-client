@@ -9,9 +9,9 @@ use Adshares\Ads\Exception\CommandException;
 
 class MessagesTest extends \PHPUnit\Framework\TestCase
 {
-    private $address = "0001-00000000-9B6F";
-    private $secret = "BB3425F914CA9F661CA6F3B908E07092B5AFB7F2FDAE2E94EDE12C83207CA743";
-    private $host = "10.69.3.43";
+    private $address = '0001-00000000-9B6F';
+    private $secret = 'BB3425F914CA9F661CA6F3B908E07092B5AFB7F2FDAE2E94EDE12C83207CA743';
+    private $host = '10.69.3.43';
     private $port = 9001;
 
     const TRANSACTION_TYPES = [

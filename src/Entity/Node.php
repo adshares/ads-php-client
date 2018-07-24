@@ -205,7 +205,7 @@ class Node extends AbstractEntity
      */
     protected static function castProperty(string $name, $value, \ReflectionClass $refClass = null)
     {
-        if ("balance" === $name) {
+        if ('balance' === $name) {
             return AdsConverter::adsToClicks($value);
         } else {
             return parent::castProperty($name, $value, $refClass);

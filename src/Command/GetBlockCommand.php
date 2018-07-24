@@ -30,7 +30,7 @@ class GetBlockCommand extends AbstractCommand
     {
         $attributes = [];
         if ($this->blockId) {
-            $attributes["block"] = $this->blockId;
+            $attributes['block'] = $this->blockId;
         }
         return $attributes;
     }

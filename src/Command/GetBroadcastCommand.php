@@ -27,10 +27,10 @@ class GetBroadcastCommand extends AbstractCommand
 
     public function getAttributes(): array
     {
+        $attributes = [];
         if ($this->blockId) {
-            return ["from" => $this->blockId];
-        } else {
-            return parent::getAttributes();
+            $attributes['from'] = $this->blockId;
         }
+        return $attributes;
     }
 }

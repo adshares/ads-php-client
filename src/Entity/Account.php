@@ -38,7 +38,7 @@ class Account extends AbstractEntity
     protected $localChange;
 
     /**
-     * Msid
+     * Number of last message
      *
      * @var int
      */
@@ -126,7 +126,7 @@ class Account extends AbstractEntity
     }
 
     /**
-     * @return int Msid
+     * @return int Number of last message
      */
     public function getMsid(): int
     {
@@ -218,7 +218,7 @@ class Account extends AbstractEntity
      */
     protected static function castProperty(string $name, $value, \ReflectionClass $refClass = null)
     {
-        if ("balance" === $name) {
+        if ('balance' === $name) {
             return AdsConverter::adsToClicks($value);
         } else {
             return parent::castProperty($name, $value, $refClass);
