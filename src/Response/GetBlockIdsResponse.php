@@ -10,9 +10,9 @@ namespace Adshares\Ads\Response;
 class GetBlockIdsResponse extends AbstractResponse
 {
     /**
-     * Array of updated blocks. Can be empty, if all blocks in selected period were updated earlier.
+     * Array of updated block ids (string). Can be empty, if all blocks in selected period were updated earlier.
      *
-     * @var array[string]
+     * @var array
      */
     protected $blockIds = [];
 
@@ -41,7 +41,8 @@ class GetBlockIdsResponse extends AbstractResponse
     }
 
     /**
-     * @return array Array of updated blocks. Can be empty, if all blocks in selected period were updated earlier.
+     * @return array Array of updated block ids (string). Can be empty,
+     * if all blocks in selected period were updated earlier.
      */
     public function getBlockIds(): array
     {

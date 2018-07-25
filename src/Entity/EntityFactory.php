@@ -2,12 +2,13 @@
 
 namespace Adshares\Ads\Entity;
 
+use Adshares\Ads\Entity\Transaction\SendManyTransactionWire;
 use Adshares\Ads\Exception\AdsException;
 
 class EntityFactory
 {
     /**
-     * @var array[string]
+     * @var array
      */
     private static $entityMap = [
         'Account' => '\Adshares\Ads\Entity\Account',
@@ -115,6 +116,15 @@ class EntityFactory
     public static function createNode(array $data = []): Node
     {
         return self::create('Node', $data);
+    }
+
+    /**
+     * @param array $data
+     * @return SendManyTransactionWire
+     */
+    public static function createSendManyTransactionWire(array $data = []): SendManyTransactionWire
+    {
+        return self::create('SendManyTransactionWire', $data);
     }
 
     /**

@@ -24,9 +24,9 @@ class NetworkTx extends AbstractEntity
     protected $blockTime;
 
     /**
-     * Hash path to block hash
+     * Hash path to block hash, array of string
      *
-     * @var array[string]
+     * @var array
      */
     protected $hashpath;
 
@@ -96,7 +96,7 @@ class NetworkTx extends AbstractEntity
     }
 
     /**
-     * @return array Hash path to block hash
+     * @return array Hash path to block hash, array of string
      */
     public function getHashpath(): array
     {
@@ -165,5 +165,18 @@ class NetworkTx extends AbstractEntity
     public function getSize(): int
     {
         return $this->size;
+    }
+
+    protected static function castProperty(string $name, $value, \ReflectionClass $refClass = null)
+    {
+        if ('hashpath' === $name) {
+            $hashpath = [];
+            foreach ((array)$value as $k => $v) {
+                $hashpath[$k] = $v;
+            }
+            return $hashpath;
+        } else {
+            return parent::castProperty($name, $value, $refClass);
+        }
     }
 }

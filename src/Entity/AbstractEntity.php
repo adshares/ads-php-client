@@ -71,27 +71,20 @@ abstract class AbstractEntity implements EntityInterface
      */
     protected static function defaultConvertType(string $type, $value)
     {
-        if (preg_match('/array\[([^\s]+)\]/', $type, $matches)) {
-            list(, $t) = $matches;
-            foreach ((array)$value as $k => $v) {
-                $value[$k] = self::convertType($t, $v);
-            }
-        } else {
-            $entityType = 'Adshares\Ads\Entity\\' . $type;
-            if (class_exists($entityType)) {
-                $type = $entityType;
-            }
-            if (class_exists($type)) {
-                $interfaces = class_implements($type);
+        $entityType = 'Adshares\Ads\Entity\\' . $type;
+        if (class_exists($entityType)) {
+            $type = $entityType;
+        }
+        if (class_exists($type)) {
+            $interfaces = class_implements($type);
 
-                if (isset($interfaces['Adshares\Ads\Entity\EntityInterface'])) {
-                    try {
-                        /* @var $type EntityInterface */
-                        $value = EntityFactory::create((new \ReflectionClass($type))->getShortName(), $value);
-                    } catch (\ReflectionException $e) {
-                        // $value will not be overwritten
-                        // Ignore
-                    }
+            if (isset($interfaces['Adshares\Ads\Entity\EntityInterface'])) {
+                try {
+                    /* @var $type EntityInterface */
+                    $value = EntityFactory::create((new \ReflectionClass($type))->getShortName(), $value);
+                } catch (\ReflectionException $e) {
+                    // $value will not be overwritten
+                    // Ignore
                 }
             }
         }

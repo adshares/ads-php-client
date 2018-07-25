@@ -61,9 +61,9 @@ class Block extends AbstractEntity
     protected $nodeCount;
 
     /**
-     * Array of nodes
+     * Array of nodes \Adshares\Ads\Entity\Node
      *
-     * @var array[Node]
+     * @var array
      */
     protected $nodes;
 
@@ -178,7 +178,7 @@ class Block extends AbstractEntity
     }
 
     /**
-     * @return array Array of nodes
+     * @return array Array of nodes \Adshares\Ads\Entity\Node
      */
     public function getNodes(): array
     {
@@ -256,6 +256,12 @@ class Block extends AbstractEntity
     {
         if ('dividendBalance' === $name) {
             return AdsConverter::adsToClicks($value);
+        } elseif ('nodes' === $name) {
+            $nodes = [];
+            foreach ((array)$value as $k => $v) {
+                $nodes[$k] = EntityFactory::createNode($v);
+            }
+            return $nodes;
         } else {
             return parent::castProperty($name, $value, $refClass);
         }

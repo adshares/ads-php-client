@@ -7,13 +7,13 @@ use Adshares\Ads\Entity\EntityFactory;
 class GetAccountsResponse extends AbstractResponse
 {
     /**
+     * Array of accounts \Adshares\Ads\Entity\Account
      *
-     * @var array[Account]
+     * @var array
      */
     protected $accounts;
 
     /**
-     *
      * @param array $data
      */
     protected function loadData(array $data): void
@@ -28,8 +28,7 @@ class GetAccountsResponse extends AbstractResponse
     }
 
     /**
-     *
-     * @return array
+     * @return array Array of accounts \Adshares\Ads\Entity\Account
      */
     public function getAccounts(): array
     {

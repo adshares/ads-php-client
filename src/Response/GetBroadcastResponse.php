@@ -34,9 +34,9 @@ class GetBroadcastResponse extends AbstractResponse
     protected $blockId;
 
     /**
-     * Array of broadcast messages
+     * Array of broadcast messages \Adshares\Ads\Entity\Broadcast
      *
-     * @var array[Broadcast]
+     * @var array
      */
     protected $broadcast = [];
 
@@ -89,7 +89,7 @@ class GetBroadcastResponse extends AbstractResponse
     }
 
     /**
-     * @return array Array of broadcast messages
+     * @return array Array of broadcast messages \Adshares\Ads\Entity\Broadcast
      */
     public function getBroadcast(): array
     {

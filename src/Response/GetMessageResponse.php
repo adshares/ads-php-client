@@ -8,12 +8,16 @@ use Adshares\Ads\Entity\Message;
 class GetMessageResponse extends AbstractResponse
 {
     /**
+     * Message
+     *
      * @var Message
      */
     protected $message;
 
     /**
-     * @var array[AbstractTransaction]
+     * Array of transactions Adshares\Ads\Entity\Transaction\AbstractTransaction
+     *
+     * @var array
      */
     protected $transactions = [];
 
@@ -40,7 +44,7 @@ class GetMessageResponse extends AbstractResponse
     }
 
     /**
-     * @return Message
+     * @return Message Message
      */
     public function getMessage(): Message
     {
@@ -48,7 +52,7 @@ class GetMessageResponse extends AbstractResponse
     }
 
     /**
-     * @return array
+     * @return array Array of transactions Adshares\Ads\Entity\Transaction\AbstractTransaction
      */
     public function getTransactions(): array
     {
