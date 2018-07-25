@@ -57,12 +57,12 @@ class CliDriverTest extends \PHPUnit\Framework\TestCase
     public function testDriverInvalidClientApp()
     {
         $driver = new CliDriver($this->address, $this->secret, $this->host, $this->port);
-        $driver->setCommand('qwerty');
+        $driver->setCommand('sh');
         $driver->setAddress('1234', '1234');
         $driver->setHost('1234');
         $driver->setSecret('1234');
         $driver->setWorkingDir('.');
-        $driver->setTimeout(0);
+        $driver->setTimeout(1);
 
         $command = new BroadcastCommand('');
         $command->setLastMsid(0);
