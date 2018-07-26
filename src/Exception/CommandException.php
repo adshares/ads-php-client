@@ -4,6 +4,11 @@ namespace Adshares\Ads\Exception;
 
 use Adshares\Ads\Command\CommandInterface;
 
+/**
+ * CommandException is exception during command call.
+ *
+ * @package Adshares\Ads\Exception
+ */
 class CommandException extends AdsException
 {
     /**
@@ -13,6 +18,7 @@ class CommandException extends AdsException
 
     /**
      * CommandException constructor.
+     *
      * @param CommandInterface $command
      * @param string $message [optional] The Exception message to throw.
      * @param int $code [optional] The Exception code.

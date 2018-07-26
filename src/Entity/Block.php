@@ -89,7 +89,9 @@ class Block extends AbstractEntity
     protected $oldHash;
 
     /**
-     * @var \DateTime Block time
+     * Block time
+     *
+     * @var \DateTime
      */
     protected $time;
 
@@ -250,7 +252,10 @@ class Block extends AbstractEntity
     }
 
     /**
-     * @inheritdoc
+     * @param string $name
+     * @param array|mixed $value
+     * @param \ReflectionClass|null $refClass
+     * @return int|mixed
      */
     protected static function castProperty(string $name, $value, \ReflectionClass $refClass = null)
     {
@@ -267,6 +272,10 @@ class Block extends AbstractEntity
         }
     }
 
+    /**
+     * @param array $data
+     * @return EntityInterface
+     */
     public static function createFromRawData(array $data): EntityInterface
     {
         $entity = new static();

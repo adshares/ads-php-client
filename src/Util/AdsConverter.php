@@ -3,6 +3,11 @@
 
 namespace Adshares\Ads\Util;
 
+/**
+ * AdsConverter is utility class to convert ADS currency.
+ *
+ * @package Adshares\Ads\Util
+ */
 class AdsConverter
 {
     /**

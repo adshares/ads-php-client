@@ -4,6 +4,11 @@ namespace Adshares\Ads\Response;
 
 use Adshares\Ads\Entity\EntityFactory;
 
+/**
+ * Response for GetBroadcast request.
+ *
+ * @package Adshares\Ads\Response
+ */
 class GetBroadcastResponse extends AbstractResponse
 {
     /**

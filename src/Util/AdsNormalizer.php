@@ -6,7 +6,7 @@ namespace Adshares\Ads\Util;
 use Adshares\Ads\Exception\AdsException;
 
 /**
- * Class AdsNormalizer contains legacy code from AdsClient.
+ * AdsNormalizer is utility class to remove unwanted chars from ADS ids. This class contains legacy code from AdsClient.
  *
  * @package Adshares\Ads\Util
  */

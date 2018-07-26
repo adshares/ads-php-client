@@ -5,6 +5,11 @@ namespace Adshares\Ads\Response;
 use Adshares\Ads\Entity\EntityFactory;
 use Adshares\Ads\Entity\Message;
 
+/**
+ * Response GetMessageResponse request.
+ *
+ * @package Adshares\Ads\Response
+ */
 class GetMessageResponse extends AbstractResponse
 {
     /**

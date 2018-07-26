@@ -96,6 +96,9 @@ class CommandError
      */
     public const NO_NEW_BLOCKS = 5057;
 
+    /**
+     * Mapping error code to error description
+     */
     private const MESSAGES = [
         self::UNKNOWN_ERROR => 'Unknown error.',
         self::NONE => 'No error',
@@ -157,17 +160,29 @@ class CommandError
         self::NO_NEW_BLOCKS => 'No new blocks to download',
     ];
 
-    public static function getMessageByCode(int $code)
+    /**
+     * Returns error description for given code.
+     *
+     * @param int $code error code
+     * @return string error message
+     */
+    public static function getMessageByCode(int $code): string
     {
         return (array_key_exists($code, self::MESSAGES)) ? self::MESSAGES[$code] : self::MESSAGES[self::UNKNOWN_ERROR];
     }
 
-    public static function getCodeByMessage(string $errorMessage)
+    /**
+     * Returns error code from given error message.
+     *
+     * @param string $errorMessage error message
+     * @return int error code
+     */
+    public static function getCodeByMessage(string $errorMessage): int
     {
         $code = array_search($errorMessage, self::MESSAGES);
         if ($code === false) {
             $code = self::UNKNOWN_ERROR;
         }
-        return $code;
+        return (int)$code;
     }
 }

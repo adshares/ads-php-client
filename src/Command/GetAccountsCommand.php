@@ -5,7 +5,7 @@ namespace Adshares\Ads\Command;
 class GetAccountsCommand extends AbstractCommand
 {
     /**
-     * @var null|string $blockId
+     * @var null|string
      */
     private $blockId;
 
@@ -25,6 +25,7 @@ class GetAccountsCommand extends AbstractCommand
     }
 
     /**
+     * Returns command name.
      *
      * @return string
      */
@@ -33,6 +34,11 @@ class GetAccountsCommand extends AbstractCommand
         return 'get_accounts';
     }
 
+    /**
+     * Returns command specific attributes.
+     *
+     * @return array
+     */
     public function getAttributes(): array
     {
         $attributes = [];

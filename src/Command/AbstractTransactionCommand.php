@@ -5,21 +5,21 @@ namespace Adshares\Ads\Command;
 abstract class AbstractTransactionCommand extends AbstractCommand implements TransactionInterface
 {
     /**
-     * Hash
+     * Hash of transaction sender account
      *
      * @var null|string
      */
     protected $lastHash;
 
     /**
-     * Number of last message
+     * Number of last sent message from transaction sender account
      *
      * @var null|int
      */
     protected $lastMsid;
 
     /**
-     * Sender address
+     * Transaction sender address
      *
      * @var null|string
      */
@@ -33,12 +33,14 @@ abstract class AbstractTransactionCommand extends AbstractCommand implements Tra
     protected $signature;
 
     /**
+     * Transaction timestamp
+     *
      * @var null|int
      */
     protected $timestamp;
 
     /**
-     * @return null|string Hash
+     * @return null|string Hash of transaction sender account
      */
     public function getLastHash(): ?string
     {
@@ -46,7 +48,7 @@ abstract class AbstractTransactionCommand extends AbstractCommand implements Tra
     }
 
     /**
-     * @param string $lastHash Hash
+     * @param string $lastHash Hash of transaction sender account
      */
     public function setLastHash(string $lastHash): void
     {
@@ -54,7 +56,7 @@ abstract class AbstractTransactionCommand extends AbstractCommand implements Tra
     }
 
     /**
-     * @return null|int Number of last message
+     * @return null|int Number of last sent message from transaction sender account
      */
     public function getLastMsid(): ?int
     {
@@ -62,7 +64,7 @@ abstract class AbstractTransactionCommand extends AbstractCommand implements Tra
     }
 
     /**
-     * @param int $lastMsid Number of last message
+     * @param int $lastMsid Number of last sent message from transaction sender account
      */
     public function setLastMsid(int $lastMsid): void
     {
@@ -78,7 +80,7 @@ abstract class AbstractTransactionCommand extends AbstractCommand implements Tra
     }
 
     /**
-     * @param null|string $sender Sender address
+     * @param null|string $sender Transaction sender address
      */
     public function setSender(?string $sender): void
     {
@@ -102,7 +104,7 @@ abstract class AbstractTransactionCommand extends AbstractCommand implements Tra
     }
 
     /**
-     * @return int|null
+     * @return int|null Transaction timestamp
      */
     public function getTimestamp(): ?int
     {
@@ -110,7 +112,7 @@ abstract class AbstractTransactionCommand extends AbstractCommand implements Tra
     }
 
     /**
-     * @param int|null $timestamp
+     * @param int|null $timestamp Transaction timestamp
      */
     public function setTimestamp(?int $timestamp): void
     {

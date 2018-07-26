@@ -6,6 +6,11 @@ use Adshares\Ads\Entity\EntityFactory;
 use Adshares\Ads\Entity\NetworkTx;
 use Adshares\Ads\Entity\Transaction\AbstractTransaction;
 
+/**
+ * Repsonse for GetTransaction request.
+ *
+ * @package Adshares\Ads\Response
+ */
 class GetTransactionResponse extends AbstractResponse
 {
     /**

@@ -6,7 +6,7 @@ class GetTransactionCommand extends AbstractCommand
 {
     /**
      *
-     * @var string $txid
+     * @var string
      */
     private $txid;
 
@@ -19,6 +19,8 @@ class GetTransactionCommand extends AbstractCommand
     }
 
     /**
+     * Returns command name.
+     *
      * @return string
      */
     public function getName(): string
@@ -26,6 +28,11 @@ class GetTransactionCommand extends AbstractCommand
         return 'get_transaction';
     }
 
+    /**
+     * Returns command specific attributes.
+     *
+     * @return array
+     */
     public function getAttributes(): array
     {
         return ['txid' => $this->txid];

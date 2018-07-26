@@ -5,8 +5,7 @@ namespace Adshares\Ads\Command;
 class GetMessageIdsCommand extends AbstractCommand
 {
     /**
-     *
-     * @var null|string $blockId
+     * @var null|string
      */
     private $blockId;
 
@@ -20,6 +19,7 @@ class GetMessageIdsCommand extends AbstractCommand
     }
 
     /**
+     * Returns command name.
      *
      * @return string
      */
@@ -28,6 +28,11 @@ class GetMessageIdsCommand extends AbstractCommand
         return 'get_message_list';
     }
 
+    /**
+     * Returns command specific attributes.
+     *
+     * @return array
+     */
     public function getAttributes(): array
     {
         $attributes = [];

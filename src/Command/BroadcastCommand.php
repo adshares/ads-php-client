@@ -5,15 +5,17 @@ namespace Adshares\Ads\Command;
 class BroadcastCommand extends AbstractTransactionCommand
 {
     /**
-     * @var string $message hexadecimal string with even number of characters
-     *      (each two characters represents one byte). Maximum size of message is 32000 bytes.
+     * Hexadecimal string with even number of characters (each two characters represents one byte). Maximum size of
+     * message is 32000 bytes.
+     *
+     * @var string
      */
     private $message;
 
     /**
      * BroadcastCommand constructor.
      *
-     * @param string $message hexadecimal string with even number of characters
+     * @param string $message Hexadecimal string with even number of characters
      *      (each two characters represents one byte). Maximum size of message is 32000 bytes.
      */
     public function __construct(string $message)
@@ -22,6 +24,7 @@ class BroadcastCommand extends AbstractTransactionCommand
     }
 
     /**
+     * Returns command name.
      *
      * @return string
      */
@@ -30,6 +33,11 @@ class BroadcastCommand extends AbstractTransactionCommand
         return 'broadcast';
     }
 
+    /**
+     * Returns command specific attributes.
+     *
+     * @return array
+     */
     public function getAttributes(): array
     {
         return ['message' => $this->message];

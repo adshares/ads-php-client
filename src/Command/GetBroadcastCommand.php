@@ -5,7 +5,7 @@ namespace Adshares\Ads\Command;
 class GetBroadcastCommand extends AbstractCommand
 {
     /**
-     * @var null|string $blockId
+     * @var null|string
      */
     private $blockId;
 
@@ -18,6 +18,8 @@ class GetBroadcastCommand extends AbstractCommand
     }
 
     /**
+     * Returns command name.
+     *
      * @return string
      */
     public function getName(): string
@@ -25,6 +27,11 @@ class GetBroadcastCommand extends AbstractCommand
         return 'get_broadcast';
     }
 
+    /**
+     * Returns command specific attributes.
+     *
+     * @return array
+     */
     public function getAttributes(): array
     {
         $attributes = [];

@@ -3,6 +3,11 @@
 
 namespace Adshares\Ads\Util;
 
+/**
+ * AdsValidator is utility class responsible for validation of ADS ids.
+ *
+ * @package Adshares\Ads\Util
+ */
 class AdsValidator
 {
     /**

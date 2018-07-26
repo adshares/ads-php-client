@@ -3,7 +3,7 @@
 namespace Adshares\Ads\Response;
 
 /**
- * Response for GetMessageIds.
+ * Response for GetMessageIds request.
  *
  * @package Adshares\Ads\Response
  */
