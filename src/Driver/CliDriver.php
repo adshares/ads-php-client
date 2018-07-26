@@ -11,6 +11,7 @@ use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
+use Symfony\Component\Process\Exception\ProcessTimedOutException;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\InputStream;
 
@@ -304,7 +305,11 @@ class CliDriver implements DriverInterface, LoggerAwareInterface
         $input->close();
 
         $start = microtime(true);
-        $process->wait();
+        try {
+            $process->wait();
+        } catch (ProcessTimedOutException $exc) {
+            throw new CommandException($command, 'Process timed out');
+        }
 
         if ($process->getExitCode()) {
             throw new CommandException($command, $process->getErrorOutput());

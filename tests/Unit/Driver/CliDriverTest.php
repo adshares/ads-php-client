@@ -56,15 +56,34 @@ class CliDriverTest extends \PHPUnit\Framework\TestCase
 
     public function testDriverInvalidClientApp()
     {
-        $driver = new CliDriver($this->address, $this->secret, $this->host, $this->port);
-        $driver->setCommand('sh');
+        $driver = new CliDriver();
+        $driver->setCommand('adsd');
+        $driver->setHost('1234');
+        $driver->setWorkingDir('.');
+        $driver->setTimeout(5);
+
+        $command = new BroadcastCommand('11');
+        $command->setLastMsid(0);
+        $command->setLastHash('0000000000000000000000000000000000000000000000000000000000000000');
+        $this->expectException(CommandException::class);
+        $driver->executeTransaction($command, true);
+    }
+
+    public function testDriverTimeout()
+    {
+        /**
+         * Remote test on Travis behaves different than local.
+         * Invalid command with secret succeeds with ProcessTimedOutException.
+         */
+        $driver = new CliDriver();
+        $driver->setCommand('adsd');
         $driver->setAddress('1234', '1234');
         $driver->setHost('1234');
         $driver->setSecret('1234');
         $driver->setWorkingDir('.');
-        $driver->setTimeout(1);
+        $driver->setTimeout(5);
 
-        $command = new BroadcastCommand('');
+        $command = new BroadcastCommand('11');
         $command->setLastMsid(0);
         $command->setLastHash('0000000000000000000000000000000000000000000000000000000000000000');
         $this->expectException(CommandException::class);
