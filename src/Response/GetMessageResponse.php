@@ -4,6 +4,7 @@ namespace Adshares\Ads\Response;
 
 use Adshares\Ads\Entity\EntityFactory;
 use Adshares\Ads\Entity\Message;
+use Adshares\Ads\Entity\Transaction\AbstractTransaction;
 
 /**
  * Response GetMessageResponse request.
@@ -20,9 +21,9 @@ class GetMessageResponse extends AbstractResponse
     protected $message;
 
     /**
-     * Array of transactions Adshares\Ads\Entity\Transaction\AbstractTransaction
+     * Array of transactions
      *
-     * @var array
+     * @var AbstractTransaction[]
      */
     protected $transactions = [];
 
@@ -57,7 +58,7 @@ class GetMessageResponse extends AbstractResponse
     }
 
     /**
-     * @return array Array of transactions Adshares\Ads\Entity\Transaction\AbstractTransaction
+     * @return AbstractTransaction[] Array of transactions
      */
     public function getTransactions(): array
     {

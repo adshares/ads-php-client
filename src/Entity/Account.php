@@ -5,6 +5,8 @@ namespace Adshares\Ads\Entity;
 use Adshares\Ads\Util\AdsConverter;
 
 /**
+ * Class Account
+ *
  * @package Adshares\Ads\Entity
  */
 class Account extends AbstractEntity

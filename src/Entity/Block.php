@@ -5,7 +5,7 @@ namespace Adshares\Ads\Entity;
 use Adshares\Ads\Util\AdsConverter;
 
 /**
- * Class Block
+ * Block from getBlockResponse
  *
  * @package Adshares\Ads\Entity
  */
@@ -61,9 +61,9 @@ class Block extends AbstractEntity
     protected $nodeCount;
 
     /**
-     * Array of nodes \Adshares\Ads\Entity\Node
+     * Array of nodes
      *
-     * @var array
+     * @var Node[]
      */
     protected $nodes;
 
@@ -180,7 +180,7 @@ class Block extends AbstractEntity
     }
 
     /**
-     * @return array Array of nodes \Adshares\Ads\Entity\Node
+     * @return Node[] Array of nodes
      */
     public function getNodes(): array
     {
@@ -261,12 +261,6 @@ class Block extends AbstractEntity
     {
         if ('dividendBalance' === $name) {
             return AdsConverter::adsToClicks($value);
-        } elseif ('nodes' === $name) {
-            $nodes = [];
-            foreach ((array)$value as $k => $v) {
-                $nodes[$k] = EntityFactory::createNode($v);
-            }
-            return $nodes;
         } else {
             return parent::castProperty($name, $value, $refClass);
         }

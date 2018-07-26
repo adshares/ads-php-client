@@ -53,7 +53,9 @@ class AdsClientTest extends \PHPUnit\Framework\TestCase
         $broadcasts = $response->getBroadcast();
         $broadcast = array_shift($broadcasts);
         $this->assertInstanceOf(Broadcast::class, $broadcast);
-        $this->assertEquals('7E', $broadcast->getMessage());
+        if (null !== $broadcast) {
+            $this->assertEquals('7E', $broadcast->getMessage());
+        }
     }
 
     public function testGetMe()

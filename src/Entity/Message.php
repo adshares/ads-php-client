@@ -3,6 +3,8 @@
 namespace Adshares\Ads\Entity;
 
 /**
+ * Message from getMessage response.
+ *
  * @package Adshares\Ads\Entity
  */
 class Message extends AbstractEntity

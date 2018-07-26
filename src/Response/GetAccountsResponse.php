@@ -2,6 +2,7 @@
 
 namespace Adshares\Ads\Response;
 
+use Adshares\Ads\Entity\Account;
 use Adshares\Ads\Entity\EntityFactory;
 
 /**
@@ -12,9 +13,9 @@ use Adshares\Ads\Entity\EntityFactory;
 class GetAccountsResponse extends AbstractResponse
 {
     /**
-     * Array of accounts \Adshares\Ads\Entity\Account
+     * Array of accounts
      *
-     * @var array
+     * @var Account[]
      */
     protected $accounts;
 
@@ -33,7 +34,7 @@ class GetAccountsResponse extends AbstractResponse
     }
 
     /**
-     * @return array Array of accounts \Adshares\Ads\Entity\Account
+     * @return Account[] Array of accounts
      */
     public function getAccounts(): array
     {

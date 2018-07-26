@@ -5,6 +5,8 @@ namespace Adshares\Ads\Entity;
 use Adshares\Ads\Util\AdsConverter;
 
 /**
+ * Class Broadcast
+ *
  * @package Adshares\Ads\Entity
  */
 class Broadcast extends AbstractEntity

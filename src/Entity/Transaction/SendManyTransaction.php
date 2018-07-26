@@ -2,7 +2,6 @@
 
 namespace Adshares\Ads\Entity\Transaction;
 
-use Adshares\Ads\Entity\EntityFactory;
 use Adshares\Ads\Util\AdsConverter;
 
 /**
@@ -53,9 +52,9 @@ class SendManyTransaction extends AbstractTransaction
     protected $wireCount;
 
     /**
-     * Array of wires \Adshares\Ads\Entity\Transaction\SendManyTransactionWire
+     * Array of wires
      *
-     * @var array
+     * @var \Adshares\Ads\Entity\Transaction\SendManyTransactionWire[]
      */
     protected $wires;
 
@@ -124,7 +123,7 @@ class SendManyTransaction extends AbstractTransaction
     }
 
     /**
-     * @return array Array of wires \Adshares\Ads\Entity\Transaction\SendManyTransactionWire
+     * @return \Adshares\Ads\Entity\Transaction\SendManyTransactionWire[] Array of wires
      */
     public function getWires(): array
     {
@@ -141,12 +140,6 @@ class SendManyTransaction extends AbstractTransaction
     {
         if ('senderFee' === $name) {
             return AdsConverter::adsToClicks($value);
-        } elseif ('wires' === $name) {
-            $wires = [];
-            foreach ((array)$value as $k => $v) {
-                $wires[$k] = EntityFactory::createSendManyTransactionWire($v);
-            }
-            return $wires;
         } else {
             return parent::castProperty($name, $value, $refClass);
         }

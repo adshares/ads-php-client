@@ -2,6 +2,7 @@
 
 namespace Adshares\Ads\Response;
 
+use Adshares\Ads\Entity\Broadcast;
 use Adshares\Ads\Entity\EntityFactory;
 
 /**
@@ -39,9 +40,9 @@ class GetBroadcastResponse extends AbstractResponse
     protected $blockId;
 
     /**
-     * Array of broadcast messages \Adshares\Ads\Entity\Broadcast
+     * Array of broadcast messages
      *
-     * @var array
+     * @var Broadcast[]
      */
     protected $broadcast = [];
 
@@ -94,7 +95,7 @@ class GetBroadcastResponse extends AbstractResponse
     }
 
     /**
-     * @return array Array of broadcast messages \Adshares\Ads\Entity\Broadcast
+     * @return Broadcast[] Array of broadcast messages
      */
     public function getBroadcast(): array
     {

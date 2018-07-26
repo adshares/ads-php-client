@@ -78,8 +78,9 @@ class BroadcastTest extends \PHPUnit\Framework\TestCase
             $broadcasts = $getBroadcastResponse->getBroadcast();
             $broadcast = array_shift($broadcasts);
         }
-        $this->assertNotNull($broadcast);
         $this->assertInstanceOf(Broadcast::class, $broadcast);
-        $this->assertEquals($message, $broadcast->getMessage());
+        if (null !== $broadcast) {
+            $this->assertEquals($message, $broadcast->getMessage());
+        }
     }
 }

@@ -39,9 +39,9 @@ class GetMessageIdsResponse extends AbstractResponse
     protected $messageCount;
 
     /**
-     * Array of message ids (string)
+     * Array of message ids
      *
-     * @var array
+     * @var string[]
      */
     protected $messageIds = [];
 
@@ -82,7 +82,7 @@ class GetMessageIdsResponse extends AbstractResponse
     }
 
     /**
-     * @return array Array of message ids (string)
+     * @return string[] Array of message ids
      */
     public function getMessageIds(): array
     {
