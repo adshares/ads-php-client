@@ -81,19 +81,21 @@ class CliDriverTest extends \PHPUnit\Framework\TestCase
         );
 
         /** @var Process $process */
-        $driver = $this->createCliDriver($process);
-        $driver->setCommand('adsd');
-        $driver->setAddress('1234', '1234');
-        $driver->setHost('1234');
-        $driver->setSecret('1234');
-        $driver->setWorkingDir('.');
-        $driver->setTimeout(5);
+        if ($process instanceof Process) {
+            $driver = $this->createCliDriver($process);
+            $driver->setCommand('adsd');
+            $driver->setAddress('1234', '1234');
+            $driver->setHost('1234');
+            $driver->setSecret('1234');
+            $driver->setWorkingDir('.');
+            $driver->setTimeout(5);
 
-        $command = new BroadcastCommand('11');
-        $command->setLastMsid(0);
-        $command->setLastHash('0000000000000000000000000000000000000000000000000000000000000000');
-        $this->expectException(CommandException::class);
-        $driver->executeTransaction($command, true);
+            $command = new BroadcastCommand('11');
+            $command->setLastMsid(0);
+            $command->setLastHash('0000000000000000000000000000000000000000000000000000000000000000');
+            $this->expectException(CommandException::class);
+            $driver->executeTransaction($command, true);
+        }
     }
 
     /**
@@ -109,13 +111,17 @@ class CliDriverTest extends \PHPUnit\Framework\TestCase
             ->setMethods(['getProcess'])
             ->getMock();
         $driver->method('getProcess')->willReturn($process);
-        /* @var CliDriver $driver */
-        return $driver;
+
+        if ($driver instanceof CliDriver) {
+            /* @var CliDriver $driver */
+            return $driver;
+        }
+        throw new \RuntimeException();
     }
 
     /**
      * @param int $processExitCode
-     * @param $processOutput
+     * @param string|array $processOutput
      * @return Process
      */
     private function createMockProcess(int $processExitCode, $processOutput): Process
@@ -128,7 +134,11 @@ class CliDriverTest extends \PHPUnit\Framework\TestCase
             $stub = $this->onConsecutiveCalls($processOutput);
         }
         $process->method('getOutput')->will($stub);
-        /** @var $process Process */
-        return $process;
+
+        if ($process instanceof Process) {
+            /** @var $process Process */
+            return $process;
+        }
+        throw new \RuntimeException();
     }
 }
