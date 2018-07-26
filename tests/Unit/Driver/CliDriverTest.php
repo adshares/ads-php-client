@@ -8,6 +8,7 @@ use Adshares\Ads\Command\GetMeCommand;
 use Adshares\Ads\Driver\CliDriver;
 use Adshares\Ads\Driver\CommandError;
 use Adshares\Ads\Exception\CommandException;
+use Symfony\Component\Process\Exception\ProcessTimedOutException;
 use Symfony\Component\Process\Process;
 
 class CliDriverTest extends \PHPUnit\Framework\TestCase
@@ -19,7 +20,7 @@ class CliDriverTest extends \PHPUnit\Framework\TestCase
 
     public function testDriverInvalidExitCode()
     {
-        $driver = $this->createCliDriver(404, '');
+        $driver = $this->createCliDriver($this->createMockProcess(404, ''));
         $command = new GetMeCommand();
 
         $this->expectException(CommandException::class);
@@ -28,7 +29,7 @@ class CliDriverTest extends \PHPUnit\Framework\TestCase
 
     public function testDriverEmptyResponse()
     {
-        $driver = $this->createCliDriver(0, '');
+        $driver = $this->createCliDriver($this->createMockProcess(0, ''));
         $command = new GetMeCommand();
 
         $this->expectException(CommandException::class);
@@ -37,7 +38,7 @@ class CliDriverTest extends \PHPUnit\Framework\TestCase
 
     public function testDriverJsonResponseError()
     {
-        $driver = $this->createCliDriver(0, '{');
+        $driver = $this->createCliDriver($this->createMockProcess(0, '{'));
         $command = new GetMeCommand();
 
         $this->expectException(CommandException::class);
@@ -46,7 +47,7 @@ class CliDriverTest extends \PHPUnit\Framework\TestCase
 
     public function testDriverResponseWithError()
     {
-        $driver = $this->createCliDriver(0, '{"error":"Bad user"}');
+        $driver = $this->createCliDriver($this->createMockProcess(0, '{"error":"Bad user"}'));
         $command = new GetMeCommand();
 
         $this->expectException(CommandException::class);
@@ -71,11 +72,16 @@ class CliDriverTest extends \PHPUnit\Framework\TestCase
 
     public function testDriverTimeout()
     {
-        /**
-         * Remote test on Travis behaves different than local.
-         * Invalid command with secret succeeds with ProcessTimedOutException.
-         */
-        $driver = new CliDriver();
+        // process used as exception parameter
+        $processExc = new Process('test-timeout');
+        // mock process - throws ProcessTimedOutException
+        $process = $this->createMock(Process::class);
+        $process->method('wait')->willThrowException(
+            new ProcessTimedOutException($processExc, ProcessTimedOutException::TYPE_GENERAL)
+        );
+
+        /** @var Process $process */
+        $driver = $this->createCliDriver($process);
         $driver->setCommand('adsd');
         $driver->setAddress('1234', '1234');
         $driver->setHost('1234');
@@ -93,11 +99,26 @@ class CliDriverTest extends \PHPUnit\Framework\TestCase
     /**
      * Creates CliDriver with mocked process.
      *
-     * @param int $processExitCode exit code returned by process
-     * @param string|array $processOutput process output
-     * @return mixed
+     * @param Process $process process
+     * @return CliDriver
      */
-    private function createCliDriver(int $processExitCode, $processOutput = '')
+    private function createCliDriver(Process $process): CliDriver
+    {
+        $driver = $this->getMockBuilder(CliDriver::class)
+            ->setConstructorArgs([$this->address, $this->secret, $this->host, $this->port])
+            ->setMethods(['getProcess'])
+            ->getMock();
+        $driver->method('getProcess')->willReturn($process);
+        /* @var CliDriver $driver */
+        return $driver;
+    }
+
+    /**
+     * @param int $processExitCode
+     * @param $processOutput
+     * @return Process
+     */
+    private function createMockProcess(int $processExitCode, $processOutput): Process
     {
         $process = $this->createMock(Process::class);
         $process->method('getExitCode')->willReturn($processExitCode);
@@ -107,13 +128,7 @@ class CliDriverTest extends \PHPUnit\Framework\TestCase
             $stub = $this->onConsecutiveCalls($processOutput);
         }
         $process->method('getOutput')->will($stub);
-
-        $driver = $this->getMockBuilder(CliDriver::class)
-            ->setConstructorArgs([$this->address, $this->secret, $this->host, $this->port])
-            ->setMethods(['getProcess'])
-            ->getMock();
-        $driver->method('getProcess')->willReturn($process);
-        /* @var CliDriver $driver */
-        return $driver;
+        /** @var $process Process */
+        return $process;
     }
 }
