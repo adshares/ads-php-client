@@ -170,6 +170,7 @@ class EntityFactory
             default:
                 throw new AdsException(sprintf('Unsupported transaction type "%s".', $data['type']));
         }
+
         return $entity;
     }
 

@@ -261,9 +261,9 @@ class Block extends AbstractEntity
     {
         if ('dividendBalance' === $name) {
             return AdsConverter::adsToClicks($value);
-        } else {
-            return parent::castProperty($name, $value, $refClass);
         }
+
+        return parent::castProperty($name, $value, $refClass);
     }
 
     /**

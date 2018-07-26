@@ -191,8 +191,8 @@ class Tx extends AbstractEntity
     {
         if (in_array($name, self::MONEY_FIELDS)) {
             return AdsConverter::adsToClicks($value);
-        } else {
-            return parent::castProperty($name, $value, $refClass);
         }
+
+        return parent::castProperty($name, $value, $refClass);
     }
 }

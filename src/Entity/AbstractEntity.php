@@ -96,6 +96,7 @@ abstract class AbstractEntity implements EntityInterface
                 }
             }
         }
+
         return $value;
     }
 

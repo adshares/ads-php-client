@@ -255,10 +255,12 @@ class Broadcast extends AbstractEntity
     {
         if ('fee' === $name) {
             return AdsConverter::adsToClicks($value);
-        } elseif ('verify' === $name) {
-            return 'passed' === $value;
-        } else {
-            return parent::castProperty($name, $value, $refClass);
         }
+
+        if ('verify' === $name) {
+            return 'passed' === $value;
+        }
+
+        return parent::castProperty($name, $value, $refClass);
     }
 }

@@ -210,8 +210,8 @@ class Node extends AbstractEntity
     {
         if ('balance' === $name) {
             return AdsConverter::adsToClicks($value);
-        } else {
-            return parent::castProperty($name, $value, $refClass);
         }
+
+        return parent::castProperty($name, $value, $refClass);
     }
 }
