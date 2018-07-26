@@ -5,6 +5,11 @@ namespace Adshares\Ads\Response;
 use Adshares\Ads\Entity\Block;
 use Adshares\Ads\Entity\EntityFactory;
 
+/**
+ * Response for GetBlock request.
+ *
+ * @package Adshares\Ads\Response
+ */
 class GetBlockResponse extends AbstractResponse
 {
     /**

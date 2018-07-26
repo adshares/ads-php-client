@@ -9,9 +9,9 @@ use Adshares\Ads\Driver\CliDriver;
 
 class SendTransferTest extends \PHPUnit\Framework\TestCase
 {
-    private $address = "0001-00000000-9B6F";
-    private $secret = "BB3425F914CA9F661CA6F3B908E07092B5AFB7F2FDAE2E94EDE12C83207CA743";
-    private $host = "10.69.3.43";
+    private $address = '0001-00000000-9B6F';
+    private $secret = 'BB3425F914CA9F661CA6F3B908E07092B5AFB7F2FDAE2E94EDE12C83207CA743';
+    private $host = '10.69.3.43';
     private $port = 9001;
 
     public function testSendOne()
@@ -20,7 +20,7 @@ class SendTransferTest extends \PHPUnit\Framework\TestCase
         $client = new AdsClient($driver);
 
         $amount = 1;
-        $message = "0000111122223333444455556666777700001111222233334444555566667777";
+        $message = '0000111122223333444455556666777700001111222233334444555566667777';
 
         $command = new SendOneCommand($this->address, $amount, $message);
         $response = $client->runTransaction($command);
@@ -31,7 +31,7 @@ class SendTransferTest extends \PHPUnit\Framework\TestCase
         $this->assertNotNull($tx->getAccountMsid());
         $this->assertNotNull($tx->getAccountHashin());
         $this->assertEquals($amount, $tx->getDeduct() - $tx->getFee());
-        $this->assertInternalType("string", $tx->getId());
+        $this->assertInternalType('string', $tx->getId());
     }
 
     public function testSendOneDryRunShareCommand()
@@ -40,7 +40,7 @@ class SendTransferTest extends \PHPUnit\Framework\TestCase
         $client = new AdsClient($driver);
 
         $amount = 1;
-        $message = "0000111122223333444455556666777700001111222233334444555566667777";
+        $message = '0000111122223333444455556666777700001111222233334444555566667777';
 
         $command = new SendOneCommand($this->address, $amount, $message);
         $command->setTimestamp(1);
@@ -69,7 +69,7 @@ class SendTransferTest extends \PHPUnit\Framework\TestCase
         $client = new AdsClient($driver);
 
         $amount = 1;
-        $message = "0000111122223333444455556666777700001111222233334444555566667777";
+        $message = '0000111122223333444455556666777700001111222233334444555566667777';
 
         $command = new SendOneCommand($this->address, $amount, $message);
         $command->setTimestamp(1);
@@ -101,10 +101,10 @@ class SendTransferTest extends \PHPUnit\Framework\TestCase
 
         $amount = 1;
         $wires = [
-            "0001-00000000-XXXX" => $amount,
-            "0001-00000001-XXXX" => $amount,
-            "0002-00000000-XXXX" => $amount,
-            "0002-00000001-XXXX" => $amount,
+            '0001-00000000-XXXX' => $amount,
+            '0001-00000001-XXXX' => $amount,
+            '0002-00000000-XXXX' => $amount,
+            '0002-00000001-XXXX' => $amount,
         ];
         $command = new SendManyCommand($wires);
         $response = $client->runTransaction($command);
@@ -114,7 +114,7 @@ class SendTransferTest extends \PHPUnit\Framework\TestCase
         $tx = $response->getTx();
         $expectedAmount = $amount * count($wires);
         $this->assertEquals($expectedAmount, $tx->getDeduct() - $tx->getFee());
-        $this->assertInternalType("string", $tx->getId());
+        $this->assertInternalType('string', $tx->getId());
     }
 
     public function testSendManyDryRun()
@@ -124,10 +124,10 @@ class SendTransferTest extends \PHPUnit\Framework\TestCase
 
         $amount = 1;
         $wires = [
-            "0001-00000000-XXXX" => $amount,
-            "0001-00000001-XXXX" => $amount,
-            "0002-00000000-XXXX" => $amount,
-            "0002-00000001-XXXX" => $amount,
+            '0001-00000000-XXXX' => $amount,
+            '0001-00000001-XXXX' => $amount,
+            '0002-00000000-XXXX' => $amount,
+            '0002-00000001-XXXX' => $amount,
         ];
         $command = new SendManyCommand($wires);
         $command->setTimestamp(1);

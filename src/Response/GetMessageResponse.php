@@ -4,16 +4,26 @@ namespace Adshares\Ads\Response;
 
 use Adshares\Ads\Entity\EntityFactory;
 use Adshares\Ads\Entity\Message;
+use Adshares\Ads\Entity\Transaction\AbstractTransaction;
 
+/**
+ * Response GetMessageResponse request.
+ *
+ * @package Adshares\Ads\Response
+ */
 class GetMessageResponse extends AbstractResponse
 {
     /**
+     * Message
+     *
      * @var Message
      */
     protected $message;
 
     /**
-     * @var array[AbstractTransaction]
+     * Array of transactions
+     *
+     * @var AbstractTransaction[]
      */
     protected $transactions = [];
 
@@ -40,7 +50,7 @@ class GetMessageResponse extends AbstractResponse
     }
 
     /**
-     * @return Message
+     * @return Message Message
      */
     public function getMessage(): Message
     {
@@ -48,7 +58,7 @@ class GetMessageResponse extends AbstractResponse
     }
 
     /**
-     * @return array
+     * @return AbstractTransaction[] Array of transactions
      */
     public function getTransactions(): array
     {

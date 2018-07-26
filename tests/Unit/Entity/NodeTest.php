@@ -24,6 +24,9 @@ class NodeTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(new \DateTime('@1530535574'), $node->getMtim());
         $this->assertEquals(254152169691701433, $node->getBalance());
         $this->assertEquals(6, $node->getStatus());
+        $this->assertEquals(false, $node->isStatusDeleted());
+        $this->assertEquals(true, $node->isStatusVip());
+        $this->assertEquals(true, $node->isStatusMostFunds());
         $this->assertEquals(20, $node->getAccountCount());
         $this->assertEquals(8001, $node->getPort());
         $this->assertEquals('172.16.222.101', $node->getIpv4());

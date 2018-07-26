@@ -2,18 +2,24 @@
 
 namespace Adshares\Ads\Response;
 
+use Adshares\Ads\Entity\Account;
 use Adshares\Ads\Entity\EntityFactory;
 
+/**
+ * Response for GetAccounts request.
+ *
+ * @package Adshares\Ads\Response
+ */
 class GetAccountsResponse extends AbstractResponse
 {
     /**
+     * Array of accounts
      *
-     * @var array[Account]
+     * @var Account[]
      */
     protected $accounts;
 
     /**
-     *
      * @param array $data
      */
     protected function loadData(array $data): void
@@ -28,8 +34,7 @@ class GetAccountsResponse extends AbstractResponse
     }
 
     /**
-     *
-     * @return array
+     * @return Account[] Array of accounts
      */
     public function getAccounts(): array
     {

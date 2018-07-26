@@ -3,7 +3,7 @@
 namespace Adshares\Ads\Response;
 
 /**
- * Response for GetMessageIds.
+ * Response for GetMessageIds request.
  *
  * @package Adshares\Ads\Response
  */
@@ -41,7 +41,7 @@ class GetMessageIdsResponse extends AbstractResponse
     /**
      * Array of message ids
      *
-     * @var array[string]
+     * @var string[]
      */
     protected $messageIds = [];
 
@@ -82,7 +82,7 @@ class GetMessageIdsResponse extends AbstractResponse
     }
 
     /**
-     * @return array Array of message ids
+     * @return string[] Array of message ids
      */
     public function getMessageIds(): array
     {

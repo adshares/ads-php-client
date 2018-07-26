@@ -5,6 +5,11 @@ namespace Adshares\Ads\Response;
 use Adshares\Ads\Entity\Account;
 use Adshares\Ads\Entity\EntityFactory;
 
+/**
+ * Response for GetAccount request.
+ *
+ * @package Adshares\Ads\Response
+ */
 class GetAccountResponse extends AbstractResponse
 {
     /**

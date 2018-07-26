@@ -9,7 +9,6 @@ namespace Adshares\Ads\Entity;
  */
 abstract class AbstractEntity implements EntityInterface
 {
-
     /**
      * Changes string with underscores to camelCase string. First letter is low.
      *
@@ -18,7 +17,7 @@ abstract class AbstractEntity implements EntityInterface
      */
     private static function toCamelCase(string $text): string
     {
-        if (strpos($text, "_") !== false) {
+        if (strpos($text, '_') !== false) {
             $text = str_replace(' ', '', ucwords(str_replace('_', ' ', $text)));
         }
         $text[0] = strtolower($text[0]);
@@ -58,36 +57,54 @@ abstract class AbstractEntity implements EntityInterface
                 }
                 break;
             default:
-                if (preg_match('/array\[([^\s]+)\]/', $type, $matches)) {
-                    list(, $t) = $matches;
-                    foreach ((array)$value as $k => $v) {
-                        $value[$k] = self::convertType($t, $v);
-                    }
-                    break;
-                }
-                $entityType = 'Adshares\Ads\Entity\\' . $type;
-                if (class_exists($entityType)) {
-                    $type = $entityType;
-                }
-                if (class_exists($type)) {
-                    $interfaces = class_implements($type);
-
-                    if (isset($interfaces['Adshares\Ads\Entity\EntityInterface'])) {
-                        try {
-                            /* @var $type EntityInterface*/
-                            $value = EntityFactory::create((new \ReflectionClass($type))->getShortName(), $value);
-                        } catch (\ReflectionException $e) {
-                        }
-                    }
-                    break;
-                }
+                $value = self::defaultConvertType($type, $value);
+                break;
         }
 
         return $value;
     }
 
     /**
-     * @inheritdoc
+     * @param string $type
+     * @param mixed $value
+     * @return mixed
+     */
+    protected static function defaultConvertType(string $type, $value)
+    {
+        if (preg_match('/(\S+)\[\]/', $type, $matches)) {
+            // $type matched array type
+            list(, $t) = $matches;
+            foreach ((array)$value as $k => $v) {
+                $value[$k] = self::convertType($t, $v);
+            }
+        } else {
+            $entityType = 'Adshares\Ads\Entity\\' . $type;
+            if (class_exists($entityType)) {
+                $type = $entityType;
+            }
+            if (class_exists($type)) {
+                $interfaces = class_implements($type);
+
+                if (isset($interfaces['Adshares\Ads\Entity\EntityInterface'])) {
+                    try {
+                        /* @var $type EntityInterface */
+                        $value = EntityFactory::create((new \ReflectionClass($type))->getShortName(), $value);
+                    } catch (\ReflectionException $e) {
+                        // $value will not be overwritten
+                        // Ignore
+                    }
+                }
+            }
+        }
+
+        return $value;
+    }
+
+    /**
+     * @param string $name
+     * @param array|mixed $value
+     * @param \ReflectionClass|null $refClass
+     * @return int|mixed
      */
     protected static function castProperty(string $name, $value, \ReflectionClass $refClass = null)
     {

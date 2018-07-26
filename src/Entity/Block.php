@@ -5,112 +5,126 @@ namespace Adshares\Ads\Entity;
 use Adshares\Ads\Util\AdsConverter;
 
 /**
- * Class Block
+ * Block from getBlockResponse
  *
  * @package Adshares\Ads\Entity
  */
 class Block extends AbstractEntity
 {
-
     /**
+     * Dividend
      *
      * @var int
      */
     protected $dividendBalance;
 
     /**
+     * Dividend block flag. It is true if this is the first block in the dividend period, false otherwise
      *
      * @var bool
      */
     protected $dividendPay;
 
     /**
+     * Block id
      *
      * @var string
      */
     protected $id;
 
     /**
+     * Number of messages in block
      *
      * @var int
      */
     protected $messageCount;
 
     /**
+     * Input block hash
      *
      * @var string
      */
-    protected $minhash;
+    protected $minHash;
 
     /**
+     * Hash of messages
      *
      * @var string
      */
-    protected $msghash;
+    protected $msgHash;
 
     /**
+     * Number of nodes (includes technical node 0000)
      *
      * @var int
      */
     protected $nodeCount;
 
     /**
+     * Array of nodes
      *
-     * @var array[Node]
+     * @var Node[]
      */
     protected $nodes;
 
     /**
+     * Hash of nodes
      *
      * @var string
      */
-    protected $nodhash;
+    protected $nodHash;
 
     /**
+     * Block hash
      *
      * @var string
      */
-    protected $nowhash;
+    protected $nowHash;
 
     /**
+     * Old block hash
      *
      * @var string
      */
-    protected $oldhash;
+    protected $oldHash;
 
     /**
+     * Block time
      *
      * @var \DateTime
      */
     protected $time;
 
     /**
+     * Hash of vip public keys
      *
      * @var string
      */
-    protected $viphash;
+    protected $vipHash;
 
     /**
+     * Forking signatures
      *
      * @var int
      */
     protected $voteNo;
 
     /**
+     * Total number of signatures
      *
      * @var int
      */
     protected $voteTotal;
 
     /**
+     * Confirming signatures
      *
      * @var int
      */
     protected $voteYes;
 
     /**
-     *
-     * @return int
+     * @return int Dividend
      */
     public function getDividendBalance(): int
     {
@@ -118,8 +132,7 @@ class Block extends AbstractEntity
     }
 
     /**
-     *
-     * @return bool
+     * @return bool Dividend block flag. It is true if this is the first block in the dividend period, false otherwise
      */
     public function isDividendPay(): bool
     {
@@ -127,8 +140,7 @@ class Block extends AbstractEntity
     }
 
     /**
-     *
-     * @return string
+     * @return string Block id
      */
     public function getId(): string
     {
@@ -136,8 +148,7 @@ class Block extends AbstractEntity
     }
 
     /**
-     *
-     * @return int
+     * @return int Number of messages in block
      */
     public function getMessageCount(): int
     {
@@ -145,26 +156,23 @@ class Block extends AbstractEntity
     }
 
     /**
-     *
-     * @return string
+     * @return string Input block hash
      */
     public function getMinHash(): string
     {
-        return $this->minhash;
+        return $this->minHash;
     }
 
     /**
-     *
-     * @return string
+     * @return string Hash of messages
      */
     public function getMsgHash(): string
     {
-        return $this->msghash;
+        return $this->msgHash;
     }
 
     /**
-     *
-     * @return int
+     * @return int Number of nodes (includes technical node 0000)
      */
     public function getNodeCount(): int
     {
@@ -172,8 +180,7 @@ class Block extends AbstractEntity
     }
 
     /**
-     *
-     * @return array
+     * @return Node[] Array of nodes
      */
     public function getNodes(): array
     {
@@ -181,35 +188,31 @@ class Block extends AbstractEntity
     }
 
     /**
-     *
-     * @return string
+     * @return string Hash of nodes
      */
     public function getNodHash(): string
     {
-        return $this->nodhash;
+        return $this->nodHash;
     }
 
     /**
-     *
-     * @return string
+     * @return string Block hash
      */
     public function getNowHash(): string
     {
-        return $this->nowhash;
+        return $this->nowHash;
     }
 
     /**
-     *
-     * @return string
+     * @return string Old block hash
      */
     public function getOldHash(): string
     {
-        return $this->oldhash;
+        return $this->oldHash;
     }
 
     /**
-     *
-     * @return \DateTime
+     * @return \DateTime Block time
      */
     public function getTime(): \DateTime
     {
@@ -217,17 +220,15 @@ class Block extends AbstractEntity
     }
 
     /**
-     *
-     * @return string
+     * @return string Hash of vip public keys
      */
     public function getVipHash(): string
     {
-        return $this->viphash;
+        return $this->vipHash;
     }
 
     /**
-     *
-     * @return int
+     * @return int Forking signatures
      */
     public function getVoteNo(): int
     {
@@ -235,8 +236,7 @@ class Block extends AbstractEntity
     }
 
     /**
-     *
-     * @return int
+     * @return int Total number of signatures
      */
     public function getVoteTotal(): int
     {
@@ -244,8 +244,7 @@ class Block extends AbstractEntity
     }
 
     /**
-     *
-     * @return int
+     * @return int Confirming signatures
      */
     public function getVoteYes(): int
     {
@@ -253,14 +252,35 @@ class Block extends AbstractEntity
     }
 
     /**
-     * @inheritdoc
+     * @param string $name
+     * @param array|mixed $value
+     * @param \ReflectionClass|null $refClass
+     * @return int|mixed
      */
     protected static function castProperty(string $name, $value, \ReflectionClass $refClass = null)
     {
-        if ("dividendBalance" === $name) {
+        if ('dividendBalance' === $name) {
             return AdsConverter::adsToClicks($value);
-        } else {
-            return parent::castProperty($name, $value, $refClass);
         }
+
+        return parent::castProperty($name, $value, $refClass);
+    }
+
+    /**
+     * @param array $data
+     * @return EntityInterface
+     */
+    public static function createFromRawData(array $data): EntityInterface
+    {
+        $entity = new static();
+        $entity->fillWithRawData($data);
+        $entity->minHash = $data['minhash'];
+        $entity->msgHash = $data['msghash'];
+        $entity->nodHash = $data['nodhash'];
+        $entity->nowHash = $data['nowhash'];
+        $entity->oldHash = $data['oldhash'];
+        $entity->vipHash = $data['viphash'];
+
+        return $entity;
     }
 }

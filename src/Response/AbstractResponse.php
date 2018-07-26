@@ -5,28 +5,36 @@ namespace Adshares\Ads\Response;
 use Adshares\Ads\Entity\EntityFactory;
 use Adshares\Ads\Entity\Tx;
 
+/**
+ * Class AbstractResponse is base class for all response classes.
+ *
+ * @package Adshares\Ads\Response
+ */
 abstract class AbstractResponse implements ResponseInterface
 {
-
     /**
+     * ADS response data array
      *
      * @var array
      */
     protected $data = [];
 
     /**
+     * Time of current block
      *
      * @var \DateTime
      */
     protected $currentBlockTime;
 
     /**
+     * Time of previous block
      *
      * @var \DateTime
      */
     protected $previousBlockTime;
 
     /**
+     *
      *
      * @var Tx
      */
@@ -35,7 +43,7 @@ abstract class AbstractResponse implements ResponseInterface
     /**
      * AbstractResponse constructor.
      *
-     * @param array $data
+     * @param array $data ADS response data
      */
     public function __construct(array $data)
     {
@@ -43,8 +51,7 @@ abstract class AbstractResponse implements ResponseInterface
     }
 
     /**
-     *
-     * @return \DateTime
+     * @return \DateTime Time of current block
      */
     public function getCurrentBlockTime(): \DateTime
     {
@@ -52,8 +59,7 @@ abstract class AbstractResponse implements ResponseInterface
     }
 
     /**
-     *
-     * @return \DateTime
+     * @return \DateTime Time of previous block
      */
     public function getPreviousBlockTime(): \DateTime
     {
@@ -61,7 +67,6 @@ abstract class AbstractResponse implements ResponseInterface
     }
 
     /**
-     *
      * @return Tx
      */
     public function getTx(): Tx
@@ -70,8 +75,7 @@ abstract class AbstractResponse implements ResponseInterface
     }
 
     /**
-     *
-     * @param array $data
+     * @param array $data ADS response data array
      */
     protected function loadData(array $data): void
     {
@@ -97,9 +101,8 @@ abstract class AbstractResponse implements ResponseInterface
     }
 
     /**
-     *
-     * @param  null|string $key
-     * @return mixed
+     * @param  null|string $key key in data array
+     * @return mixed data for given key, for null key all data is returned, if key is not present null is returned
      */
     public function getRawData(?string $key = null)
     {

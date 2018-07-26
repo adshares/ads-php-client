@@ -52,7 +52,9 @@ class SendManyTransaction extends AbstractTransaction
     protected $wireCount;
 
     /**
-     * @var array[\Adshares\Ads\Entity\Transaction\SendManyTransactionWire]
+     * Array of wires
+     *
+     * @var \Adshares\Ads\Entity\Transaction\SendManyTransactionWire[]
      */
     protected $wires;
 
@@ -121,7 +123,7 @@ class SendManyTransaction extends AbstractTransaction
     }
 
     /**
-     * @return array
+     * @return \Adshares\Ads\Entity\Transaction\SendManyTransactionWire[] Array of wires
      */
     public function getWires(): array
     {
@@ -129,14 +131,17 @@ class SendManyTransaction extends AbstractTransaction
     }
 
     /**
-     * @inheritdoc
+     * @param string $name
+     * @param array|mixed $value
+     * @param \ReflectionClass|null $refClass
+     * @return int|mixed
      */
     protected static function castProperty(string $name, $value, \ReflectionClass $refClass = null)
     {
         if ('senderFee' === $name) {
             return AdsConverter::adsToClicks($value);
-        } else {
-            return parent::castProperty($name, $value, $refClass);
         }
+
+        return parent::castProperty($name, $value, $refClass);
     }
 }

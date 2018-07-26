@@ -14,12 +14,13 @@ class AccountTest extends \PHPUnit\Framework\TestCase
 
         $this->assertEquals('0001-00000000-9B6F', $account->getAddress());
         $this->assertEquals(1, $account->getNode());
-        $this->assertEquals(0, $account->getId());
+        $this->assertEquals('0001', $account->getNodeId());
         $this->assertEquals(4, $account->getMsid());
         $this->assertEquals(new \DateTime('@1531394984'), $account->getTime());
+        $this->assertEquals('0001-00000003-AB0C', $account->getPairedAddress());
         $this->assertEquals(1, $account->getPairedNode());
-        $this->assertEquals(0, $account->getPairedId());
-        $this->assertEquals(7, $account->getStatus());
+        $this->assertEquals('0001', $account->getPairedNodeId());
+        $this->assertEquals(0, $account->getStatus());
         $this->assertEquals(new \DateTime('@1531394976'), $account->getLocalChange());
         $this->assertEquals(new \DateTime('@1531396672'), $account->getRemoteChange());
         $this->assertEquals(1999999999743316130, $account->getBalance());
@@ -28,6 +29,7 @@ class AccountTest extends \PHPUnit\Framework\TestCase
             $account->getPublicKey()
         );
         $this->assertEquals('811F420FDC7FA662BE1A0B7295C88BAD3307C337129A1A52D9A1598FD8486009', $account->getHash());
+        $this->assertEquals(false, $account->isStatusDeleted());
     }
 
     private function getRawData(): array
@@ -39,9 +41,10 @@ class AccountTest extends \PHPUnit\Framework\TestCase
             "msid": "4",
             "time": "1531394984",
             "date": "2018-07-12 11:29:44",
-            "status": "7",
+            "status": "0",
             "paired_node": "1",
-            "paired_id": "0",
+            "paired_id": "3",
+            "paired_address": "0001-00000003-AB0C",
             "local_change": "1531394976",
             "remote_change": "1531396672",
             "balance": "19999999.99743316130",

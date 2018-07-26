@@ -63,14 +63,17 @@ class SendManyTransactionWire extends AbstractEntity
     }
 
     /**
-     * @inheritdoc
+     * @param string $name
+     * @param array|mixed $value
+     * @param \ReflectionClass|null $refClass
+     * @return int|mixed
      */
     protected static function castProperty(string $name, $value, \ReflectionClass $refClass = null)
     {
-        if ("amount" === $name) {
+        if ('amount' === $name) {
             return AdsConverter::adsToClicks($value);
-        } else {
-            return parent::castProperty($name, $value, $refClass);
         }
+
+        return parent::castProperty($name, $value, $refClass);
     }
 }

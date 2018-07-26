@@ -13,6 +13,8 @@ use Adshares\Ads\Entity\EntityFactory;
 class TransactionResponse extends AbstractResponse
 {
     /**
+     * Account state before executing transaction
+     *
      * @var Account
      */
     protected $account;
@@ -30,7 +32,7 @@ class TransactionResponse extends AbstractResponse
     }
 
     /**
-     * @return Account
+     * @return Account Account state before executing transaction
      */
     public function getAccount(): Account
     {

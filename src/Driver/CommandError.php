@@ -39,6 +39,9 @@ class CommandError
      */
     public const BROADCAST_NOT_READY = 5022;
     /**
+     * Legacy error. This error is inactive, because field 'broadcastCount' was introduced in getBroadcast response.
+     *
+     * Original description:
      * For getBroadcast: No messages. Need to check next block.
      */
     public const NO_BROADCAST_FILE = 5023;
@@ -86,85 +89,100 @@ class CommandError
     public const NO_BLOCK_IN_SPECIFIED_RANGE = 5055;
     public const COULD_NOT_READ_CORRECT_VIP_KEYS = 5056;
     /**
-     * Legacy error. This error is inactive, because field updatedBlocks was introduced in getBlocks response.
+     * Legacy error. This error is inactive, because field 'updatedBlocks' was introduced in getBlocks response.
      *
      * Original description:
      * For getBlocks: No new blocks. All blocks were downloaded at this moment.
      */
     public const NO_NEW_BLOCKS = 5057;
 
+    /**
+     * Mapping error code to error description
+     */
     private const MESSAGES = [
-        self::UNKNOWN_ERROR => "Unknown error.",
-        self::NONE =>  "No error",
-        self::BAD_PATH =>  "Bad path",
-        self::BAD_USER =>  "Bad user",
-        self::BANK_NOT_FOUND =>  "Can't open bank file",
-        self::USER_NOT_FOUND =>  "Read user failed",
-        self::BANK_INCORRECT =>  "Incorrect bank",
-        self::UNDO_NOT_FOUND =>  "Can't open undo file",
-        self::GET_USER_FAIL =>  "Failed to get user info",
-        self::GET_GLOBAL_USER_FAIL =>  "Failed to get global user info",
-        self::LOW_BALANCE =>  "Too low balance",
-        self::READ_ONLY_MODE =>  "Reject transaction in readonly mode",
-        self::BAD_MSG_ID =>  "Bad message id (msid)",
-        self::CREATE_ACCOUNT_BAD_TIMING =>  "Bad timing for remote account request, try again later.",
-        self::CREATE_ACCOUNT_FAIL =>  "Failed to create account",
-        self::MESSAGE_SUBMIT_FAIL =>  "Failed message submission",
-        self::WRONG_SIGNATURE =>  "Wrong signature",
-        self::DUPLICATED_TARGET =>  "Duplicated target",
-        self::AMOUNT_BELOW_ZERO =>  "Amount below zero",
-        self::USER_BAD_TARGET =>  "Bad target user",
-        self::NODE_BAD_TARGET =>  "Bad target node",
-        self::TIME_IN_FUTURE =>  "Can't perform operation, inserted time value is in future",
-        self::BROADCAST_NOT_READY =>  "Broadcast not ready, try again later",
-        self::NO_BROADCAST_FILE =>  "No broadcast file to send",
-        self::NO_MESSAGE_LIST_FILE =>  "No message list file",
-        self::INCORRECT_TRANSACTION =>  "Incorrect transaction type",
-        self::MATCH_SECRET_KEY_NOT_FOUND =>  "Matching secret key not found",
-        self::SET_KEY_REMOTE_BANK_FAIL =>  "Setting key for remote bank failed",
-        self::CONNECT_SERVER_ERROR =>  "Can't connect to server",
-        self::GET_BLOCK_INFO_UNAVAILABLE =>  "Block info is unavailable",
-        self::GET_SIGNATURE_UNAVAILABLE =>  "Signature is unavailable",
-        self::INCORRECT_TYPE =>  "Incorrect type",
-        self::BAD_LENGTH =>  "Bad length",
-        self::GET_LOG_FAILED =>  "Get log failed",
-        self::HIGH_TIME_DIFFERENCE =>  "High time difference",
-        self::PKEY_DIFFERS =>  "Public key differs from response key",
-        self::PKEY_NOT_CHANGED =>  "Public key not changed",
-        self::HASH_MISMATCH =>  "Hash mismatch",
-        self::GOT_EMPTY_BLOCK =>  "Got empty block",
-        self::FAILED_TO_LOAD_HASH =>  "Failed to load hash for block. Try perform get_blocks command to resolve.",
-        self::CANT_OPEN_FILE =>  "Can't open a file",
-        self::CANT_CREATE_DIRECTORY =>  "Can't create a directory",
-        self::FAIL_TO_PROVIDE_TXN_INFO =>  "Failed to provide transaction info. Try again later.",
-        self::FAIL_TO_READ_TXN_INFO =>  "Failed to read transaction",
-        self::FAIL_TO_GET_HASH_TREE =>  "Failed to create msgl hash tree",
-        self::AUTHORIZATION_ERROR =>  "Not authorized to change bits",
-        self::STATUS_SUBMIT_FAIL =>  "Status submission failed",
-        self::LOCK_USER_FAILED =>  "Lock user failed",
-        self::NO_NODE_STATUS_CHANGE_AUTH =>  "Not authorized to change node status",
-        self::ACCOUNT_STATUS_ON_REMOTE_NODE =>  "Changing account status on remote node not allowed",
-        self::COMMAND_PARSE_ERROR =>  "Parse error, check input data",
-        self::BROADCAST_MAX_LENGTH =>  "Broadcast message max length exceeded",
-        self::FEE_BELOW_ZERO =>  "Fee less than zero",
-        self::FAILED_TO_READ_BLOCK_START =>  "Failed to read block start",
-        self::FAILED_TO_READ_BLOCK_AT_START =>  "Failed to read block at start",
-        self::NO_BLOCK_IN_SPECIFIED_RANGE =>  "Failed to read block in specified block range",
-        self::COULD_NOT_READ_CORRECT_VIP_KEYS =>  "Vip keys file not found or empty or vipkeys failed check",
-        self::NO_NEW_BLOCKS =>  "No new blocks to download",
+        self::UNKNOWN_ERROR => 'Unknown error.',
+        self::NONE => 'No error',
+        self::BAD_PATH => 'Bad path',
+        self::BAD_USER => 'Bad user',
+        self::BANK_NOT_FOUND => 'Can\'t open bank file',
+        self::USER_NOT_FOUND => 'Read user failed',
+        self::BANK_INCORRECT => 'Incorrect bank',
+        self::UNDO_NOT_FOUND => 'Can\'t open undo file',
+        self::GET_USER_FAIL => 'Failed to get user info',
+        self::GET_GLOBAL_USER_FAIL => 'Failed to get global user info',
+        self::LOW_BALANCE => 'Too low balance',
+        self::READ_ONLY_MODE => 'Reject transaction in readonly mode',
+        self::BAD_MSG_ID => 'Bad message id (msid)',
+        self::CREATE_ACCOUNT_BAD_TIMING => 'Bad timing for remote account request, try again later.',
+        self::CREATE_ACCOUNT_FAIL => 'Failed to create account',
+        self::MESSAGE_SUBMIT_FAIL => 'Failed message submission',
+        self::WRONG_SIGNATURE => 'Wrong signature',
+        self::DUPLICATED_TARGET => 'Duplicated target',
+        self::AMOUNT_BELOW_ZERO => 'Amount below zero',
+        self::USER_BAD_TARGET => 'Bad target user',
+        self::NODE_BAD_TARGET => 'Bad target node',
+        self::TIME_IN_FUTURE => 'Can\'t perform operation, inserted time value is in future',
+        self::BROADCAST_NOT_READY => 'Broadcast not ready, try again later',
+        self::NO_BROADCAST_FILE => 'No broadcast file to send',
+        self::NO_MESSAGE_LIST_FILE => 'No message list file',
+        self::INCORRECT_TRANSACTION => 'Incorrect transaction type',
+        self::MATCH_SECRET_KEY_NOT_FOUND => 'Matching secret key not found',
+        self::SET_KEY_REMOTE_BANK_FAIL => 'Setting key for remote bank failed',
+        self::CONNECT_SERVER_ERROR => 'Can\'t connect to server',
+        self::GET_BLOCK_INFO_UNAVAILABLE => 'Block info is unavailable',
+        self::GET_SIGNATURE_UNAVAILABLE => 'Signature is unavailable',
+        self::INCORRECT_TYPE => 'Incorrect type',
+        self::BAD_LENGTH => 'Bad length',
+        self::GET_LOG_FAILED => 'Get log failed',
+        self::HIGH_TIME_DIFFERENCE => 'High time difference',
+        self::PKEY_DIFFERS => 'Public key differs from response key',
+        self::PKEY_NOT_CHANGED => 'Public key not changed',
+        self::HASH_MISMATCH => 'Hash mismatch',
+        self::GOT_EMPTY_BLOCK => 'Got empty block',
+        self::FAILED_TO_LOAD_HASH => 'Failed to load hash for block. Try perform get_blocks command to resolve.',
+        self::CANT_OPEN_FILE => 'Can\'t open a file',
+        self::CANT_CREATE_DIRECTORY => 'Can\'t create a directory',
+        self::FAIL_TO_PROVIDE_TXN_INFO => 'Failed to provide transaction info. Try again later.',
+        self::FAIL_TO_READ_TXN_INFO => 'Failed to read transaction',
+        self::FAIL_TO_GET_HASH_TREE => 'Failed to create msgl hash tree',
+        self::AUTHORIZATION_ERROR => 'Not authorized to change bits',
+        self::STATUS_SUBMIT_FAIL => 'Status submission failed',
+        self::LOCK_USER_FAILED => 'Lock user failed',
+        self::NO_NODE_STATUS_CHANGE_AUTH => 'Not authorized to change node status',
+        self::ACCOUNT_STATUS_ON_REMOTE_NODE => 'Changing account status on remote node not allowed',
+        self::COMMAND_PARSE_ERROR => 'Parse error, check input data',
+        self::BROADCAST_MAX_LENGTH => 'Broadcast message max length exceeded',
+        self::FEE_BELOW_ZERO => 'Fee less than zero',
+        self::FAILED_TO_READ_BLOCK_START => 'Failed to read block start',
+        self::FAILED_TO_READ_BLOCK_AT_START => 'Failed to read block at start',
+        self::NO_BLOCK_IN_SPECIFIED_RANGE => 'Failed to read block in specified block range',
+        self::COULD_NOT_READ_CORRECT_VIP_KEYS => 'Vip keys file not found or empty or vipkeys failed check',
+        self::NO_NEW_BLOCKS => 'No new blocks to download',
     ];
 
-    public static function getMessageByCode(int $code)
+    /**
+     * Returns error description for given code.
+     *
+     * @param int $code error code
+     * @return string error message
+     */
+    public static function getMessageByCode(int $code): string
     {
         return (array_key_exists($code, self::MESSAGES)) ? self::MESSAGES[$code] : self::MESSAGES[self::UNKNOWN_ERROR];
     }
 
-    public static function getCodeByMessage(string $errorMessage)
+    /**
+     * Returns error code from given error message.
+     *
+     * @param string $errorMessage error message
+     * @return int error code
+     */
+    public static function getCodeByMessage(string $errorMessage): int
     {
         $code = array_search($errorMessage, self::MESSAGES);
         if ($code === false) {
             $code = self::UNKNOWN_ERROR;
         }
-        return $code;
+        return (int)$code;
     }
 }

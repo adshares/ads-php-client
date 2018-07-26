@@ -13,7 +13,7 @@ class MessageTest extends \PHPUnit\Framework\TestCase
         $message = EntityFactory::createMessage($this->getRawData());
 
         $this->assertEquals('5B4F1D60', $message->getBlockId());
-        $this->assertEquals('0002:00000449', $message->getMessageId());
+        $this->assertEquals('0002:00000449', $message->getId());
         $this->assertEquals('0002', $message->getNodeId());
         $time = new \DateTime();
         $time->setTimestamp(1531911542);

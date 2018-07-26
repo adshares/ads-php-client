@@ -7,27 +7,34 @@ use Adshares\Ads\Util\AdsConverter;
 class SendOneCommand extends AbstractTransactionCommand
 {
     /**
-     * @var string $address address to which funds will be transferred
+     * Address to which funds will be transferred
+     *
+     * @var string
      */
     private $address;
 
     /**
-     * @var int $amount transfer amount in clicks
+     * Transfer amount in clicks
+     *
+     * @var int
      */
     private $amount;
 
     /**
-     * @var null|string $message transfer message, 32 bytes hexadecimal string without leading 0x (64 characters)
+     * Transfer message, 32 bytes hexadecimal string without leading 0x (64 characters)
+     *
+     * @var null|string
      */
     private $message;
 
     /**
+     * SendOneCommand constructor.
+     *
      * @param string $address address to which funds will be transferred
      * @param int $amount transfer amount in clicks
-     * @param null|string $message transfer  message, 32 bytes hexadecimal string without leading 0x (64 characters)
-     *
+     * @param null|string $message transfer message, 32 bytes hexadecimal string without leading 0x (64 characters)
      */
-    public function __construct(string $address, int $amount, ?string $message)
+    public function __construct(string $address, int $amount, ?string $message = null)
     {
         $this->address = $address;
         $this->amount = $amount;
@@ -35,6 +42,8 @@ class SendOneCommand extends AbstractTransactionCommand
     }
 
     /**
+     * Returns command name.
+     *
      * @return string
      */
     public function getName(): string
@@ -42,12 +51,17 @@ class SendOneCommand extends AbstractTransactionCommand
         return 'send_one';
     }
 
+    /**
+     * Returns command specific attributes.
+     *
+     * @return array
+     */
     public function getAttributes(): array
     {
-        $attributes["address"] = $this->address;
-        $attributes["amount"] = AdsConverter::clicksToAds($this->amount);
+        $attributes['address'] = $this->address;
+        $attributes['amount'] = AdsConverter::clicksToAds($this->amount);
         if ($this->message) {
-            $attributes["message"] = $this->message;
+            $attributes['message'] = $this->message;
         }
         return $attributes;
     }

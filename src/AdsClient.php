@@ -11,6 +11,7 @@ use Adshares\Ads\Command\GetBroadcastCommand;
 use Adshares\Ads\Command\GetMeCommand;
 use Adshares\Ads\Command\GetMessageCommand;
 use Adshares\Ads\Command\GetMessageIdsCommand;
+use Adshares\Ads\Command\GetTransactionCommand;
 use Adshares\Ads\Driver\DriverInterface;
 use Adshares\Ads\Entity\EntityFactory;
 use Adshares\Ads\Exception\CommandException;
@@ -21,6 +22,7 @@ use Adshares\Ads\Response\GetBlockIdsResponse;
 use Adshares\Ads\Response\GetBroadcastResponse;
 use Adshares\Ads\Response\GetMessageIdsResponse;
 use Adshares\Ads\Response\GetMessageResponse;
+use Adshares\Ads\Response\GetTransactionResponse;
 use Adshares\Ads\Response\TransactionResponse;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
@@ -76,7 +78,7 @@ class AdsClient implements LoggerAwareInterface
      */
     private function prepareTransaction(AbstractTransactionCommand $transaction, bool $force = false): void
     {
-        if (!$force && null !== $transaction->getLastMsid()) {
+        if (!$force && (null !== $transaction->getLastMsid()) && (null !== $transaction->getLastHash())) {
             return;
         }
 
@@ -235,6 +237,23 @@ class AdsClient implements LoggerAwareInterface
     }
 
     /**
+     * Returns single transaction data.
+     *
+     * @param string $txid transaction id
+     *
+     * @return GetTransactionResponse
+     *
+     * @throws CommandException
+     */
+    public function getTransaction(string $txid): GetTransactionResponse
+    {
+        $command = new GetTransactionCommand($txid);
+        $response = $this->driver->executeCommand($command);
+
+        return new GetTransactionResponse($response->getRawData());
+    }
+
+    /**
      * Executes transaction.
      * AbstractTransactionCommand can be one of:
      * - BroadcastCommand: Sends broadcast message to blockchain network;
@@ -252,23 +271,4 @@ class AdsClient implements LoggerAwareInterface
 
         return new TransactionResponse($response->getRawData());
     }
-
-    //    TODO: (Yodahack) : disscuss placement of this methods (currently copied to Adshares\Adserver\Http\Utils)
-    //    public static function normalizeAddress($address)
-    //    {
-    //        $x = preg_replace('/[^0-9A-FX]+/', '', strtoupper($address));
-    //        if (strlen($x) != 16) {
-    //            throw new \RuntimeException("Invalid adshares address");
-    //        }
-    //        return sprintf("%s-%s-%s", substr($x, 0, 4), substr($x, 4, 8), substr($x, 12, 4));
-    //    }
-    //
-    //    public static function normalizeTxid($txid)
-    //    {
-    //        $x = preg_replace('/[^0-9A-F]+/', '', strtoupper($txid));
-    //        if (strlen($x) != 16) {
-    //            throw new \RuntimeException("Invalid adshares address");
-    //        }
-    //        return sprintf("%s:%s:%s", substr($x, 0, 4), substr($x, 4, 8), substr($x, 12, 4));
-    //    }
 }

@@ -5,7 +5,7 @@ namespace Adshares\Ads\Command;
 class GetAccountCommand extends AbstractCommand
 {
     /**
-     * @var string $address
+     * @var string
      */
     private $address;
 
@@ -20,6 +20,7 @@ class GetAccountCommand extends AbstractCommand
     }
 
     /**
+     * Returns command name.
      *
      * @return string
      */
@@ -28,8 +29,13 @@ class GetAccountCommand extends AbstractCommand
         return 'get_account';
     }
 
+    /**
+     * Returns command specific attributes.
+     *
+     * @return array
+     */
     public function getAttributes(): array
     {
-        return ["address" => $this->address];
+        return ['address' => $this->address];
     }
 }

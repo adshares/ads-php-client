@@ -33,14 +33,15 @@ class LogAccountTransactionTest extends \PHPUnit\Framework\TestCase
 
         $this->assertEquals('0002-00000001-659C', $account->getAddress());
         $this->assertEquals(2, $account->getNode());
-        $this->assertEquals(1, $account->getId());
+        $this->assertEquals('0002', $account->getNodeId());
         $this->assertEquals(1, $account->getMsid());
         $date = new \DateTime();
         $date->setTimestamp(1531496192);
         $this->assertEquals($date, $account->getTime());
         $this->assertEquals(0, $account->getStatus());
+        $this->assertNull($account->getPairedAddress());
         $this->assertEquals(2, $account->getPairedNode());
-        $this->assertEquals(1, $account->getPairedId());
+        $this->assertEquals('0002', $account->getPairedNodeId());
         $date->setTimestamp(1531496192);
         $this->assertEquals($date, $account->getLocalChange());
         $date->setTimestamp(1531496384);
@@ -51,6 +52,7 @@ class LogAccountTransactionTest extends \PHPUnit\Framework\TestCase
             $account->getPublicKey()
         );
         $this->assertEquals('68E046D32C6959447B1284A9F51CFACE9CE587446F698039D93FFB1FF1927080', $account->getHash());
+        $this->assertEquals(false, $account->isStatusDeleted());
     }
 
     private function getRawLogAccount(): array

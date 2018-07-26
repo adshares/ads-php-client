@@ -9,9 +9,9 @@ use Adshares\Ads\Exception\CommandException;
 
 class NodeTest extends \PHPUnit\Framework\TestCase
 {
-    private $address = "0001-00000000-9B6F";
-    private $secret = "BB3425F914CA9F661CA6F3B908E07092B5AFB7F2FDAE2E94EDE12C83207CA743";
-    private $host = "10.69.3.43";
+    private $address = '0001-00000000-9B6F';
+    private $secret = 'BB3425F914CA9F661CA6F3B908E07092B5AFB7F2FDAE2E94EDE12C83207CA743';
+    private $host = '10.69.3.43';
     private $port = 9001;
 
     public function testGetBlock()
@@ -31,7 +31,7 @@ class NodeTest extends \PHPUnit\Framework\TestCase
                 sleep(4);
             }
         }
-        $this->assertNotNull($response, "Didn't receive block data in expected attempts.");
+        $this->assertNotNull($response, 'Didn\'t receive block data in expected attempts.');
         if (null !== $response) {
             $block = $response->getBlock();
             $this->assertNotEquals(0, $block->getMessageCount());
