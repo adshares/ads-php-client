@@ -1,4 +1,22 @@
 <?php
+/**
+ * Copyright (C) 2018 Adshares sp. z. o.o.
+ *
+ * This file is part of PHP ADS Client
+ *
+ * PHP ADS Client is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * PHP ADS Client is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with PHP ADS Client.  If not, see <https://www.gnu.org/licenses/>.
+ */
 
 namespace Adshares\Ads\Driver;
 
@@ -15,6 +33,13 @@ use Symfony\Component\Process\Exception\ProcessTimedOutException;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\InputStream;
 
+/**
+ * CliDriver (Command line driver)
+ *
+ * CliDriver is driver which uses ads binary to connect ADS blockchain network.
+ *
+ * @package Adshares\Ads\Driver
+ */
 class CliDriver implements DriverInterface, LoggerAwareInterface
 {
     use LoggerAwareTrait;
@@ -25,49 +50,62 @@ class CliDriver implements DriverInterface, LoggerAwareInterface
     const LABEL_ERROR = 'error';
 
     /**
+     * ADS blockchain client app
+     *
      * @var string
      */
     private $command = 'ads';
 
     /**
+     * ADS blockchain client working dir, where cache will be stored
+     *
      * @var string
      */
     private $workingDir = '~/.ads';
 
     /**
+     * ADS node host (domain or IP address)
+     *
      * @var string
      */
     private $host;
 
     /**
+     * ADS node office port
+     *
      * @var int
      */
     private $port;
 
     /**
+     * Account address
      *
      * @var null|string
      */
     private $address;
 
     /**
+     * Account address private key
      *
      * @var null|string
      */
     private $secret;
 
     /**
+     * Request timeout in seconds
+     *
      * @var int
      */
     private $timeout = 30;
 
     /**
      * CliDriver constructor.
-     * @param null|string $address
-     * @param null|string $secret
-     * @param null|string $host
-     * @param int|null $port
-     * @param LoggerInterface|null $logger
+     *
+     * @param null|string $address account address
+     * @param null|string $secret private key
+     * @param null|string $host ADS node host (domain or IP address)
+     * @param int|null $port ADS node office port
+     * @param LoggerInterface|null $logger logger
      */
     public function __construct(
         ?string $address = null,
@@ -91,7 +129,7 @@ class CliDriver implements DriverInterface, LoggerAwareInterface
     }
 
     /**
-     * @param string $command
+     * @param string $command ADS blockchain client app
      */
     public function setCommand(string $command): void
     {
@@ -99,7 +137,7 @@ class CliDriver implements DriverInterface, LoggerAwareInterface
     }
 
     /**
-     * @param string $workingDir
+     * @param string $workingDir ADS blockchain client working dir, where cache will be stored
      */
     public function setWorkingDir(string $workingDir): void
     {
@@ -107,8 +145,8 @@ class CliDriver implements DriverInterface, LoggerAwareInterface
     }
 
     /**
-     * @param string $host
-     * @param int $port
+     * @param string $host ADS node host (domain or IP address)
+     * @param int $port ADS node office port
      */
     public function setHost(string $host, int $port = 9001): void
     {
@@ -117,8 +155,8 @@ class CliDriver implements DriverInterface, LoggerAwareInterface
     }
 
     /**
-     * @param string $address
-     * @param null|string $secret
+     * @param string $address Account address
+     * @param null|string $secret Account address private key
      */
     public function setAddress(string $address, ?string $secret = null): void
     {
@@ -129,7 +167,7 @@ class CliDriver implements DriverInterface, LoggerAwareInterface
     }
 
     /**
-     * @param string $secret
+     * @param string $secret Account address private key
      */
     public function setSecret(string $secret): void
     {
@@ -137,7 +175,7 @@ class CliDriver implements DriverInterface, LoggerAwareInterface
     }
 
     /**
-     * @param int $timeout
+     * @param int $timeout Request timeout in seconds
      */
     public function setTimeout(int $timeout): void
     {
@@ -145,7 +183,6 @@ class CliDriver implements DriverInterface, LoggerAwareInterface
     }
 
     /**
-     *
      * @param  null|string $hash
      * @param  null|int $messageId
      * @param bool $isDryRun
@@ -211,8 +248,8 @@ class CliDriver implements DriverInterface, LoggerAwareInterface
 
     /**
      * @param CommandInterface $command
-     * @param string $data
-     * @return array
+     * @param string $data process output (ADS client response)
+     * @return array array of decoded lines of response
      * @throws CommandException
      */
     private function prepareOutput(CommandInterface $command, string $data): array
@@ -285,8 +322,8 @@ class CliDriver implements DriverInterface, LoggerAwareInterface
 
     /**
      * @param CommandInterface $command
-     * @param array $data
-     * @param Process $process
+     * @param array $data all attributes of command
+     * @param Process $process process
      * @return RawResponse
      */
     protected function runProcess(CommandInterface $command, array $data, Process $process): RawResponse
