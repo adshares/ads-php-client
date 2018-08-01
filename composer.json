@@ -1,6 +1,6 @@
 {
-    "name": "adshares/php-ads-client",
-    "description": "PHP 7.2 client for the ADS blockchain",
+    "name": "adshares/ads-client",
+    "description": "PHP client for the ADS blockchain",
     "type": "library",
     "license": "GPL-3.0-or-later",
     "keywords": [
