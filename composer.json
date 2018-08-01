@@ -10,10 +10,10 @@
         "esc",
         "blockchain"
     ],
-    "homepage": "https://github.com/adshares/php-ads-client",
+    "homepage": "https://github.com/adshares/ads-php-client",
     "support": {
-        "issues": "https://github.com/adshares/php-ads-client/issues",
-        "source": "https://github.com/adshares/php-ads-client"
+        "issues": "https://github.com/adshares/ads-php-client/issues",
+        "source": "https://github.com/adshares/ads-php-client"
     },
     "authors": [
         {
@@ -22,7 +22,7 @@
         },
         {
             "name": "Contributors",
-            "homepage": "https://github.com/adshares/php-ads-client/graphs/contributors"
+            "homepage": "https://github.com/adshares/ads-php-client/graphs/contributors"
         }
     ],
     "require": {
