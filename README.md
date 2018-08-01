@@ -43,7 +43,7 @@ Several quick start options are available:
 
 ### Contributing
 
-Please follow our [Contributing Guidelines](.github/CONTRIBUTING.md)
+Please follow our [Contributing Guidelines](docs/CONTRIBUTING.md)
 
 ### Versioning
 
