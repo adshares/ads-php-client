@@ -1,6 +1,6 @@
 <p align="center">
-  <a href="https://adsahres.net/">
-    <img src="https://adsahres.pl/logos/ads_tr.svg" alt="Adshares" width=72 height=72>
+  <a href="https://adshares.net/">
+    <img src="https://adshares.net/logos/ads_tr.svg" alt="Adshares" width=72 height=72>
   </a>
   <h3 align="center"><small>PHP ADS Client</small></h3>
   <p align="center">

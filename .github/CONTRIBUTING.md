@@ -11,7 +11,7 @@ it asks for helps us resolve issues faster.
 
 If you think that you have found a security issue in code, don't use the bug
 report and don't publish it publicly. Instead, send an email to the security
-reports list ([security@adshares.pl][security_email]).
+reports list ([security@adshares.net](mailto:security@adshares.net)).
 
 ## Submitting a Patch
 
@@ -33,8 +33,7 @@ Some things that will increase the chance that your pull request is accepted:
 [bug report template]: https://github.com/adshares/php-ads-client/issues/new?template=bug_report.md&labels=Bug
 [issues]: https://github.com/adshares/php-ads-client/issues
 [telegram]: https://t.me/adshares
-[tech_email]: mailto:tech@adshares.pl
-[security_email]: mailto:security@adshares.pl
+[tech_email]: mailto:tech@adshares.net
 [pr]: https://github.com/adshares/php-ads-client/compare/
 [style]: https://www.php-fig.org/psr/psr-2/
 [commit]: http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html
