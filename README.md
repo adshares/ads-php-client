@@ -36,10 +36,9 @@ Several quick start options are available:
 
 ### Documentation
 
-- [Installation](https://github.com/adshares/ads-php-client/wiki/Installation)
-- [Usage](https://github.com/adshares/ads-php-client/wiki/Usage)
-- [Tests](https://github.com/adshares/ads-php-client/wiki/Tests)
-
+- [Installation](https://github.com/adshares/php-ads-client/wiki#installation)
+- [Usage](https://github.com/adshares/php-ads-client/wiki#usage)
+- [Tests](https://github.com/adshares/php-ads-client/wiki#tests)
 
 ### Contributing
 
