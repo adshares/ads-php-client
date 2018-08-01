@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
-## [0.0.1] - 2018-08-01
+## [1.0.0] - 2018-08-01
 ### Added
 - Support for all block explorer commands:
   - getAccount,
@@ -27,6 +27,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - CHANGELOG
 - CONTRIBUTING
  
-[Unreleased]: https://github.com/adshares/ads-php-client/compare/v0.0.1...HEAD
+[Unreleased]: https://github.com/adshares/ads-php-client/compare/v1.0.0...HEAD
  
-[0.0.1]: https://github.com/adshares/ads-php-client/releases/tag/v0.0.1
+[1.0.0]: https://github.com/adshares/ads-php-client/releases/tag/v1.0.0
