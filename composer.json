@@ -1,13 +1,14 @@
 {
     "name": "adshares/php-ads-client",
-    "description": "PHP Client for ADS blockchain",
-    "type": "project",
-    "license": "proprietary",
+    "description": "PHP 7.2 client for the ADS blockchain",
+    "type": "library",
+    "license": "GPL-3.0-or-later",
     "keywords": [
         "adshares",
         "ads",
         "php",
-        "esc"
+        "esc",
+        "blockchain"
     ],
     "homepage": "https://github.com/adshares/php-ads-client",
     "support": {
@@ -15,6 +16,10 @@
         "source": "https://github.com/adshares/php-ads-client"
     },
     "authors": [
+        {
+            "name": "Adshares",
+            "homepage": "https://adshares.net"
+        },
         {
             "name": "Contributors",
             "homepage": "https://github.com/adshares/php-ads-client/graphs/contributors"
@@ -51,7 +56,6 @@
         "qa-check": [
             "security-checker security:check",
             "parallel-lint --no-colors --blame --exclude vendor .",
-            "parallel-lint --no-colors --blame --exclude vendor .",
             "phpcs -s src --standard=PHPCompatibility",
             "phpcs -s src --standard=PSR2",
             "phpstan --no-ansi --no-progress analyse -c phpstan.neon -l 7 src"
@@ -59,7 +63,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "0.1.x-dev"
+            "dev-master": "1.0.x-dev"
         }
     },
     "minimum-stability": "dev",
