@@ -34,6 +34,25 @@ Several quick start options are available:
 - Clone the repo: `git clone https://github.com/adshares/ads-php-client.git`
 - Install with [Composer](https://getcomposer.org/): `composer require adshares/ads-client`
 
+To connect to the node, you will need to provide an account address and a secret key.
+Usually you will also need to specify a host name and a port.
+Once you know the proper parameters, you should be able to connect like this:
+
+```
+$address = 'FFFF-00000001-AAAA';
+$secret = 'EFD0380D9B29829AE9F30F41E85D6C09A97220E6CF76FE8C1B479A34A38D12EC';
+$host = '127.0.0.1';
+$port = 6511;
+
+$client = new AdsClient(new CliDriver($address, $secret, $host, $port));
+```
+
+Then you can call ADS commands, for example, to get the current status of the user:
+
+```
+$response = $client->getMe();
+```
+
 ### Documentation
 
 - [Installation](https://github.com/adshares/php-ads-client/wiki#installation)
