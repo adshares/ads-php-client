@@ -41,7 +41,7 @@ class AdsValidator
             for ($i = 0; $i < strlen($chars); $i++) {
                 $x = ($crc >> 8) ^ ord($chars[$i]);
                 $x ^= $x >> 4;
-                $crc = (($crc << 8) ^ (($x << 12)) ^ (($x << 5)) ^ ($x)) & 0xFFFF;
+                $crc = (($crc << 8) ^ ($x << 12) ^ ($x << 5) ^ ($x)) & 0xFFFF;
             }
         } else {
             $crc = 0;
