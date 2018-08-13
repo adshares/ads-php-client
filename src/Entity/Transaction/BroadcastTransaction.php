@@ -20,6 +20,8 @@
 
 namespace Adshares\Ads\Entity\Transaction;
 
+use Adshares\Ads\Util\AdsValidator;
+
 /**
  * Transaction type=<'broadcast'>.
  *
@@ -92,6 +94,19 @@ class BroadcastTransaction extends AbstractTransaction
     public function getNode(): int
     {
         return $this->node;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSenderAddress(): string
+    {
+        return sprintf(
+            '%04X-%08X-%s',
+            $this->node,
+            $this->user,
+            AdsValidator::getAccountChecksum($this->node, $this->user)
+        );
     }
 
     /**

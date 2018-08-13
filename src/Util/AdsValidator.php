@@ -28,6 +28,40 @@ namespace Adshares\Ads\Util;
 class AdsValidator
 {
     /**
+     * Generates CRC16 checksum.
+     *
+     * @param string $hexChars string
+     * @return int checksum
+     */
+    private static function crc16(string $hexChars): int
+    {
+        $chars = hex2bin($hexChars);
+        if ($chars) {
+            $crc = 0x1D0F;
+            for ($i = 0; $i < strlen($chars); $i++) {
+                $x = ($crc >> 8) ^ ord($chars[$i]);
+                $x ^= $x >> 4;
+                $crc = (($crc << 8) ^ (($x << 12)) ^ (($x << 5)) ^ ($x)) & 0xFFFF;
+            }
+        } else {
+            $crc = 0;
+        }
+        return $crc;
+    }
+
+    /**
+     * Generate checksum for account.
+     *
+     * @param int $node node number
+     * @param int $user account number in node
+     * @return string
+     */
+    public static function getAccountChecksum(int $node, int $user): string
+    {
+        return sprintf('%04X', self::crc16(sprintf('%04X%08X', $node, $user)));
+    }
+
+    /**
      * Checks, if account address is in proper format.
      *
      * @param string $address account address

@@ -20,6 +20,8 @@
 
 namespace Adshares\Ads\Entity\Transaction;
 
+use Adshares\Ads\Util\AdsValidator;
+
 /**
  * Transaction type=<'set_account_status', 'set_node_status', 'unset_account_status', 'unset_node_status'>.
  *
@@ -86,6 +88,19 @@ class StatusTransaction extends AbstractTransaction
     /**
      * @return string
      */
+    public function getSenderAddress(): string
+    {
+        return sprintf(
+            '%04X-%08X-%s',
+            $this->node,
+            $this->user,
+            AdsValidator::getAccountChecksum($this->node, $this->user)
+        );
+    }
+
+    /**
+     * @return string
+     */
     public function getSignature(): string
     {
         return $this->signature;
@@ -97,6 +112,23 @@ class StatusTransaction extends AbstractTransaction
     public function getStatus(): int
     {
         return $this->status;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getTargetAddress(): ?string
+    {
+        if (null === $this->targetNode || null === $this->targetUser) {
+            return null;
+        }
+
+        return sprintf(
+            '%04X-%08X-%s',
+            $this->targetNode,
+            $this->targetUser,
+            AdsValidator::getAccountChecksum($this->targetNode, $this->targetUser)
+        );
     }
 
     /**

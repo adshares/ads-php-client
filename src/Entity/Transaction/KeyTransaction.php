@@ -20,6 +20,8 @@
 
 namespace Adshares\Ads\Entity\Transaction;
 
+use Adshares\Ads\Util\AdsValidator;
+
 /**
  * Transaction type=<'account_created', 'change_account_key', 'change_node_key'>.
  *
@@ -131,11 +133,41 @@ class KeyTransaction extends AbstractTransaction
     }
 
     /**
+     * @return string
+     */
+    public function getSenderAddress(): string
+    {
+        return sprintf(
+            '%04X-%08X-%s',
+            $this->node,
+            $this->user,
+            AdsValidator::getAccountChecksum($this->node, $this->user)
+        );
+    }
+
+    /**
      * @return null|string
      */
     public function getSignature(): ?string
     {
         return $this->signature;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getTargetAddress(): ?string
+    {
+        if (null === $this->targetNode || null === $this->targetUser) {
+            return null;
+        }
+
+        return sprintf(
+            '%04X-%08X-%s',
+            $this->targetNode,
+            $this->targetUser,
+            AdsValidator::getAccountChecksum($this->targetNode, $this->targetUser)
+        );
     }
 
     /**
