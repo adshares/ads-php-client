@@ -20,7 +20,7 @@
 
 namespace Adshares\Ads\Entity\Transaction;
 
-use Adshares\Ads\Util\AdsValidator;
+use Adshares\Ads\Util\AdsChecksumGenerator;
 
 /**
  * Transaction type=<'broadcast'>.
@@ -105,7 +105,7 @@ class BroadcastTransaction extends AbstractTransaction
             '%04X-%08X-%s',
             $this->node,
             $this->user,
-            AdsValidator::getAccountChecksum($this->node, $this->user)
+            AdsChecksumGenerator::getAccountChecksum($this->node, $this->user)
         );
     }
 

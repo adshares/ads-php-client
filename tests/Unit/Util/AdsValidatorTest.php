@@ -49,16 +49,6 @@ class AdsValidatorTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    public function testAccountChecksum()
-    {
-        $this->assertEquals('9B6F', AdsValidator::getAccountChecksum(1, 0));
-        $this->assertEquals('AB0C', AdsValidator::getAccountChecksum(1, 3));
-        $this->assertEquals('2755', AdsValidator::getAccountChecksum(16, 16));
-
-        $this->assertNotEquals('8888', AdsValidator::getAccountChecksum(2, 0));
-        $this->assertNotEquals('8888', AdsValidator::getAccountChecksum(-2, 0));
-    }
-
     public function testMessageId()
     {
         $invalidEntries = [
