@@ -36,6 +36,7 @@ class LogAccountTransactionTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(2, $transaction->getNode());
         $this->assertEquals(1, $transaction->getUser());
         $this->assertEquals(1, $transaction->getMsgId());
+        $this->assertEquals('0002-00000001-659C', $transaction->getSenderAddress());
         $date = new \DateTime();
         $date->setTimestamp(1531496426);
         $this->assertEquals($date, $transaction->getTime());
@@ -53,6 +54,7 @@ class LogAccountTransactionTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(2, $account->getNode());
         $this->assertEquals('0002', $account->getNodeId());
         $this->assertEquals(1, $account->getMsid());
+        $this->assertEquals('0002-00000001-659C', $transaction->getSenderAddress());
         $date = new \DateTime();
         $date->setTimestamp(1531496192);
         $this->assertEquals($date, $account->getTime());

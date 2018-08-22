@@ -20,6 +20,8 @@
 
 namespace Adshares\Ads\Entity\Transaction;
 
+use Adshares\Ads\Util\AdsChecksumGenerator;
+
 /**
  * Transaction type=<'create_account', 'create_node', 'retrieve_funds'>.
  *
@@ -81,9 +83,39 @@ class NetworkTransaction extends AbstractTransaction
     /**
      * @return string
      */
+    public function getSenderAddress(): string
+    {
+        return sprintf(
+            '%04X-%08X-%s',
+            $this->node,
+            $this->user,
+            AdsChecksumGenerator::getAccountChecksum($this->node, $this->user)
+        );
+    }
+
+    /**
+     * @return string
+     */
     public function getSignature(): string
     {
         return $this->signature;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getTargetAddress(): ?string
+    {
+        if (null === $this->targetNode || null === $this->targetUser) {
+            return null;
+        }
+
+        return sprintf(
+            '%04X-%08X-%s',
+            $this->targetNode,
+            $this->targetUser,
+            AdsChecksumGenerator::getAccountChecksum($this->targetNode, $this->targetUser)
+        );
     }
 
     /**

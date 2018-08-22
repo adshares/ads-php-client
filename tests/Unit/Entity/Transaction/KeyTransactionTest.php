@@ -35,9 +35,11 @@ class KeyTransactionTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(2, $transaction->getNode());
         $this->assertEquals(2, $transaction->getUser());
         $this->assertEquals(0, $transaction->getMsgId());
+        $this->assertEquals('0002-00000002-55FF', $transaction->getSenderAddress());
         $date = new \DateTime();
         $date->setTimestamp(1531493862);
         $this->assertEquals($date, $transaction->getTime());
+        $this->assertEquals('0001-00000000-9B6F', $transaction->getTargetAddress());
         $this->assertEquals(1, $transaction->getTargetNode());
         $this->assertEquals(0, $transaction->getTargetUser());
         $this->assertEquals(
@@ -57,9 +59,11 @@ class KeyTransactionTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(1, $transaction->getNode());
         $this->assertEquals(0, $transaction->getUser());
         $this->assertEquals(5, $transaction->getMsgId());
+        $this->assertEquals('0001-00000000-9B6F', $transaction->getSenderAddress());
         $date = new \DateTime();
         $date->setTimestamp(1531498103);
         $this->assertEquals($date, $transaction->getTime());
+        $this->assertNull($transaction->getTargetAddress());
         $this->assertEquals(
             'EAE1C8793B5597C4B3F490E76AC31172C439690F8EE14142BB851A61F9A49F0E',
             $transaction->getPublicKey()
@@ -84,9 +88,11 @@ class KeyTransactionTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(1, $transaction->getNode());
         $this->assertEquals(0, $transaction->getUser());
         $this->assertEquals(1, $transaction->getMsgId());
+        $this->assertEquals('0001-00000000-9B6F', $transaction->getSenderAddress());
         $date = new \DateTime();
         $date->setTimestamp(1531495004);
         $this->assertEquals($date, $transaction->getTime());
+        $this->assertNull($transaction->getTargetAddress());
         $this->assertEquals(0, $transaction->getTargetNode());
         $this->assertEquals(
             '73A5C92FA5142599B1C9863B43E026AFEFA6B57AEE8D189241C7F50C90BA5122',

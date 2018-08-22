@@ -35,9 +35,11 @@ class StatusTransactionTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(1, $transaction->getNode());
         $this->assertEquals(0, $transaction->getUser());
         $this->assertEquals(5, $transaction->getMsgId());
+        $this->assertEquals('0001-00000000-9B6F', $transaction->getSenderAddress());
         $date = new \DateTime();
         $date->setTimestamp(1532092391);
         $this->assertEquals($date, $transaction->getTime());
+        $this->assertEquals('0001-00000000-9B6F', $transaction->getTargetAddress());
         $this->assertEquals(1, $transaction->getTargetNode());
         $this->assertEquals(0, $transaction->getTargetUser());
         $this->assertEquals(16, $transaction->getStatus());
@@ -59,9 +61,11 @@ class StatusTransactionTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(1, $transaction->getNode());
         $this->assertEquals(0, $transaction->getUser());
         $this->assertEquals(3, $transaction->getMsgId());
+        $this->assertEquals('0001-00000000-9B6F', $transaction->getSenderAddress());
         $date = new \DateTime();
         $date->setTimestamp(1532092353);
         $this->assertEquals($date, $transaction->getTime());
+        $this->assertNull($transaction->getTargetAddress());
         $this->assertEquals(1, $transaction->getTargetNode());
         $this->assertNull($transaction->getTargetUser());
         $this->assertEquals(8, $transaction->getStatus());
@@ -83,9 +87,11 @@ class StatusTransactionTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(1, $transaction->getNode());
         $this->assertEquals(0, $transaction->getUser());
         $this->assertEquals(6, $transaction->getMsgId());
+        $this->assertEquals('0001-00000000-9B6F', $transaction->getSenderAddress());
         $date = new \DateTime();
         $date->setTimestamp(1532092407);
         $this->assertEquals($date, $transaction->getTime());
+        $this->assertEquals('0001-00000000-9B6F', $transaction->getTargetAddress());
         $this->assertEquals(1, $transaction->getTargetNode());
         $this->assertEquals(0, $transaction->getTargetUser());
         $this->assertEquals(16, $transaction->getStatus());
@@ -107,9 +113,11 @@ class StatusTransactionTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(1, $transaction->getNode());
         $this->assertEquals(0, $transaction->getUser());
         $this->assertEquals(4, $transaction->getMsgId());
+        $this->assertEquals('0001-00000000-9B6F', $transaction->getSenderAddress());
         $date = new \DateTime();
         $date->setTimestamp(1532092371);
         $this->assertEquals($date, $transaction->getTime());
+        $this->assertNull($transaction->getTargetAddress());
         $this->assertEquals(1, $transaction->getTargetNode());
         $this->assertNull($transaction->getTargetUser());
         $this->assertEquals(8, $transaction->getStatus());
