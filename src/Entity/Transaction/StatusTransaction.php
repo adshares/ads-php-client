@@ -20,8 +20,6 @@
 
 namespace Adshares\Ads\Entity\Transaction;
 
-use Adshares\Ads\Util\AdsChecksumGenerator;
-
 /**
  * Transaction type=<'set_account_status', 'set_node_status', 'unset_account_status', 'unset_node_status'>.
  *
@@ -29,6 +27,9 @@ use Adshares\Ads\Util\AdsChecksumGenerator;
  */
 class StatusTransaction extends AbstractTransaction
 {
+    use GetSenderAddressTrait;
+    use GetTargetAddressTrait;
+
     /**
      * @var int
      */
@@ -88,19 +89,6 @@ class StatusTransaction extends AbstractTransaction
     /**
      * @return string
      */
-    public function getSenderAddress(): string
-    {
-        return sprintf(
-            '%04X-%08X-%s',
-            $this->node,
-            $this->user,
-            AdsChecksumGenerator::getAccountChecksum($this->node, $this->user)
-        );
-    }
-
-    /**
-     * @return string
-     */
     public function getSignature(): string
     {
         return $this->signature;
@@ -112,23 +100,6 @@ class StatusTransaction extends AbstractTransaction
     public function getStatus(): int
     {
         return $this->status;
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getTargetAddress(): ?string
-    {
-        if (null === $this->targetNode || null === $this->targetUser) {
-            return null;
-        }
-
-        return sprintf(
-            '%04X-%08X-%s',
-            $this->targetNode,
-            $this->targetUser,
-            AdsChecksumGenerator::getAccountChecksum($this->targetNode, $this->targetUser)
-        );
     }
 
     /**
