@@ -7,3 +7,7 @@ bin/
 phpunit.xml
 var/report
 .scannerwork/
+
+/logs/*
+/docs/*
+!/docs/CONTRIBUTING.md

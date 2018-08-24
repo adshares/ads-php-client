@@ -59,6 +59,8 @@ $response = $client->getMe();
 - [Usage](https://github.com/adshares/php-ads-client/wiki#usage)
 - [Tests](https://github.com/adshares/php-ads-client/wiki#tests)
 
+> Build [API Reference](docs/index.html) docs with: `docker-compose run --rm phpdoc`
+
 ### Contributing
 
 Please follow our [Contributing Guidelines](docs/CONTRIBUTING.md)
