@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<phpdoc>
+    <title>AdsClient by adShares</title>
+    <parser>
+        <target>docs</target>
+        <encoding>utf8</encoding>
+        <markers>
+            <item>TODO</item>
+            <item>FIXME</item>
+        </markers>
+        <extensions>
+            <extension>php</extension>
+        </extensions>
+    </parser>
+    <transformer>
+        <target>docs</target>
+    </transformer>
+    <logging>
+        <level>warn</level>
+        <paths>
+            <default>/data/logs/{DATE}.log</default>
+            <errors>/data/logs/{DATE}.errors.log</errors>
+        </paths>
+    </logging>
+    <transformations>
+        <template name="new-black"/>
+    </transformations>
+    <files>
+        <directory>src</directory>
+        <!-- Class diagram will not work for "tests" dir -->
+        <!--<directory>tests</directory>-->
+    </files>
+</phpdoc>
+<!--
+Available templates:
+* checkstyle
+* xml
+* responsive-twig
+* old-ocean
+* zend
+* abstract
+* clean
+* responsive
+* new-black
+-->
