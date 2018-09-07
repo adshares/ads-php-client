@@ -2,7 +2,9 @@
 vendor/
 bin/
 # IDE
-.idea/
+/.idea/*
+!/.idea/copyright/
+!/.idea/codeStyles/
 # QA
 phpunit.xml
 var/report
