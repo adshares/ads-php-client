@@ -39,6 +39,7 @@ class SendOneTransactionTest extends \PHPUnit\Framework\TestCase
         $date->setTimestamp(1531501093);
         $this->assertEquals($date, $transaction->getTime());
         $this->assertEquals(1, $transaction->getTargetNode());
+        $this->assertEquals('0001', $transaction->getTargetNodeId());
         $this->assertEquals(1, $transaction->getTargetUser());
         $this->assertEquals(10000, $transaction->getSenderFee());
         $this->assertEquals('0001-00000000-9B6F', $transaction->getSenderAddress());

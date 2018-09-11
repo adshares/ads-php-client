@@ -41,6 +41,7 @@ class KeyTransactionTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($date, $transaction->getTime());
         $this->assertEquals('0001-00000000-9B6F', $transaction->getTargetAddress());
         $this->assertEquals(1, $transaction->getTargetNode());
+        $this->assertEquals('0001', $transaction->getTargetNodeId());
         $this->assertEquals(0, $transaction->getTargetUser());
         $this->assertEquals(
             'A9C0D972D8AAB73805EC4A28291E052E3B5FAFE0ADC9D724917054E5E2690363',
@@ -64,6 +65,8 @@ class KeyTransactionTest extends \PHPUnit\Framework\TestCase
         $date->setTimestamp(1531498103);
         $this->assertEquals($date, $transaction->getTime());
         $this->assertNull($transaction->getTargetAddress());
+        $this->assertNull($transaction->getTargetNode());
+        $this->assertNull($transaction->getTargetNodeId());
         $this->assertEquals(
             'EAE1C8793B5597C4B3F490E76AC31172C439690F8EE14142BB851A61F9A49F0E',
             $transaction->getPublicKey()
@@ -94,6 +97,7 @@ class KeyTransactionTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($date, $transaction->getTime());
         $this->assertNull($transaction->getTargetAddress());
         $this->assertEquals(0, $transaction->getTargetNode());
+        $this->assertEquals('0000', $transaction->getTargetNodeId());
         $this->assertEquals(
             '73A5C92FA5142599B1C9863B43E026AFEFA6B57AEE8D189241C7F50C90BA5122',
             $transaction->getOldPublicKey()

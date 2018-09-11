@@ -40,6 +40,7 @@ class SendManyTransactionWireTest extends \PHPUnit\Framework\TestCase
 
         $wire = $wires[1];
         $this->assertEquals(1, $wire->getTargetNode());
+        $this->assertEquals('0001', $wire->getTargetNodeId());
         $this->assertEquals(0, $wire->getTargetUser());
         $this->assertEquals('0001-00000000-9B6F', $wire->getTargetAddress());
         $this->assertEquals(100000000000, $wire->getAmount());

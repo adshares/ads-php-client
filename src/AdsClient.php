@@ -130,7 +130,7 @@ class AdsClient implements LoggerAwareInterface
     /**
      * Returns account list for node.
      *
-     * @param int $node node
+     * @param string $nodeId node id (hex)
      * @param null|string $blockId block id, time in Unix Epoch seconds as hexadecimal string.
      *                             If null, last block will be taken.
      *
@@ -138,8 +138,9 @@ class AdsClient implements LoggerAwareInterface
      *
      * @throws CommandException
      */
-    public function getAccounts(int $node, ?string $blockId = null): GetAccountsResponse
+    public function getAccounts(string $nodeId, ?string $blockId = null): GetAccountsResponse
     {
+        $node = hexdec($nodeId);
         $command = new GetAccountsCommand($node, $blockId);
         $response = $this->driver->executeCommand($command);
 

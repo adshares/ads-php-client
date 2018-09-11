@@ -98,6 +98,14 @@ class NetworkTransaction extends AbstractTransaction
     }
 
     /**
+     * @return string|null
+     */
+    public function getTargetNodeId(): ?string
+    {
+        return is_int($this->targetNode) ? sprintf('%04X', $this->targetNode) : null;
+    }
+
+    /**
      * @return int|null
      */
     public function getTargetUser(): ?int
