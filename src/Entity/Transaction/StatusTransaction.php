@@ -111,6 +111,14 @@ class StatusTransaction extends AbstractTransaction
     }
 
     /**
+     * @return string
+     */
+    public function getTargetNodeId(): string
+    {
+        return sprintf('%04X', $this->targetNode);
+    }
+
+    /**
      * @return int|null
      */
     public function getTargetUser(): ?int
