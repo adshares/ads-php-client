@@ -45,7 +45,7 @@ class AdsClientTest extends \PHPUnit\Framework\TestCase
     public function testGetAccounts()
     {
         $client = $this->createAdsClient(0, $this->stripNewLine(Raw::getAccounts()));
-        $response = $client->getAccounts(1, '5B56E800');
+        $response = $client->getAccounts('0001', '5B56E800');
         $this->assertGreaterThan(0, count($response->getAccounts()));
     }
 
