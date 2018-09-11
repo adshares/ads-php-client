@@ -22,6 +22,50 @@ namespace Adshares\Ads\Tests\Unit;
 
 class Raw
 {
+    public static function createAccount(): string
+    {
+        return '{
+            "current_block_time": "1536668480",
+            "previous_block_time": "1536668448",
+            "tx": {
+                "data": "060200000000000300000042B3975B020000000000A9C0D972D8AAB73805EC4A28291E05'
+            . '2E3B5FAFE0ADC9D724917054E5E2690363",
+                "signature": "3FEC4E367A87B615FFDE40CA992D4676E271970881E0C676E5C08E9D2C7F9A7B495'
+            . 'D2A0A92BCAAAED5DCFE8D79A69F8BC01008BE6F832D3FC04D5192A13BB90F",
+                "time": "1536668482",
+                "account_msid": "3",
+                "account_hashin": "CDE7C5D0D243D60500BDD32A8FC2A9EA7E9F7631B6CCFE77C26521A323087665",
+                "account_hashout": "CE4622401C53A8CE0F9C22A7B590C288EDD50869C10381FA50CD8737BD7FD345",
+                "deduct": "0.00120000000",
+                "fee": "0.00100000000",
+                "node_msid": "882",
+                "node_mpos": "2",
+                "id": "0002:00000372:0002"
+            },
+            "account": {
+                "address": "0002-00000000-75BD",
+                "node": "2",
+                "id": "0",
+                "msid": "4",
+                "time": "1536668482",
+                "date": "2018-09-11 14:21:22",
+                "status": "0",
+                "paired_node": "0",
+                "paired_id": "0",
+                "local_change": "1536668480",
+                "remote_change": "1536668416",
+                "balance": "9999999.98762190920",
+                "public_key": "A9C0D972D8AAB73805EC4A28291E052E3B5FAFE0ADC9D724917054E5E2690363",
+                "hash": "CE4622401C53A8CE0F9C22A7B590C288EDD50869C10381FA50CD8737BD7FD345"
+            },
+            "new_account": {
+                "address": "0002-00000004-3539",
+                "node": "2",
+                "id": "4"
+            }
+        }';
+    }
+
     public static function getAccount(): string
     {
         return '{
@@ -380,7 +424,7 @@ class Raw
                 "size": "125",
                 "hashpath_size": "6",
                 "data": "040100000000000100000077C4555B010001000000'
-            .'00A0724E1809000000000000000000000000000000000000000000'
+            . '00A0724E1809000000000000000000000000000000000000000000'
             . '0000000000000000000000000041503FB1E7BD84A3A94685FAC3841A53374DE00A3260ED5A88D4877585EAFA982E828DDA9'
             . '9F57EA3B20DAF4723BCD6325F63042A1ED13724CB7279CF728D940A",
                 "hashpath": ["36976DC64EDC80AC9A72EFDE80BDDD323A5FA08A8CB44D5BB7D5A6555AA0DBCB", '

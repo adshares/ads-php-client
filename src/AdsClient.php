@@ -21,6 +21,7 @@
 namespace Adshares\Ads;
 
 use Adshares\Ads\Command\AbstractTransactionCommand;
+use Adshares\Ads\Command\CreateAccountCommand;
 use Adshares\Ads\Command\GetAccountCommand;
 use Adshares\Ads\Command\GetAccountsCommand;
 use Adshares\Ads\Command\GetBlockCommand;
@@ -33,6 +34,7 @@ use Adshares\Ads\Command\GetTransactionCommand;
 use Adshares\Ads\Driver\DriverInterface;
 use Adshares\Ads\Entity\EntityFactory;
 use Adshares\Ads\Exception\CommandException;
+use Adshares\Ads\Response\CreateAccountTransactionResponse;
 use Adshares\Ads\Response\GetAccountResponse;
 use Adshares\Ads\Response\GetAccountsResponse;
 use Adshares\Ads\Response\GetBlockResponse;
@@ -108,6 +110,22 @@ class AdsClient implements LoggerAwareInterface
         }
         $transaction->setLastMsid($resp->getAccount()->getMsid());
         $transaction->setLastHash($resp->getAccount()->getHash());
+    }
+
+    /**
+     * Executes `create_account` transaction.
+     *
+     * @param CreateAccountCommand $command
+     * @param bool $isDryRun if true, transaction won't be send to network
+     * @return CreateAccountTransactionResponse
+     */
+    public function createAccount(CreateAccountCommand $command, bool $isDryRun = false):
+    CreateAccountTransactionResponse
+    {
+        $this->prepareTransaction($command);
+        $response = $this->driver->executeTransaction($command, $isDryRun);
+
+        return new CreateAccountTransactionResponse($response->getRawData());
     }
 
     /**
