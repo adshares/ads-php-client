@@ -20,23 +20,35 @@
 
 namespace Adshares\Ads\Tests\E2E;
 
-use Adshares\Ads\Command\CreateNodeCommand;
-use Adshares\Ads\Util\AdsValidator;
+use Adshares\Ads\AdsClient;
+use Adshares\Ads\Driver\CliDriver;
 
-class CreateNodeTest extends \PHPUnit\Framework\TestCase
+class AdsClientSingleton
 {
-    public function testCreateNode()
+    private static $ADDRESS = '0001-00000000-9B6F';
+    private static $SECRET = 'BB3425F914CA9F661CA6F3B908E07092B5AFB7F2FDAE2E94EDE12C83207CA743';
+    private static $HOST = '10.69.3.33';
+    private static $PORT = 9001;
+
+    private static $instance = null;
+
+    private function __construct()
     {
-        $client = AdsClientSingleton::getInstance();
+    }
 
-        $command = new CreateNodeCommand();
-        $response = $client->runTransaction($command);
-
-        $this->assertEquals(AdsClientSingleton::getAddress(), $response->getAccount()->getAddress());
-        $txid = $response->getTx()->getId();
-        $this->assertNotNull($txid);
-        if (null != $txid) {
-            $this->assertTrue(AdsValidator::isTransactionIdValid($txid), 'Invalid tx.id');
+    public static function getInstance()
+    {
+        if (self::$instance == null) {
+            $driver = new CliDriver(self::$ADDRESS, self::$SECRET, self::$HOST, self::$PORT);
+            self::$instance = new AdsClient($driver);
         }
+
+        return self::$instance;
+    }
+
+    public static function getAddress(): string
+    {
+        $copy = self::$ADDRESS;
+        return $copy;
     }
 }
