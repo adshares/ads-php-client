@@ -36,7 +36,7 @@ class AdsValidator
     public static function isAccountAddressValid(string $address): bool
     {
         // validate format
-        if (1 == preg_match('/^[0-9a-fA-F]{4}-[0-9a-fA-F]{8}-([0-9a-fA-F]{4}|XXXX)$/', $address)) {
+        if (1 === preg_match('/^[0-9a-fA-F]{4}-[0-9a-fA-F]{8}-([0-9a-fA-F]{4}|XXXX)$/', $address)) {
             // validate checksum
             $checksum = strtoupper(substr($address, -4));
             if ('XXXX' === $checksum) {
@@ -59,7 +59,7 @@ class AdsValidator
      */
     public static function isMessageIdValid(string $messageId): bool
     {
-        return 1 == preg_match('/^[0-9a-fA-F]{4}:[0-9a-fA-F]{8}$/', $messageId);
+        return 1 === preg_match('/^[0-9a-fA-F]{4}:[0-9a-fA-F]{8}$/', $messageId);
     }
 
     /**
@@ -70,6 +70,6 @@ class AdsValidator
      */
     public static function isTransactionIdValid(string $txid): bool
     {
-        return 1 == preg_match('/^[0-9a-fA-F]{4}:[0-9a-fA-F]{8}:[0-9a-fA-F]{4}$/', $txid);
+        return 1 === preg_match('/^[0-9a-fA-F]{4}:[0-9a-fA-F]{8}:[0-9a-fA-F]{4}$/', $txid);
     }
 }
