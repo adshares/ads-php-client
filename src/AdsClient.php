@@ -21,6 +21,7 @@
 namespace Adshares\Ads;
 
 use Adshares\Ads\Command\AbstractTransactionCommand;
+use Adshares\Ads\Command\ChangeAccountKeyCommand;
 use Adshares\Ads\Command\CreateAccountCommand;
 use Adshares\Ads\Command\GetAccountCommand;
 use Adshares\Ads\Command\GetAccountsCommand;
@@ -34,6 +35,7 @@ use Adshares\Ads\Command\GetTransactionCommand;
 use Adshares\Ads\Driver\DriverInterface;
 use Adshares\Ads\Entity\EntityFactory;
 use Adshares\Ads\Exception\CommandException;
+use Adshares\Ads\Response\ChangeAccountKeyResponse;
 use Adshares\Ads\Response\CreateAccountResponse;
 use Adshares\Ads\Response\GetAccountResponse;
 use Adshares\Ads\Response\GetAccountsResponse;
@@ -110,6 +112,21 @@ class AdsClient implements LoggerAwareInterface
         }
         $transaction->setLastMsid($resp->getAccount()->getMsid());
         $transaction->setLastHash($resp->getAccount()->getHash());
+    }
+
+    /**
+     * Executes `change_account_key` transaction.
+     *
+     * @param ChangeAccountKeyCommand $command
+     * @param bool $isDryRun if true, transaction won't be send to network
+     * @return ChangeAccountKeyResponse
+     */
+    public function changeAccountKey(ChangeAccountKeyCommand $command, bool $isDryRun = false): ChangeAccountKeyResponse
+    {
+        $this->prepareTransaction($command);
+        $response = $this->driver->executeTransaction($command, $isDryRun);
+
+        return new ChangeAccountKeyResponse($response->getRawData());
     }
 
     /**

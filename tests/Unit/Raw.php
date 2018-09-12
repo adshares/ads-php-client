@@ -22,6 +22,28 @@ namespace Adshares\Ads\Tests\Unit;
 
 class Raw
 {
+    public static function changeAccountKey(): string
+    {
+        return '{
+            "current_block_time": "1536737856",
+            "previous_block_time": "1536737824",
+            "tx": {
+                "data": "090100000000000800000052C2985BEAE1C8793B5597C4B3F490E76AC31172C439690F8EE14142BB851A61F9A49F0E",
+                "signature": "20B8F34EA2DE4472B78A3B7648A91AC6E2572F70F9A69B332E452B5413F6D24DBE47F3E7B298A0574CE0E011493AE6DA8905B7FDEB78D690A449F66385C0010E",
+                "time": "1536737874",
+                "account_msid": "8",
+                "account_hashin": "24BEBF3057AF4737D08038A35BF32401011487756A505E8CA6A297FD8938B722",
+                "account_hashout": "92872A9291190C993C526B96D620F08DE4A8B4792BEFF035D9483DBB44D36EA9",
+                "deduct": "0.00010000000",
+                "fee": "0.00010000000",
+                "node_msid": "78",
+                "node_mpos": "1",
+                "id": "0001:0000004E:0001"
+            },
+            "result": "PKEY changed"
+        }';
+    }
+
     public static function createAccount(): string
     {
         return '{
