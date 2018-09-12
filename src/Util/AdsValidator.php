@@ -35,7 +35,20 @@ class AdsValidator
      */
     public static function isAccountAddressValid(string $address): bool
     {
-        return 1 == preg_match('/^[0-9a-fA-F]{4}-[0-9a-fA-F]{8}-([0-9a-fA-F]{4}|XXXX)$/', $address);
+        // validate format
+        if (1 == preg_match('/^[0-9a-fA-F]{4}-[0-9a-fA-F]{8}-([0-9a-fA-F]{4}|XXXX)$/', $address)) {
+            // validate checksum
+            $checksum = strtoupper(substr($address, -4));
+            if ('XXXX' === $checksum) {
+                // 'XXXX' is allowed as checksum replacement
+                return true;
+            }
+            $nodeId = substr($address, 0, 4);
+            $userId = substr($address, 5, 8);
+            $checksumComputed = AdsChecksumGenerator::getAccountChecksum(hexdec($nodeId), hexdec($userId));
+            return $checksum === $checksumComputed;
+        }
+        return false;
     }
 
     /**
