@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
-- Transaction `create_account`
+- Transaction `create_account`, `create_node`
 
 ### Changed
 - Fix duplicated code in transaction address getters

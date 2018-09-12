@@ -22,6 +22,7 @@ namespace Adshares\Ads\Tests\Unit;
 
 use Adshares\Ads\AdsClient;
 use Adshares\Ads\Command\CreateAccountCommand;
+use Adshares\Ads\Command\CreateNodeCommand;
 use Adshares\Ads\Command\SendOneCommand;
 use Adshares\Ads\Driver\CliDriver;
 use Adshares\Ads\Entity\Broadcast;
@@ -49,6 +50,19 @@ class AdsClientTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals('0002-00000004-3539', $newAccount->getAddress());
         $this->assertEquals('2', $newAccount->getNode());
         $this->assertEquals('0002', $newAccount->getNodeId());
+    }
+
+    public function testCreateNode()
+    {
+        $client = $this->createAdsClient(0, $this->stripNewLine(Raw::createNode()));
+        $command = new CreateNodeCommand();
+        $command->setLastMsid(3);
+        $command->setLastHash('35CABB3B28BA322AE62063024917293549FD6D42BF7ADCC933584F1585025D97');
+        $response = $client->runTransaction($command);
+        $this->assertEquals('0001-00000000-9B6F', $response->getAccount()->getAddress());
+        $this->assertEquals(new \DateTime('@1536734240'), $response->getCurrentBlockTime());
+        $this->assertEquals(new \DateTime('@1536734208'), $response->getPreviousBlockTime());
+        $this->assertEquals('0001:00000015:0001', $response->getTx()->getId());
     }
 
     public function testGetAccount()

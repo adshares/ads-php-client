@@ -66,6 +66,44 @@ class Raw
         }';
     }
 
+    public static function createNode(): string
+    {
+        return '{
+            "current_block_time": "1536734240",
+            "previous_block_time": "1536734208",
+            "tx": {
+                "data": "07010000000000030000003FB4985B",
+                "signature": "0ACC5DF6B9079667AB48B0DD529CD6B8154CC190997060ADA6CCA8F7AB99CE63CAC51E8210EDDB6'
+            .'41F8927566A3F0B4FAD2153BB61FAB9D16C2F40D3390E5108",
+                "time": "1536734271",
+                "account_msid": "3",
+                "account_hashin": "35CABB3B28BA322AE62063024917293549FD6D42BF7ADCC933584F1585025D97",
+                "account_hashout": "F88B31EEB3ABEC09D55EC5891DDF3D8A5326DBD6CDFDF687117C0A7581D7260C",
+                "deduct": "1001.00000000000",
+                "fee": "1000.00000000000",
+                "node_msid": "21",
+                "node_mpos": "1",
+                "id": "0001:00000015:0001"
+            },
+            "account": {
+                "address": "0001-00000000-9B6F",
+                "node": "1",
+                "id": "0",
+                "msid": "4",
+                "time": "1536734271",
+                "date": "2018-09-12 06:37:51",
+                "status": "0",
+                "paired_node": "0",
+                "paired_id": "0",
+                "local_change": "1536734240",
+                "remote_change": "1536734208",
+                "balance": "19999999.99681894976",
+                "public_key": "A9C0D972D8AAB73805EC4A28291E052E3B5FAFE0ADC9D724917054E5E2690363",
+                "hash": "F88B31EEB3ABEC09D55EC5891DDF3D8A5326DBD6CDFDF687117C0A7581D7260C"
+            }
+        }';
+    }
+
     public static function getAccount(): string
     {
         return '{
