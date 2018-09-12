@@ -112,6 +112,11 @@ class CommandError
      * For getBlocks: No new blocks. All blocks were downloaded at this moment.
      */
     public const NO_NEW_BLOCKS = 5057;
+    /**
+     * Ads client version is not compatible with node version.
+     */
+    public const PROTOCOL_MISMATCH = 5058;
+    public const AMOUNT_NOT_POSITIVE = 5059;
 
     /**
      * Mapping error code to error description
@@ -175,6 +180,8 @@ class CommandError
         self::NO_BLOCK_IN_SPECIFIED_RANGE => 'Failed to read block in specified block range',
         self::COULD_NOT_READ_CORRECT_VIP_KEYS => 'Vip keys file not found or empty or vipkeys failed check',
         self::NO_NEW_BLOCKS => 'No new blocks to download',
+        self::PROTOCOL_MISMATCH => 'Server and client protocol does not match',
+        self::AMOUNT_NOT_POSITIVE => 'Amount must be positive',
     ];
 
     /**
