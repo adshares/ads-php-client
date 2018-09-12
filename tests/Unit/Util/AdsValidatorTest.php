@@ -36,7 +36,7 @@ class AdsValidatorTest extends \PHPUnit\Framework\TestCase
 
         $validEntries = [
             '0001-00000000-9B6F',
-            '0001-00000abc-9b6f',
+            '0001-0000000f-6a80',
             '0001-000000AB-XXXX',
             '0001-00000003-AB0C',
         ];

@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Function `getAccounts` takes nodeId as hex instead of int
 - Fix duplicated code in transaction address getters
+- AdsValidator checks address checksum
 
 ## [1.0.1] - 2018-08-22
 ### Added
