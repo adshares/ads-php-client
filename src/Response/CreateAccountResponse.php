@@ -28,7 +28,7 @@ use Adshares\Ads\Entity\NewAccount;
  *
  * @package Adshares\Ads\Response
  */
-class CreateAccountTransactionResponse extends TransactionResponse
+class CreateAccountResponse extends TransactionResponse
 {
     /**
      * Data of created account

@@ -34,7 +34,7 @@ use Adshares\Ads\Command\GetTransactionCommand;
 use Adshares\Ads\Driver\DriverInterface;
 use Adshares\Ads\Entity\EntityFactory;
 use Adshares\Ads\Exception\CommandException;
-use Adshares\Ads\Response\CreateAccountTransactionResponse;
+use Adshares\Ads\Response\CreateAccountResponse;
 use Adshares\Ads\Response\GetAccountResponse;
 use Adshares\Ads\Response\GetAccountsResponse;
 use Adshares\Ads\Response\GetBlockResponse;
@@ -117,15 +117,14 @@ class AdsClient implements LoggerAwareInterface
      *
      * @param CreateAccountCommand $command
      * @param bool $isDryRun if true, transaction won't be send to network
-     * @return CreateAccountTransactionResponse
+     * @return CreateAccountResponse
      */
-    public function createAccount(CreateAccountCommand $command, bool $isDryRun = false):
-    CreateAccountTransactionResponse
+    public function createAccount(CreateAccountCommand $command, bool $isDryRun = false): CreateAccountResponse
     {
         $this->prepareTransaction($command);
         $response = $this->driver->executeTransaction($command, $isDryRun);
 
-        return new CreateAccountTransactionResponse($response->getRawData());
+        return new CreateAccountResponse($response->getRawData());
     }
 
     /**
