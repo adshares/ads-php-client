@@ -28,8 +28,10 @@ class Raw
             "current_block_time": "1536737856",
             "previous_block_time": "1536737824",
             "tx": {
-                "data": "090100000000000800000052C2985BEAE1C8793B5597C4B3F490E76AC31172C439690F8EE14142BB851A61F9A49F0E",
-                "signature": "20B8F34EA2DE4472B78A3B7648A91AC6E2572F70F9A69B332E452B5413F6D24DBE47F3E7B298A0574CE0E011493AE6DA8905B7FDEB78D690A449F66385C0010E",
+                "data": "090100000000000800000052C2985BEAE1C8793B5597C4B3F490E76AC'
+            . '31172C439690F8EE14142BB851A61F9A49F0E",
+                "signature": "20B8F34EA2DE4472B78A3B7648A91AC6E2572F70F9A69B332E452B5413F6D24DBE47F3E'
+            . '7B298A0574CE0E011493AE6DA8905B7FDEB78D690A449F66385C0010E",
                 "time": "1536737874",
                 "account_msid": "8",
                 "account_hashin": "24BEBF3057AF4737D08038A35BF32401011487756A505E8CA6A297FD8938B722",
@@ -41,6 +43,46 @@ class Raw
                 "id": "0001:0000004E:0001"
             },
             "result": "PKEY changed"
+        }';
+    }
+
+    public static function changeNodeKey(): string
+    {
+        return '{
+            "current_block_time": "1536744768",
+            "previous_block_time": "1536744736",
+            "tx": {
+                "data": "0A0100000000000500000059DD985B0000EAE1C8793B5597C'
+            . '4B3F490E76AC31172C439690F8EE14142BB851A61F9A49F0E",
+                "signature": "6841E3C967CC1E91BB887F1C0510CB44B6646783670D3CEE8EC4BD563B1DC1868582DF7085F9AB247DD2'
+            . '36C2C2FEF5140080680AD1285C940900E2A407D1AD02",
+                "time": "1536744793",
+                "account_msid": "5",
+                "account_hashin": "A248D98C61011E9EB80443CE34CDC7DC5621DB209905D567F18F7FFCD1E20725",
+                "account_hashout": "A0E0EF9676AD51CAACFF1621BF28677B154F25A52B6B3CB60B2110F63F6F3D86",
+                "deduct": "0.10000000000",
+                "fee": "0.10000000000",
+                "node_msid": "27",
+                "node_mpos": "1",
+                "id": "0001:0000001B:0001"
+            },
+            "result": "Node key changed",
+            "account": {
+                "address": "0001-00000000-9B6F",
+                "node": "1",
+                "id": "0",
+                "msid": "6",
+                "time": "1536744793",
+                "date": "2018-09-12 09:33:13",
+                "status": "0",
+                "paired_node": "0",
+                "paired_id": "0",
+                "local_change": "1536744768",
+                "remote_change": "1536744736",
+                "balance": "19999999.65734114180",
+                "public_key": "A9C0D972D8AAB73805EC4A28291E052E3B5FAFE0ADC9D724917054E5E2690363",
+                "hash": "A0E0EF9676AD51CAACFF1621BF28677B154F25A52B6B3CB60B2110F63F6F3D86"
+            }
         }';
     }
 
@@ -96,7 +138,7 @@ class Raw
             "tx": {
                 "data": "07010000000000030000003FB4985B",
                 "signature": "0ACC5DF6B9079667AB48B0DD529CD6B8154CC190997060ADA6CCA8F7AB99CE63CAC51E8210EDDB6'
-            .'41F8927566A3F0B4FAD2153BB61FAB9D16C2F40D3390E5108",
+            . '41F8927566A3F0B4FAD2153BB61FAB9D16C2F40D3390E5108",
                 "time": "1536734271",
                 "account_msid": "3",
                 "account_hashin": "35CABB3B28BA322AE62063024917293549FD6D42BF7ADCC933584F1585025D97",

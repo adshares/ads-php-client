@@ -22,6 +22,7 @@ namespace Adshares\Ads;
 
 use Adshares\Ads\Command\AbstractTransactionCommand;
 use Adshares\Ads\Command\ChangeAccountKeyCommand;
+use Adshares\Ads\Command\ChangeNodeKeyCommand;
 use Adshares\Ads\Command\CreateAccountCommand;
 use Adshares\Ads\Command\GetAccountCommand;
 use Adshares\Ads\Command\GetAccountsCommand;
@@ -36,6 +37,7 @@ use Adshares\Ads\Driver\DriverInterface;
 use Adshares\Ads\Entity\EntityFactory;
 use Adshares\Ads\Exception\CommandException;
 use Adshares\Ads\Response\ChangeAccountKeyResponse;
+use Adshares\Ads\Response\ChangeNodeKeyResponse;
 use Adshares\Ads\Response\CreateAccountResponse;
 use Adshares\Ads\Response\GetAccountResponse;
 use Adshares\Ads\Response\GetAccountsResponse;
@@ -127,6 +129,21 @@ class AdsClient implements LoggerAwareInterface
         $response = $this->driver->executeTransaction($command, $isDryRun);
 
         return new ChangeAccountKeyResponse($response->getRawData());
+    }
+
+    /**
+     * Executes `change_node_key` transaction.
+     *
+     * @param ChangeNodeKeyCommand $command
+     * @param bool $isDryRun if true, transaction won't be send to network
+     * @return ChangeNodeKeyResponse
+     */
+    public function changeNodeKey(ChangeNodeKeyCommand $command, bool $isDryRun = false): ChangeNodeKeyResponse
+    {
+        $this->prepareTransaction($command);
+        $response = $this->driver->executeTransaction($command, $isDryRun);
+
+        return new ChangeNodeKeyResponse($response->getRawData());
     }
 
     /**

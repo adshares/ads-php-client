@@ -22,6 +22,7 @@ namespace Adshares\Ads\Tests\Unit;
 
 use Adshares\Ads\AdsClient;
 use Adshares\Ads\Command\ChangeAccountKeyCommand;
+use Adshares\Ads\Command\ChangeNodeKeyCommand;
 use Adshares\Ads\Command\CreateAccountCommand;
 use Adshares\Ads\Command\CreateNodeCommand;
 use Adshares\Ads\Command\SendOneCommand;
@@ -58,6 +59,18 @@ class AdsClientTest extends \PHPUnit\Framework\TestCase
         $response = $client->changeAccountKey($command);
 
         $this->assertEquals('0001:0000004E:0001', $response->getTx()->getId());
+        $this->assertTrue($response->isKeyChanged());
+    }
+
+    public function testChangeNodeKey()
+    {
+        $client = $this->createAdsClient(0, $this->stripNewLine(Raw::changeNodeKey()));
+        $command = new ChangeNodeKeyCommand($this->publicKey);
+        $command->setLastMsid(3);
+        $command->setLastHash('CDE7C5D0D243D60500BDD32A8FC2A9EA7E9F7631B6CCFE77C26521A323087665');
+        $response = $client->changeNodeKey($command);
+
+        $this->assertEquals('0001:0000001B:0001', $response->getTx()->getId());
         $this->assertTrue($response->isKeyChanged());
     }
 
