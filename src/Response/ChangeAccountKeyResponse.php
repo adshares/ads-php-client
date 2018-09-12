@@ -41,7 +41,7 @@ class ChangeAccountKeyResponse extends AbstractResponse
     {
         parent::loadData($data);
 
-        $this->keyChanged = array_key_exists('result', $data) ? 'PKEY changed' === $data['result'] : false;
+        $this->keyChanged = array_key_exists('result', $data) && ('PKEY changed' === $data['result']);
     }
 
     /**
