@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- Transaction `change_account_key`, `change_node_key`, `create_account`, `create_node`
+
 ### Changed
 - Function `getAccounts` takes nodeId as hex instead of int
 - Fix duplicated code in transaction address getters

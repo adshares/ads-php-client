@@ -38,6 +38,7 @@ class EntityFactory
         'Broadcast' => '\Adshares\Ads\Entity\Broadcast',
         'Message' => '\Adshares\Ads\Entity\Message',
         'NetworkTx' => '\Adshares\Ads\Entity\NetworkTx',
+        'NewAccount' => '\Adshares\Ads\Entity\NewAccount',
         'Node' => '\Adshares\Ads\Entity\Node',
         'Tx' => '\Adshares\Ads\Entity\Tx',
         // Transactions
@@ -129,6 +130,15 @@ class EntityFactory
     public static function createNetworkTx(array $data = []): NetworkTx
     {
         return self::create('NetworkTx', $data);
+    }
+
+    /**
+     * @param array $data
+     * @return NewAccount
+     */
+    public static function createNewAccount(array $data = []): NewAccount
+    {
+        return self::create('NewAccount', $data);
     }
 
     /**

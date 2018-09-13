@@ -21,6 +21,9 @@
 namespace Adshares\Ads;
 
 use Adshares\Ads\Command\AbstractTransactionCommand;
+use Adshares\Ads\Command\ChangeAccountKeyCommand;
+use Adshares\Ads\Command\ChangeNodeKeyCommand;
+use Adshares\Ads\Command\CreateAccountCommand;
 use Adshares\Ads\Command\GetAccountCommand;
 use Adshares\Ads\Command\GetAccountsCommand;
 use Adshares\Ads\Command\GetBlockCommand;
@@ -33,6 +36,9 @@ use Adshares\Ads\Command\GetTransactionCommand;
 use Adshares\Ads\Driver\DriverInterface;
 use Adshares\Ads\Entity\EntityFactory;
 use Adshares\Ads\Exception\CommandException;
+use Adshares\Ads\Response\ChangeAccountKeyResponse;
+use Adshares\Ads\Response\ChangeNodeKeyResponse;
+use Adshares\Ads\Response\CreateAccountResponse;
 use Adshares\Ads\Response\GetAccountResponse;
 use Adshares\Ads\Response\GetAccountsResponse;
 use Adshares\Ads\Response\GetBlockResponse;
@@ -108,6 +114,51 @@ class AdsClient implements LoggerAwareInterface
         }
         $transaction->setLastMsid($resp->getAccount()->getMsid());
         $transaction->setLastHash($resp->getAccount()->getHash());
+    }
+
+    /**
+     * Executes `change_account_key` transaction.
+     *
+     * @param ChangeAccountKeyCommand $command
+     * @param bool $isDryRun if true, transaction won't be send to network
+     * @return ChangeAccountKeyResponse
+     */
+    public function changeAccountKey(ChangeAccountKeyCommand $command, bool $isDryRun = false): ChangeAccountKeyResponse
+    {
+        $this->prepareTransaction($command);
+        $response = $this->driver->executeTransaction($command, $isDryRun);
+
+        return new ChangeAccountKeyResponse($response->getRawData());
+    }
+
+    /**
+     * Executes `change_node_key` transaction.
+     *
+     * @param ChangeNodeKeyCommand $command
+     * @param bool $isDryRun if true, transaction won't be send to network
+     * @return ChangeNodeKeyResponse
+     */
+    public function changeNodeKey(ChangeNodeKeyCommand $command, bool $isDryRun = false): ChangeNodeKeyResponse
+    {
+        $this->prepareTransaction($command);
+        $response = $this->driver->executeTransaction($command, $isDryRun);
+
+        return new ChangeNodeKeyResponse($response->getRawData());
+    }
+
+    /**
+     * Executes `create_account` transaction.
+     *
+     * @param CreateAccountCommand $command
+     * @param bool $isDryRun if true, transaction won't be send to network
+     * @return CreateAccountResponse
+     */
+    public function createAccount(CreateAccountCommand $command, bool $isDryRun = false): CreateAccountResponse
+    {
+        $this->prepareTransaction($command);
+        $response = $this->driver->executeTransaction($command, $isDryRun);
+
+        return new CreateAccountResponse($response->getRawData());
     }
 
     /**
@@ -274,10 +325,14 @@ class AdsClient implements LoggerAwareInterface
 
     /**
      * Executes transaction.
-     * AbstractTransactionCommand can be one of:
-     * - BroadcastCommand: Sends broadcast message to blockchain network;
-     * - SendManyCommand: Transfers funds to many accounts;
-     * - SendOneCommand: Transfers funds to one account;
+     * `AbstractTransactionCommand` can be one of:
+     * - `BroadcastCommand`: Sends broadcast message to blockchain network;
+     * - `CreateNodeCommand`: Creates node in blockchain network;
+     * - `SendManyCommand`: Transfers funds to many accounts;
+     * - `SendOneCommand`: Transfers funds to one account;
+     *
+     * Also commands `ChangeNodeKeyCommand`, `CreateAccountCommand` can be used,
+     * but separate functions are prepared especially for them.
      *
      * @param AbstractTransactionCommand $command
      * @param bool $isDryRun if true, transaction won't be send to network
