@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fix duplicated code in transaction address getters
 - AdsValidator checks address checksum
 - Missing ads error description
+- Client accepts whitespace characters at the beginning and end of a response
 
 ## [1.0.1] - 2018-08-22
 ### Added

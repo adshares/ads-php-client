@@ -258,6 +258,7 @@ class CliDriver implements DriverInterface, LoggerAwareInterface
         $lines = explode("\n", $data);
 
         foreach ($lines as $line) {
+            $line = trim($line);
             if (!$line) {
                 continue;
             }
