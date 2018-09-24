@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (C) 2018 Adshares sp. z. o.o.
+ * Copyright (C) 2018 Adshares sp. z o.o.
  *
  * This file is part of ADS PHP Client
  *
@@ -15,12 +15,10 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with ADS PHP Client.  If not, see <https://www.gnu.org/licenses/>.
+ * along with ADS PHP Client.  If not, see <https://www.gnu.org/licenses/>
  */
 
 namespace Adshares\Ads\Entity\Transaction;
-
-use Adshares\Ads\Util\AdsChecksumGenerator;
 
 /**
  * Transaction type=<'create_account', 'create_node', 'retrieve_funds'>.
@@ -29,6 +27,9 @@ use Adshares\Ads\Util\AdsChecksumGenerator;
  */
 class NetworkTransaction extends AbstractTransaction
 {
+    use GetSenderAddressTrait;
+    use GetTargetAddressTrait;
+
     /**
      * @var int
      */
@@ -83,39 +84,9 @@ class NetworkTransaction extends AbstractTransaction
     /**
      * @return string
      */
-    public function getSenderAddress(): string
-    {
-        return sprintf(
-            '%04X-%08X-%s',
-            $this->node,
-            $this->user,
-            AdsChecksumGenerator::getAccountChecksum($this->node, $this->user)
-        );
-    }
-
-    /**
-     * @return string
-     */
     public function getSignature(): string
     {
         return $this->signature;
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getTargetAddress(): ?string
-    {
-        if (null === $this->targetNode || null === $this->targetUser) {
-            return null;
-        }
-
-        return sprintf(
-            '%04X-%08X-%s',
-            $this->targetNode,
-            $this->targetUser,
-            AdsChecksumGenerator::getAccountChecksum($this->targetNode, $this->targetUser)
-        );
     }
 
     /**
@@ -124,6 +95,14 @@ class NetworkTransaction extends AbstractTransaction
     public function getTargetNode(): ?int
     {
         return $this->targetNode;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getTargetNodeId(): ?string
+    {
+        return is_int($this->targetNode) ? sprintf('%04X', $this->targetNode) : null;
     }
 
     /**

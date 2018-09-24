@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (C) 2018 Adshares sp. z. o.o.
+ * Copyright (C) 2018 Adshares sp. z o.o.
  *
  * This file is part of ADS PHP Client
  *
@@ -15,7 +15,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with ADS PHP Client.  If not, see <https://www.gnu.org/licenses/>.
+ * along with ADS PHP Client.  If not, see <https://www.gnu.org/licenses/>
  */
 
 namespace Adshares\Ads\Tests\E2E;
@@ -72,7 +72,7 @@ class NodeTest extends \PHPUnit\Framework\TestCase
         $driver = new CliDriver($this->address, $this->secret, $this->host, $this->port);
         $client = new AdsClient($driver);
 
-        $response = $client->getAccounts(1);
+        $response = $client->getAccounts('0001');
         $accounts = $response->getAccounts();
         $this->assertGreaterThan(0, count($accounts));
     }
@@ -82,10 +82,10 @@ class NodeTest extends \PHPUnit\Framework\TestCase
         $driver = new CliDriver($this->address, $this->secret, $this->host, $this->port);
         $client = new AdsClient($driver);
 
-        $response = $client->getAccounts(1);
+        $response = $client->getAccounts('0001');
         $blockTime = dechex($response->getPreviousBlockTime()->getTimestamp());
         $accounts = $response->getAccounts();
-        $response2 = $client->getAccounts(1, $blockTime);
+        $response2 = $client->getAccounts('0001', $blockTime);
         $accounts2 = $response2->getAccounts();
 
         $this->assertEquals($accounts2, $accounts);

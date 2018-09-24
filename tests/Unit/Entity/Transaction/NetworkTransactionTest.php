@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (C) 2018 Adshares sp. z. o.o.
+ * Copyright (C) 2018 Adshares sp. z o.o.
  *
  * This file is part of ADS PHP Client
  *
@@ -15,7 +15,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with ADS PHP Client.  If not, see <https://www.gnu.org/licenses/>.
+ * along with ADS PHP Client.  If not, see <https://www.gnu.org/licenses/>
  */
 
 namespace Adshares\Ads\Tests\Unit\Entity\Transaction;
@@ -41,6 +41,7 @@ class NetworkTransactionTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($date, $transaction->getTime());
         $this->assertNull($transaction->getTargetAddress());
         $this->assertEquals(1, $transaction->getTargetNode());
+        $this->assertEquals('0001', $transaction->getTargetNodeId());
         $this->assertEquals('EBAEE201D66CD2E0B68DEE9A869FFBD14986E17770A3DA62779B6F06D0030000'
             . 'A9C0D972D8AAB73805EC4A28291E052E3B5FAFE0ADC9D724917054E5E2690363', $transaction->getSignature());
         $this->assertEquals(117, $transaction->getSize());
@@ -61,6 +62,8 @@ class NetworkTransactionTest extends \PHPUnit\Framework\TestCase
         $date->setTimestamp(1531496775);
         $this->assertEquals($date, $transaction->getTime());
         $this->assertNull($transaction->getTargetAddress());
+        $this->assertNull($transaction->getTargetNode());
+        $this->assertNull($transaction->getTargetNodeId());
         $this->assertEquals('72F344B3F1E8C225C708CB1B6ACE62F9F776081F4C4F21BA25944350847EDA14'
             . '56C29F874BA3C9FCC367EDD13C148175946AA1D2D46EF1BBDD49FFE0507E640D', $transaction->getSignature());
         $this->assertEquals(79, $transaction->getSize());
@@ -82,6 +85,7 @@ class NetworkTransactionTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($date, $transaction->getTime());
         $this->assertEquals('0002-00000001-659C', $transaction->getTargetAddress());
         $this->assertEquals(2, $transaction->getTargetNode());
+        $this->assertEquals('0002', $transaction->getTargetNodeId());
         $this->assertEquals(1, $transaction->getTargetUser());
 
         $this->assertEquals('CC05D9CE1816197AB8A02335CBB7ED0056DA088A4CFA593022679360B750E525'

@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (C) 2018 Adshares sp. z. o.o.
+ * Copyright (C) 2018 Adshares sp. z o.o.
  *
  * This file is part of ADS PHP Client
  *
@@ -15,7 +15,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with ADS PHP Client.  If not, see <https://www.gnu.org/licenses/>.
+ * along with ADS PHP Client.  If not, see <https://www.gnu.org/licenses/>
  */
 
 namespace Adshares\Ads\Driver;
@@ -258,6 +258,7 @@ class CliDriver implements DriverInterface, LoggerAwareInterface
         $lines = explode("\n", $data);
 
         foreach ($lines as $line) {
+            $line = trim($line);
             if (!$line) {
                 continue;
             }

@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (C) 2018 Adshares sp. z. o.o.
+ * Copyright (C) 2018 Adshares sp. z o.o.
  *
  * This file is part of ADS PHP Client
  *
@@ -15,7 +15,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with ADS PHP Client.  If not, see <https://www.gnu.org/licenses/>.
+ * along with ADS PHP Client.  If not, see <https://www.gnu.org/licenses/>
  */
 
 namespace Adshares\Ads\Tests\Unit\Util;
@@ -36,7 +36,7 @@ class AdsValidatorTest extends \PHPUnit\Framework\TestCase
 
         $validEntries = [
             '0001-00000000-9B6F',
-            '0001-00000abc-9b6f',
+            '0001-0000000f-6a80',
             '0001-000000AB-XXXX',
             '0001-00000003-AB0C',
         ];

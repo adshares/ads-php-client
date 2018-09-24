@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (C) 2018 Adshares sp. z. o.o.
+ * Copyright (C) 2018 Adshares sp. z o.o.
  *
  * This file is part of ADS PHP Client
  *
@@ -15,7 +15,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with ADS PHP Client.  If not, see <https://www.gnu.org/licenses/>.
+ * along with ADS PHP Client.  If not, see <https://www.gnu.org/licenses/>
  */
 
 namespace Adshares\Ads\Entity\Transaction;
@@ -151,6 +151,14 @@ class SendOneTransaction extends AbstractTransaction
     public function getTargetNode(): int
     {
         return $this->targetNode;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTargetNodeId(): string
+    {
+        return sprintf('%04X', $this->targetNode);
     }
 
     /**

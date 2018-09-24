@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (C) 2018 Adshares sp. z. o.o.
+ * Copyright (C) 2018 Adshares sp. z o.o.
  *
  * This file is part of ADS PHP Client
  *
@@ -15,13 +15,12 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with ADS PHP Client.  If not, see <https://www.gnu.org/licenses/>.
+ * along with ADS PHP Client.  If not, see <https://www.gnu.org/licenses/>
  */
 
 namespace Adshares\Ads\Entity\Transaction;
 
 use Adshares\Ads\Entity\Account;
-use Adshares\Ads\Util\AdsChecksumGenerator;
 
 /**
  * Transaction type=<'log_account'>.
@@ -30,6 +29,8 @@ use Adshares\Ads\Util\AdsChecksumGenerator;
  */
 class LogAccountTransaction extends AbstractTransaction
 {
+    use GetSenderAddressTrait;
+
     /**
      * @var int
      */
@@ -82,19 +83,6 @@ class LogAccountTransaction extends AbstractTransaction
     public function getNode(): int
     {
         return $this->node;
-    }
-
-    /**
-     * @return string
-     */
-    public function getSenderAddress(): string
-    {
-        return sprintf(
-            '%04X-%08X-%s',
-            $this->node,
-            $this->user,
-            AdsChecksumGenerator::getAccountChecksum($this->node, $this->user)
-        );
     }
 
     /**

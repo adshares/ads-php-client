@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (C) 2018 Adshares sp. z. o.o.
+ * Copyright (C) 2018 Adshares sp. z o.o.
  *
  * This file is part of ADS PHP Client
  *
@@ -15,7 +15,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with ADS PHP Client.  If not, see <https://www.gnu.org/licenses/>.
+ * along with ADS PHP Client.  If not, see <https://www.gnu.org/licenses/>
  */
 
 namespace Adshares\Ads\Entity;
@@ -38,6 +38,7 @@ class EntityFactory
         'Broadcast' => '\Adshares\Ads\Entity\Broadcast',
         'Message' => '\Adshares\Ads\Entity\Message',
         'NetworkTx' => '\Adshares\Ads\Entity\NetworkTx',
+        'NewAccount' => '\Adshares\Ads\Entity\NewAccount',
         'Node' => '\Adshares\Ads\Entity\Node',
         'Tx' => '\Adshares\Ads\Entity\Tx',
         // Transactions
@@ -129,6 +130,15 @@ class EntityFactory
     public static function createNetworkTx(array $data = []): NetworkTx
     {
         return self::create('NetworkTx', $data);
+    }
+
+    /**
+     * @param array $data
+     * @return NewAccount
+     */
+    public static function createNewAccount(array $data = []): NewAccount
+    {
+        return self::create('NewAccount', $data);
     }
 
     /**

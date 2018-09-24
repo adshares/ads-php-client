@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (C) 2018 Adshares sp. z. o.o.
+ * Copyright (C) 2018 Adshares sp. z o.o.
  *
  * This file is part of ADS PHP Client
  *
@@ -15,7 +15,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with ADS PHP Client.  If not, see <https://www.gnu.org/licenses/>.
+ * along with ADS PHP Client.  If not, see <https://www.gnu.org/licenses/>
  */
 
 namespace Adshares\Ads\Tests\Unit\Entity\Transaction;
@@ -39,6 +39,7 @@ class SendOneTransactionTest extends \PHPUnit\Framework\TestCase
         $date->setTimestamp(1531501093);
         $this->assertEquals($date, $transaction->getTime());
         $this->assertEquals(1, $transaction->getTargetNode());
+        $this->assertEquals('0001', $transaction->getTargetNodeId());
         $this->assertEquals(1, $transaction->getTargetUser());
         $this->assertEquals(10000, $transaction->getSenderFee());
         $this->assertEquals('0001-00000000-9B6F', $transaction->getSenderAddress());
