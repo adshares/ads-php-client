@@ -70,8 +70,8 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## Authors
 
-- **Paweł Podkalicki** - _main programmer_ - [PawelPodkalicki](https://github.com/PawelPodkalicki)
-- **Maciej Pilarczyk** - _architecture, supervision_ - [m-pilarczyk](https://github.com/m-pilarczyk)
+- **[Paweł Podkalicki](https://github.com/PawelPodkalicki)** - _main programmer_
+- **[Maciej Pilarczyk](https://github.com/m-pilarczyk)** - _architecture, supervision_
 
 See also the list of [contributors](https://github.com/adshares/ads-php-client/contributors) who participated in this project.
 
