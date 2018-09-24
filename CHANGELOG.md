@@ -34,10 +34,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - broadcast,
   - sendMany,
   - sendOne.
-- README
-- LICENSE
-- CHANGELOG
-- CONTRIBUTING
+- Readme
+- License
+- Changelog
+- Contributing
  
 [Unreleased]: https://github.com/adshares/ads-php-client/compare/v1.0.1...HEAD
  
