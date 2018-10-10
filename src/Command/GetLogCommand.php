@@ -18,16 +18,45 @@
  * along with ADS PHP Client.  If not, see <https://www.gnu.org/licenses/>
  */
 
-namespace Adshares\Ads\Tests\E2E;
+namespace Adshares\Ads\Command;
 
-class GetMeTest extends \PHPUnit\Framework\TestCase
+class GetLogCommand extends AbstractCommand
 {
-    public function testGetMe()
-    {
-        $client = AdsClientSingleton::getInstance();
-        $response = $client->getMe();
+    /**
+     * @var null|\DateTime
+     */
+    private $from;
 
-        $account = $response->getAccount();
-        $this->assertEquals(AdsClientSingleton::getAddress(), $account->getAddress());
+    /**
+     *
+     * @param null|\DateTime $from start date of event log
+     */
+    public function __construct(?\DateTime $from)
+    {
+        $this->from = $from;
+    }
+
+    /**
+     * Returns command name.
+     *
+     * @return string
+     */
+    public function getName(): string
+    {
+        return 'get_log';
+    }
+
+    /**
+     * Returns command specific attributes.
+     *
+     * @return array
+     */
+    public function getAttributes(): array
+    {
+        $attributes = [];
+        if ($this->from) {
+            $attributes['from'] = $this->from->getTimestamp();
+        }
+        return $attributes;
     }
 }
