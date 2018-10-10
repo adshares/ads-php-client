@@ -29,6 +29,7 @@ use Adshares\Ads\Command\GetAccountsCommand;
 use Adshares\Ads\Command\GetBlockCommand;
 use Adshares\Ads\Command\GetBlockIdsCommand;
 use Adshares\Ads\Command\GetBroadcastCommand;
+use Adshares\Ads\Command\GetLogCommand;
 use Adshares\Ads\Command\GetMeCommand;
 use Adshares\Ads\Command\GetMessageCommand;
 use Adshares\Ads\Command\GetMessageIdsCommand;
@@ -44,6 +45,7 @@ use Adshares\Ads\Response\GetAccountsResponse;
 use Adshares\Ads\Response\GetBlockResponse;
 use Adshares\Ads\Response\GetBlockIdsResponse;
 use Adshares\Ads\Response\GetBroadcastResponse;
+use Adshares\Ads\Response\GetLogResponse;
 use Adshares\Ads\Response\GetMessageIdsResponse;
 use Adshares\Ads\Response\GetMessageResponse;
 use Adshares\Ads\Response\GetTransactionResponse;
@@ -252,6 +254,23 @@ class AdsClient implements LoggerAwareInterface
         $response = $this->driver->executeCommand($command);
 
         return new GetBroadcastResponse($response->getRawData());
+    }
+
+    /**
+     * Returns available log event.
+     *
+     * @param null|\DateTime $from start date of event log
+     *
+     * @return GetLogResponse
+     *
+     * @throws CommandException
+     */
+    public function getLog(?\DateTime $from = null): GetLogResponse
+    {
+        $command = new GetLogCommand($from);
+        $response = $this->driver->executeCommand($command);
+
+        return new GetLogResponse($response->getRawData());
     }
 
     /**
