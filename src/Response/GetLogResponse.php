@@ -53,11 +53,11 @@ class GetLogResponse extends AbstractResponse
             $this->account = EntityFactory::createAccount($data['account']);
         }
         if (array_key_exists('log', $data)) {
-            $log = $data['log'];
-            if (!is_array($log)) {
-                $log = [];
+            $tmpLog = $data['log'];
+            if (!is_array($tmpLog)) {
+                $tmpLog = [];
             }
-            $this->log = $log;
+            $this->log = $tmpLog;
         }
     }
 
