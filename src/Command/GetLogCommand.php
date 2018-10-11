@@ -54,7 +54,7 @@ class GetLogCommand extends AbstractCommand
     public function getAttributes(): array
     {
         $attributes = [];
-        if ($this->from) {
+        if (null !== $this->from) {
             $attributes['from'] = $this->from->getTimestamp();
         }
         return $attributes;
