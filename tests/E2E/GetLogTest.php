@@ -20,14 +20,33 @@
 
 namespace Adshares\Ads\Tests\E2E;
 
-class GetMeTest extends \PHPUnit\Framework\TestCase
+class GetLogTest extends \PHPUnit\Framework\TestCase
 {
-    public function testGetMe()
+    public function testGetLog()
     {
         $client = AdsClientSingleton::getInstance();
-        $response = $client->getMe();
+
+        $response = $client->getLog();
 
         $account = $response->getAccount();
         $this->assertEquals(AdsClientSingleton::getAddress(), $account->getAddress());
+
+        $log = $response->getLog();
+        $this->assertGreaterThan(0, count($log));
+    }
+
+    public function testGetLogInFuture()
+    {
+        $client = AdsClientSingleton::getInstance();
+
+        $from = new \DateTime();
+        $from->setTimestamp(2000000000);
+        $response = $client->getLog($from);
+
+        $account = $response->getAccount();
+        $this->assertEquals(AdsClientSingleton::getAddress(), $account->getAddress());
+
+        $log = $response->getLog();
+        $this->assertCount(0, $log);
     }
 }
