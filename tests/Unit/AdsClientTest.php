@@ -144,6 +144,42 @@ class AdsClientTest extends \PHPUnit\Framework\TestCase
         }
     }
 
+    public function testGetLog()
+    {
+        $client = $this->createAdsClient(0, $this->stripNewLine(Raw::getLog()));
+        $from = new \DateTime();
+        $from->setTimestamp(1);
+        $response = $client->getLog($from);
+        $account = $response->getAccount();
+        $this->assertEquals($this->address, $account->getAddress());
+
+        $log = $response->getLog();
+        $this->assertCount(9, $log);
+
+        $event = $log[0];
+        $this->assertEquals('yes', $event['confirmed']);
+        $this->assertEquals('2018-10-10 11:12:32', $event['date']);
+        $this->assertEquals('0.00000000000', $event['dividend']);
+        $this->assertEquals('0', $event['node_start_block']);
+        $this->assertEquals('0', $event['node_start_msid']);
+        $this->assertEquals('1539169952', $event['time']);
+        $this->assertEquals('node_started', $event['type']);
+        $this->assertEquals('32768', $event['type_no']);
+
+        $this->assertArrayHasKey('account', $event);
+        $eventAccount = $event['account'];
+        $this->assertEquals('0000-00000000-313E', $eventAccount['address']);
+        $this->assertEquals('19999999.99999997000', $eventAccount['balance']);
+        $this->assertEquals('3234990E04DCBDFF', $eventAccount['hash_prefix_8']);
+        $this->assertEquals('0', $eventAccount['id']);
+        $this->assertEquals('1539169920', $eventAccount['local_change']);
+        $this->assertEquals('1', $eventAccount['msid']);
+        $this->assertEquals('0', $eventAccount['node']);
+        $this->assertEquals('A9C0D972D8AA', $eventAccount['public_key_prefix_6']);
+        $this->assertEquals('1539169920', $eventAccount['remote_change']);
+        $this->assertEquals('0', $eventAccount['status']);
+    }
+
     public function testGetMe()
     {
         $client = $this->createAdsClient(0, $this->stripNewLine(Raw::getAccount()));
