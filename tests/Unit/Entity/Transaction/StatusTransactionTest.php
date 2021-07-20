@@ -1,21 +1,22 @@
 <?php
+
 /**
- * Copyright (C) 2018 Adshares sp. z o.o.
+ * Copyright (c) 2018-2021 Adshares sp. z o.o.
  *
  * This file is part of ADS PHP Client
  *
- * ADS PHP Client is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
+ * ADS PHP Client is free software: you can redistribute and/or modify it
+ * under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
  * ADS PHP Client is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * but WITHOUT ANY WARRANTY; without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with ADS PHP Client.  If not, see <https://www.gnu.org/licenses/>
+ * along with ADS PHP Client. If not, see <https://www.gnu.org/licenses/>
  */
 
 namespace Adshares\Ads\Tests\Unit\Entity\Transaction;
@@ -135,7 +136,8 @@ class StatusTransactionTest extends \PHPUnit\Framework\TestCase
 
     private function getRawSetAccountStatus(): array
     {
-        return json_decode('{
+        return json_decode(
+            '{
 			"id": "0001:000000BA:0001",
 			"type": "set_account_status",
 			"node": "1",
@@ -148,12 +150,15 @@ class StatusTransactionTest extends \PHPUnit\Framework\TestCase
 			"signature": "026322252CE6AFF35452A2949F811BA7C9A24400D00F608CBFE2ED266AE'
             . 'B29991B6650D69200DFE73630BD4FA8A47308E6DC37CD1F0CA11152C23B88853D7304",
 			"size": "87"
-		}', true);
+		}',
+            true
+        );
     }
 
     private function getRawSetNodeStatus(): array
     {
-        return json_decode('{
+        return json_decode(
+            '{
 			"id": "0001:000000B8:0001",
 			"type": "set_node_status",
 			"node": "1",
@@ -165,12 +170,15 @@ class StatusTransactionTest extends \PHPUnit\Framework\TestCase
 			"signature": "49F7A2B37C91ED8735C2D93BDD490EB83B3DFBD4A1E9C4B6F207C72ADA7BE1BF'
             . '2C91E8EB61ACFAAAE5202EAC1FF43CA64A1A5CA5F3192A25DDCBD1C1D5DD290A",
 			"size": "85"
-		}', true);
+		}',
+            true
+        );
     }
 
     private function getRawUnsetAccountStatus(): array
     {
-        return json_decode('{
+        return json_decode(
+            '{
 			"id": "0001:000000BB:0001",
 			"type": "unset_account_status",
 			"node": "1",
@@ -183,12 +191,15 @@ class StatusTransactionTest extends \PHPUnit\Framework\TestCase
 			"signature": "DFDA2E96A0A662C142B4A3BE63ED84FCE9909BF7E3663458FA338DE94EA98AFA'
             . '61E6BAEC58964DE1DC4B3ACDA0B6BA15576FA87BFE066EB15B9C3CEE6C6B810E",
 			"size": "87"
-		}', true);
+		}',
+            true
+        );
     }
 
     private function getRawUnsetNodeStatus(): array
     {
-        return json_decode('{
+        return json_decode(
+            '{
 			"id": "0001:000000B9:0001",
 			"type": "unset_node_status",
 			"node": "1",
@@ -200,6 +211,8 @@ class StatusTransactionTest extends \PHPUnit\Framework\TestCase
 			"signature": "67FF0C4E6B937DEF1171656C0105ACFC0DEC53010009446EAEB3BA5F68FFE446'
             . 'A158892073B132717F263851C657EB888E3D0088DF119AED0FBC015831DFDA05",
 			"size": "85"
-		}', true);
+		}',
+            true
+        );
     }
 }

@@ -84,7 +84,7 @@ class MessagesTest extends TestCase
     }
 
     /**
-     * @param AdsClient $client
+     * @param AdsClient   $client
      * @param string|null $blockTime
      */
     protected function checkMessageIds(AdsClient $client, ?string $blockTime): void

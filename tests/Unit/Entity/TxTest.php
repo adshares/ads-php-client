@@ -1,21 +1,22 @@
 <?php
+
 /**
- * Copyright (C) 2018 Adshares sp. z o.o.
+ * Copyright (c) 2018-2021 Adshares sp. z o.o.
  *
  * This file is part of ADS PHP Client
  *
- * ADS PHP Client is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
+ * ADS PHP Client is free software: you can redistribute and/or modify it
+ * under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
  * ADS PHP Client is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * but WITHOUT ANY WARRANTY; without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with ADS PHP Client.  If not, see <https://www.gnu.org/licenses/>
+ * along with ADS PHP Client. If not, see <https://www.gnu.org/licenses/>
  */
 
 namespace Adshares\Ads\Tests\Unit\Entity;
@@ -83,8 +84,11 @@ class TxTest extends \PHPUnit\Framework\TestCase
     {
         /* @var Tx $tx */
         $tx = EntityFactory::createTx($this->getRawCreateAccount());
-        $this->assertEquals('06010000000000070000000688515B02000000000000000000'
-            . '00000000000000000000000000000000000000000000000000000000', $tx->getData());
+        $this->assertEquals(
+            '06010000000000070000000688515B02000000000000000000'
+            . '00000000000000000000000000000000000000000000000000000000',
+            $tx->getData()
+        );
         $this->assertEquals(
             '9B9529F30015894D9660A251A219BD5776E6EFFA557BC00D2297BBDFB96AF8CDC'
             . '49BCBA9894DC296DE13E8F4D8FB94088061E6293BA9AAC955AAA395B5252605',
@@ -111,17 +115,21 @@ class TxTest extends \PHPUnit\Framework\TestCase
 
     private function getRawGetMe(): array
     {
-        return json_decode('{
+        return json_decode(
+            '{
             "data": "100100010000000100010000009CB1515B",
             "signature": "EED77864A1B52D45DA375AEA428E7245FA51E3B8CDD809408534B9BB5438DABC'
             . '5A1362B6BB0EADE83FC5F5D8D0EBD3ACDEB8DB62AE7E2220D8D7BE2862C2DF0E",
             "time": "1532080540"
-        }', true);
+        }',
+            true
+        );
     }
 
     private function getRawGetLog(): array
     {
-        return json_decode('{
+        return json_decode(
+            '{
             "data": "1114000500000000000000",
             "signature": "A673D71F69D29A125BC1CBA7BFFCC832EAE93C649E5D3DAB5FBC455EDA5779D4'
             . 'F17184F83133FE030727C88D407F8CB11F0C0283E59FDF0EECA2EDD2F98CFE01",
@@ -131,12 +139,15 @@ class TxTest extends \PHPUnit\Framework\TestCase
             "account_hashout": "60B9DB8A786FE8E0B5EFF44CE143DFA4A811F2B2282669AFE02DD774FFE164AA",
             "deduct": "0.00000000000",
             "fee": "0.00000000000"
-        }', true);
+        }',
+            true
+        );
     }
 
     private function getRawCreateAccount(): array
     {
-        return json_decode('{
+        return json_decode(
+            '{
             "data": "06010000000000070000000688515B02000000000000000000'
             . '00000000000000000000000000000000000000000000000000000000",
             "signature": "9B9529F30015894D9660A251A219BD5776E6EFFA557BC00D2297BBDFB96AF8CDC'
@@ -150,6 +161,8 @@ class TxTest extends \PHPUnit\Framework\TestCase
             "node_msid": "19",
             "node_mpos": "1",
             "id": "0001:00000013:0001"
-        }', true);
+        }',
+            true
+        );
     }
 }

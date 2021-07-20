@@ -1,21 +1,22 @@
 <?php
+
 /**
- * Copyright (C) 2018 Adshares sp. z o.o.
+ * Copyright (c) 2018-2021 Adshares sp. z o.o.
  *
  * This file is part of ADS PHP Client
  *
- * ADS PHP Client is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
+ * ADS PHP Client is free software: you can redistribute and/or modify it
+ * under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
  * ADS PHP Client is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * but WITHOUT ANY WARRANTY; without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with ADS PHP Client.  If not, see <https://www.gnu.org/licenses/>
+ * along with ADS PHP Client. If not, see <https://www.gnu.org/licenses/>
  */
 
 namespace Adshares\Ads;
@@ -70,7 +71,7 @@ class AdsClient implements LoggerAwareInterface
     /**
      * AdsClient constructor.
      *
-     * @param DriverInterface $driver
+     * @param DriverInterface      $driver
      * @param LoggerInterface|null $logger
      */
     public function __construct(DriverInterface $driver, LoggerInterface $logger = null)
@@ -98,7 +99,7 @@ class AdsClient implements LoggerAwareInterface
      *
      * @param AbstractTransactionCommand $transaction
      *
-     * @param bool $force force set msid and hash
+     * @param bool                       $force       force set msid and hash
      *
      * @throws CommandException
      */
@@ -121,8 +122,8 @@ class AdsClient implements LoggerAwareInterface
     /**
      * Executes `change_account_key` transaction.
      *
-     * @param ChangeAccountKeyCommand $command
-     * @param bool $isDryRun if true, transaction won't be send to network
+     * @param  ChangeAccountKeyCommand $command
+     * @param  bool                    $isDryRun if true, transaction won't be send to network
      * @return ChangeAccountKeyResponse
      */
     public function changeAccountKey(ChangeAccountKeyCommand $command, bool $isDryRun = false): ChangeAccountKeyResponse
@@ -136,8 +137,8 @@ class AdsClient implements LoggerAwareInterface
     /**
      * Executes `change_node_key` transaction.
      *
-     * @param ChangeNodeKeyCommand $command
-     * @param bool $isDryRun if true, transaction won't be send to network
+     * @param  ChangeNodeKeyCommand $command
+     * @param  bool                 $isDryRun if true, transaction won't be send to network
      * @return ChangeNodeKeyResponse
      */
     public function changeNodeKey(ChangeNodeKeyCommand $command, bool $isDryRun = false): ChangeNodeKeyResponse
@@ -151,8 +152,8 @@ class AdsClient implements LoggerAwareInterface
     /**
      * Executes `create_account` transaction.
      *
-     * @param CreateAccountCommand $command
-     * @param bool $isDryRun if true, transaction won't be send to network
+     * @param  CreateAccountCommand $command
+     * @param  bool                 $isDryRun if true, transaction won't be send to network
      * @return CreateAccountResponse
      */
     public function createAccount(CreateAccountCommand $command, bool $isDryRun = false): CreateAccountResponse
@@ -183,7 +184,7 @@ class AdsClient implements LoggerAwareInterface
     /**
      * Returns account list for node.
      *
-     * @param string $nodeId node id (hex)
+     * @param string      $nodeId  node id (hex)
      * @param null|string $blockId block id, time in Unix Epoch seconds as hexadecimal string.
      *                             If null, last block will be taken.
      *
@@ -222,9 +223,9 @@ class AdsClient implements LoggerAwareInterface
      * Updates block data for selected period and returns ids of updated blocks.
      *
      * @param null|string $blockIdFrom starting block id, time in Unix Epoch seconds as hexadecimal string.
-     *                             If null, first block (genesis) will be taken.
-     * @param null|string $blockIdTo ending block id, time in Unix Epoch seconds as hexadecimal string.
-     *                             If null, last block will be taken.
+     *                                 If null, first block (genesis) will be taken.
+     * @param null|string $blockIdTo   ending block id, time in Unix Epoch seconds as hexadecimal string.
+     *                                 If null, last block will be taken.
      *
      * @return GetBlockIdsResponse
      *
@@ -291,9 +292,9 @@ class AdsClient implements LoggerAwareInterface
     /**
      * Returns message data. Each message contains one or more transactions.
      *
-     * @param string $messageId message id
-     * @param null|string $blockId block id, time in Unix Epoch seconds as hexadecimal string.
-     *                             If null, block will be calculated automatically.
+     * @param string      $messageId message id
+     * @param null|string $blockId   block id, time in Unix Epoch seconds as hexadecimal string.
+     *                               If null, block will be calculated automatically.
      *
      * @return GetMessageResponse
      *
@@ -353,8 +354,8 @@ class AdsClient implements LoggerAwareInterface
      * Also commands `ChangeNodeKeyCommand`, `CreateAccountCommand` can be used,
      * but separate functions are prepared especially for them.
      *
-     * @param AbstractTransactionCommand $command
-     * @param bool $isDryRun if true, transaction won't be send to network
+     * @param  AbstractTransactionCommand $command
+     * @param  bool                       $isDryRun if true, transaction won't be send to network
      * @return TransactionResponse
      */
     public function runTransaction(AbstractTransactionCommand $command, bool $isDryRun = false): TransactionResponse

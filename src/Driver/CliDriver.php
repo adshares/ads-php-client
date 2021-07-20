@@ -1,21 +1,22 @@
 <?php
+
 /**
- * Copyright (C) 2018 Adshares sp. z o.o.
+ * Copyright (c) 2018-2021 Adshares sp. z o.o.
  *
  * This file is part of ADS PHP Client
  *
- * ADS PHP Client is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
+ * ADS PHP Client is free software: you can redistribute and/or modify it
+ * under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
  * ADS PHP Client is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * but WITHOUT ANY WARRANTY; without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with ADS PHP Client.  If not, see <https://www.gnu.org/licenses/>
+ * along with ADS PHP Client. If not, see <https://www.gnu.org/licenses/>
  */
 
 namespace Adshares\Ads\Driver;
@@ -47,7 +48,7 @@ class CliDriver implements DriverInterface, LoggerAwareInterface
     /**
      * response field in which error message is stored
      */
-    const LABEL_ERROR = 'error';
+    private const LABEL_ERROR = 'error';
 
     /**
      * ADS blockchain client app
@@ -101,11 +102,11 @@ class CliDriver implements DriverInterface, LoggerAwareInterface
     /**
      * CliDriver constructor.
      *
-     * @param null|string $address account address
-     * @param null|string $secret private key
-     * @param null|string $host ADS node host (domain or IP address)
-     * @param int|null $port ADS node office port
-     * @param LoggerInterface|null $logger logger
+     * @param null|string          $address account address
+     * @param null|string          $secret  private key
+     * @param null|string          $host    ADS node host (domain or IP address)
+     * @param int|null             $port    ADS node office port
+     * @param LoggerInterface|null $logger  logger
      */
     public function __construct(
         ?string $address = null,
@@ -146,7 +147,7 @@ class CliDriver implements DriverInterface, LoggerAwareInterface
 
     /**
      * @param string $host ADS node host (domain or IP address)
-     * @param int $port ADS node office port
+     * @param int    $port ADS node office port
      */
     public function setHost(string $host, int $port = 9001): void
     {
@@ -155,8 +156,8 @@ class CliDriver implements DriverInterface, LoggerAwareInterface
     }
 
     /**
-     * @param string $address Account address
-     * @param null|string $secret Account address private key
+     * @param string      $address Account address
+     * @param null|string $secret  Account address private key
      */
     public function setAddress(string $address, ?string $secret = null): void
     {
@@ -184,8 +185,8 @@ class CliDriver implements DriverInterface, LoggerAwareInterface
 
     /**
      * @param  null|string $hash
-     * @param  null|int $messageId
-     * @param bool $isDryRun
+     * @param  null|int    $messageId
+     * @param  bool        $isDryRun
      * @return Process
      */
     protected function getProcess(?string $hash = null, ?int $messageId = null, bool $isDryRun = false): Process
@@ -229,8 +230,8 @@ class CliDriver implements DriverInterface, LoggerAwareInterface
     }
 
     /**
-     * @param CommandInterface $command
-     * @param array $data
+     * @param  CommandInterface $command
+     * @param  array            $data
      * @return string
      */
     private function prepareInput(CommandInterface $command, array $data): string
@@ -247,8 +248,8 @@ class CliDriver implements DriverInterface, LoggerAwareInterface
     }
 
     /**
-     * @param CommandInterface $command
-     * @param string $data process output (ADS client response)
+     * @param  CommandInterface $command
+     * @param  string           $data    process output (ADS client response)
      * @return array array of decoded lines of response
      * @throws CommandException
      */
@@ -281,7 +282,7 @@ class CliDriver implements DriverInterface, LoggerAwareInterface
     }
 
     /**
-     * @param CommandInterface $command
+     * @param  CommandInterface $command
      * @return ResponseInterface
      * @throws CommandException
      */
@@ -295,8 +296,8 @@ class CliDriver implements DriverInterface, LoggerAwareInterface
     }
 
     /**
-     * @param TransactionInterface $transaction
-     * @param bool $isDryRun if true, transaction will not be send to network
+     * @param  TransactionInterface $transaction
+     * @param  bool                 $isDryRun    if true, transaction will not be send to network
      * @return ResponseInterface
      */
     public function executeTransaction(TransactionInterface $transaction, bool $isDryRun = false): ResponseInterface
@@ -322,9 +323,9 @@ class CliDriver implements DriverInterface, LoggerAwareInterface
     }
 
     /**
-     * @param CommandInterface $command
-     * @param array $data all attributes of command
-     * @param Process $process process
+     * @param  CommandInterface $command
+     * @param  array            $data    all attributes of command
+     * @param  Process          $process process
      * @return RawResponse
      */
     protected function runProcess(CommandInterface $command, array $data, Process $process): RawResponse

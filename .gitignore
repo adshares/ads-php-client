@@ -5,5 +5,6 @@ bin/
 .idea/
 # QA
 phpunit.xml
-var/report
+phpcs.xml
+var/
 .scannerwork/

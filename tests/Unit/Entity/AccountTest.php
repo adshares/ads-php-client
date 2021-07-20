@@ -1,21 +1,22 @@
 <?php
+
 /**
- * Copyright (C) 2018 Adshares sp. z o.o.
+ * Copyright (c) 2018-2021 Adshares sp. z o.o.
  *
  * This file is part of ADS PHP Client
  *
- * ADS PHP Client is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
+ * ADS PHP Client is free software: you can redistribute and/or modify it
+ * under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
  * ADS PHP Client is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * but WITHOUT ANY WARRANTY; without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with ADS PHP Client.  If not, see <https://www.gnu.org/licenses/>
+ * along with ADS PHP Client. If not, see <https://www.gnu.org/licenses/>
  */
 
 namespace Adshares\Ads\Tests\Unit\Entity;
@@ -52,7 +53,8 @@ class AccountTest extends \PHPUnit\Framework\TestCase
 
     private function getRawData(): array
     {
-        return json_decode('{
+        return json_decode(
+            '{
             "address": "0001-00000000-9B6F",
             "node": "1",
             "id": "0",
@@ -68,6 +70,8 @@ class AccountTest extends \PHPUnit\Framework\TestCase
             "balance": "19999999.99743316130",
             "public_key": "A9C0D972D8AAB73805EC4A28291E052E3B5FAFE0ADC9D724917054E5E2690363",
             "hash": "811F420FDC7FA662BE1A0B7295C88BAD3307C337129A1A52D9A1598FD8486009"
-        }', true);
+        }',
+            true
+        );
     }
 }

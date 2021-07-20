@@ -1,21 +1,22 @@
 <?php
+
 /**
- * Copyright (C) 2018 Adshares sp. z o.o.
+ * Copyright (c) 2018-2021 Adshares sp. z o.o.
  *
  * This file is part of ADS PHP Client
  *
- * ADS PHP Client is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
+ * ADS PHP Client is free software: you can redistribute and/or modify it
+ * under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
  * ADS PHP Client is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * but WITHOUT ANY WARRANTY; without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with ADS PHP Client.  If not, see <https://www.gnu.org/licenses/>
+ * along with ADS PHP Client. If not, see <https://www.gnu.org/licenses/>
  */
 
 namespace Adshares\Ads\Tests\Unit\Entity\Transaction;
@@ -42,8 +43,11 @@ class NetworkTransactionTest extends \PHPUnit\Framework\TestCase
         $this->assertNull($transaction->getTargetAddress());
         $this->assertEquals(1, $transaction->getTargetNode());
         $this->assertEquals('0001', $transaction->getTargetNodeId());
-        $this->assertEquals('EBAEE201D66CD2E0B68DEE9A869FFBD14986E17770A3DA62779B6F06D0030000'
-            . 'A9C0D972D8AAB73805EC4A28291E052E3B5FAFE0ADC9D724917054E5E2690363', $transaction->getSignature());
+        $this->assertEquals(
+            'EBAEE201D66CD2E0B68DEE9A869FFBD14986E17770A3DA62779B6F06D0030000'
+            . 'A9C0D972D8AAB73805EC4A28291E052E3B5FAFE0ADC9D724917054E5E2690363',
+            $transaction->getSignature()
+        );
         $this->assertEquals(117, $transaction->getSize());
     }
 
@@ -64,8 +68,11 @@ class NetworkTransactionTest extends \PHPUnit\Framework\TestCase
         $this->assertNull($transaction->getTargetAddress());
         $this->assertNull($transaction->getTargetNode());
         $this->assertNull($transaction->getTargetNodeId());
-        $this->assertEquals('72F344B3F1E8C225C708CB1B6ACE62F9F776081F4C4F21BA25944350847EDA14'
-            . '56C29F874BA3C9FCC367EDD13C148175946AA1D2D46EF1BBDD49FFE0507E640D', $transaction->getSignature());
+        $this->assertEquals(
+            '72F344B3F1E8C225C708CB1B6ACE62F9F776081F4C4F21BA25944350847EDA14'
+            . '56C29F874BA3C9FCC367EDD13C148175946AA1D2D46EF1BBDD49FFE0507E640D',
+            $transaction->getSignature()
+        );
         $this->assertEquals(79, $transaction->getSize());
     }
 
@@ -88,14 +95,18 @@ class NetworkTransactionTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals('0002', $transaction->getTargetNodeId());
         $this->assertEquals(1, $transaction->getTargetUser());
 
-        $this->assertEquals('CC05D9CE1816197AB8A02335CBB7ED0056DA088A4CFA593022679360B750E525'
-            . '2EA1B1A0531398A3902FEF7B802F98AA6B1C417FB469F092A88508EBCAC5660A', $transaction->getSignature());
+        $this->assertEquals(
+            'CC05D9CE1816197AB8A02335CBB7ED0056DA088A4CFA593022679360B750E525'
+            . '2EA1B1A0531398A3902FEF7B802F98AA6B1C417FB469F092A88508EBCAC5660A',
+            $transaction->getSignature()
+        );
         $this->assertEquals(85, $transaction->getSize());
     }
 
     private function getRawCreateAccount(): array
     {
-        return json_decode('{
+        return json_decode(
+            '{
 			"id": "0001:0000000E:0001",
 			"type": "create_account",
 			"node": "1",
@@ -106,12 +117,15 @@ class NetworkTransactionTest extends \PHPUnit\Framework\TestCase
 			"signature": "EBAEE201D66CD2E0B68DEE9A869FFBD14986E17770A3DA62779B6F06D0030000'
             . 'A9C0D972D8AAB73805EC4A28291E052E3B5FAFE0ADC9D724917054E5E2690363",
 			"size": "117"
-		}', true);
+		}',
+            true
+        );
     }
 
     private function getRawCreateNode(): array
     {
-        return json_decode('{
+        return json_decode(
+            '{
 			"id": "0001:00000009:0001",
 			"type": "create_node",
 			"node": "1",
@@ -121,12 +135,15 @@ class NetworkTransactionTest extends \PHPUnit\Framework\TestCase
 			"signature": "72F344B3F1E8C225C708CB1B6ACE62F9F776081F4C4F21BA25944350847EDA14'
             . '56C29F874BA3C9FCC367EDD13C148175946AA1D2D46EF1BBDD49FFE0507E640D",
 			"size": "79"
-		}', true);
+		}',
+            true
+        );
     }
 
     private function getRawRetrieveFunds(): array
     {
-        return json_decode('{
+        return json_decode(
+            '{
 			"id": "0001:0000000F:0001",
 			"type": "retrieve_funds",
 			"node": "1",
@@ -138,6 +155,8 @@ class NetworkTransactionTest extends \PHPUnit\Framework\TestCase
 			"signature": "CC05D9CE1816197AB8A02335CBB7ED0056DA088A4CFA593022679360B750E525'
             . '2EA1B1A0531398A3902FEF7B802F98AA6B1C417FB469F092A88508EBCAC5660A",
 			"size": "85"
-		}', true);
+		}',
+            true
+        );
     }
 }

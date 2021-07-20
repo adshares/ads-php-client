@@ -1,21 +1,22 @@
 <?php
+
 /**
- * Copyright (C) 2018 Adshares sp. z o.o.
+ * Copyright (c) 2018-2021 Adshares sp. z o.o.
  *
  * This file is part of ADS PHP Client
  *
- * ADS PHP Client is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
+ * ADS PHP Client is free software: you can redistribute and/or modify it
+ * under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
  * ADS PHP Client is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * but WITHOUT ANY WARRANTY; without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with ADS PHP Client.  If not, see <https://www.gnu.org/licenses/>
+ * along with ADS PHP Client. If not, see <https://www.gnu.org/licenses/>
  */
 
 namespace Adshares\Ads\Tests\Unit;
@@ -40,11 +41,13 @@ class AdsClientTest extends \PHPUnit\Framework\TestCase
 
     /**
      * Public key generated from `a` pass-phrase
+     *
      * @var string
      */
     private $publicKey = 'EAE1C8793B5597C4B3F490E76AC31172C439690F8EE14142BB851A61F9A49F0E';
     /**
      * Empty string signed with private key generated from `a` pass-phrase
+     *
      * @var string
      */
     private $signature = '1F0571D30661FB1D50BE0D61A0A0E97BAEFF8C030CD0269ADE49438A4AD4CF897367'
@@ -231,8 +234,10 @@ class AdsClientTest extends \PHPUnit\Framework\TestCase
             '46066ADCA3C787BF6874CE3361EECF7A9969D98F12719DF53440172B5A7D345A'
         );
         $command->setSender('0001-00000001-8B4E');
-        $command->setSignature('DABDDABFC25B0C76E33C0E6285F09695EE0193D10DBBC3F2CA39E8183603D7BDC5'
-            . 'F62C14FF60A2EFCC23784F7FA380C6F38A2AD6B7DFB95FA2DCA9BA76D04503');
+        $command->setSignature(
+            'DABDDABFC25B0C76E33C0E6285F09695EE0193D10DBBC3F2CA39E8183603D7BDC5'
+            . 'F62C14FF60A2EFCC23784F7FA380C6F38A2AD6B7DFB95FA2DCA9BA76D04503'
+        );
         $command->setTimestamp((new \DateTime())->getTimestamp());
         $response = $client->runTransaction($command);
         $this->assertNotNull($response->getTx()->getId());
@@ -288,8 +293,8 @@ class AdsClientTest extends \PHPUnit\Framework\TestCase
     /**
      * Creates AdsClient with mocked process.
      *
-     * @param int $processExitCode exit code returned by process
-     * @param string|array $processOutput process output
+     * @param  int          $processExitCode exit code returned by process
+     * @param  string|array $processOutput   process output
      * @return AdsClient
      */
     private function createAdsClient(int $processExitCode, $processOutput = ''): AdsClient

@@ -1,24 +1,29 @@
 <?php
+
 /**
- * Copyright (C) 2018 Adshares sp. z o.o.
+ * Copyright (c) 2018-2021 Adshares sp. z o.o.
  *
  * This file is part of ADS PHP Client
  *
- * ADS PHP Client is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
+ * ADS PHP Client is free software: you can redistribute and/or modify it
+ * under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
  * ADS PHP Client is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * but WITHOUT ANY WARRANTY; without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with ADS PHP Client.  If not, see <https://www.gnu.org/licenses/>
+ * along with ADS PHP Client. If not, see <https://www.gnu.org/licenses/>
  */
 
 namespace Adshares\Ads\Entity;
+
+use DateTime;
+use ReflectionClass;
+use ReflectionException;
 
 /**
  * Base class for response entities.
@@ -44,8 +49,8 @@ abstract class AbstractEntity implements EntityInterface
     }
 
     /**
-     * @param string $type
-     * @param mixed $value
+     * @param  string $type
+     * @param  mixed  $value
      * @return mixed
      */
     protected static function convertType(string $type, $value)
@@ -67,11 +72,11 @@ abstract class AbstractEntity implements EntityInterface
                 break;
             case '\DateTime':
                 if (is_numeric($value)) { // unix timestamp
-                    $date = new \DateTime();
+                    $date = new DateTime();
                     $date->setTimestamp((int)$value);
                     $value = $date;
                 } else {
-                    $value = new \DateTime($value);
+                    $value = new DateTime($value);
                 }
                 break;
             default:
@@ -83,13 +88,13 @@ abstract class AbstractEntity implements EntityInterface
     }
 
     /**
-     * @param string $type
-     * @param mixed $value
+     * @param  string $type
+     * @param  mixed  $value
      * @return mixed
      */
     protected static function defaultConvertType(string $type, $value)
     {
-        if (preg_match('/(\S+)\[\]/', $type, $matches)) {
+        if (preg_match('/(\S+)\[]/', $type, $matches)) {
             // $type matched array type
             list(, $t) = $matches;
             foreach ((array)$value as $k => $v) {
@@ -106,8 +111,8 @@ abstract class AbstractEntity implements EntityInterface
                 if (isset($interfaces['Adshares\Ads\Entity\EntityInterface'])) {
                     try {
                         /* @var $type EntityInterface */
-                        $value = EntityFactory::create((new \ReflectionClass($type))->getShortName(), $value);
-                    } catch (\ReflectionException $e) {
+                        $value = EntityFactory::create((new ReflectionClass($type))->getShortName(), $value);
+                    } catch (ReflectionException $e) {
                         // $value will not be overwritten
                         // Ignore
                     }
@@ -119,12 +124,12 @@ abstract class AbstractEntity implements EntityInterface
     }
 
     /**
-     * @param string $name
-     * @param array|mixed $value
-     * @param \ReflectionClass|null $refClass
+     * @param  string                $name
+     * @param  array|mixed           $value
+     * @param  ReflectionClass|null $refClass
      * @return int|mixed
      */
-    protected static function castProperty(string $name, $value, \ReflectionClass $refClass = null)
+    protected static function castProperty(string $name, $value, ReflectionClass $refClass = null)
     {
         if (null !== $refClass) {
             $comment = $refClass->getProperty($name)->getDocComment();
@@ -148,8 +153,8 @@ abstract class AbstractEntity implements EntityInterface
     public function fillWithRawData(array $data): void
     {
         try {
-            $refClass = new \ReflectionClass($this);
-        } catch (\ReflectionException $e) {
+            $refClass = new ReflectionClass($this);
+        } catch (ReflectionException $e) {
             $refClass = null;
         }
 
@@ -163,7 +168,7 @@ abstract class AbstractEntity implements EntityInterface
     }
 
     /**
-     * @param array $data
+     * @param  array $data
      * @return EntityInterface
      */
     public static function createFromRawData(array $data): EntityInterface
