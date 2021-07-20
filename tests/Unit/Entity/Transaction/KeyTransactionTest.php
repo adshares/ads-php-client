@@ -30,7 +30,7 @@ class KeyTransactionTest extends TestCase
 {
     public function testAccountCreatedFromRaw(): void
     {
-        /* @var KeyTransaction $transaction */
+        /** @var KeyTransaction $transaction */
         $transaction = EntityFactory::createTransaction($this->getRawAccountCreated());
 
         $this->assertEquals('0002:0000000A:0001', $transaction->getId());
@@ -55,7 +55,7 @@ class KeyTransactionTest extends TestCase
 
     public function testChangeAccountKeyFromRaw(): void
     {
-        /* @var KeyTransaction $transaction */
+        /** @var KeyTransaction $transaction */
         $transaction = EntityFactory::createTransaction($this->getRawChangeAccountKey());
 
         $this->assertEquals('0001:00000009:0001', $transaction->getId());
@@ -89,7 +89,7 @@ class KeyTransactionTest extends TestCase
 
     public function testChangeNodeKeyFromRaw(): void
     {
-        /* @var KeyTransaction $transaction */
+        /** @var KeyTransaction $transaction */
         $transaction = EntityFactory::createTransaction($this->getRawChangeNodeKey());
 
         $this->assertEquals('0001:00000003:0001', $transaction->getId());
@@ -120,6 +120,9 @@ class KeyTransactionTest extends TestCase
         $this->assertEquals(145, $transaction->getSize());
     }
 
+    /**
+     * @return string[]
+     */
     private function getRawAccountCreated(): array
     {
         return json_decode(
@@ -139,6 +142,9 @@ class KeyTransactionTest extends TestCase
         );
     }
 
+    /**
+     * @return string[]
+     */
     private function getRawChangeAccountKey(): array
     {
         return json_decode(
@@ -160,6 +166,9 @@ class KeyTransactionTest extends TestCase
         );
     }
 
+    /**
+     * @return string[]
+     */
     private function getRawChangeNodeKey(): array
     {
         return json_decode(

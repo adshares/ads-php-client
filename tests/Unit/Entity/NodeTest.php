@@ -52,6 +52,9 @@ class NodeTest extends TestCase
         $this->assertEquals('172.16.222.101', $node->getIpv4());
     }
 
+    /**
+     * @return string[]
+     */
     private function getRawData(): array
     {
         return json_decode(

@@ -30,7 +30,7 @@ class SendOneTransactionTest extends TestCase
 {
     public function testSendOneFromRaw(): void
     {
-        /* @var SendOneTransaction $transaction */
+        /** @var SendOneTransaction $transaction */
         $transaction = EntityFactory::createTransaction($this->getRawSendOne());
 
         $this->assertEquals('0001:00000002:0002', $transaction->getId());
@@ -60,6 +60,9 @@ class SendOneTransactionTest extends TestCase
         $this->assertEquals(125, $transaction->getSize());
     }
 
+    /**
+     * @return string[]
+     */
     private function getRawSendOne(): array
     {
         return json_decode(

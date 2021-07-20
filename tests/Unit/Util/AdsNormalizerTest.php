@@ -27,28 +27,28 @@ use RuntimeException;
 
 class AdsNormalizerTest extends TestCase
 {
-    public function testNormalizeAddressValid()
+    public function testNormalizeAddressValid(): void
     {
         $address = '000100000000XXXX';
         $address = AdsNormalizer::normalizeAddress($address);
         $this->assertEquals('0001-00000000-XXXX', $address);
     }
 
-    public function testNormalizeAddressInvalid()
+    public function testNormalizeAddressInvalid(): void
     {
         $address = 'XXXXXXXX';
         $this->expectException(RuntimeException::class);
         AdsNormalizer::normalizeAddress($address);
     }
 
-    public function testNormalizeTxidValid()
+    public function testNormalizeTxidValid(): void
     {
         $txid = '0001000000010001';
         $txid = AdsNormalizer::normalizeTxid($txid);
         $this->assertEquals('0001:00000001:0001', $txid);
     }
 
-    public function testNormalizeTxidInvalid()
+    public function testNormalizeTxidInvalid(): void
     {
         $address = '000100000000XXXX';
         $this->expectException(RuntimeException::class);

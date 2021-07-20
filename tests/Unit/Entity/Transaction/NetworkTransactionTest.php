@@ -30,7 +30,7 @@ class NetworkTransactionTest extends TestCase
 {
     public function testCreateAccountFromRaw(): void
     {
-        /* @var NetworkTransaction $transaction */
+        /** @var NetworkTransaction $transaction */
         $transaction = EntityFactory::createTransaction($this->getRawCreateAccount());
 
         $this->assertEquals('0001:0000000E:0001', $transaction->getId());
@@ -55,7 +55,7 @@ class NetworkTransactionTest extends TestCase
 
     public function testCreateNodeFromRaw(): void
     {
-        /* @var NetworkTransaction $transaction */
+        /** @var NetworkTransaction $transaction */
         $transaction = EntityFactory::createTransaction($this->getRawCreateNode());
 
         $this->assertEquals('0001:00000009:0001', $transaction->getId());
@@ -80,7 +80,7 @@ class NetworkTransactionTest extends TestCase
 
     public function testRetrieveFundsFromRaw(): void
     {
-        /* @var NetworkTransaction $transaction */
+        /** @var NetworkTransaction $transaction */
         $transaction = EntityFactory::createTransaction($this->getRawRetrieveFunds());
 
         $this->assertEquals('0001:0000000F:0001', $transaction->getId());
@@ -105,6 +105,9 @@ class NetworkTransactionTest extends TestCase
         $this->assertEquals(85, $transaction->getSize());
     }
 
+    /**
+     * @return string[]
+     */
     private function getRawCreateAccount(): array
     {
         return json_decode(
@@ -124,6 +127,9 @@ class NetworkTransactionTest extends TestCase
         );
     }
 
+    /**
+     * @return string[]
+     */
     private function getRawCreateNode(): array
     {
         return json_decode(
@@ -142,6 +148,9 @@ class NetworkTransactionTest extends TestCase
         );
     }
 
+    /**
+     * @return string[]
+     */
     private function getRawRetrieveFunds(): array
     {
         return json_decode(

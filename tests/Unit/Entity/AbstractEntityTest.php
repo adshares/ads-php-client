@@ -29,11 +29,11 @@ class AbstractEntityTest extends TestCase
     public function testCreateFromRow(): void
     {
         $data = [
-            'float_val' => 123.456,
+            'float_val' => '123.456',
             'date' => '2018-07-24 08:54:31',
             'text_val' => 'value',
         ];
-        /* @var ExtendedEntity $entity */
+        /** @var ExtendedEntity $entity */
         $entity = ExtendedEntity::createFromRawData($data);
 
         $this->assertInstanceOf(ExtendedEntity::class, $entity);
@@ -49,10 +49,10 @@ class AbstractEntityTest extends TestCase
     public function testInvalidDate(): void
     {
         $data = [
-            'float_val' => 123.456,
+            'float_val' => '123.456',
             'date' => 'foo date',
         ];
-        /* @var ExtendedEntity $entity */
+        /** @var ExtendedEntity $entity */
         $entity = ExtendedEntity::createFromRawData($data);
 
         $this->assertInstanceOf(ExtendedEntity::class, $entity);

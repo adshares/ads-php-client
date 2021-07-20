@@ -29,7 +29,7 @@ use PHPUnit\Framework\TestCase;
 
 class GetAccountResponseTest extends TestCase
 {
-    public function testGetAccountFromRaw()
+    public function testGetAccountFromRaw(): void
     {
         $response = new GetAccountResponse($this->getRawData());
         $time = new DateTime();
@@ -43,6 +43,9 @@ class GetAccountResponseTest extends TestCase
         $this->assertInstanceOf(Account::class, $response->getNetworkAccount());
     }
 
+    /**
+     * @return string[][]
+     */
     private function getRawData(): array
     {
         return json_decode(

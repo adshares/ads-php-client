@@ -27,7 +27,7 @@ use PHPUnit\Framework\TestCase;
 
 class CreateNodeTest extends TestCase
 {
-    public function testCreateNode()
+    public function testCreateNode(): void
     {
         $client = new TestAdsClient();
 

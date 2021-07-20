@@ -38,14 +38,11 @@ class CreateAccountResponse extends TransactionResponse
      */
     protected $newAccount;
 
-    /**
-     * @param array $data
-     */
     protected function loadData(array $data): void
     {
         parent::loadData($data);
 
-        if (array_key_exists('new_account', $data)) {
+        if (array_key_exists('new_account', $data) && is_array($data['new_account'])) {
             $this->newAccount = EntityFactory::createNewAccount($data['new_account']);
         }
     }

@@ -40,21 +40,11 @@ class ChangeNodeKeyCommand extends AbstractTransactionCommand
         $this->publicKey = $publicKey;
     }
 
-    /**
-     * Returns command name.
-     *
-     * @return string
-     */
     public function getName(): string
     {
         return 'change_node_key';
     }
 
-    /**
-     * Returns command specific attributes.
-     *
-     * @return array
-     */
     public function getAttributes(): array
     {
         return ['public_key' => $this->publicKey];

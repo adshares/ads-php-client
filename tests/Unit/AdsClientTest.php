@@ -38,9 +38,21 @@ use Symfony\Component\Process\Process;
 
 class AdsClientTest extends TestCase
 {
+    /**
+     * @var string
+     */
     private $address = '0001-00000000-9B6F';
+    /**
+     * @var string
+     */
     private $secret = 'BB3425F914CA9F661CA6F3B908E07092B5AFB7F2FDAE2E94EDE12C83207CA743';
+    /**
+     * @var string
+     */
     private $host = '10.69.3.43';
+    /**
+     * @var int
+     */
     private $port = 9001;
 
     /**
@@ -57,7 +69,7 @@ class AdsClientTest extends TestCase
     private $signature = '1F0571D30661FB1D50BE0D61A0A0E97BAEFF8C030CD0269ADE49438A4AD4CF897367'
     . 'E21B100C694F220D922200B3AB852A377D8857A64C36CB1569311760F303';
 
-    public function testChangeAccountKey()
+    public function testChangeAccountKey(): void
     {
         $client = $this->createAdsClient(0, $this->stripNewLine(Raw::changeAccountKey()));
         $command = new ChangeAccountKeyCommand($this->publicKey, $this->signature);
@@ -69,7 +81,7 @@ class AdsClientTest extends TestCase
         $this->assertTrue($response->isKeyChanged());
     }
 
-    public function testChangeNodeKey()
+    public function testChangeNodeKey(): void
     {
         $client = $this->createAdsClient(0, $this->stripNewLine(Raw::changeNodeKey()));
         $command = new ChangeNodeKeyCommand($this->publicKey);
@@ -81,7 +93,7 @@ class AdsClientTest extends TestCase
         $this->assertTrue($response->isKeyChanged());
     }
 
-    public function testCreateAccount()
+    public function testCreateAccount(): void
     {
         $client = $this->createAdsClient(0, $this->stripNewLine(Raw::createAccount()));
         $command = new CreateAccountCommand();
@@ -97,7 +109,7 @@ class AdsClientTest extends TestCase
         $this->assertEquals('0002', $newAccount->getNodeId());
     }
 
-    public function testCreateNode()
+    public function testCreateNode(): void
     {
         $client = $this->createAdsClient(0, $this->stripNewLine(Raw::createNode()));
         $command = new CreateNodeCommand();
@@ -110,7 +122,7 @@ class AdsClientTest extends TestCase
         $this->assertEquals('0001:00000015:0001', $response->getTx()->getId());
     }
 
-    public function testGetAccount()
+    public function testGetAccount(): void
     {
         $client = $this->createAdsClient(0, $this->stripNewLine(Raw::getAccount()));
         $response = $client->getMe();
@@ -118,28 +130,28 @@ class AdsClientTest extends TestCase
         $this->assertEquals($this->address, $account->getAddress());
     }
 
-    public function testGetAccounts()
+    public function testGetAccounts(): void
     {
         $client = $this->createAdsClient(0, $this->stripNewLine(Raw::getAccounts()));
         $response = $client->getAccounts('0001', '5B56E800');
         $this->assertGreaterThan(0, count($response->getAccounts()));
     }
 
-    public function testGetBlock()
+    public function testGetBlock(): void
     {
         $client = $this->createAdsClient(0, $this->stripNewLine(Raw::getBlock()));
         $response = $client->getBlock('5B56E520');
         $this->assertGreaterThan(1, count($response->getBlock()->getNodes()));
     }
 
-    public function testGetBlockIds()
+    public function testGetBlockIds(): void
     {
         $client = $this->createAdsClient(0, $this->stripNewLine(Raw::getBlockIds()));
         $response = $client->getBlockIds('5B56C9E0', '5B56CA60');
         $this->assertEquals($response->getUpdatedBlocks(), count($response->getBlockIds()));
     }
 
-    public function testGetBroadcast()
+    public function testGetBroadcast(): void
     {
         $client = $this->createAdsClient(0, $this->stripNewLine(Raw::getBroadcast()));
         $response = $client->getBroadcast('5B55D240');
@@ -151,7 +163,7 @@ class AdsClientTest extends TestCase
         }
     }
 
-    public function testGetLog()
+    public function testGetLog(): void
     {
         $client = $this->createAdsClient(0, $this->stripNewLine(Raw::getLog()));
         $from = new DateTime();
@@ -174,7 +186,7 @@ class AdsClientTest extends TestCase
         $this->assertEquals('32768', $event['type_no']);
 
         $this->assertArrayHasKey('account', $event);
-        $eventAccount = $event['account'];
+        $eventAccount = is_array($event['account']) ? $event['account'] : [];
         $this->assertEquals('0000-00000000-313E', $eventAccount['address']);
         $this->assertEquals('19999999.99999997000', $eventAccount['balance']);
         $this->assertEquals('3234990E04DCBDFF', $eventAccount['hash_prefix_8']);
@@ -187,7 +199,7 @@ class AdsClientTest extends TestCase
         $this->assertEquals('0', $eventAccount['status']);
     }
 
-    public function testGetMe()
+    public function testGetMe(): void
     {
         $client = $this->createAdsClient(0, $this->stripNewLine(Raw::getAccount()));
         $response = $client->getMe();
@@ -195,7 +207,7 @@ class AdsClientTest extends TestCase
         $this->assertEquals($this->address, $account->getAddress());
     }
 
-    public function testGetMessage()
+    public function testGetMessage(): void
     {
         $client = $this->createAdsClient(0, $this->stripNewLine(Raw::getMessage()));
         $messageId = '0003:0000003B';
@@ -203,14 +215,14 @@ class AdsClientTest extends TestCase
         $this->assertEquals($messageId, $response->getMessage()->getId());
     }
 
-    public function testGetMessageIds()
+    public function testGetMessageIds(): void
     {
         $client = $this->createAdsClient(0, $this->stripNewLine(Raw::getMessageIds()));
         $response = $client->getMessageIds('5B51A3E0');
         $this->assertEquals($response->getMessageCount(), count($response->getMessageIds()));
     }
 
-    public function testSendOne()
+    public function testSendOne(): void
     {
         $client = $this->createAdsClient(
             0,
@@ -226,7 +238,7 @@ class AdsClientTest extends TestCase
         $this->assertEquals($this->address, $response->getAccount()->getAddress());
     }
 
-    public function testSendOneWithExplicitSender()
+    public function testSendOneWithExplicitSender(): void
     {
         $client = $this->createAdsClient(
             0,
@@ -248,7 +260,7 @@ class AdsClientTest extends TestCase
         $this->assertEquals($this->address, $response->getAccount()->getAddress());
     }
 
-    public function testSendOneWithExplicitMsidAndHash()
+    public function testSendOneWithExplicitMsidAndHash(): void
     {
         $client = $this->createAdsClient(0, $this->stripNewLine(Raw::sendOne()));
         $command = new SendOneCommand(
@@ -263,7 +275,7 @@ class AdsClientTest extends TestCase
         $this->assertEquals($this->address, $response->getAccount()->getAddress());
     }
 
-    public function testGetTransaction()
+    public function testGetTransaction(): void
     {
         $client = $this->createAdsClient(0, $this->stripNewLine(Raw::getTransactionSendOne()));
         $txid = '0001:00000003:0001';
@@ -273,7 +285,7 @@ class AdsClientTest extends TestCase
         $this->assertEquals($txid, $response->getTxn()->getId());
     }
 
-    public function testSetEntityMap()
+    public function testSetEntityMap(): void
     {
         $entityMap = [
             'Account' => 'Adshares\Ads\Tests\Unit\Entity\ExtendedAccount',
@@ -284,7 +296,7 @@ class AdsClientTest extends TestCase
 
         $response = $client->getMe();
 
-        /* @var ExtendedAccount $account */
+        /** @var ExtendedAccount $account */
         $account = $response->getAccount();
 
         $this->assertInstanceOf(ExtendedAccount::class, $account);
@@ -298,7 +310,7 @@ class AdsClientTest extends TestCase
      * Creates AdsClient with mocked process.
      *
      * @param  int          $processExitCode exit code returned by process
-     * @param  string|array $processOutput   process output
+     * @param  string|string[] $processOutput   process output
      * @return AdsClient
      */
     private function createAdsClient(int $processExitCode, $processOutput = ''): AdsClient
@@ -317,14 +329,8 @@ class AdsClientTest extends TestCase
             ->setMethods(['getProcess'])
             ->getMock();
         $driver->method('getProcess')->willReturn($process);
-        /* @var CliDriver $driver */
-        if ($driver instanceof CliDriver) {
-            $client = new AdsClient($driver);
-        } else {
-            throw new RuntimeException();
-        }
-
-        return $client;
+        /** @var CliDriver $driver */
+        return new AdsClient($driver);
     }
 
     private function stripNewLine(string $text): string

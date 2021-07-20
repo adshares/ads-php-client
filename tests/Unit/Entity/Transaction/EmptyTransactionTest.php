@@ -29,7 +29,7 @@ class EmptyTransactionTest extends TestCase
 {
     public function testEmptyFromRaw(): void
     {
-        /* @var EmptyTransaction $transaction */
+        /** @var EmptyTransaction $transaction */
         $transaction = EntityFactory::createTransaction($this->getRawEmpty());
 
         $this->assertEquals('0002:00000026:0001', $transaction->getId());
@@ -37,6 +37,9 @@ class EmptyTransactionTest extends TestCase
         $this->assertEquals(10, $transaction->getSize());
     }
 
+    /**
+     * @return string[]
+     */
     private function getRawEmpty(): array
     {
         return json_decode(

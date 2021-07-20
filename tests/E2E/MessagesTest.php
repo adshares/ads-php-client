@@ -47,13 +47,13 @@ class MessagesTest extends TestCase
         'unset_node_status',
     ];
 
-    public function testGetMessageIdsWithoutTime()
+    public function testGetMessageIdsWithoutTime(): void
     {
         $client = new TestAdsClient();
         $this->checkMessageIds($client, null);
     }
 
-    public function testGetMessageIds()
+    public function testGetMessageIds(): void
     {
         $client = new TestAdsClient();
 
@@ -65,7 +65,7 @@ class MessagesTest extends TestCase
         $this->checkMessageIds($client, $blockTime);
     }
 
-    public function testGetMessageIdsFromInvalidBlock()
+    public function testGetMessageIdsFromInvalidBlock(): void
     {
         $client = new TestAdsClient();
 
@@ -74,7 +74,7 @@ class MessagesTest extends TestCase
         $client->getMessageIds('10000000');
     }
 
-    public function testGetMessageFromInvalidBlock()
+    public function testGetMessageFromInvalidBlock(): void
     {
         $client = new TestAdsClient();
 

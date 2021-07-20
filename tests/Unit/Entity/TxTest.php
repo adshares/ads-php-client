@@ -111,6 +111,9 @@ class TxTest extends TestCase
         $this->assertEquals('0001:00000013:0001', $tx->getId());
     }
 
+    /**
+     * @return string[]
+     */
     private function getRawGetMe(): array
     {
         return json_decode(
@@ -124,6 +127,9 @@ class TxTest extends TestCase
         );
     }
 
+    /**
+     * @return string[]
+     */
     private function getRawGetLog(): array
     {
         return json_decode(
@@ -142,6 +148,9 @@ class TxTest extends TestCase
         );
     }
 
+    /**
+     * @return string[]
+     */
     private function getRawCreateAccount(): array
     {
         return json_decode(

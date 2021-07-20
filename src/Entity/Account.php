@@ -236,12 +236,6 @@ class Account extends AbstractEntity
         return ($this->status & 1) != 0;
     }
 
-    /**
-     * @param  string                $name
-     * @param  array|mixed           $value
-     * @param  ReflectionClass|null $refClass
-     * @return int|mixed
-     */
     protected static function castProperty(string $name, $value, ?ReflectionClass $refClass = null)
     {
         if ('balance' === $name) {

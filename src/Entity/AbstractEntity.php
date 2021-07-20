@@ -24,7 +24,6 @@ namespace Adshares\Ads\Entity;
 use DateTime;
 use Exception;
 use ReflectionClass;
-use ReflectionException;
 
 /**
  * Base class for response entities.
@@ -33,10 +32,14 @@ use ReflectionException;
  */
 abstract class AbstractEntity implements EntityInterface
 {
+    final public function __construct()
+    {
+    }
+
     /**
      * Changes string with underscores to camelCase string. First letter is low.
      *
-     * @param  string $text text to change case
+     * @param string $text text to change case
      * @return string text in camelCase
      */
     private static function toCamelCase(string $text): string
@@ -50,8 +53,8 @@ abstract class AbstractEntity implements EntityInterface
     }
 
     /**
-     * @param  string $type
-     * @param  mixed  $value
+     * @param string $type
+     * @param mixed $value
      * @return mixed
      */
     protected static function convertType(string $type, $value)
@@ -94,8 +97,8 @@ abstract class AbstractEntity implements EntityInterface
     }
 
     /**
-     * @param  string $type
-     * @param  mixed  $value
+     * @param string $type
+     * @param mixed $value
      * @return mixed
      */
     protected static function defaultConvertType(string $type, $value)
@@ -113,7 +116,7 @@ abstract class AbstractEntity implements EntityInterface
             }
             if (class_exists($type)) {
                 $interfaces = class_implements($type);
-                if (isset($interfaces['Adshares\Ads\Entity\EntityInterface'])) {
+                if (is_array($interfaces) && array_key_exists('Adshares\Ads\Entity\EntityInterface', $interfaces)) {
                     /* @var $type EntityInterface */
                     $value = EntityFactory::create((new ReflectionClass($type))->getShortName(), $value);
                 }
@@ -124,9 +127,9 @@ abstract class AbstractEntity implements EntityInterface
     }
 
     /**
-     * @param  string                $name
-     * @param  array|mixed           $value
-     * @param  ReflectionClass|null $refClass
+     * @param string $name
+     * @param array|mixed $value
+     * @param ReflectionClass<EntityInterface>|null $refClass
      * @return int|mixed
      */
     protected static function castProperty(string $name, $value, ?ReflectionClass $refClass = null)
@@ -151,7 +154,7 @@ abstract class AbstractEntity implements EntityInterface
     }
 
     /**
-     * @param array $data
+     * @param string[]|string[][] $data
      */
     public function fillWithRawData(array $data): void
     {
@@ -165,10 +168,6 @@ abstract class AbstractEntity implements EntityInterface
         }
     }
 
-    /**
-     * @param  array $data
-     * @return EntityInterface
-     */
     public static function createFromRawData(array $data): EntityInterface
     {
         $entity = new static();

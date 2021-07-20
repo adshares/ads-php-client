@@ -30,11 +30,12 @@ class SendManyCommandTest extends TestCase
     public function testSendManyCommand(): void
     {
         $wiresIn = [
-            '0001-00000000-XXXX' => '100',
-            '0001-00000001-XXXX' => '1',
+            '0001-00000000-XXXX' => 100,
+            '0001-00000001-XXXX' => 1,
         ];
         $command = new SendManyCommand($wiresIn);
         $this->assertEquals('send_many', $command->getName());
+        /** @var string[] $wiresOut */
         $wiresOut = $command->getAttributes()['wires'];
         foreach ($wiresOut as $key => $value) {
             $wiresOut[$key] = AdsConverter::adsToClicks($value);

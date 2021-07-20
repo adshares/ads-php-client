@@ -27,7 +27,7 @@ use PHPUnit\Framework\TestCase;
 
 class CommandExceptionTest extends TestCase
 {
-    public function testCommandException()
+    public function testCommandException(): void
     {
         $command = new GetMeCommand();
         $e = new CommandException($command);

@@ -118,15 +118,11 @@ class Message extends AbstractEntity
         return $this->time;
     }
 
-    /**
-     * @param  array $data
-     * @return EntityInterface
-     */
     public static function createFromRawData(array $data): EntityInterface
     {
         $entity = new static();
         $entity->fillWithRawData($data);
-        $entity->id = $data['message_id'];
+        $entity->id = is_array($data['message_id']) ? '' : $data['message_id'];
 
         return $entity;
     }

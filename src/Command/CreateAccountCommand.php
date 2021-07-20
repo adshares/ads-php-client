@@ -38,39 +38,22 @@ class CreateAccountCommand extends AbstractTransactionCommand
     protected $publicKey;
 
     /**
-     * CreateAccountCommand constructor.
-     */
-    public function __construct()
-    {
-    }
-
-    /**
      * Sets key of account.
      *
      * @param string $publicKey Public key
      * @param string $confirm   Signature of empty string generated using secret key
      */
-    public function setAccountKey(string $publicKey, string $confirm)
+    public function setAccountKey(string $publicKey, string $confirm): void
     {
         $this->publicKey = $publicKey;
         $this->confirm = $confirm;
     }
 
-    /**
-     * Returns command name.
-     *
-     * @return string
-     */
     public function getName(): string
     {
         return 'create_account';
     }
 
-    /**
-     * Returns command specific attributes.
-     *
-     * @return array
-     */
     public function getAttributes(): array
     {
         $attributes = [];

@@ -32,7 +32,7 @@ class BroadcastTest extends TestCase
 {
     private const BLOCK_TIME_SECONDS = 32;
 
-    public function testBroadcastWithoutTime()
+    public function testBroadcastWithoutTime(): void
     {
         $client = new TestAdsClient();
 
@@ -40,7 +40,7 @@ class BroadcastTest extends TestCase
         $this->assertEquals(0, $response->getBroadcastCount());
     }
 
-    public function testBroadcast()
+    public function testBroadcast(): void
     {
         $client = new TestAdsClient();
 
@@ -61,7 +61,7 @@ class BroadcastTest extends TestCase
         $nextBlockAttempt = 0;
         $nextBlockAttemptMax = 2;
 
-        /* @var GetBroadcastResponse $getBroadcastResponse */
+        /** @var GetBroadcastResponse $getBroadcastResponse */
         $getBroadcastResponse = null;
         $broadcastCount = 0;
         sleep(self::BLOCK_TIME_SECONDS);
@@ -83,7 +83,7 @@ class BroadcastTest extends TestCase
             }
         } while (0 === $broadcastCount);
 
-        /* @var Broadcast $broadcast */
+        /** @var Broadcast $broadcast */
         $broadcast = null;
         if (null !== $getBroadcastResponse) {
             $broadcasts = $getBroadcastResponse->getBroadcast();

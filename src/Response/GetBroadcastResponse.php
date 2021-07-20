@@ -81,26 +81,24 @@ class GetBroadcastResponse extends AbstractResponse
      */
     protected $logFile;
 
-    /**
-     *
-     * @param array $data
-     */
     protected function loadData(array $data): void
     {
         parent::loadData($data);
 
-        if (array_key_exists(self::BLOCK_TIME_HEX, $data)) {
+        if (array_key_exists(self::BLOCK_TIME_HEX, $data) && !is_array($data[self::BLOCK_TIME_HEX])) {
             $this->blockId = $data[self::BLOCK_TIME_HEX];
         }
-        if (array_key_exists(self::BROADCAST, $data)) {
+        if (array_key_exists(self::BROADCAST, $data) && is_array($data[self::BROADCAST])) {
             foreach ($data[self::BROADCAST] as $value) {
-                $this->broadcast[] = EntityFactory::createBroadcast($value);
+                if (is_array($value)) {
+                    $this->broadcast[] = EntityFactory::createBroadcast($value);
+                }
             }
         }
         if (array_key_exists(self::BROADCAST_COUNT, $data)) {
-            $this->broadcastCount = $data[self::BROADCAST_COUNT];
+            $this->broadcastCount = (int)$data[self::BROADCAST_COUNT];
         }
-        if (array_key_exists(self::LOG_FILE, $data)) {
+        if (array_key_exists(self::LOG_FILE, $data) && !is_array($data[self::LOG_FILE])) {
             $this->logFile = $data[self::LOG_FILE];
         }
     }

@@ -43,21 +43,11 @@ class GetAccountsCommand extends AbstractCommand
         $this->node = $node;
     }
 
-    /**
-     * Returns command name.
-     *
-     * @return string
-     */
     public function getName(): string
     {
         return 'get_accounts';
     }
 
-    /**
-     * Returns command specific attributes.
-     *
-     * @return array
-     */
     public function getAttributes(): array
     {
         $attributes = [];

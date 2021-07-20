@@ -26,7 +26,7 @@ use PHPUnit\Framework\TestCase;
 
 class AdsValidatorTest extends TestCase
 {
-    public function testAccountAddress()
+    public function testAccountAddress(): void
     {
         $invalidEntries = [
             '0001:00000000',
@@ -51,7 +51,7 @@ class AdsValidatorTest extends TestCase
         }
     }
 
-    public function testMessageId()
+    public function testMessageId(): void
     {
         $invalidEntries = [
             '0001-000000AB-XXXX',
@@ -75,7 +75,7 @@ class AdsValidatorTest extends TestCase
         }
     }
 
-    public function testTransactionId()
+    public function testTransactionId(): void
     {
         $invalidEntries = [
             '0001:000CD000',

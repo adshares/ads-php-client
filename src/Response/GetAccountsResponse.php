@@ -38,16 +38,15 @@ class GetAccountsResponse extends AbstractResponse
      */
     protected $accounts;
 
-    /**
-     * @param array $data
-     */
     protected function loadData(array $data): void
     {
         parent::loadData($data);
 
-        if (array_key_exists('accounts', $data)) {
+        if (array_key_exists('accounts', $data) && is_array($data['accounts'])) {
             foreach ($data['accounts'] as $value) {
-                $this->accounts[] = EntityFactory::createAccount($value);
+                if (is_array($value)) {
+                    $this->accounts[] = EntityFactory::createAccount($value);
+                }
             }
         }
     }

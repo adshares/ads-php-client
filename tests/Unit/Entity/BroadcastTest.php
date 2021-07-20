@@ -63,6 +63,9 @@ class BroadcastTest extends TestCase
         $this->assertEquals(10000, $broadcast->getFee());
     }
 
+    /**
+     * @return string[]
+     */
     private function getRawData(): array
     {
         return json_decode(

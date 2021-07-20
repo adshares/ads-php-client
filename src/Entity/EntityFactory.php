@@ -21,6 +21,7 @@
 
 namespace Adshares\Ads\Entity;
 
+use Adshares\Ads\Entity\Transaction\AbstractTransaction;
 use Adshares\Ads\Exception\AdsException;
 
 /**
@@ -31,7 +32,7 @@ use Adshares\Ads\Exception\AdsException;
 class EntityFactory
 {
     /**
-     * @var array
+     * @var string[]
      */
     private static $entityMap = [
         'Account' => '\Adshares\Ads\Entity\Account',
@@ -69,7 +70,7 @@ class EntityFactory
     }
 
     /**
-     * @param array $map
+     * @param string[] $map
      */
     public static function setEntityMap(array $map): void
     {
@@ -79,8 +80,8 @@ class EntityFactory
     }
 
     /**
-     * @param  string $type
-     * @param  array  $data
+     * @param string $type
+     * @param string[]|string[][]|string[][][]|string[][][][] $data
      * @return mixed
      */
     public static function create(string $type, array $data = [])
@@ -93,7 +94,7 @@ class EntityFactory
     }
 
     /**
-     * @param  array $data
+     * @param string[]|string[][]|string[][][]|string[][][][] $data
      * @return Account
      */
     public static function createAccount(array $data = []): Account
@@ -102,7 +103,7 @@ class EntityFactory
     }
 
     /**
-     * @param  array $data
+     * @param string[]|string[][]|string[][][]|string[][][][] $data
      * @return Block
      */
     public static function createBlock(array $data = []): Block
@@ -111,7 +112,7 @@ class EntityFactory
     }
 
     /**
-     * @param  array $data
+     * @param string[]|string[][]|string[][][]|string[][][][] $data
      * @return Broadcast
      */
     public static function createBroadcast(array $data = []): Broadcast
@@ -119,13 +120,17 @@ class EntityFactory
         return self::create('Broadcast', $data);
     }
 
+    /**
+     * @param string[]|string[][]|string[][][]|string[][][][] $data
+     * @return Message
+     */
     public static function createMessage(array $data = []): Message
     {
         return self::create('Message', $data);
     }
 
     /**
-     * @param  array $data
+     * @param string[]|string[][]|string[][][]|string[][][][] $data
      * @return NetworkTx
      */
     public static function createNetworkTx(array $data = []): NetworkTx
@@ -134,7 +139,7 @@ class EntityFactory
     }
 
     /**
-     * @param  array $data
+     * @param string[]|string[][]|string[][][]|string[][][][] $data
      * @return NewAccount
      */
     public static function createNewAccount(array $data = []): NewAccount
@@ -143,7 +148,7 @@ class EntityFactory
     }
 
     /**
-     * @param  array $data
+     * @param string[]|string[][]|string[][][]|string[][][][] $data
      * @return Node
      */
     public static function createNode(array $data = []): Node
@@ -152,15 +157,14 @@ class EntityFactory
     }
 
     /**
-     * @param array $data
-     *
-     * @return mixed
-     *
+     * @param string[]|string[][]|string[][][]|string[][][][] $data
+     * @return AbstractTransaction
      * @throws AdsException
      */
-    public static function createTransaction(array $data = [])
+    public static function createTransaction(array $data = []): AbstractTransaction
     {
-        switch ($data['type']) {
+        $type = array_key_exists('type', $data) && is_string($data['type']) ? $data['type'] : null;
+        switch ($type) {
             case 'broadcast':
                 $entity = self::create('BroadcastTransaction', $data);
                 break;
@@ -196,14 +200,14 @@ class EntityFactory
                 $entity = self::create('EmptyTransaction', $data);
                 break;
             default:
-                throw new AdsException(sprintf('Unsupported transaction type "%s".', $data['type']));
+                throw new AdsException(sprintf('Unsupported transaction type "%s".', $type));
         }
 
         return $entity;
     }
 
     /**
-     * @param  array $data
+     * @param string[]|string[][]|string[][][]|string[][][][] $data
      * @return Tx
      */
     public static function createTx(array $data = []): Tx

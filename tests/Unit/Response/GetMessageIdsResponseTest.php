@@ -29,7 +29,7 @@ use PHPUnit\Framework\TestCase;
 
 class GetMessageIdsResponseTest extends TestCase
 {
-    public function testGetMessageIdsFromRaw()
+    public function testGetMessageIdsFromRaw(): void
     {
         $response = new GetMessageIdsResponse($this->getRawData());
         $time = new DateTime();
@@ -44,7 +44,7 @@ class GetMessageIdsResponseTest extends TestCase
         $this->assertInstanceOf(Tx::class, $response->getTx());
     }
 
-    public function testGetMessageIdsFromRawEmpty()
+    public function testGetMessageIdsFromRawEmpty(): void
     {
         $response = new GetMessageIdsResponse($this->getRawDataEmpty());
         $time = new DateTime();
@@ -59,11 +59,17 @@ class GetMessageIdsResponseTest extends TestCase
         $this->assertInstanceOf(Tx::class, $response->getTx());
     }
 
+    /**
+     * @return string[][]
+     */
     private function getRawData(): array
     {
         return json_decode(Raw::getMessageIds(), true);
     }
 
+    /**
+     * @return string[][]
+     */
     private function getRawDataEmpty(): array
     {
         return json_decode(

@@ -27,7 +27,7 @@ use PHPUnit\Framework\TestCase;
 
 class BlocksTest extends TestCase
 {
-    public function testGetBlockIds()
+    public function testGetBlockIds(): void
     {
         $client = new TestAdsClient();
 
@@ -51,7 +51,7 @@ class BlocksTest extends TestCase
         $this->assertLessThan($attemptMax, $attempt, 'Didn\'t update blocks in expected attempts.');
     }
 
-    public function testGetBlockIdsWithInvalidTime()
+    public function testGetBlockIdsWithInvalidTime(): void
     {
         $client = new TestAdsClient();
 

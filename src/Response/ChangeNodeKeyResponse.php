@@ -35,9 +35,6 @@ class ChangeNodeKeyResponse extends TransactionResponse
      */
     protected $keyChanged;
 
-    /**
-     * @param array $data
-     */
     protected function loadData(array $data): void
     {
         parent::loadData($data);

@@ -35,9 +35,6 @@ class ChangeAccountKeyResponse extends AbstractResponse
      */
     protected $keyChanged;
 
-    /**
-     * @param array $data
-     */
     protected function loadData(array $data): void
     {
         parent::loadData($data);

@@ -25,7 +25,7 @@ use PHPUnit\Framework\TestCase;
 
 class GetAccountTest extends TestCase
 {
-    public function testGetAccount()
+    public function testGetAccount(): void
     {
         $accountAddress = '0001-00000000-9B6F';
         $client = new TestAdsClient();

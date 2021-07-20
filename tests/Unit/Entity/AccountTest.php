@@ -51,6 +51,9 @@ class AccountTest extends TestCase
         $this->assertEquals(false, $account->isStatusDeleted());
     }
 
+    /**
+     * @return string[]
+     */
     private function getRawData(): array
     {
         return json_decode(

@@ -37,7 +37,7 @@ class ConnectionTransactionTest extends TestCase
         $data['block_id'] = $blockId;
         $data['message_id'] = $messageId;
         $data['node_id'] = $nodeId;
-        /* @var ConnectionTransaction $transaction */
+        /** @var ConnectionTransaction $transaction */
         $transaction = EntityFactory::createTransaction($data);
 
         $this->assertEquals('0001:0000001F:0002', $transaction->getId());
@@ -52,6 +52,9 @@ class ConnectionTransactionTest extends TestCase
         $this->assertEquals($nodeId, $transaction->getNodeId());
     }
 
+    /**
+     * @return string[]
+     */
     private function getRawConnection(): array
     {
         return json_decode(

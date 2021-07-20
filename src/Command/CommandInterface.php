@@ -41,7 +41,7 @@ interface CommandInterface
     /**
      * Returns command specific attributes.
      *
-     * @return array
+     * @return int[]|string[]|string[][]
      */
     public function getAttributes(): array;
 }

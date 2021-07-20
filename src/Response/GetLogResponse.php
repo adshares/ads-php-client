@@ -38,27 +38,24 @@ class GetLogResponse extends AbstractResponse
     protected $account;
 
     /**
-     * @var array
+     * @var string[][]|string[][][]
      */
     protected $log;
 
-    /**
-     *
-     * @param array $data
-     */
     protected function loadData(array $data): void
     {
         parent::loadData($data);
 
-        if (array_key_exists('account', $data)) {
+        if (array_key_exists('account', $data) && is_array($data['account'])) {
             $this->account = EntityFactory::createAccount($data['account']);
         }
         if (array_key_exists('log', $data)) {
+            $this->log = [];
             $tmpLog = $data['log'];
-            if (!is_array($tmpLog)) {
-                $tmpLog = [];
+            if (is_array($tmpLog)) {
+                /** @var string[][]|string[][][] $tmpLog */
+                $this->log = $tmpLog;
             }
-            $this->log = $tmpLog;
         }
     }
 
@@ -73,7 +70,7 @@ class GetLogResponse extends AbstractResponse
 
     /**
      *
-     * @return array
+     * @return string[][]|string[][][]
      */
     public function getLog(): array
     {

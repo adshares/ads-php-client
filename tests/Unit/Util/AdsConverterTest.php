@@ -26,7 +26,7 @@ use PHPUnit\Framework\TestCase;
 
 class AdsConverterTest extends TestCase
 {
-    public function testToClicks()
+    public function testToClicks(): void
     {
         $entries = [
             [123.456, 12345600000000],
@@ -41,7 +41,7 @@ class AdsConverterTest extends TestCase
         }
     }
 
-    public function testToAds()
+    public function testToAds(): void
     {
         $entries = [
             [12345678901, '0.12345678901'],

@@ -42,21 +42,11 @@ class BroadcastCommand extends AbstractTransactionCommand
         $this->message = $message;
     }
 
-    /**
-     * Returns command name.
-     *
-     * @return string
-     */
     public function getName(): string
     {
         return 'broadcast';
     }
 
-    /**
-     * Returns command specific attributes.
-     *
-     * @return array
-     */
     public function getAttributes(): array
     {
         return ['message' => $this->message];

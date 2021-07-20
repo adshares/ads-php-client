@@ -24,7 +24,7 @@ namespace Adshares\Ads\Entity;
 interface EntityInterface
 {
     /**
-     * @param  array $data
+     * @param  string[]|string[][] $data
      * @return EntityInterface
      */
     public static function createFromRawData(array $data): EntityInterface;

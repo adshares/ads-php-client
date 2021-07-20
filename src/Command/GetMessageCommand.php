@@ -43,21 +43,11 @@ class GetMessageCommand extends AbstractCommand
         $this->blockId = $blockId;
     }
 
-    /**
-     * Returns command name.
-     *
-     * @return string
-     */
     public function getName(): string
     {
         return 'get_message';
     }
 
-    /**
-     * Returns command specific attributes.
-     *
-     * @return array
-     */
     public function getAttributes(): array
     {
         $attributes = [];

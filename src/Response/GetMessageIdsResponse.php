@@ -64,22 +64,21 @@ class GetMessageIdsResponse extends AbstractResponse
      */
     protected $messageIds = [];
 
-    /**
-     * @param array $data
-     */
     protected function loadData(array $data): void
     {
         parent::loadData($data);
 
-        if (array_key_exists(self::BLOCK_TIME_HEX, $data)) {
+        if (array_key_exists(self::BLOCK_TIME_HEX, $data) && !is_array($data[self::BLOCK_TIME_HEX])) {
             $this->blockId = $data[self::BLOCK_TIME_HEX];
         }
         if (array_key_exists(self::MESSAGE_COUNT, $data)) {
-            $this->messageCount = $data[self::MESSAGE_COUNT];
+            $this->messageCount = (int)$data[self::MESSAGE_COUNT];
         }
         if (array_key_exists(self::MESSAGES, $data) && is_array($data[self::MESSAGES])) {
             foreach ($data[self::MESSAGES] as $value) {
-                $this->messageIds[] = $value;
+                if (!is_array($value)) {
+                    $this->messageIds[] = $value;
+                }
             }
         }
     }

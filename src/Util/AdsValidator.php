@@ -46,7 +46,7 @@ class AdsValidator
             }
             $nodeId = substr($address, 0, 4);
             $userId = substr($address, 5, 8);
-            $checksumComputed = AdsChecksumGenerator::getAccountChecksum(hexdec($nodeId), hexdec($userId));
+            $checksumComputed = AdsChecksumGenerator::getAccountChecksum((int)hexdec($nodeId), (int)hexdec($userId));
             return $checksum === $checksumComputed;
         }
         return false;

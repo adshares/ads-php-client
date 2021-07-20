@@ -30,7 +30,7 @@ class StatusTransactionTest extends TestCase
 {
     public function testSetAccountStatusFromRaw(): void
     {
-        /* @var StatusTransaction $transaction */
+        /** @var StatusTransaction $transaction */
         $transaction = EntityFactory::createTransaction($this->getRawSetAccountStatus());
 
         $this->assertEquals('0001:000000BA:0001', $transaction->getId());
@@ -57,7 +57,7 @@ class StatusTransactionTest extends TestCase
 
     public function testSetNodeStatusFromRaw(): void
     {
-        /* @var StatusTransaction $transaction */
+        /** @var StatusTransaction $transaction */
         $transaction = EntityFactory::createTransaction($this->getRawSetNodeStatus());
 
         $this->assertEquals('0001:000000B8:0001', $transaction->getId());
@@ -84,7 +84,7 @@ class StatusTransactionTest extends TestCase
 
     public function testUnsetAccountStatusFromRaw(): void
     {
-        /* @var StatusTransaction $transaction */
+        /** @var StatusTransaction $transaction */
         $transaction = EntityFactory::createTransaction($this->getRawUnsetAccountStatus());
 
         $this->assertEquals('0001:000000BB:0001', $transaction->getId());
@@ -111,7 +111,7 @@ class StatusTransactionTest extends TestCase
 
     public function testUnsetNodeStatusFromRaw(): void
     {
-        /* @var StatusTransaction $transaction */
+        /** @var StatusTransaction $transaction */
         $transaction = EntityFactory::createTransaction($this->getRawUnsetNodeStatus());
 
         $this->assertEquals('0001:000000B9:0001', $transaction->getId());
@@ -136,6 +136,9 @@ class StatusTransactionTest extends TestCase
         $this->assertEquals(85, $transaction->getSize());
     }
 
+    /**
+     * @return string[]
+     */
     private function getRawSetAccountStatus(): array
     {
         return json_decode(
@@ -157,6 +160,9 @@ class StatusTransactionTest extends TestCase
         );
     }
 
+    /**
+     * @return string[]
+     */
     private function getRawSetNodeStatus(): array
     {
         return json_decode(
@@ -177,6 +183,9 @@ class StatusTransactionTest extends TestCase
         );
     }
 
+    /**
+     * @return string[]
+     */
     private function getRawUnsetAccountStatus(): array
     {
         return json_decode(
@@ -198,6 +207,9 @@ class StatusTransactionTest extends TestCase
         );
     }
 
+    /**
+     * @return string[]
+     */
     private function getRawUnsetNodeStatus(): array
     {
         return json_decode(

@@ -26,7 +26,7 @@ use PHPUnit\Framework\TestCase;
 
 class AdsAccountChecksumTest extends TestCase
 {
-    public function testAccountChecksum()
+    public function testAccountChecksum(): void
     {
         $this->assertEquals('9B6F', AdsChecksumGenerator::getAccountChecksum(1, 0));
         $this->assertEquals('AB0C', AdsChecksumGenerator::getAccountChecksum(1, 3));

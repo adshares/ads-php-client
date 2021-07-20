@@ -30,7 +30,7 @@ use PHPUnit\Framework\TestCase;
 
 class GetBroadcastResponseTest extends TestCase
 {
-    public function testGetBroadcastFromRaw()
+    public function testGetBroadcastFromRaw(): void
     {
         $response = new GetBroadcastResponse($this->getRawData());
         $time = new DateTime();
@@ -50,6 +50,9 @@ class GetBroadcastResponseTest extends TestCase
         $this->assertEquals(1, $response->getBroadcastCount());
     }
 
+    /**
+     * @return string[][][]
+     */
     private function getRawData(): array
     {
         return json_decode(Raw::getBroadcast(), true);

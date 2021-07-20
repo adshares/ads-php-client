@@ -90,12 +90,6 @@ class SendManyTransactionWire extends AbstractEntity
         return $this->targetAddress;
     }
 
-    /**
-     * @param  string                $name
-     * @param  array|mixed           $value
-     * @param  ReflectionClass|null $refClass
-     * @return int|mixed
-     */
     protected static function castProperty(string $name, $value, ReflectionClass $refClass = null)
     {
         if ('amount' === $name) {

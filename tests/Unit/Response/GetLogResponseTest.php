@@ -30,7 +30,7 @@ use PHPUnit\Framework\TestCase;
 
 class GetLogResponseTest extends TestCase
 {
-    public function testGetLogFromRaw()
+    public function testGetLogFromRaw(): void
     {
         $rawDataArray = $this->getRawDataArray();
         foreach ($rawDataArray as $rawData) {
@@ -47,6 +47,9 @@ class GetLogResponseTest extends TestCase
         }
     }
 
+    /**
+     * @return string[][][][]
+     */
     private function getRawDataArray(): array
     {
         return [json_decode(Raw::getLog(), true), json_decode(Raw::getLogEmpty(), true)];

@@ -27,7 +27,7 @@ use PHPUnit\Framework\TestCase;
 
 class SendTransferTest extends TestCase
 {
-    public function testSendOne()
+    public function testSendOne(): void
     {
         $client = new TestAdsClient();
 
@@ -46,7 +46,7 @@ class SendTransferTest extends TestCase
         $this->assertIsString($tx->getId());
     }
 
-    public function testSendOneDryRunShareCommand()
+    public function testSendOneDryRunShareCommand(): void
     {
         $client = new TestAdsClient();
 
@@ -74,7 +74,7 @@ class SendTransferTest extends TestCase
         $this->assertEquals($txDryRun->getSignature(), $tx->getSignature());
     }
 
-    public function testSendOneDryRunSeparateCommand()
+    public function testSendOneDryRunSeparateCommand(): void
     {
         $client = new TestAdsClient();
 
@@ -104,7 +104,7 @@ class SendTransferTest extends TestCase
         $this->assertEquals($txDryRun->getSignature(), $tx->getSignature());
     }
 
-    public function testSendMany()
+    public function testSendMany(): void
     {
         $client = new TestAdsClient();
 
@@ -126,7 +126,7 @@ class SendTransferTest extends TestCase
         $this->assertIsString($tx->getId());
     }
 
-    public function testSendManyDryRun()
+    public function testSendManyDryRun(): void
     {
         $client = new TestAdsClient();
 

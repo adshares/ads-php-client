@@ -38,14 +38,11 @@ class TransactionResponse extends AbstractResponse
      */
     protected $account;
 
-    /**
-     * @param array $data
-     */
     protected function loadData(array $data): void
     {
         parent::loadData($data);
 
-        if (array_key_exists('account', $data)) {
+        if (array_key_exists('account', $data) && is_array($data['account'])) {
             $this->account = EntityFactory::createAccount($data['account']);
         }
     }

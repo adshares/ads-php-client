@@ -37,21 +37,11 @@ class GetTransactionCommand extends AbstractCommand
         $this->txid = $txid;
     }
 
-    /**
-     * Returns command name.
-     *
-     * @return string
-     */
     public function getName(): string
     {
         return 'get_transaction';
     }
 
-    /**
-     * Returns command specific attributes.
-     *
-     * @return array
-     */
     public function getAttributes(): array
     {
         return ['txid' => $this->txid];

@@ -40,7 +40,7 @@ class CreateAccountTest extends TestCase
     private $signature = '1F0571D30661FB1D50BE0D61A0A0E97BAEFF8C030CD0269ADE49438A4AD4CF897367'
     . 'E21B100C694F220D922200B3AB852A377D8857A64C36CB1569311760F303';
 
-    public function testCreateAccount()
+    public function testCreateAccount(): void
     {
         $client = new TestAdsClient();
 
@@ -52,7 +52,7 @@ class CreateAccountTest extends TestCase
         $this->assertEquals($newAccount->getNodeId(), substr($newAccount->getAddress(), 0, 4));
     }
 
-    public function testCreateAccountWithChangeKey()
+    public function testCreateAccountWithChangeKey(): void
     {
         $client = new TestAdsClient();
 

@@ -35,12 +35,24 @@ use Symfony\Component\Process\Process;
 
 class CliDriverTest extends TestCase
 {
+    /**
+     * @var string
+     */
     private $address = '0001-00000000-9B6F';
+    /**
+     * @var string
+     */
     private $secret = 'BB3425F914CA9F661CA6F3B908E07092B5AFB7F2FDAE2E94EDE12C83207CA743';
+    /**
+     * @var string
+     */
     private $host = '10.69.3.43';
+    /**
+     * @var int
+     */
     private $port = 9001;
 
-    public function testDriverInvalidExitCode()
+    public function testDriverInvalidExitCode(): void
     {
         $driver = $this->createCliDriver($this->createMockProcess(404, ''));
         $command = new GetMeCommand();
@@ -49,7 +61,7 @@ class CliDriverTest extends TestCase
         $driver->executeCommand($command);
     }
 
-    public function testDriverEmptyResponse()
+    public function testDriverEmptyResponse(): void
     {
         $driver = $this->createCliDriver($this->createMockProcess(0, ''));
         $command = new GetMeCommand();
@@ -58,7 +70,7 @@ class CliDriverTest extends TestCase
         $driver->executeCommand($command);
     }
 
-    public function testDriverJsonResponseError()
+    public function testDriverJsonResponseError(): void
     {
         $driver = $this->createCliDriver($this->createMockProcess(0, '{'));
         $command = new GetMeCommand();
@@ -67,7 +79,7 @@ class CliDriverTest extends TestCase
         $driver->executeCommand($command);
     }
 
-    public function testDriverResponseWithError()
+    public function testDriverResponseWithError(): void
     {
         $driver = $this->createCliDriver($this->createMockProcess(0, '{"error":"Bad user"}'));
         $command = new GetMeCommand();
@@ -77,7 +89,7 @@ class CliDriverTest extends TestCase
         $driver->executeCommand($command);
     }
 
-    public function testDriverCommandDefaultArguments()
+    public function testDriverCommandDefaultArguments(): void
     {
         $driver = $this->getMockBuilder(CliDriver::class)
             ->setMethods(['createProcess'])
@@ -96,10 +108,11 @@ class CliDriverTest extends TestCase
             )
             ->willReturn($this->createMockProcess(0, '{}'));
 
+        /** @var CliDriver $driver */
         $driver->executeCommand(new GetMeCommand());
     }
 
-    public function testDriverCommandArgumentsFromConstructor()
+    public function testDriverCommandArgumentsFromConstructor(): void
     {
         $driver = $this->getMockBuilder(CliDriver::class)
             ->setConstructorArgs([$this->address, $this->secret, $this->host, $this->port])
@@ -120,20 +133,15 @@ class CliDriverTest extends TestCase
             )
             ->willReturn($this->createMockProcess(0, '{}'));
 
+        /** @var CliDriver $driver */
         $driver->executeCommand(new GetMeCommand());
     }
 
-    public function testDriverCommandArgumentsFromSetters()
+    public function testDriverCommandArgumentsFromSetters(): void
     {
         $driver = $this->getMockBuilder(CliDriver::class)
             ->setMethods(['createProcess'])
             ->getMock();
-
-        $driver->setCommand('foo');
-        $driver->setWorkingDir('/tmp/mock');
-        $driver->setAddress('0099-00000001-XXXX');
-        $driver->setHost('127.0.0.1', 9999);
-        $driver->setSecret('XYZ');
 
         $driver
             ->expects($this->once())
@@ -153,10 +161,16 @@ class CliDriverTest extends TestCase
             )
             ->willReturn($this->createMockProcess(0, '{}'));
 
+        /** @var CliDriver $driver */
+        $driver->setCommand('foo');
+        $driver->setWorkingDir('/tmp/mock');
+        $driver->setAddress('0099-00000001-XXXX');
+        $driver->setHost('127.0.0.1', 9999);
+        $driver->setSecret('XYZ');
         $driver->executeCommand(new GetMeCommand());
     }
 
-    public function testDriverDryRunCommandArgument()
+    public function testDriverDryRunCommandArgument(): void
     {
         $driver = $this->getMockBuilder(CliDriver::class)
             ->setMethods(['createProcess'])
@@ -174,14 +188,15 @@ class CliDriverTest extends TestCase
             ->willReturn($this->createMockProcess(0, '{}'));
 
         $command = new SendOneCommand('0099-00000001-XXXX', 100);
+        /** @var CliDriver $driver */
         $driver->executeTransaction($command, true);
     }
 
-    public function testRunTransaction()
+    public function testRunTransaction(): void
     {
         $command = new SendOneCommand('0099-00000001-XXXX', 100);
         $command->setLastHash('123abc');
-        $command->setLastMsid('9999');
+        $command->setLastMsid(9999);
         $command->setSender('0088-00000008-XXXX');
         $command->setSignature('abc321');
         $command->setTimestamp(123123123);
@@ -224,10 +239,11 @@ class CliDriverTest extends TestCase
                 $process
             );
 
+        /** @var CliDriver $driver */
         $driver->executeTransaction($command);
     }
 
-    public function testDriverInvalidClientApp()
+    public function testDriverInvalidClientApp(): void
     {
         $driver = new CliDriver();
         $driver->setCommand('adsd');
@@ -242,7 +258,7 @@ class CliDriverTest extends TestCase
         $driver->executeTransaction($command, true);
     }
 
-    public function testDriverTimeout()
+    public function testDriverTimeout(): void
     {
         // process used as exception parameter
         $processExc = new Process(['test-timeout']);
@@ -272,7 +288,7 @@ class CliDriverTest extends TestCase
     /**
      * Creates CliDriver with mocked process.
      *
-     * @param Process $process process
+     * @param Process<string> $process process
      * @return CliDriver
      */
     private function createCliDriver(Process $process): CliDriver
@@ -291,8 +307,8 @@ class CliDriverTest extends TestCase
 
     /**
      * @param int $processExitCode
-     * @param string|array $processOutput
-     * @return Process
+     * @param string|string[] $processOutput
+     * @return Process<string>
      */
     private function createMockProcess(int $processExitCode, $processOutput): Process
     {

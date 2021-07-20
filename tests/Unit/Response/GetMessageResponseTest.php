@@ -31,7 +31,7 @@ use PHPUnit\Framework\TestCase;
 
 class GetMessageResponseTest extends TestCase
 {
-    public function testGetMessageIdsFromRaw()
+    public function testGetMessageIdsFromRaw(): void
     {
         $response = new GetMessageResponse($this->getRawData());
         $time = new DateTime();
@@ -49,6 +49,9 @@ class GetMessageResponseTest extends TestCase
         }
     }
 
+    /**
+     * @return string[][][][]
+     */
     private function getRawData(): array
     {
         return json_decode(Raw::getMessage(), true);

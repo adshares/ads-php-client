@@ -27,7 +27,7 @@ use PHPUnit\Framework\TestCase;
 
 class NodeTest extends TestCase
 {
-    public function testGetBlock()
+    public function testGetBlock(): void
     {
         $client = new TestAdsClient();
 
@@ -51,7 +51,7 @@ class NodeTest extends TestCase
         }
     }
 
-    public function testGetBlockWithInvalidTime()
+    public function testGetBlockWithInvalidTime(): void
     {
         $client = new TestAdsClient();
 
@@ -60,7 +60,7 @@ class NodeTest extends TestCase
         $client->getBlock('10000000');
     }
 
-    public function testGetAccounts()
+    public function testGetAccounts(): void
     {
         $client = new TestAdsClient();
 
@@ -69,7 +69,7 @@ class NodeTest extends TestCase
         $this->assertGreaterThan(0, count($accounts));
     }
 
-    public function testGetAccountsFromBlock()
+    public function testGetAccountsFromBlock(): void
     {
         $client = new TestAdsClient();
 

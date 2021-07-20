@@ -58,25 +58,21 @@ class GetTransactionResponse extends AbstractResponse
         return $this->txn;
     }
 
-    /**
-     *
-     * @param array $data
-     */
     protected function loadData(array $data): void
     {
         parent::loadData($data);
 
-        if (array_key_exists('network_tx', $data)) {
+        if (array_key_exists('network_tx', $data) && is_array($data['network_tx'])) {
             $this->networkTx = EntityFactory::createNetworkTx($data['network_tx']);
 
-            if (array_key_exists('txn', $data)) {
+            if (array_key_exists('txn', $data) && is_array($data['txn'])) {
                 // fill txn data with missing fields
                 $txnData = $data['txn'];
                 $txnData['id'] = $this->networkTx->getId();
                 $txnData['block_id'] = $this->networkTx->getBlockId();
-                $txnData['message_id'] = substr($txnData['id'], 0, 13);
+                $txnData['message_id'] = substr($this->networkTx->getId(), 0, 13);
                 $txnData['node_id'] = $this->networkTx->getNodeId();
-                $txnData['size'] = $this->networkTx->getSize();
+                $txnData['size'] = (string)$this->networkTx->getSize();
                 $this->txn = EntityFactory::createTransaction($txnData);
             }
         }

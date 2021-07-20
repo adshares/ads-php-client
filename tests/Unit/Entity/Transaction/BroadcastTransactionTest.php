@@ -31,7 +31,7 @@ class BroadcastTransactionTest extends TestCase
 
     public function testBroadcastFromRaw(): void
     {
-        /* @var BroadcastTransaction $transaction */
+        /** @var BroadcastTransaction $transaction */
         $transaction = EntityFactory::createTransaction($this->getRawBroadcast());
 
         $this->assertEquals('0001:00000007:0001', $transaction->getId());
@@ -53,6 +53,9 @@ class BroadcastTransactionTest extends TestCase
         $this->assertEquals(82, $transaction->getSize());
     }
 
+    /**
+     * @return string[]
+     */
     private function getRawBroadcast(): array
     {
         return json_decode(

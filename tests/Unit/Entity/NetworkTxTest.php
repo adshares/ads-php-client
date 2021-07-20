@@ -55,6 +55,9 @@ class NetworkTxTest extends TestCase
         }
     }
 
+    /**
+     * @return string[][]
+     */
     private function getRawData(): array
     {
         return json_decode(

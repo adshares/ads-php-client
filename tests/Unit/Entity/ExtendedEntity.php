@@ -41,5 +41,8 @@ class ExtendedEntity extends AbstractEntity
      */
     public $date;
 
+    /**
+     * @var mixed
+     */
     public $textVal;
 }

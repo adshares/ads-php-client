@@ -49,21 +49,11 @@ class ChangeAccountKeyCommand extends AbstractTransactionCommand
         $this->confirm = $confirm;
     }
 
-    /**
-     * Returns command name.
-     *
-     * @return string
-     */
     public function getName(): string
     {
         return 'change_account_key';
     }
 
-    /**
-     * Returns command specific attributes.
-     *
-     * @return array
-     */
     public function getAttributes(): array
     {
         $attributes['confirm'] = $this->confirm;

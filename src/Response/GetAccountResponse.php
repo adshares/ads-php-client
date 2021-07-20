@@ -43,18 +43,14 @@ class GetAccountResponse extends AbstractResponse
      */
     protected $networkAccount;
 
-    /**
-     *
-     * @param array $data
-     */
     protected function loadData(array $data): void
     {
         parent::loadData($data);
 
-        if (array_key_exists('account', $data)) {
+        if (array_key_exists('account', $data) && is_array($data['account'])) {
             $this->account = EntityFactory::createAccount($data['account']);
         }
-        if (array_key_exists('network_account', $data)) {
+        if (array_key_exists('network_account', $data) && is_array($data['network_account'])) {
             $this->networkAccount = EntityFactory::createAccount($data['network_account']);
         }
     }

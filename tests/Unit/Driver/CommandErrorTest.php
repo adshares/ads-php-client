@@ -31,29 +31,29 @@ class CommandErrorTest extends TestCase
      */
     private const ERROR_ID_MAX = 5057;
 
-    public function testGetCode()
+    public function testGetCode(): void
     {
         $errorDescription = 'Can\'t connect to server';
         $this->assertEquals(5028, CommandError::getCodeByMessage($errorDescription));
     }
 
-    public function testGetCodeUnknown()
+    public function testGetCodeUnknown(): void
     {
         $this->assertEquals(5000, CommandError::getCodeByMessage('qwerty12345'));
     }
 
-    public function testGetMessage()
+    public function testGetMessage(): void
     {
         $code = self::ERROR_ID_MAX;
         $this->assertEquals('No new blocks to download', CommandError::getMessageByCode($code));
     }
 
-    public function testGetMessageUnknown()
+    public function testGetMessageUnknown(): void
     {
         $this->assertEquals('Unknown error.', CommandError::getMessageByCode(4999));
     }
 
-    public function testRandomConversion()
+    public function testRandomConversion(): void
     {
         for ($i = 1; $i <= 10; $i++) {
             $code = rand(5000, self::ERROR_ID_MAX);

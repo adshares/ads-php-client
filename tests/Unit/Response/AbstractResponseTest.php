@@ -28,14 +28,14 @@ use PHPUnit\Framework\TestCase;
 
 class AbstractResponseTest extends TestCase
 {
-    public function testAbstractResponse()
+    public function testAbstractResponse(): void
     {
         $response = new GetAccountResponse(json_decode(Raw::getAccount(), true));
 
         $nonExistent = $response->getRawData('a');
         $this->assertNull($nonExistent);
 
-        /* @var int $rawPreviousBlockTime */
+        /** @var int $rawPreviousBlockTime */
         $rawPreviousBlockTime = $response->getRawData('previous_block_time');
         $time = new DateTime();
         $time->setTimestamp($rawPreviousBlockTime);

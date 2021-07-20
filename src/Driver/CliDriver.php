@@ -21,18 +21,18 @@
 
 namespace Adshares\Ads\Driver;
 
+use Adshares\Ads\Command\CommandInterface;
 use Adshares\Ads\Command\TransactionInterface;
 use Adshares\Ads\Exception\CommandException;
-use Adshares\Ads\Command\CommandInterface;
-use Adshares\Ads\Response\ResponseInterface;
 use Adshares\Ads\Response\RawResponse;
+use Adshares\Ads\Response\ResponseInterface;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Symfony\Component\Process\Exception\ProcessTimedOutException;
-use Symfony\Component\Process\Process;
 use Symfony\Component\Process\InputStream;
+use Symfony\Component\Process\Process;
 use Throwable;
 
 /**
@@ -103,11 +103,11 @@ class CliDriver implements DriverInterface, LoggerAwareInterface
     /**
      * CliDriver constructor.
      *
-     * @param null|string          $address account address
-     * @param null|string          $secret  private key
-     * @param null|string          $host    ADS node host (domain or IP address)
-     * @param int|null             $port    ADS node office port
-     * @param LoggerInterface|null $logger  logger
+     * @param null|string $address account address
+     * @param null|string $secret private key
+     * @param null|string $host ADS node host (domain or IP address)
+     * @param int|null $port ADS node office port
+     * @param LoggerInterface|null $logger logger
      */
     public function __construct(
         ?string $address = null,
@@ -148,7 +148,7 @@ class CliDriver implements DriverInterface, LoggerAwareInterface
 
     /**
      * @param string $host ADS node host (domain or IP address)
-     * @param int    $port ADS node office port
+     * @param int $port ADS node office port
      */
     public function setHost(string $host, int $port = 9001): void
     {
@@ -157,8 +157,8 @@ class CliDriver implements DriverInterface, LoggerAwareInterface
     }
 
     /**
-     * @param string      $address Account address
-     * @param null|string $secret  Account address private key
+     * @param string $address Account address
+     * @param null|string $secret Account address private key
      */
     public function setAddress(string $address, ?string $secret = null): void
     {
@@ -185,10 +185,10 @@ class CliDriver implements DriverInterface, LoggerAwareInterface
     }
 
     /**
-     * @param  null|string $hash
-     * @param  null|int    $messageId
-     * @param  bool        $isDryRun
-     * @return Process
+     * @param null|string $hash
+     * @param null|int $messageId
+     * @param bool $isDryRun
+     * @return Process<string>
      */
     protected function getProcess(?string $hash = null, ?int $messageId = null, bool $isDryRun = false): Process
     {
@@ -225,8 +225,8 @@ class CliDriver implements DriverInterface, LoggerAwareInterface
     }
 
     /**
-     * @param array $cmd
-     * @return Process
+     * @param string[] $cmd
+     * @return Process<string>
      */
     protected function createProcess(array $cmd): Process
     {
@@ -240,9 +240,9 @@ class CliDriver implements DriverInterface, LoggerAwareInterface
     }
 
     /**
-     * @param  CommandInterface $command
-     * @param  string           $data    process output (ADS client response)
-     * @return array array of decoded lines of response
+     * @param CommandInterface $command
+     * @param string $data process output (ADS client response)
+     * @return string[][] array of decoded lines of response
      * @throws CommandException
      */
     private function prepareOutput(CommandInterface $command, string $data): array
@@ -274,7 +274,7 @@ class CliDriver implements DriverInterface, LoggerAwareInterface
     }
 
     /**
-     * @param  CommandInterface $command
+     * @param CommandInterface $command
      * @return ResponseInterface
      * @throws CommandException
      */
@@ -288,8 +288,8 @@ class CliDriver implements DriverInterface, LoggerAwareInterface
     }
 
     /**
-     * @param  TransactionInterface $transaction
-     * @param  bool                 $isDryRun    if true, transaction will not be send to network
+     * @param TransactionInterface $transaction
+     * @param bool $isDryRun if true, transaction will not be send to network
      * @return ResponseInterface
      */
     public function executeTransaction(TransactionInterface $transaction, bool $isDryRun = false): ResponseInterface
@@ -315,9 +315,9 @@ class CliDriver implements DriverInterface, LoggerAwareInterface
     }
 
     /**
-     * @param  CommandInterface $command
-     * @param  array            $data    all attributes of command
-     * @param  Process          $process process
+     * @param CommandInterface $command
+     * @param int[]|string[]|string[][] $data all attributes of command
+     * @param Process<string> $process process
      * @return RawResponse
      */
     protected function runProcess(CommandInterface $command, array $data, Process $process): RawResponse

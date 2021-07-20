@@ -27,16 +27,20 @@ use Psr\Log\LoggerInterface;
 
 class TestAdsClient extends AdsClient
 {
+    /**
+     * @var string|null
+     */
     private $address;
 
     public function __construct(LoggerInterface $logger = null)
     {
-        $this->address = getenv('ADS_ADDRESS');
+        $this->address = self::getenv('ADS_ADDRESS');
+        $port = self::getenv('ADS_PORT');
         $driver = new CliDriver(
             $this->address,
-            getenv('ADS_SECRET'),
-            getenv('ADS_HOST'),
-            getenv('ADS_PORT'),
+            self::getenv('ADS_SECRET'),
+            self::getenv('ADS_HOST'),
+            $port !== null ? (int)$port : null,
             $logger
         );
         parent::__construct($driver, $logger);
@@ -45,5 +49,11 @@ class TestAdsClient extends AdsClient
     public function getAddress(): string
     {
         return $this->address;
+    }
+
+    private static function getenv(string $name): ?string
+    {
+        $value = getenv($name);
+        return $value === false ? null : $name;
     }
 }

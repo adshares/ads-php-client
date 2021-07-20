@@ -60,21 +60,11 @@ class SendOneCommand extends AbstractTransactionCommand
         $this->message = $message;
     }
 
-    /**
-     * Returns command name.
-     *
-     * @return string
-     */
     public function getName(): string
     {
         return 'send_one';
     }
 
-    /**
-     * Returns command specific attributes.
-     *
-     * @return array
-     */
     public function getAttributes(): array
     {
         $attributes['address'] = $this->address;

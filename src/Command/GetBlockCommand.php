@@ -37,21 +37,11 @@ class GetBlockCommand extends AbstractCommand
         $this->blockId = $blockId;
     }
 
-    /**
-     * Returns command name.
-     *
-     * @return string
-     */
     public function getName(): string
     {
         return 'get_block';
     }
 
-    /**
-     * Returns command specific attributes.
-     *
-     * @return array
-     */
     public function getAttributes(): array
     {
         $attributes = [];

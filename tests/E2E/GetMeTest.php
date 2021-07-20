@@ -25,7 +25,7 @@ use PHPUnit\Framework\TestCase;
 
 class GetMeTest extends TestCase
 {
-    public function testGetMe()
+    public function testGetMe(): void
     {
         $client = new TestAdsClient();
         $response = $client->getMe();

@@ -36,7 +36,7 @@ abstract class AbstractResponse implements ResponseInterface
     /**
      * ADS response data array
      *
-     * @var array
+     * @var string[]|string[][]|string[][][]|string[][][][]
      */
     protected $data = [];
 
@@ -64,39 +64,30 @@ abstract class AbstractResponse implements ResponseInterface
     /**
      * AbstractResponse constructor.
      *
-     * @param array $data ADS response data
+     * @param string[]|string[][]|string[][][]|string[][][][] $data ADS response data
      */
     public function __construct(array $data)
     {
         $this->loadData($data);
     }
 
-    /**
-     * @return DateTimeInterface Time of current block
-     */
     public function getCurrentBlockTime(): DateTimeInterface
     {
         return $this->currentBlockTime;
     }
 
-    /**
-     * @return DateTimeInterface Time of previous block
-     */
     public function getPreviousBlockTime(): DateTimeInterface
     {
         return $this->previousBlockTime;
     }
 
-    /**
-     * @return Tx
-     */
     public function getTx(): Tx
     {
         return $this->tx;
     }
 
     /**
-     * @param array $data ADS response data array
+     * @param string[]|string[][]|string[][][]|string[][][][] $data ADS response data array
      */
     protected function loadData(array $data): void
     {
@@ -104,27 +95,23 @@ abstract class AbstractResponse implements ResponseInterface
 
         if (array_key_exists('current_block_time', $data)) {
             $date = new DateTime();
-            $date->setTimestamp($data['current_block_time']);
+            $date->setTimestamp((int)$data['current_block_time']);
 
             $this->currentBlockTime = $date;
         }
 
         if (array_key_exists('previous_block_time', $data)) {
             $date = new DateTime();
-            $date->setTimestamp($data['previous_block_time']);
+            $date->setTimestamp((int)$data['previous_block_time']);
 
             $this->previousBlockTime = $date;
         }
 
-        if (array_key_exists('tx', $data)) {
+        if (array_key_exists('tx', $data) && is_array($data['tx'])) {
             $this->tx = EntityFactory::createTx($data['tx']);
         }
     }
 
-    /**
-     * @param  null|string $key key in data array
-     * @return mixed data for given key, for null key all data is returned, if key is not present null is returned
-     */
     public function getRawData(?string $key = null)
     {
         if (null === $key) {

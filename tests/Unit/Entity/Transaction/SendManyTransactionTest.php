@@ -30,7 +30,7 @@ class SendManyTransactionTest extends TestCase
 {
     public function testSendManyFromRaw(): void
     {
-        /* @var SendManyTransaction $transaction */
+        /** @var SendManyTransaction $transaction */
         $transaction = EntityFactory::createTransaction($this->getRawSendMany());
 
         $this->assertEquals('0001:0000001F:0001', $transaction->getId());
@@ -55,6 +55,9 @@ class SendManyTransactionTest extends TestCase
         $this->assertEquals(109, $transaction->getSize());
     }
 
+    /**
+     * @return string[][][]
+     */
     private function getRawSendMany(): array
     {
         return json_decode(

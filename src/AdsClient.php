@@ -87,7 +87,7 @@ class AdsClient implements LoggerAwareInterface
     /**
      * Sets response entities map.
      *
-     * @param array $map
+     * @param string[] $map
      */
     public static function setEntityMap(array $map): void
     {
@@ -195,7 +195,7 @@ class AdsClient implements LoggerAwareInterface
      */
     public function getAccounts(string $nodeId, ?string $blockId = null): GetAccountsResponse
     {
-        $node = hexdec($nodeId);
+        $node = (int)hexdec($nodeId);
         $command = new GetAccountsCommand($node, $blockId);
         $response = $this->driver->executeCommand($command);
 

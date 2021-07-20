@@ -31,21 +31,11 @@ class CreateNodeCommand extends AbstractTransactionCommand
         // Function create_node does not take any parameters.
     }
 
-    /**
-     * Returns command name.
-     *
-     * @return string
-     */
     public function getName(): string
     {
         return 'create_node';
     }
 
-    /**
-     * Returns command specific attributes.
-     *
-     * @return array
-     */
     public function getAttributes(): array
     {
         return [];

@@ -26,7 +26,7 @@ use PHPUnit\Framework\TestCase;
 
 class GetLogTest extends TestCase
 {
-    public function testGetLog()
+    public function testGetLog(): void
     {
         $client = new TestAdsClient();
 
@@ -39,7 +39,7 @@ class GetLogTest extends TestCase
         $this->assertGreaterThan(0, count($log));
     }
 
-    public function testGetLogInFuture()
+    public function testGetLogInFuture(): void
     {
         $client = new TestAdsClient();
 

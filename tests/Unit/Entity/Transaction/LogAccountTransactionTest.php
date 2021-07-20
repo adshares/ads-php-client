@@ -31,7 +31,7 @@ class LogAccountTransactionTest extends TestCase
 {
     public function testLogAccountFromRaw(): void
     {
-        /* @var LogAccountTransaction $transaction */
+        /** @var LogAccountTransaction $transaction */
         $transaction = EntityFactory::createTransaction($this->getRawLogAccount());
 
         $this->assertEquals('0002:00000012:0001', $transaction->getId());
@@ -50,7 +50,6 @@ class LogAccountTransactionTest extends TestCase
         );
         $this->assertEquals(207, $transaction->getSize());
 
-        /* @var Account $networkAccount */
         $account = $transaction->getNetworkAccount();
 
         $this->assertEquals('0002-00000001-659C', $account->getAddress());
@@ -78,6 +77,9 @@ class LogAccountTransactionTest extends TestCase
         $this->assertEquals(false, $account->isStatusDeleted());
     }
 
+    /**
+     * @return string[][]
+     */
     private function getRawLogAccount(): array
     {
         return json_decode(

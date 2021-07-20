@@ -272,12 +272,6 @@ class Block extends AbstractEntity
         return $this->voteYes;
     }
 
-    /**
-     * @param  string                $name
-     * @param  array|mixed           $value
-     * @param  ReflectionClass|null $refClass
-     * @return int|mixed
-     */
     protected static function castProperty(string $name, $value, ?ReflectionClass $refClass = null)
     {
         if ('dividendBalance' === $name) {
@@ -287,20 +281,16 @@ class Block extends AbstractEntity
         return parent::castProperty($name, $value, $refClass);
     }
 
-    /**
-     * @param  array $data
-     * @return EntityInterface
-     */
     public static function createFromRawData(array $data): EntityInterface
     {
         $entity = new static();
         $entity->fillWithRawData($data);
-        $entity->minHash = $data['minhash'];
-        $entity->msgHash = $data['msghash'];
-        $entity->nodHash = $data['nodhash'];
-        $entity->nowHash = $data['nowhash'];
-        $entity->oldHash = $data['oldhash'];
-        $entity->vipHash = $data['viphash'];
+        $entity->minHash = is_array($data['minhash']) ? '' : $data['minhash'];
+        $entity->msgHash = is_array($data['msghash']) ? '' : $data['msghash'];
+        $entity->nodHash = is_array($data['nodhash']) ? '' : $data['nodhash'];
+        $entity->nowHash = is_array($data['nowhash']) ? '' : $data['nowhash'];
+        $entity->oldHash = is_array($data['oldhash']) ? '' : $data['oldhash'];
+        $entity->vipHash = is_array($data['viphash']) ? '' : $data['viphash'];
 
         return $entity;
     }

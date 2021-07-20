@@ -36,21 +36,11 @@ class GetBroadcastCommand extends AbstractCommand
         $this->blockId = $blockId;
     }
 
-    /**
-     * Returns command name.
-     *
-     * @return string
-     */
     public function getName(): string
     {
         return 'get_broadcast';
     }
 
-    /**
-     * Returns command specific attributes.
-     *
-     * @return array
-     */
     public function getAttributes(): array
     {
         $attributes = [];

@@ -29,7 +29,7 @@ class SendManyTransactionWireTest extends TestCase
 {
     public function testSendManyWiresFromRaw(): void
     {
-        /* @var SendManyTransaction $transaction */
+        /** @var SendManyTransaction $transaction */
         $transaction = EntityFactory::createTransaction($this->getRawSendMany());
 
         $wires = $transaction->getWires();
@@ -47,6 +47,9 @@ class SendManyTransactionWireTest extends TestCase
         $this->assertEquals(100000000000, $wire->getAmount());
     }
 
+    /**
+     * @return string[][][]
+     */
     private function getRawSendMany(): array
     {
         return json_decode(

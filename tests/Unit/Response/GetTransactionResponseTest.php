@@ -31,7 +31,7 @@ use PHPUnit\Framework\TestCase;
 
 class GetTransactionResponseTest extends TestCase
 {
-    public function testGetTransactionFromRaw()
+    public function testGetTransactionFromRaw(): void
     {
         $response = new GetTransactionResponse($this->getRawData());
         $time = new DateTime();
@@ -53,6 +53,9 @@ class GetTransactionResponseTest extends TestCase
         $this->assertEquals('0001:00000003', $transaction->getMessageId());
     }
 
+    /**
+     * @return string[][][]
+     */
     private function getRawData(): array
     {
         return json_decode(Raw::getTransactionSendOne(), true);
