@@ -33,5 +33,9 @@
         <env name="QUEUE_DRIVER" value="sync"/>
         <env name="MAIL_DRIVER" value="array"/>
         <env name="DB_CONNECTION" value="sqlite_testing" />
+        <env name="ADS_ADDRESS" value="0001-0000YYYY-XXXX" />
+        <env name="ADS_SECRET" value="_SECRET_" />
+        <env name="ADS_HOST" value="t01.e11.click" />
+        <env name="ADS_PORT" value="9001" />
     </php>
 </phpunit>

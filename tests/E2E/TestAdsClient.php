@@ -21,20 +21,29 @@
 
 namespace Adshares\Ads\Tests\E2E;
 
-use PHPUnit\Framework\TestCase;
+use Adshares\Ads\AdsClient;
+use Adshares\Ads\Driver\CliDriver;
+use Psr\Log\LoggerInterface;
 
-class GetAccountTest extends TestCase
+class TestAdsClient extends AdsClient
 {
-    public function testGetAccount()
+    private $address;
+
+    public function __construct(LoggerInterface $logger = null)
     {
-        $accountAddress = '0001-00000000-9B6F';
-        $client = new TestAdsClient();
-        $response = $client->getAccount($accountAddress);
+        $this->address = getenv('ADS_ADDRESS');
+        $driver = new CliDriver(
+            $this->address,
+            getenv('ADS_SECRET'),
+            getenv('ADS_HOST'),
+            getenv('ADS_PORT'),
+            $logger
+        );
+        parent::__construct($driver, $logger);
+    }
 
-        $str = $response->getAccount()->getAddress();
-        $this->assertEquals($accountAddress, $str);
-
-        $str = $response->getNetworkAccount()->getAddress();
-        $this->assertEquals($accountAddress, $str);
+    public function getAddress(): string
+    {
+        return $this->address;
     }
 }
