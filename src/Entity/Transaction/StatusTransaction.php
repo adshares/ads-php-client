@@ -21,6 +21,8 @@
 
 namespace Adshares\Ads\Entity\Transaction;
 
+use DateTime;
+
 /**
  * Transaction type=<'set_account_status', 'set_node_status', 'unset_account_status', 'unset_node_status'>.
  *
@@ -62,7 +64,7 @@ class StatusTransaction extends AbstractTransaction
     protected $targetUser;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      */
     protected $time;
 
@@ -128,9 +130,9 @@ class StatusTransaction extends AbstractTransaction
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
-    public function getTime(): \DateTime
+    public function getTime(): DateTime
     {
         return $this->time;
     }

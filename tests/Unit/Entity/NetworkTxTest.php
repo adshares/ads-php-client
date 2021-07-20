@@ -22,18 +22,18 @@
 namespace Adshares\Ads\Tests\Unit\Entity;
 
 use Adshares\Ads\Entity\EntityFactory;
-use Adshares\Ads\Entity\NetworkTx;
+use DateTime;
+use PHPUnit\Framework\TestCase;
 
-class NetworkTxTest extends \PHPUnit\Framework\TestCase
+class NetworkTxTest extends TestCase
 {
     public function testCreateFromRow(): void
     {
-        /* @var NetworkTx $netTx */
         $netTx = EntityFactory::createNetworkTx($this->getRawData());
 
         $this->assertEquals('0001:0000000B:0001', $netTx->getId());
         $this->assertEquals('AABBCCDD', $netTx->getBlockId());
-        $blockTime = new \DateTime();
+        $blockTime = new DateTime();
         $blockTime->setTimestamp(1531495616);
         $this->assertEquals($blockTime, $netTx->getBlockTime());
         $this->assertEquals('1', $netTx->getNode());
@@ -51,7 +51,7 @@ class NetworkTxTest extends \PHPUnit\Framework\TestCase
         $hashPath = $netTx->getHashpath();
         $this->assertCount(7, $hashPath);
         foreach ($hashPath as $hash) {
-            $this->assertInternalType('string', $hash);
+            $this->assertIsString($hash);
         }
     }
 

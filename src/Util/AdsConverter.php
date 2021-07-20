@@ -53,7 +53,7 @@ class AdsConverter
      * @param  int $amount
      * @return string
      */
-    public static function clicksToAds($amount): string
+    public static function clicksToAds(int $amount): string
     {
         $amountAsString = (string)$amount;
         $isNegativeValue = false;

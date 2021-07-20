@@ -22,8 +22,9 @@
 namespace Adshares\Ads\Tests\Unit\Util;
 
 use Adshares\Ads\Util\AdsConverter;
+use PHPUnit\Framework\TestCase;
 
-class AdsConverterTest extends \PHPUnit\Framework\TestCase
+class AdsConverterTest extends TestCase
 {
     public function testToClicks()
     {

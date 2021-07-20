@@ -23,8 +23,10 @@ namespace Adshares\Ads\Tests\Unit\Entity\Transaction;
 
 use Adshares\Ads\Entity\EntityFactory;
 use Adshares\Ads\Entity\Transaction\BroadcastTransaction;
+use DateTime;
+use PHPUnit\Framework\TestCase;
 
-class BroadcastTransactionTest extends \PHPUnit\Framework\TestCase
+class BroadcastTransactionTest extends TestCase
 {
 
     public function testBroadcastFromRaw(): void
@@ -38,7 +40,7 @@ class BroadcastTransactionTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(0, $transaction->getUser());
         $this->assertEquals(2, $transaction->getMsgId());
         $this->assertEquals('0001-00000000-9B6F', $transaction->getSenderAddress());
-        $date = new \DateTime();
+        $date = new DateTime();
         $date->setTimestamp(1531494107);
         $this->assertEquals($date, $transaction->getTime());
         $this->assertEquals(1, $transaction->getMessageLength());

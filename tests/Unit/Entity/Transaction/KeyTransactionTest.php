@@ -23,8 +23,10 @@ namespace Adshares\Ads\Tests\Unit\Entity\Transaction;
 
 use Adshares\Ads\Entity\EntityFactory;
 use Adshares\Ads\Entity\Transaction\KeyTransaction;
+use DateTime;
+use PHPUnit\Framework\TestCase;
 
-class KeyTransactionTest extends \PHPUnit\Framework\TestCase
+class KeyTransactionTest extends TestCase
 {
     public function testAccountCreatedFromRaw(): void
     {
@@ -37,7 +39,7 @@ class KeyTransactionTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(2, $transaction->getUser());
         $this->assertEquals(0, $transaction->getMsgId());
         $this->assertEquals('0002-00000002-55FF', $transaction->getSenderAddress());
-        $date = new \DateTime();
+        $date = new DateTime();
         $date->setTimestamp(1531493862);
         $this->assertEquals($date, $transaction->getTime());
         $this->assertEquals('0001-00000000-9B6F', $transaction->getTargetAddress());
@@ -62,7 +64,7 @@ class KeyTransactionTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(0, $transaction->getUser());
         $this->assertEquals(5, $transaction->getMsgId());
         $this->assertEquals('0001-00000000-9B6F', $transaction->getSenderAddress());
-        $date = new \DateTime();
+        $date = new DateTime();
         $date->setTimestamp(1531498103);
         $this->assertEquals($date, $transaction->getTime());
         $this->assertNull($transaction->getTargetAddress());
@@ -96,7 +98,7 @@ class KeyTransactionTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(0, $transaction->getUser());
         $this->assertEquals(1, $transaction->getMsgId());
         $this->assertEquals('0001-00000000-9B6F', $transaction->getSenderAddress());
-        $date = new \DateTime();
+        $date = new DateTime();
         $date->setTimestamp(1531495004);
         $this->assertEquals($date, $transaction->getTime());
         $this->assertNull($transaction->getTargetAddress());

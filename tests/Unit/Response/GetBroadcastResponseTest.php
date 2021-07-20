@@ -25,14 +25,15 @@ use Adshares\Ads\Entity\Broadcast;
 use Adshares\Ads\Entity\Tx;
 use Adshares\Ads\Response\GetBroadcastResponse;
 use Adshares\Ads\Tests\Unit\Raw;
+use DateTime;
+use PHPUnit\Framework\TestCase;
 
-class GetBroadcastResponseTest extends \PHPUnit\Framework\TestCase
+class GetBroadcastResponseTest extends TestCase
 {
     public function testGetBroadcastFromRaw()
     {
-        /* @var GetBroadcastResponse $response */
         $response = new GetBroadcastResponse($this->getRawData());
-        $time = new \DateTime();
+        $time = new DateTime();
         $time->setTimestamp(1532351072);
         $this->assertEquals($time, $response->getCurrentBlockTime());
         $time->setTimestamp(1532351040);

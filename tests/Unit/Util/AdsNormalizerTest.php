@@ -22,8 +22,10 @@
 namespace Adshares\Ads\Tests\Unit\Util;
 
 use Adshares\Ads\Util\AdsNormalizer;
+use PHPUnit\Framework\TestCase;
+use RuntimeException;
 
-class AdsNormalizerTest extends \PHPUnit\Framework\TestCase
+class AdsNormalizerTest extends TestCase
 {
     public function testNormalizeAddressValid()
     {
@@ -35,7 +37,7 @@ class AdsNormalizerTest extends \PHPUnit\Framework\TestCase
     public function testNormalizeAddressInvalid()
     {
         $address = 'XXXXXXXX';
-        $this->expectException(\RuntimeException::class);
+        $this->expectException(RuntimeException::class);
         AdsNormalizer::normalizeAddress($address);
     }
 
@@ -49,7 +51,7 @@ class AdsNormalizerTest extends \PHPUnit\Framework\TestCase
     public function testNormalizeTxidInvalid()
     {
         $address = '000100000000XXXX';
-        $this->expectException(\RuntimeException::class);
+        $this->expectException(RuntimeException::class);
         AdsNormalizer::normalizeTxid($address);
     }
 }

@@ -24,14 +24,15 @@ namespace Adshares\Ads\Tests\Unit\Response;
 use Adshares\Ads\Entity\Account;
 use Adshares\Ads\Entity\Tx;
 use Adshares\Ads\Response\GetAccountResponse;
+use DateTime;
+use PHPUnit\Framework\TestCase;
 
-class GetAccountResponseTest extends \PHPUnit\Framework\TestCase
+class GetAccountResponseTest extends TestCase
 {
     public function testGetAccountFromRaw()
     {
-        /* @var GetAccountResponse $response */
         $response = new GetAccountResponse($this->getRawData());
-        $time = new \DateTime();
+        $time = new DateTime();
         $time->setTimestamp(1532091008);
         $this->assertEquals($time, $response->getCurrentBlockTime());
         $time->setTimestamp(1532090976);

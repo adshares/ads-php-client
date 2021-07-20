@@ -23,8 +23,9 @@ namespace Adshares\Ads\Tests\Unit\Entity\Transaction;
 
 use Adshares\Ads\Entity\EntityFactory;
 use Adshares\Ads\Entity\Transaction\EmptyTransaction;
+use PHPUnit\Framework\TestCase;
 
-class EmptyTransactionTest extends \PHPUnit\Framework\TestCase
+class EmptyTransactionTest extends TestCase
 {
     public function testEmptyFromRaw(): void
     {

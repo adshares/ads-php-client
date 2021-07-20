@@ -22,6 +22,7 @@
 namespace Adshares\Ads\Tests\Unit\Entity;
 
 use Adshares\Ads\Entity\AbstractEntity;
+use DateTime;
 
 /**
  * Class ExtendedEntity is extended from AbstractEntity to perform  test.
@@ -36,7 +37,9 @@ class ExtendedEntity extends AbstractEntity
     public $floatVal;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      */
     public $date;
+
+    public $textVal;
 }

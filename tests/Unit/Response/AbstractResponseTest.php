@@ -23,8 +23,10 @@ namespace Adshares\Ads\Tests\Unit\Response;
 
 use Adshares\Ads\Response\GetAccountResponse;
 use Adshares\Ads\Tests\Unit\Raw;
+use DateTime;
+use PHPUnit\Framework\TestCase;
 
-class AbstractResponseTest extends \PHPUnit\Framework\TestCase
+class AbstractResponseTest extends TestCase
 {
     public function testAbstractResponse()
     {
@@ -35,7 +37,7 @@ class AbstractResponseTest extends \PHPUnit\Framework\TestCase
 
         /* @var int $rawPreviousBlockTime */
         $rawPreviousBlockTime = $response->getRawData('previous_block_time');
-        $time = new \DateTime();
+        $time = new DateTime();
         $time->setTimestamp($rawPreviousBlockTime);
         $this->assertEquals($time, $response->getPreviousBlockTime());
     }

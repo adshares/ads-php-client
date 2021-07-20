@@ -21,15 +21,15 @@
 
 namespace Adshares\Ads\Tests\Unit\Entity;
 
-use Adshares\Ads\Entity\Block;
 use Adshares\Ads\Entity\EntityFactory;
 use Adshares\Ads\Entity\Node;
+use DateTime;
+use PHPUnit\Framework\TestCase;
 
-class BlockTest extends \PHPUnit\Framework\TestCase
+class BlockTest extends TestCase
 {
     public function testCreateFromRow(): void
     {
-        /* @var Block $block */
         $block = EntityFactory::createBlock($this->getRawData());
 
         $this->assertEquals(12300000000, $block->getDividendBalance());
@@ -42,7 +42,7 @@ class BlockTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals('DEE608AFF65371FD14AC7118528BAAAF620931B2B261E5964C632B908D1C57EA', $block->getNodHash());
         $this->assertEquals('DDD2F343184A8BFF7FC9DE1704B9956D89B0573D7C27FE1F55D9646470B8B12C', $block->getNowHash());
         $this->assertEquals('91655C4B8EA51E66E81F079A8C520EBB9097A44D74EEFC310C79BEDABC4204EF', $block->getOldHash());
-        $this->assertEquals(new \DateTime('@1530535552'), $block->getTime());
+        $this->assertEquals(new DateTime('@1530535552'), $block->getTime());
         $this->assertEquals('23A7002738367EC99A7BD2988720FF0824580219D2502226084E1BCE11A0B634', $block->getVipHash());
         $this->assertEquals(1, $block->getVoteNo());
         $this->assertEquals(7, $block->getVoteTotal());
@@ -51,7 +51,6 @@ class BlockTest extends \PHPUnit\Framework\TestCase
 
         $nodes = $block->getNodes();
         $this->assertCount(2, $nodes);
-        /* @var Node $node */
         $node = $nodes[0];
         $this->assertInstanceOf(Node::class, $node);
         $this->assertEquals('0000', $node->getId());

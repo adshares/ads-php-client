@@ -22,6 +22,8 @@
 namespace Adshares\Ads\Entity;
 
 use Adshares\Ads\Util\AdsConverter;
+use DateTime;
+use ReflectionClass;
 
 /**
  * Class Broadcast
@@ -47,7 +49,7 @@ class Broadcast extends AbstractEntity
     /**
      * Block time of broadcast transaction
      *
-     * @var \DateTime
+     * @var DateTime
      */
     protected $blockTime;
 
@@ -123,7 +125,7 @@ class Broadcast extends AbstractEntity
 
     /**
      *
-     * @var \DateTime
+     * @var DateTime
      */
     protected $time;
 
@@ -151,9 +153,9 @@ class Broadcast extends AbstractEntity
     }
 
     /**
-     * @return \DateTime Block time of broadcast transaction
+     * @return DateTime Block time of broadcast transaction
      */
-    public function getBlockTime(): \DateTime
+    public function getBlockTime(): DateTime
     {
         return $this->blockTime;
     }
@@ -249,9 +251,9 @@ class Broadcast extends AbstractEntity
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
-    public function getTime(): \DateTime
+    public function getTime(): DateTime
     {
         return $this->time;
     }
@@ -267,10 +269,10 @@ class Broadcast extends AbstractEntity
     /**
      * @param  string                $name
      * @param  array|mixed           $value
-     * @param  \ReflectionClass|null $refClass
+     * @param  ReflectionClass|null $refClass
      * @return int|mixed
      */
-    protected static function castProperty(string $name, $value, \ReflectionClass $refClass = null)
+    protected static function castProperty(string $name, $value, ?ReflectionClass $refClass = null)
     {
         if ('fee' === $name) {
             return AdsConverter::adsToClicks($value);

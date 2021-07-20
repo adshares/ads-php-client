@@ -22,8 +22,9 @@
 namespace Adshares\Ads\Tests\Unit\Util;
 
 use Adshares\Ads\Util\AdsValidator;
+use PHPUnit\Framework\TestCase;
 
-class AdsValidatorTest extends \PHPUnit\Framework\TestCase
+class AdsValidatorTest extends TestCase
 {
     public function testAccountAddress()
     {

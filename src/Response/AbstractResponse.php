@@ -23,6 +23,8 @@ namespace Adshares\Ads\Response;
 
 use Adshares\Ads\Entity\EntityFactory;
 use Adshares\Ads\Entity\Tx;
+use DateTime;
+use DateTimeInterface;
 
 /**
  * Class AbstractResponse is base class for all response classes.
@@ -41,14 +43,14 @@ abstract class AbstractResponse implements ResponseInterface
     /**
      * Time of current block
      *
-     * @var \DateTime
+     * @var DateTime
      */
     protected $currentBlockTime;
 
     /**
      * Time of previous block
      *
-     * @var \DateTime
+     * @var DateTime
      */
     protected $previousBlockTime;
 
@@ -70,17 +72,17 @@ abstract class AbstractResponse implements ResponseInterface
     }
 
     /**
-     * @return \DateTime Time of current block
+     * @return DateTimeInterface Time of current block
      */
-    public function getCurrentBlockTime(): \DateTime
+    public function getCurrentBlockTime(): DateTimeInterface
     {
         return $this->currentBlockTime;
     }
 
     /**
-     * @return \DateTime Time of previous block
+     * @return DateTimeInterface Time of previous block
      */
-    public function getPreviousBlockTime(): \DateTime
+    public function getPreviousBlockTime(): DateTimeInterface
     {
         return $this->previousBlockTime;
     }
@@ -101,14 +103,14 @@ abstract class AbstractResponse implements ResponseInterface
         $this->data = $data;
 
         if (array_key_exists('current_block_time', $data)) {
-            $date = new \DateTime();
+            $date = new DateTime();
             $date->setTimestamp($data['current_block_time']);
 
             $this->currentBlockTime = $date;
         }
 
         if (array_key_exists('previous_block_time', $data)) {
-            $date = new \DateTime();
+            $date = new DateTime();
             $date->setTimestamp($data['previous_block_time']);
 
             $this->previousBlockTime = $date;

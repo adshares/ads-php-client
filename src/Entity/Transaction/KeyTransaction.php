@@ -21,6 +21,8 @@
 
 namespace Adshares\Ads\Entity\Transaction;
 
+use DateTime;
+
 /**
  * Transaction type=<'account_created', 'change_account_key', 'change_node_key'>.
  *
@@ -77,7 +79,7 @@ class KeyTransaction extends AbstractTransaction
     protected $targetUser;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      */
     protected $time;
 
@@ -167,9 +169,9 @@ class KeyTransaction extends AbstractTransaction
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
-    public function getTime(): \DateTime
+    public function getTime(): DateTime
     {
         return $this->time;
     }

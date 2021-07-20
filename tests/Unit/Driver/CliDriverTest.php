@@ -23,10 +23,13 @@ namespace Adshares\Ads\Tests\Unit\Driver;
 
 use Adshares\Ads\Command\BroadcastCommand;
 use Adshares\Ads\Command\GetMeCommand;
+use Adshares\Ads\Command\SendOneCommand;
 use Adshares\Ads\Driver\CliDriver;
 use Adshares\Ads\Driver\CommandError;
 use Adshares\Ads\Exception\CommandException;
+use PHPUnit\Framework\MockObject\Stub\ConsecutiveCalls;
 use PHPUnit\Framework\TestCase;
+use RuntimeException;
 use Symfony\Component\Process\Exception\ProcessTimedOutException;
 use Symfony\Component\Process\Process;
 
@@ -74,6 +77,156 @@ class CliDriverTest extends TestCase
         $driver->executeCommand($command);
     }
 
+    public function testDriverCommandDefaultArguments()
+    {
+        $driver = $this->getMockBuilder(CliDriver::class)
+            ->setMethods(['createProcess'])
+            ->getMock();
+        $driver
+            ->expects($this->once())
+            ->method('createProcess')
+            ->with(
+                $this->callback(
+                    function (array $cmd) {
+                        return in_array('ads', $cmd)
+                            && in_array('--work-dir=~/.ads', $cmd)
+                            && in_array('--nice=0', $cmd);
+                    }
+                )
+            )
+            ->willReturn($this->createMockProcess(0, '{}'));
+
+        $driver->executeCommand(new GetMeCommand());
+    }
+
+    public function testDriverCommandArgumentsFromConstructor()
+    {
+        $driver = $this->getMockBuilder(CliDriver::class)
+            ->setConstructorArgs([$this->address, $this->secret, $this->host, $this->port])
+            ->setMethods(['createProcess'])
+            ->getMock();
+        $driver
+            ->expects($this->once())
+            ->method('createProcess')
+            ->with(
+                $this->callback(
+                    function (array $cmd) {
+                        return in_array('--address=' . $this->address, $cmd)
+                            && in_array('--secret', $cmd)
+                            && in_array('--host=' . $this->host, $cmd)
+                            && in_array('--port=' . $this->port, $cmd);
+                    }
+                )
+            )
+            ->willReturn($this->createMockProcess(0, '{}'));
+
+        $driver->executeCommand(new GetMeCommand());
+    }
+
+    public function testDriverCommandArgumentsFromSetters()
+    {
+        $driver = $this->getMockBuilder(CliDriver::class)
+            ->setMethods(['createProcess'])
+            ->getMock();
+
+        $driver->setCommand('foo');
+        $driver->setWorkingDir('/tmp/mock');
+        $driver->setAddress('0099-00000001-XXXX');
+        $driver->setHost('127.0.0.1', 9999);
+        $driver->setSecret('XYZ');
+
+        $driver
+            ->expects($this->once())
+            ->method('createProcess')
+            ->with(
+                $this->callback(
+                    function (array $cmd) {
+                        return in_array('foo', $cmd)
+                            && in_array('--work-dir=/tmp/mock', $cmd)
+                            && in_array('--nice=0', $cmd)
+                            && in_array('--address=0099-00000001-XXXX', $cmd)
+                            && in_array('--secret', $cmd)
+                            && in_array('--host=127.0.0.1', $cmd)
+                            && in_array('--port=9999', $cmd);
+                    }
+                )
+            )
+            ->willReturn($this->createMockProcess(0, '{}'));
+
+        $driver->executeCommand(new GetMeCommand());
+    }
+
+    public function testDriverDryRunCommandArgument()
+    {
+        $driver = $this->getMockBuilder(CliDriver::class)
+            ->setMethods(['createProcess'])
+            ->getMock();
+        $driver
+            ->expects($this->once())
+            ->method('createProcess')
+            ->with(
+                $this->callback(
+                    function (array $cmd) {
+                        return in_array('--dry-run=1', $cmd);
+                    }
+                )
+            )
+            ->willReturn($this->createMockProcess(0, '{}'));
+
+        $command = new SendOneCommand('0099-00000001-XXXX', 100);
+        $driver->executeTransaction($command, true);
+    }
+
+    public function testRunTransaction()
+    {
+        $command = new SendOneCommand('0099-00000001-XXXX', 100);
+        $command->setLastHash('123abc');
+        $command->setLastMsid('9999');
+        $command->setSender('0088-00000008-XXXX');
+        $command->setSignature('abc321');
+        $command->setTimestamp(123123123);
+
+        $process = $this->createMockProcess(0, '{}');
+
+        $driver = $this->getMockBuilder(CliDriver::class)
+            ->setMethods(['createProcess', 'runProcess'])
+            ->getMock();
+
+        $driver
+            ->expects($this->once())
+            ->method('createProcess')
+            ->with(
+                $this->callback(
+                    function (array $cmd) {
+                        return in_array('--hash=123abc', $cmd)
+                            && in_array('--msid=9999', $cmd);
+                    }
+                )
+            )
+            ->willReturn($process);
+
+        $driver
+            ->expects($this->once())
+            ->method('runProcess')
+            ->with(
+                $command,
+                $this->callback(
+                    function (array $data) {
+                        return
+                            $data['run'] === 'send_one'
+                            && $data['address'] === '0099-00000001-XXXX'
+                            && $data['amount'] === '0.00000000100'
+                            && $data['sender'] === '0088-00000008-XXXX'
+                            && $data['signature'] === 'abc321'
+                            && $data['time'] === 123123123;
+                    }
+                ),
+                $process
+            );
+
+        $driver->executeTransaction($command);
+    }
+
     public function testDriverInvalidClientApp()
     {
         $driver = new CliDriver();
@@ -92,16 +245,13 @@ class CliDriverTest extends TestCase
     public function testDriverTimeout()
     {
         // process used as exception parameter
-        $processExc = new Process('test-timeout');
+        $processExc = new Process(['test-timeout']);
         // mock process - throws ProcessTimedOutException
         $process = $this->createMock(Process::class);
         $process->method('wait')->willThrowException(
             new ProcessTimedOutException($processExc, ProcessTimedOutException::TYPE_GENERAL)
         );
 
-        /**
- * @var Process $process
-*/
         if ($process instanceof Process) {
             $driver = $this->createCliDriver($process);
             $driver->setCommand('adsd');
@@ -122,27 +272,26 @@ class CliDriverTest extends TestCase
     /**
      * Creates CliDriver with mocked process.
      *
-     * @param  Process $process process
+     * @param Process $process process
      * @return CliDriver
      */
     private function createCliDriver(Process $process): CliDriver
     {
         $driver = $this->getMockBuilder(CliDriver::class)
             ->setConstructorArgs([$this->address, $this->secret, $this->host, $this->port])
-            ->setMethods(['getProcess'])
+            ->setMethods(['createProcess'])
             ->getMock();
-        $driver->method('getProcess')->willReturn($process);
+        $driver->method('createProcess')->willReturn($process);
 
         if ($driver instanceof CliDriver) {
-            /* @var CliDriver $driver */
             return $driver;
         }
-        throw new \RuntimeException();
+        throw new RuntimeException();
     }
 
     /**
-     * @param  int          $processExitCode
-     * @param  string|array $processOutput
+     * @param int $processExitCode
+     * @param string|array $processOutput
      * @return Process
      */
     private function createMockProcess(int $processExitCode, $processOutput): Process
@@ -150,18 +299,15 @@ class CliDriverTest extends TestCase
         $process = $this->createMock(Process::class);
         $process->method('getExitCode')->willReturn($processExitCode);
         if (is_array($processOutput)) {
-            $stub = new \PHPUnit\Framework\MockObject\Stub\ConsecutiveCalls($processOutput);
+            $stub = new ConsecutiveCalls($processOutput);
         } else {
             $stub = $this->onConsecutiveCalls($processOutput);
         }
         $process->method('getOutput')->will($stub);
 
         if ($process instanceof Process) {
-            /**
- * @var $process Process
-*/
             return $process;
         }
-        throw new \RuntimeException();
+        throw new RuntimeException();
     }
 }

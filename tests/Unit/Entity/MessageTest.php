@@ -22,19 +22,19 @@
 namespace Adshares\Ads\Tests\Unit\Entity;
 
 use Adshares\Ads\Entity\EntityFactory;
-use Adshares\Ads\Entity\Message;
+use DateTime;
+use PHPUnit\Framework\TestCase;
 
-class MessageTest extends \PHPUnit\Framework\TestCase
+class MessageTest extends TestCase
 {
     public function testCreateFromRow(): void
     {
-        /* @var Message $message */
         $message = EntityFactory::createMessage($this->getRawData());
 
         $this->assertEquals('5B4F1D60', $message->getBlockId());
         $this->assertEquals('0002:00000449', $message->getId());
         $this->assertEquals('0002', $message->getNodeId());
-        $time = new \DateTime();
+        $time = new DateTime();
         $time->setTimestamp(1531911542);
         $this->assertEquals($time, $message->getTime());
         $this->assertEquals(85, $message->getLength());

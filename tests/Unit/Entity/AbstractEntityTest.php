@@ -21,13 +21,17 @@
 
 namespace Adshares\Ads\Tests\Unit\Entity;
 
-class AbstractEntityTest extends \PHPUnit\Framework\TestCase
+use DateTime;
+use PHPUnit\Framework\TestCase;
+
+class AbstractEntityTest extends TestCase
 {
     public function testCreateFromRow(): void
     {
         $data = [
             'float_val' => 123.456,
             'date' => '2018-07-24 08:54:31',
+            'text_val' => 'value',
         ];
         /* @var ExtendedEntity $entity */
         $entity = ExtendedEntity::createFromRawData($data);
@@ -35,7 +39,25 @@ class AbstractEntityTest extends \PHPUnit\Framework\TestCase
         $this->assertInstanceOf(ExtendedEntity::class, $entity);
         if ($entity instanceof ExtendedEntity) {
             $this->assertNotNull($entity->floatVal);
+            $this->assertEquals(123.456, $entity->floatVal);
             $this->assertNotNull($entity->date);
+            $this->assertEquals(new DateTime('2018-07-24 08:54:31'), $entity->date);
+            $this->assertNotNull($entity->textVal);
+            $this->assertEquals('value', $entity->textVal);
+        }
+    }
+    public function testInvalidDate(): void
+    {
+        $data = [
+            'float_val' => 123.456,
+            'date' => 'foo date',
+        ];
+        /* @var ExtendedEntity $entity */
+        $entity = ExtendedEntity::createFromRawData($data);
+
+        $this->assertInstanceOf(ExtendedEntity::class, $entity);
+        if ($entity instanceof ExtendedEntity) {
+            $this->assertNull($entity->date);
         }
     }
 }

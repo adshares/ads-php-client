@@ -21,27 +21,27 @@
 
 namespace Adshares\Ads\Tests\Unit\Entity;
 
-use Adshares\Ads\Entity\Account;
 use Adshares\Ads\Entity\EntityFactory;
+use DateTime;
+use PHPUnit\Framework\TestCase;
 
-class AccountTest extends \PHPUnit\Framework\TestCase
+class AccountTest extends TestCase
 {
     public function testCreateFromRow(): void
     {
-        /* @var Account $account */
         $account = EntityFactory::createAccount($this->getRawData());
 
         $this->assertEquals('0001-00000000-9B6F', $account->getAddress());
         $this->assertEquals(1, $account->getNode());
         $this->assertEquals('0001', $account->getNodeId());
         $this->assertEquals(4, $account->getMsid());
-        $this->assertEquals(new \DateTime('@1531394984'), $account->getTime());
+        $this->assertEquals(new DateTime('@1531394984'), $account->getTime());
         $this->assertEquals('0001-00000003-AB0C', $account->getPairedAddress());
         $this->assertEquals(1, $account->getPairedNode());
         $this->assertEquals('0001', $account->getPairedNodeId());
         $this->assertEquals(0, $account->getStatus());
-        $this->assertEquals(new \DateTime('@1531394976'), $account->getLocalChange());
-        $this->assertEquals(new \DateTime('@1531396672'), $account->getRemoteChange());
+        $this->assertEquals(new DateTime('@1531394976'), $account->getLocalChange());
+        $this->assertEquals(new DateTime('@1531396672'), $account->getRemoteChange());
         $this->assertEquals(1999999999743316130, $account->getBalance());
         $this->assertEquals(
             'A9C0D972D8AAB73805EC4A28291E052E3B5FAFE0ADC9D724917054E5E2690363',

@@ -23,8 +23,10 @@ namespace Adshares\Ads\Tests\Unit\Entity\Transaction;
 
 use Adshares\Ads\Entity\EntityFactory;
 use Adshares\Ads\Entity\Transaction\SendManyTransaction;
+use DateTime;
+use PHPUnit\Framework\TestCase;
 
-class SendManyTransactionTest extends \PHPUnit\Framework\TestCase
+class SendManyTransactionTest extends TestCase
 {
     public function testSendManyFromRaw(): void
     {
@@ -38,7 +40,7 @@ class SendManyTransactionTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals('0001-00000000-9B6F', $transaction->getSenderAddress());
         $this->assertEquals(5, $transaction->getMsgId());
 
-        $date = new \DateTime();
+        $date = new DateTime();
         $date->setTimestamp(1532005558);
         $this->assertEquals($date, $transaction->getTime());
         $wireCount = $transaction->getWireCount();

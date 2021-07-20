@@ -23,8 +23,10 @@ namespace Adshares\Ads\Tests\Unit\Entity\Transaction;
 
 use Adshares\Ads\Entity\EntityFactory;
 use Adshares\Ads\Entity\Transaction\StatusTransaction;
+use DateTime;
+use PHPUnit\Framework\TestCase;
 
-class StatusTransactionTest extends \PHPUnit\Framework\TestCase
+class StatusTransactionTest extends TestCase
 {
     public function testSetAccountStatusFromRaw(): void
     {
@@ -37,7 +39,7 @@ class StatusTransactionTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(0, $transaction->getUser());
         $this->assertEquals(5, $transaction->getMsgId());
         $this->assertEquals('0001-00000000-9B6F', $transaction->getSenderAddress());
-        $date = new \DateTime();
+        $date = new DateTime();
         $date->setTimestamp(1532092391);
         $this->assertEquals($date, $transaction->getTime());
         $this->assertEquals('0001-00000000-9B6F', $transaction->getTargetAddress());
@@ -64,7 +66,7 @@ class StatusTransactionTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(0, $transaction->getUser());
         $this->assertEquals(3, $transaction->getMsgId());
         $this->assertEquals('0001-00000000-9B6F', $transaction->getSenderAddress());
-        $date = new \DateTime();
+        $date = new DateTime();
         $date->setTimestamp(1532092353);
         $this->assertEquals($date, $transaction->getTime());
         $this->assertNull($transaction->getTargetAddress());
@@ -91,7 +93,7 @@ class StatusTransactionTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(0, $transaction->getUser());
         $this->assertEquals(6, $transaction->getMsgId());
         $this->assertEquals('0001-00000000-9B6F', $transaction->getSenderAddress());
-        $date = new \DateTime();
+        $date = new DateTime();
         $date->setTimestamp(1532092407);
         $this->assertEquals($date, $transaction->getTime());
         $this->assertEquals('0001-00000000-9B6F', $transaction->getTargetAddress());
@@ -118,7 +120,7 @@ class StatusTransactionTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(0, $transaction->getUser());
         $this->assertEquals(4, $transaction->getMsgId());
         $this->assertEquals('0001-00000000-9B6F', $transaction->getSenderAddress());
-        $date = new \DateTime();
+        $date = new DateTime();
         $date->setTimestamp(1532092371);
         $this->assertEquals($date, $transaction->getTime());
         $this->assertNull($transaction->getTargetAddress());

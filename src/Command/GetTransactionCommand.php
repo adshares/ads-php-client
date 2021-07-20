@@ -30,7 +30,7 @@ class GetTransactionCommand extends AbstractCommand
     private $txid;
 
     /**
-     * @param string $txid
+     * @param string|null $txid
      */
     public function __construct(?string $txid)
     {

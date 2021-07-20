@@ -22,6 +22,7 @@
 namespace Adshares\Ads\Entity\Transaction;
 
 use Adshares\Ads\Entity\Account;
+use DateTime;
 
 /**
  * Transaction type=<'log_account'>.
@@ -53,7 +54,7 @@ class LogAccountTransaction extends AbstractTransaction
     protected $signature;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      */
     protected $time;
 
@@ -95,9 +96,9 @@ class LogAccountTransaction extends AbstractTransaction
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
-    public function getTime(): \DateTime
+    public function getTime(): DateTime
     {
         return $this->time;
     }

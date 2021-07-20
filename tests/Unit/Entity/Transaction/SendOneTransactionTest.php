@@ -23,8 +23,10 @@ namespace Adshares\Ads\Tests\Unit\Entity\Transaction;
 
 use Adshares\Ads\Entity\EntityFactory;
 use Adshares\Ads\Entity\Transaction\SendOneTransaction;
+use DateTime;
+use PHPUnit\Framework\TestCase;
 
-class SendOneTransactionTest extends \PHPUnit\Framework\TestCase
+class SendOneTransactionTest extends TestCase
 {
     public function testSendOneFromRaw(): void
     {
@@ -36,7 +38,7 @@ class SendOneTransactionTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(1, $transaction->getNode());
         $this->assertEquals(0, $transaction->getUser());
         $this->assertEquals(3, $transaction->getMsgId());
-        $date = new \DateTime();
+        $date = new DateTime();
         $date->setTimestamp(1531501093);
         $this->assertEquals($date, $transaction->getTime());
         $this->assertEquals(1, $transaction->getTargetNode());

@@ -33,6 +33,7 @@ use Psr\Log\NullLogger;
 use Symfony\Component\Process\Exception\ProcessTimedOutException;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\InputStream;
+use Throwable;
 
 /**
  * CliDriver (Command line driver)
@@ -220,6 +221,15 @@ class CliDriver implements DriverInterface, LoggerAwareInterface
             $cmd[] = '--dry-run=1';
         }
 
+        return $this->createProcess($cmd);
+    }
+
+    /**
+     * @param array $cmd
+     * @return Process
+     */
+    protected function createProcess(array $cmd): Process
+    {
         return new Process(
             $cmd,
             null,
@@ -227,24 +237,6 @@ class CliDriver implements DriverInterface, LoggerAwareInterface
             null,
             $this->timeout
         );
-    }
-
-    /**
-     * @param  CommandInterface $command
-     * @param  array            $data
-     * @return string
-     */
-    private function prepareInput(CommandInterface $command, array $data): string
-    {
-        if (false === ($input = json_encode($data))) {
-            throw new CommandException(
-                $command,
-                sprintf('Json error: %s', json_last_error_msg()),
-                400
-            );
-        }
-
-        return (string)$input;
     }
 
     /**
@@ -330,14 +322,14 @@ class CliDriver implements DriverInterface, LoggerAwareInterface
      */
     protected function runProcess(CommandInterface $command, array $data, Process $process): RawResponse
     {
-        $preparedInputData = $this->prepareInput($command, $data);
+        $preparedInputData = (string)json_encode($data);
 
         $input = new InputStream();
         $process->setInput($input);
         $process->start();
 
         if (null !== $this->secret) {
-            $input->write("{$this->secret}\n");
+            $input->write("$this->secret\n");
         }
 
         $input->write($preparedInputData);
@@ -357,7 +349,7 @@ class CliDriver implements DriverInterface, LoggerAwareInterface
         try {
             $messages = $this->prepareOutput($command, $process->getOutput());
             $message = array_shift($messages);
-        } catch (\Exception $e) {
+        } catch (Throwable $e) {
             throw new CommandException(
                 $command,
                 sprintf("%s\n%s", $process->getOutput(), $process->getErrorOutput()),

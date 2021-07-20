@@ -23,8 +23,9 @@ namespace Adshares\Ads\Tests\Unit\Entity;
 
 use Adshares\Ads\Entity\EntityFactory;
 use Adshares\Ads\Exception\AdsException;
+use PHPUnit\Framework\TestCase;
 
-class EntityFactoryTest extends \PHPUnit\Framework\TestCase
+class EntityFactoryTest extends TestCase
 {
     public function testSetEntityMapException(): void
     {

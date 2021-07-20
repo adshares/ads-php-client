@@ -22,6 +22,8 @@
 namespace Adshares\Ads\Entity;
 
 use Adshares\Ads\Util\AdsConverter;
+use DateTime;
+use ReflectionClass;
 
 /**
  * Node from getBlock.
@@ -82,7 +84,7 @@ class Node extends AbstractEntity
     /**
      * Time of last message
      *
-     * @var \DateTime
+     * @var DateTime
      */
     protected $mtim;
 
@@ -164,9 +166,9 @@ class Node extends AbstractEntity
     }
 
     /**
-     * @return \DateTime Time of last message
+     * @return DateTime Time of last message
      */
-    public function getMtim(): \DateTime
+    public function getMtim(): DateTime
     {
         return $this->mtim;
     }
@@ -222,10 +224,10 @@ class Node extends AbstractEntity
     /**
      * @param  string                $name
      * @param  array|mixed           $value
-     * @param  \ReflectionClass|null $refClass
+     * @param  ReflectionClass|null $refClass
      * @return int|mixed
      */
-    protected static function castProperty(string $name, $value, \ReflectionClass $refClass = null)
+    protected static function castProperty(string $name, $value, ReflectionClass $refClass = null)
     {
         if ('balance' === $name) {
             return AdsConverter::adsToClicks($value);

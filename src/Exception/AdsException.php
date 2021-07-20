@@ -21,11 +21,13 @@
 
 namespace Adshares\Ads\Exception;
 
+use RuntimeException;
+
 /**
  * AdsException is base exception.
  *
  * @package Adshares\Ads\Exception
  */
-class AdsException extends \RuntimeException
+class AdsException extends RuntimeException
 {
 }

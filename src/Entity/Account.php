@@ -22,6 +22,8 @@
 namespace Adshares\Ads\Entity;
 
 use Adshares\Ads\Util\AdsConverter;
+use DateTime;
+use ReflectionClass;
 
 /**
  * Class Account
@@ -54,7 +56,7 @@ class Account extends AbstractEntity
     /**
      * Block time of an outgoing transaction request
      *
-     * @var \DateTime
+     * @var DateTime
      */
     protected $localChange;
 
@@ -96,7 +98,7 @@ class Account extends AbstractEntity
     /**
      * Block time of an incoming transaction from a remote host
      *
-     * @var \DateTime
+     * @var DateTime
      */
     protected $remoteChange;
 
@@ -110,7 +112,7 @@ class Account extends AbstractEntity
     /**
      * Time of last transaction
      *
-     * @var \DateTime
+     * @var DateTime
      */
     protected $time;
 
@@ -139,9 +141,9 @@ class Account extends AbstractEntity
     }
 
     /**
-     * @return \DateTime Block time of an outgoing transaction request
+     * @return DateTime Block time of an outgoing transaction request
      */
-    public function getLocalChange(): \DateTime
+    public function getLocalChange(): DateTime
     {
         return $this->localChange;
     }
@@ -203,9 +205,9 @@ class Account extends AbstractEntity
     }
 
     /**
-     * @return \DateTime Block time of an incoming transaction from a remote host
+     * @return DateTime Block time of an incoming transaction from a remote host
      */
-    public function getRemoteChange(): \DateTime
+    public function getRemoteChange(): DateTime
     {
         return $this->remoteChange;
     }
@@ -219,9 +221,9 @@ class Account extends AbstractEntity
     }
 
     /**
-     * @return \DateTime Time of last transaction
+     * @return DateTime Time of last transaction
      */
-    public function getTime(): \DateTime
+    public function getTime(): DateTime
     {
         return $this->time;
     }
@@ -237,10 +239,10 @@ class Account extends AbstractEntity
     /**
      * @param  string                $name
      * @param  array|mixed           $value
-     * @param  \ReflectionClass|null $refClass
+     * @param  ReflectionClass|null $refClass
      * @return int|mixed
      */
-    protected static function castProperty(string $name, $value, \ReflectionClass $refClass = null)
+    protected static function castProperty(string $name, $value, ?ReflectionClass $refClass = null)
     {
         if ('balance' === $name) {
             return AdsConverter::adsToClicks($value);

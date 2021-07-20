@@ -160,7 +160,6 @@ class EntityFactory
      */
     public static function createTransaction(array $data = [])
     {
-        $entity = null;
         switch ($data['type']) {
             case 'broadcast':
                 $entity = self::create('BroadcastTransaction', $data);

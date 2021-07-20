@@ -22,13 +22,13 @@
 namespace Adshares\Ads\Tests\Unit\Entity;
 
 use Adshares\Ads\Entity\EntityFactory;
-use Adshares\Ads\Entity\Tx;
+use DateTime;
+use PHPUnit\Framework\TestCase;
 
-class TxTest extends \PHPUnit\Framework\TestCase
+class TxTest extends TestCase
 {
     public function testCreateTxFromRawGetMe(): void
     {
-        /* @var Tx $tx */
         $tx = EntityFactory::createTx($this->getRawGetMe());
         $this->assertEquals('100100010000000100010000009CB1515B', $tx->getData());
         $this->assertEquals(
@@ -36,7 +36,7 @@ class TxTest extends \PHPUnit\Framework\TestCase
             . '5A1362B6BB0EADE83FC5F5D8D0EBD3ACDEB8DB62AE7E2220D8D7BE2862C2DF0E',
             $tx->getSignature()
         );
-        $time = new \DateTime();
+        $time = new DateTime();
         $time->setTimestamp(1532080540);
         $this->assertEquals($time, $tx->getTime());
 
@@ -52,7 +52,6 @@ class TxTest extends \PHPUnit\Framework\TestCase
 
     public function testCreateTxFromRawGetLog(): void
     {
-        /* @var Tx $tx */
         $tx = EntityFactory::createTx($this->getRawGetLog());
         $this->assertEquals('1114000500000000000000', $tx->getData());
         $this->assertEquals(
@@ -60,7 +59,7 @@ class TxTest extends \PHPUnit\Framework\TestCase
             . 'F17184F83133FE030727C88D407F8CB11F0C0283E59FDF0EECA2EDD2F98CFE01',
             $tx->getSignature()
         );
-        $time = new \DateTime();
+        $time = new DateTime();
         $time->setTimestamp(0);
         $this->assertEquals($time, $tx->getTime());
         $this->assertEquals(0, $tx->getAccountMsid());
@@ -82,7 +81,6 @@ class TxTest extends \PHPUnit\Framework\TestCase
 
     public function testCreateTxFromRawCreateAccount(): void
     {
-        /* @var Tx $tx */
         $tx = EntityFactory::createTx($this->getRawCreateAccount());
         $this->assertEquals(
             '06010000000000070000000688515B02000000000000000000'
@@ -94,7 +92,7 @@ class TxTest extends \PHPUnit\Framework\TestCase
             . '49BCBA9894DC296DE13E8F4D8FB94088061E6293BA9AAC955AAA395B5252605',
             $tx->getSignature()
         );
-        $time = new \DateTime();
+        $time = new DateTime();
         $time->setTimestamp(1532069894);
         $this->assertEquals($time, $tx->getTime());
         $this->assertEquals(7, $tx->getAccountMsid());

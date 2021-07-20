@@ -21,24 +21,24 @@
 
 namespace Adshares\Ads\Tests\Unit\Entity;
 
-use Adshares\Ads\Entity\Broadcast;
 use Adshares\Ads\Entity\EntityFactory;
+use DateTime;
+use PHPUnit\Framework\TestCase;
 
-class BroadcastTest extends \PHPUnit\Framework\TestCase
+class BroadcastTest extends TestCase
 {
     public function testCreateFromRow(): void
     {
-        /* @var Broadcast $broadcast */
         $broadcast = EntityFactory::createBroadcast($this->getRawData());
 
-        $blockTime = new \DateTime();
+        $blockTime = new DateTime();
         $blockTime->setTimestamp(1532100320);
         $this->assertEquals($blockTime, $broadcast->getBlockTime());
         $this->assertEquals('0001-00000000-9B6F', $broadcast->getAddress());
         $this->assertEquals(1, $broadcast->getAccountMsid());
         $this->assertEquals(1, $broadcast->getNode());
         $this->assertEquals('0001', $broadcast->getNodeId());
-        $time = new \DateTime();
+        $time = new DateTime();
         $time->setTimestamp(1532100323);
         $this->assertEquals($time, $broadcast->getTime());
         $this->assertEquals('0301000000000001000000E3FE515B0100', $broadcast->getData());

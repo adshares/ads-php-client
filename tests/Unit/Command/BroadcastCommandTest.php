@@ -22,8 +22,9 @@
 namespace Adshares\Ads\Tests\Unit\Command;
 
 use Adshares\Ads\Command\BroadcastCommand;
+use PHPUnit\Framework\TestCase;
 
-class BroadcastCommandTest extends \PHPUnit\Framework\TestCase
+class BroadcastCommandTest extends TestCase
 {
     public function testBroadcastCommand(): void
     {

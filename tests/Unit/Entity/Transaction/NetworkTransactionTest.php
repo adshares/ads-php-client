@@ -23,8 +23,10 @@ namespace Adshares\Ads\Tests\Unit\Entity\Transaction;
 
 use Adshares\Ads\Entity\EntityFactory;
 use Adshares\Ads\Entity\Transaction\NetworkTransaction;
+use DateTime;
+use PHPUnit\Framework\TestCase;
 
-class NetworkTransactionTest extends \PHPUnit\Framework\TestCase
+class NetworkTransactionTest extends TestCase
 {
     public function testCreateAccountFromRaw(): void
     {
@@ -37,7 +39,7 @@ class NetworkTransactionTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(0, $transaction->getUser());
         $this->assertEquals(976, $transaction->getMsgId());
         $this->assertEquals('0001-00000000-9B6F', $transaction->getSenderAddress());
-        $date = new \DateTime();
+        $date = new DateTime();
         $date->setTimestamp(1531495703);
         $this->assertEquals($date, $transaction->getTime());
         $this->assertNull($transaction->getTargetAddress());
@@ -62,7 +64,7 @@ class NetworkTransactionTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(0, $transaction->getUser());
         $this->assertEquals(1, $transaction->getMsgId());
         $this->assertEquals('0001-00000000-9B6F', $transaction->getSenderAddress());
-        $date = new \DateTime();
+        $date = new DateTime();
         $date->setTimestamp(1531496775);
         $this->assertEquals($date, $transaction->getTime());
         $this->assertNull($transaction->getTargetAddress());
@@ -87,7 +89,7 @@ class NetworkTransactionTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(0, $transaction->getUser());
         $this->assertEquals(1003, $transaction->getMsgId());
         $this->assertEquals('0001-00000000-9B6F', $transaction->getSenderAddress());
-        $date = new \DateTime();
+        $date = new DateTime();
         $date->setTimestamp(1531495739);
         $this->assertEquals($date, $transaction->getTime());
         $this->assertEquals('0002-00000001-659C', $transaction->getTargetAddress());

@@ -23,8 +23,9 @@ namespace Adshares\Ads\Tests\Unit\Exception;
 
 use Adshares\Ads\Command\GetMeCommand;
 use Adshares\Ads\Exception\CommandException;
+use PHPUnit\Framework\TestCase;
 
-class CommandExceptionTest extends \PHPUnit\Framework\TestCase
+class CommandExceptionTest extends TestCase
 {
     public function testCommandException()
     {

@@ -23,8 +23,9 @@ namespace Adshares\Ads\Tests\Unit\Entity\Transaction;
 
 use Adshares\Ads\Entity\EntityFactory;
 use Adshares\Ads\Entity\Transaction\SendManyTransaction;
+use PHPUnit\Framework\TestCase;
 
-class SendManyTransactionWireTest extends \PHPUnit\Framework\TestCase
+class SendManyTransactionWireTest extends TestCase
 {
     public function testSendManyWiresFromRaw(): void
     {
@@ -32,7 +33,6 @@ class SendManyTransactionWireTest extends \PHPUnit\Framework\TestCase
         $transaction = EntityFactory::createTransaction($this->getRawSendMany());
 
         $wires = $transaction->getWires();
-        /* @var \Adshares\Ads\Entity\Transaction\SendManyTransactionWire $wire */
         $wire = $wires[0];
         $this->assertEquals(1, $wire->getTargetNode());
         $this->assertEquals(1, $wire->getTargetUser());

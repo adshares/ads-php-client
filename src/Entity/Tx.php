@@ -22,6 +22,8 @@
 namespace Adshares\Ads\Entity;
 
 use Adshares\Ads\Util\AdsConverter;
+use DateTime;
+use ReflectionClass;
 
 /**
  * Tx is common element of response.
@@ -107,7 +109,7 @@ class Tx extends AbstractEntity
     protected $signature;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      */
     protected $time;
 
@@ -193,9 +195,9 @@ class Tx extends AbstractEntity
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
-    public function getTime(): \DateTime
+    public function getTime(): DateTime
     {
         return $this->time;
     }
@@ -203,10 +205,10 @@ class Tx extends AbstractEntity
     /**
      * @param  string                $name
      * @param  array|mixed           $value
-     * @param  \ReflectionClass|null $refClass
+     * @param  ReflectionClass|null $refClass
      * @return int|mixed
      */
-    protected static function castProperty(string $name, $value, \ReflectionClass $refClass = null)
+    protected static function castProperty(string $name, $value, ReflectionClass $refClass = null)
     {
         if (in_array($name, self::MONEY_FIELDS)) {
             return AdsConverter::adsToClicks($value);

@@ -22,6 +22,8 @@
 namespace Adshares\Ads\Entity;
 
 use Adshares\Ads\Util\AdsConverter;
+use DateTime;
+use ReflectionClass;
 
 /**
  * Block from getBlockResponse
@@ -110,7 +112,7 @@ class Block extends AbstractEntity
     /**
      * Block time
      *
-     * @var \DateTime
+     * @var DateTime
      */
     protected $time;
 
@@ -231,9 +233,9 @@ class Block extends AbstractEntity
     }
 
     /**
-     * @return \DateTime Block time
+     * @return DateTime Block time
      */
-    public function getTime(): \DateTime
+    public function getTime(): DateTime
     {
         return $this->time;
     }
@@ -273,10 +275,10 @@ class Block extends AbstractEntity
     /**
      * @param  string                $name
      * @param  array|mixed           $value
-     * @param  \ReflectionClass|null $refClass
+     * @param  ReflectionClass|null $refClass
      * @return int|mixed
      */
-    protected static function castProperty(string $name, $value, \ReflectionClass $refClass = null)
+    protected static function castProperty(string $name, $value, ?ReflectionClass $refClass = null)
     {
         if ('dividendBalance' === $name) {
             return AdsConverter::adsToClicks($value);

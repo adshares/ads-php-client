@@ -24,13 +24,15 @@ namespace Adshares\Ads\Tests\Unit\Response;
 use Adshares\Ads\Entity\Tx;
 use Adshares\Ads\Response\GetMessageIdsResponse;
 use Adshares\Ads\Tests\Unit\Raw;
+use DateTime;
+use PHPUnit\Framework\TestCase;
 
-class GetMessageIdsResponseTest extends \PHPUnit\Framework\TestCase
+class GetMessageIdsResponseTest extends TestCase
 {
     public function testGetMessageIdsFromRaw()
     {
         $response = new GetMessageIdsResponse($this->getRawData());
-        $time = new \DateTime();
+        $time = new DateTime();
         $time->setTimestamp(1532077312);
         $this->assertEquals($time, $response->getCurrentBlockTime());
         $time->setTimestamp(1532077280);
@@ -45,7 +47,7 @@ class GetMessageIdsResponseTest extends \PHPUnit\Framework\TestCase
     public function testGetMessageIdsFromRawEmpty()
     {
         $response = new GetMessageIdsResponse($this->getRawDataEmpty());
-        $time = new \DateTime();
+        $time = new DateTime();
         $time->setTimestamp(1532077216);
         $this->assertEquals($time, $response->getCurrentBlockTime());
         $time->setTimestamp(1532077184);

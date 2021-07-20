@@ -23,12 +23,13 @@ namespace Adshares\Ads\Tests\Unit\Entity;
 
 use Adshares\Ads\Entity\EntityFactory;
 use Adshares\Ads\Entity\Node;
+use DateTime;
+use PHPUnit\Framework\TestCase;
 
-class NodeTest extends \PHPUnit\Framework\TestCase
+class NodeTest extends TestCase
 {
     public function testCreateFromRow(): void
     {
-        /* @var Node $node */
         $node = EntityFactory::createNode($this->getRawData());
 
         $this->assertInstanceOf(Node::class, $node);
@@ -40,7 +41,7 @@ class NodeTest extends \PHPUnit\Framework\TestCase
             $node->getMessageHash()
         );
         $this->assertEquals(8, $node->getMsid());
-        $this->assertEquals(new \DateTime('@1530535574'), $node->getMtim());
+        $this->assertEquals(new DateTime('@1530535574'), $node->getMtim());
         $this->assertEquals(254152169691701433, $node->getBalance());
         $this->assertEquals(6, $node->getStatus());
         $this->assertEquals(false, $node->isStatusDeleted());

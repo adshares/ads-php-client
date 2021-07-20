@@ -26,13 +26,15 @@ use Adshares\Ads\Entity\Transaction\AbstractTransaction;
 use Adshares\Ads\Entity\Tx;
 use Adshares\Ads\Response\GetTransactionResponse;
 use Adshares\Ads\Tests\Unit\Raw;
+use DateTime;
+use PHPUnit\Framework\TestCase;
 
-class GetTransactionResponseTest extends \PHPUnit\Framework\TestCase
+class GetTransactionResponseTest extends TestCase
 {
     public function testGetTransactionFromRaw()
     {
         $response = new GetTransactionResponse($this->getRawData());
-        $time = new \DateTime();
+        $time = new DateTime();
         $time->setTimestamp(1532347520);
         $this->assertEquals($time, $response->getCurrentBlockTime());
         $time->setTimestamp(1532347488);

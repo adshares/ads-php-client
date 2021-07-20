@@ -22,6 +22,7 @@
 namespace Adshares\Ads\Entity;
 
 use DateTime;
+use Exception;
 use ReflectionClass;
 use ReflectionException;
 
@@ -71,12 +72,17 @@ abstract class AbstractEntity implements EntityInterface
             case 'string':
                 break;
             case '\DateTime':
+            case 'DateTime':
                 if (is_numeric($value)) { // unix timestamp
                     $date = new DateTime();
                     $date->setTimestamp((int)$value);
                     $value = $date;
                 } else {
-                    $value = new DateTime($value);
+                    try {
+                        $value = new DateTime($value);
+                    } catch (Exception $exception) {
+                        $value = null;
+                    }
                 }
                 break;
             default:
@@ -107,15 +113,9 @@ abstract class AbstractEntity implements EntityInterface
             }
             if (class_exists($type)) {
                 $interfaces = class_implements($type);
-
                 if (isset($interfaces['Adshares\Ads\Entity\EntityInterface'])) {
-                    try {
-                        /* @var $type EntityInterface */
-                        $value = EntityFactory::create((new ReflectionClass($type))->getShortName(), $value);
-                    } catch (ReflectionException $e) {
-                        // $value will not be overwritten
-                        // Ignore
-                    }
+                    /* @var $type EntityInterface */
+                    $value = EntityFactory::create((new ReflectionClass($type))->getShortName(), $value);
                 }
             }
         }
@@ -129,10 +129,13 @@ abstract class AbstractEntity implements EntityInterface
      * @param  ReflectionClass|null $refClass
      * @return int|mixed
      */
-    protected static function castProperty(string $name, $value, ReflectionClass $refClass = null)
+    protected static function castProperty(string $name, $value, ?ReflectionClass $refClass = null)
     {
         if (null !== $refClass) {
-            $comment = $refClass->getProperty($name)->getDocComment();
+            $comment = '';
+            if ($refClass->hasProperty($name)) {
+                $comment = $refClass->getProperty($name)->getDocComment();
+            }
             $matches = [];
             if (preg_match('/@var\s+([^\s]+)/', (string)$comment, $matches)) {
                 $types = explode('|', $matches[1]);
@@ -152,12 +155,7 @@ abstract class AbstractEntity implements EntityInterface
      */
     public function fillWithRawData(array $data): void
     {
-        try {
-            $refClass = new ReflectionClass($this);
-        } catch (ReflectionException $e) {
-            $refClass = null;
-        }
-
+        $refClass = new ReflectionClass($this);
         foreach ($data as $key => $value) {
             $name = self::toCamelCase($key);
 

@@ -23,8 +23,9 @@ namespace Adshares\Ads\Tests\Unit\Entity\Transaction;
 
 use Adshares\Ads\Entity\EntityFactory;
 use Adshares\Ads\Entity\Transaction\ConnectionTransaction;
+use PHPUnit\Framework\TestCase;
 
-class ConnectionTransactionTest extends \PHPUnit\Framework\TestCase
+class ConnectionTransactionTest extends TestCase
 {
     public function testConnectionFromRaw(): void
     {

@@ -31,7 +31,7 @@ class GetBroadcastCommand extends AbstractCommand
     /**
      * @param null|string $blockId
      */
-    public function __construct($blockId)
+    public function __construct(?string $blockId = null)
     {
         $this->blockId = $blockId;
     }

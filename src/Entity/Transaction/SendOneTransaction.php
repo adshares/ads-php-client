@@ -22,6 +22,8 @@
 namespace Adshares\Ads\Entity\Transaction;
 
 use Adshares\Ads\Util\AdsConverter;
+use DateTime;
+use ReflectionClass;
 
 /**
  * Transaction type=<'send_one'>.
@@ -81,7 +83,7 @@ class SendOneTransaction extends AbstractTransaction
     protected $targetUser;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      */
     protected $time;
 
@@ -171,9 +173,9 @@ class SendOneTransaction extends AbstractTransaction
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
-    public function getTime(): \DateTime
+    public function getTime(): DateTime
     {
         return $this->time;
     }
@@ -197,10 +199,10 @@ class SendOneTransaction extends AbstractTransaction
     /**
      * @param  string                $name
      * @param  array|mixed           $value
-     * @param  \ReflectionClass|null $refClass
+     * @param  ReflectionClass|null $refClass
      * @return int|mixed
      */
-    protected static function castProperty(string $name, $value, \ReflectionClass $refClass = null)
+    protected static function castProperty(string $name, $value, ReflectionClass $refClass = null)
     {
         switch ($name) {
             case 'amount':

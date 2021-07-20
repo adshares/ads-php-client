@@ -21,6 +21,8 @@
 
 namespace Adshares\Ads\Entity;
 
+use DateTime;
+
 /**
  * Message from getMessage response.
  *
@@ -64,7 +66,7 @@ class Message extends AbstractEntity
     protected $node;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      */
     protected $time;
 
@@ -109,9 +111,9 @@ class Message extends AbstractEntity
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
-    public function getTime(): \DateTime
+    public function getTime(): DateTime
     {
         return $this->time;
     }

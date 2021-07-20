@@ -22,8 +22,9 @@
 namespace Adshares\Ads\Tests\Unit\Command;
 
 use Adshares\Ads\Command\CreateAccountCommand;
+use PHPUnit\Framework\TestCase;
 
-class CreateAccountCommandTest extends \PHPUnit\Framework\TestCase
+class CreateAccountCommandTest extends TestCase
 {
     public function testCreateAccountCommand(): void
     {

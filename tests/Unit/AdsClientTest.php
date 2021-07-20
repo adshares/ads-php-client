@@ -30,9 +30,13 @@ use Adshares\Ads\Command\SendOneCommand;
 use Adshares\Ads\Driver\CliDriver;
 use Adshares\Ads\Entity\Broadcast;
 use Adshares\Ads\Tests\Unit\Entity\ExtendedAccount;
+use DateTime;
+use PHPUnit\Framework\MockObject\Stub\ConsecutiveCalls;
+use PHPUnit\Framework\TestCase;
+use RuntimeException;
 use Symfony\Component\Process\Process;
 
-class AdsClientTest extends \PHPUnit\Framework\TestCase
+class AdsClientTest extends TestCase
 {
     private $address = '0001-00000000-9B6F';
     private $secret = 'BB3425F914CA9F661CA6F3B908E07092B5AFB7F2FDAE2E94EDE12C83207CA743';
@@ -101,8 +105,8 @@ class AdsClientTest extends \PHPUnit\Framework\TestCase
         $command->setLastHash('35CABB3B28BA322AE62063024917293549FD6D42BF7ADCC933584F1585025D97');
         $response = $client->runTransaction($command);
         $this->assertEquals('0001-00000000-9B6F', $response->getAccount()->getAddress());
-        $this->assertEquals(new \DateTime('@1536734240'), $response->getCurrentBlockTime());
-        $this->assertEquals(new \DateTime('@1536734208'), $response->getPreviousBlockTime());
+        $this->assertEquals(new DateTime('@1536734240'), $response->getCurrentBlockTime());
+        $this->assertEquals(new DateTime('@1536734208'), $response->getPreviousBlockTime());
         $this->assertEquals('0001:00000015:0001', $response->getTx()->getId());
     }
 
@@ -150,7 +154,7 @@ class AdsClientTest extends \PHPUnit\Framework\TestCase
     public function testGetLog()
     {
         $client = $this->createAdsClient(0, $this->stripNewLine(Raw::getLog()));
-        $from = new \DateTime();
+        $from = new DateTime();
         $from->setTimestamp(1);
         $response = $client->getLog($from);
         $account = $response->getAccount();
@@ -238,7 +242,7 @@ class AdsClientTest extends \PHPUnit\Framework\TestCase
             'DABDDABFC25B0C76E33C0E6285F09695EE0193D10DBBC3F2CA39E8183603D7BDC5'
             . 'F62C14FF60A2EFCC23784F7FA380C6F38A2AD6B7DFB95FA2DCA9BA76D04503'
         );
-        $command->setTimestamp((new \DateTime())->getTimestamp());
+        $command->setTimestamp((new DateTime())->getTimestamp());
         $response = $client->runTransaction($command);
         $this->assertNotNull($response->getTx()->getId());
         $this->assertEquals($this->address, $response->getAccount()->getAddress());
@@ -302,7 +306,7 @@ class AdsClientTest extends \PHPUnit\Framework\TestCase
         $process = $this->createMock(Process::class);
         $process->method('getExitCode')->willReturn($processExitCode);
         if (is_array($processOutput)) {
-            $stub = new \PHPUnit\Framework\MockObject\Stub\ConsecutiveCalls($processOutput);
+            $stub = new ConsecutiveCalls($processOutput);
         } else {
             $stub = $this->onConsecutiveCalls($processOutput);
         }
@@ -317,7 +321,7 @@ class AdsClientTest extends \PHPUnit\Framework\TestCase
         if ($driver instanceof CliDriver) {
             $client = new AdsClient($driver);
         } else {
-            throw new \RuntimeException();
+            throw new RuntimeException();
         }
 
         return $client;

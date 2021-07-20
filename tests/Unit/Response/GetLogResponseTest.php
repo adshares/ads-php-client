@@ -25,16 +25,17 @@ use Adshares\Ads\Entity\Account;
 use Adshares\Ads\Entity\Tx;
 use Adshares\Ads\Response\GetLogResponse;
 use Adshares\Ads\Tests\Unit\Raw;
+use DateTime;
+use PHPUnit\Framework\TestCase;
 
-class GetLogResponseTest extends \PHPUnit\Framework\TestCase
+class GetLogResponseTest extends TestCase
 {
     public function testGetLogFromRaw()
     {
         $rawDataArray = $this->getRawDataArray();
         foreach ($rawDataArray as $rawData) {
-            /* @var GetLogResponse $response */
             $response = new GetLogResponse($rawData);
-            $time = new \DateTime();
+            $time = new DateTime();
             $time->setTimestamp(1539173408);
             $this->assertEquals($time, $response->getCurrentBlockTime());
             $time->setTimestamp(1539173376);
@@ -42,7 +43,7 @@ class GetLogResponseTest extends \PHPUnit\Framework\TestCase
 
             $this->assertInstanceOf(Tx::class, $response->getTx());
             $this->assertInstanceOf(Account::class, $response->getAccount());
-            $this->assertInternalType('array', $response->getLog());
+            $this->assertIsArray($response->getLog());
         }
     }
 

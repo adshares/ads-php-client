@@ -23,6 +23,7 @@ namespace Adshares\Ads\Entity\Transaction;
 
 use Adshares\Ads\Entity\AbstractEntity;
 use Adshares\Ads\Util\AdsConverter;
+use ReflectionClass;
 
 /**
  * @package Adshares\Ads\Entity\Transaction
@@ -92,10 +93,10 @@ class SendManyTransactionWire extends AbstractEntity
     /**
      * @param  string                $name
      * @param  array|mixed           $value
-     * @param  \ReflectionClass|null $refClass
+     * @param  ReflectionClass|null $refClass
      * @return int|mixed
      */
-    protected static function castProperty(string $name, $value, \ReflectionClass $refClass = null)
+    protected static function castProperty(string $name, $value, ReflectionClass $refClass = null)
     {
         if ('amount' === $name) {
             return AdsConverter::adsToClicks($value);

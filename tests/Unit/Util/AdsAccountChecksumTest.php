@@ -22,8 +22,9 @@
 namespace Adshares\Ads\Tests\Unit\Util;
 
 use Adshares\Ads\Util\AdsChecksumGenerator;
+use PHPUnit\Framework\TestCase;
 
-class AdsAccountChecksumTest extends \PHPUnit\Framework\TestCase
+class AdsAccountChecksumTest extends TestCase
 {
     public function testAccountChecksum()
     {
