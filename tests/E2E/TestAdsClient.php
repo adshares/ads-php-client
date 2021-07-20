@@ -54,6 +54,6 @@ class TestAdsClient extends AdsClient
     private static function getenv(string $name): ?string
     {
         $value = getenv($name);
-        return $value === false ? null : $name;
+        return $value === false ? null : $value;
     }
 }

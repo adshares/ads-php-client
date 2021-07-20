@@ -298,11 +298,8 @@ class CliDriverTest extends TestCase
             ->setMethods(['createProcess'])
             ->getMock();
         $driver->method('createProcess')->willReturn($process);
-
-        if ($driver instanceof CliDriver) {
-            return $driver;
-        }
-        throw new RuntimeException();
+        /** @var CliDriver $driver */
+        return $driver;
     }
 
     /**
@@ -320,10 +317,7 @@ class CliDriverTest extends TestCase
             $stub = $this->onConsecutiveCalls($processOutput);
         }
         $process->method('getOutput')->will($stub);
-
-        if ($process instanceof Process) {
-            return $process;
-        }
-        throw new RuntimeException();
+        /** @var Process<string> $process */
+        return $process;
     }
 }
