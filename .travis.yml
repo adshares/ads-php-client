@@ -4,7 +4,8 @@ sudo: false
 
 # PHP version
 php:
-  - 7.2
+  - 7.4
+  - 8.0
 
 # Cache composer packages so "composer install" is faster
 cache:
@@ -26,27 +27,13 @@ install:
 
 script:
   # SensioLabs Security Checker: checks security issues
-  - ./vendor/bin/security-checker security:check
-  # PHP Lint: check syntax errors in all PHP files
-  - ./vendor/bin/parallel-lint --no-colors --blame --exclude vendor .
-  # PHP_CodeSniffer: check PHP compatibility
-  - ./vendor/bin/phpcs -s --standard=PHPCompatibility src tests
-  # PHP_CodeSniffer: check PSR2 standard
-  - ./vendor/bin/phpcs -s --standard=PSR2 src tests
-  # PHP Static Analysis Tool
-  - ./vendor/bin/phpstan --no-ansi --no-progress analyse -c phpstan.neon -l 7 src tests
+  - wget -c https://github.com/fabpot/local-php-security-checker/releases/download/v1.0.0/local-php-security-checker_1.0.0_linux_amd64 -O local-php-security-checker && chmod +x local-php-security-checker
+  - ./local-php-security-checker
+  # QA check
+  - composer qa-check
   # PHP unit tests
   - alias php='php -dzend_extension=xdebug.so'
   - alias phpunit='php ./vendor/bin/phpunit'
   - phpunit --testsuit Unit
   # SonarQube
   - sonar-scanner
-
-# After a build, send email notification with the build results
-notifications:
-  email: false
-  slack:
-    rooms:
-      secure: "bcZ/6zIfZ4D68+8Tdg4PEXy1nM4Yto+JNdcaYCTkTefpuBbu5hAoGtETpLbSZpg/xfONtOp8NDvxTKCjnsRR+DHHWbxYTszlZxgp0d8ir7TAwuCsqbOwJZFckfuN6OqORbBEfQpeFKujf1m39X+MFCECjGFgB5vujC3MiHrlsfT/bwgcBQ6ROhxX2d0oAtMsAW+GqQjKiwqoxr+eC3YPLh7r/+0XS7H6nFo/dJmrYpAupRVG/H3QgXOcIpYUR5RtB1YM+ZGQ20fQnrqgppFPJM2LRnDoGUrjd5N9LOg0QL+0LuydocH5iwKhPi5FGUq+6PH0IqmXCgNHKxbmPiPXhbT8EScSHJaLdUprmYZJ6Y47vrsJGP0mb3xmNKPnKveqOWF061hE7ugLYb5m4dOla+2IZzYjqBYQd8P55ENp4MR4NamJnbAJZQxhhNqGnVWf0lz83JBQUFxkbREqwj5ogNK/hpg4KH1ZJSPprZz34OzF5GOlvb10n1lRLSZm8Up2EFGh/L9mx0S0m6JL//rLoP+yi2Kdq6ZBKEzPu+PLRiAwYUyZ+oiWFAf9pNDcwbzKJZOe/u8GvA5Mye0QmrfCAnvTnUJNduNynn9Spg3omRZMreY8IuuQegz1N0xMu97YXkJuL8cUzFL9TlnJBWygIUFISP72JakBvM2o73KipDc="
-    on_success: change
-    on_failure: always
