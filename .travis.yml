@@ -33,8 +33,6 @@ script:
   # QA check
   - composer qa-check
   # PHP unit tests
-  - alias php='php -dzend_extension=xdebug.so -dxdebug.mode=coverage'
-  - alias phpunit='php ./vendor/bin/phpunit --log-junit=.phpunit.logfile.xml --coverage-clover=.phpunit.coverage.xml'
-  - phpunit --testsuit Unit
+  - php -dzend_extension=xdebug.so -dxdebug.mode=coverage ./vendor/bin/phpunit --log-junit=.phpunit.logfile.xml --coverage-clover=.phpunit.coverage.xml --testsuit Unit
   # SonarQube
   - sonar-scanner
