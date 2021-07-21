@@ -1,10 +1,10 @@
 # build
 vendor/
-bin/
 # IDE
 .idea/
 # QA
 phpunit.xml
 phpcs.xml
-var/
 .scannerwork/
+.phpcs-cache
+.phpunit.*
