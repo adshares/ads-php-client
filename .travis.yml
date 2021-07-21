@@ -24,6 +24,7 @@ addons:
 install:
   - composer install --no-ansi --no-scripts --no-interaction --no-progress --no-suggest
   - composer run-script install-codestandards
+  - mkdir var
 
 script:
   # SensioLabs Security Checker: checks security issues

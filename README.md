@@ -23,7 +23,7 @@ This library depends on [Symfony Process](http://symfony.com/doc/current/compone
 [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=adshares-ads-php-client&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=adshares-ads-php-client)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=adshares-ads-php-client&metric=security_rating)](https://sonarcloud.io/dashboard?id=adshares-ads-php-client)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=adshares-ads-php-client&metric=coverage)](https://sonarcloud.io/dashboard?id=adshares-ads-php-client)
-[![Build Status](https://travis-ci.org/adshares/ads-php-client.svg?branch=master)](https://travis-ci.org/adshares/ads-php-client)
+[![Build Status](https://travis-ci.com/adshares/ads-php-client.svg?branch=master)](https://travis-ci.com/adshares/ads-php-client.svg)
 
 
 ## Getting Started
