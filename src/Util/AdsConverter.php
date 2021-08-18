@@ -21,6 +21,8 @@
 
 namespace Adshares\Ads\Util;
 
+use Adshares\Ads\Exception\AdsException;
+
 /**
  * AdsConverter is utility class to convert ADS currency.
  *
@@ -28,6 +30,8 @@ namespace Adshares\Ads\Util;
  */
 class AdsConverter
 {
+    public const TOTAL_SUPPLY = 3875820600000000000;
+
     /**
      * Converts Ads to clicks.
      *
@@ -36,15 +40,22 @@ class AdsConverter
      */
     public static function adsToClicks($amount): int
     {
-        $amountAsString = (string)$amount;
+        $amountAsString = is_string($amount) ? $amount : sprintf('%.12f', $amount);
+        if (!is_numeric($amount) || !preg_match('/^-?[0-9]+(\.[0-9]+)?$/', $amountAsString)) {
+            throw new AdsException(sprintf('Invalid ADS amount "%s"', $amount));
+        }
         if (strpos($amountAsString, '.') !== false) {
             $ar = explode('.', $amountAsString);
-            $ar[1] = str_pad($ar[1], 11, '0');
+            $ar[1] = str_pad(substr($ar[1], 0, 11), 11, '0');
             $amountAsString = implode($ar);
         } else {
             $amountAsString = $amountAsString . '00000000000';
         }
-        return (int)$amountAsString;
+        $clicks = (int)$amountAsString;
+        if ($clicks > self::TOTAL_SUPPLY || $clicks < -self::TOTAL_SUPPLY) {
+            throw new AdsException(sprintf('The amount "%s" exceeds total ADS amount', $amount));
+        }
+        return $clicks;
     }
 
     /**
