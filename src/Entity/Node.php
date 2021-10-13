@@ -22,7 +22,7 @@
 namespace Adshares\Ads\Entity;
 
 use Adshares\Ads\Util\AdsConverter;
-use DateTime;
+use DateTimeInterface;
 use ReflectionClass;
 
 /**
@@ -84,7 +84,7 @@ class Node extends AbstractEntity
     /**
      * Time of last message
      *
-     * @var DateTime
+     * @var DateTimeInterface
      */
     protected $mtim;
 
@@ -166,9 +166,9 @@ class Node extends AbstractEntity
     }
 
     /**
-     * @return DateTime Time of last message
+     * @return DateTimeInterface Time of last message
      */
-    public function getMtim(): DateTime
+    public function getMtim(): DateTimeInterface
     {
         return $this->mtim;
     }

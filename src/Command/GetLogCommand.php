@@ -21,20 +21,20 @@
 
 namespace Adshares\Ads\Command;
 
-use DateTime;
+use DateTimeInterface;
 
 class GetLogCommand extends AbstractCommand
 {
     /**
-     * @var null|DateTime
+     * @var null|DateTimeInterface
      */
     private $from;
 
     /**
      *
-     * @param null|DateTime $from start date of event log
+     * @param null|DateTimeInterface $from start date of event log
      */
-    public function __construct(?DateTime $from)
+    public function __construct(?DateTimeInterface $from)
     {
         $this->from = $from;
     }

@@ -22,7 +22,7 @@
 namespace Adshares\Ads\Entity;
 
 use Adshares\Ads\Util\AdsConverter;
-use DateTime;
+use DateTimeInterface;
 use ReflectionClass;
 
 /**
@@ -109,7 +109,7 @@ class Tx extends AbstractEntity
     protected $signature;
 
     /**
-     * @var DateTime
+     * @var DateTimeInterface
      */
     protected $time;
 
@@ -195,9 +195,9 @@ class Tx extends AbstractEntity
     }
 
     /**
-     * @return DateTime
+     * @return DateTimeInterface
      */
-    public function getTime(): DateTime
+    public function getTime(): DateTimeInterface
     {
         return $this->time;
     }

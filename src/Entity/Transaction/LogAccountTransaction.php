@@ -22,7 +22,7 @@
 namespace Adshares\Ads\Entity\Transaction;
 
 use Adshares\Ads\Entity\Account;
-use DateTime;
+use DateTimeInterface;
 
 /**
  * Transaction type=<'log_account'>.
@@ -54,7 +54,7 @@ class LogAccountTransaction extends AbstractTransaction
     protected $signature;
 
     /**
-     * @var DateTime
+     * @var DateTimeInterface
      */
     protected $time;
 
@@ -96,9 +96,9 @@ class LogAccountTransaction extends AbstractTransaction
     }
 
     /**
-     * @return DateTime
+     * @return DateTimeInterface
      */
-    public function getTime(): DateTime
+    public function getTime(): DateTimeInterface
     {
         return $this->time;
     }

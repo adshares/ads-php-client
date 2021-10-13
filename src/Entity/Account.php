@@ -22,7 +22,7 @@
 namespace Adshares\Ads\Entity;
 
 use Adshares\Ads\Util\AdsConverter;
-use DateTime;
+use DateTimeInterface;
 use ReflectionClass;
 
 /**
@@ -56,7 +56,7 @@ class Account extends AbstractEntity
     /**
      * Block time of an outgoing transaction request
      *
-     * @var DateTime
+     * @var DateTimeInterface
      */
     protected $localChange;
 
@@ -98,7 +98,7 @@ class Account extends AbstractEntity
     /**
      * Block time of an incoming transaction from a remote host
      *
-     * @var DateTime
+     * @var DateTimeInterface
      */
     protected $remoteChange;
 
@@ -112,7 +112,7 @@ class Account extends AbstractEntity
     /**
      * Time of last transaction
      *
-     * @var DateTime
+     * @var DateTimeInterface
      */
     protected $time;
 
@@ -141,9 +141,9 @@ class Account extends AbstractEntity
     }
 
     /**
-     * @return DateTime Block time of an outgoing transaction request
+     * @return DateTimeInterface Block time of an outgoing transaction request
      */
-    public function getLocalChange(): DateTime
+    public function getLocalChange(): DateTimeInterface
     {
         return $this->localChange;
     }
@@ -205,9 +205,9 @@ class Account extends AbstractEntity
     }
 
     /**
-     * @return DateTime Block time of an incoming transaction from a remote host
+     * @return DateTimeInterface Block time of an incoming transaction from a remote host
      */
-    public function getRemoteChange(): DateTime
+    public function getRemoteChange(): DateTimeInterface
     {
         return $this->remoteChange;
     }
@@ -221,9 +221,9 @@ class Account extends AbstractEntity
     }
 
     /**
-     * @return DateTime Time of last transaction
+     * @return DateTimeInterface Time of last transaction
      */
-    public function getTime(): DateTime
+    public function getTime(): DateTimeInterface
     {
         return $this->time;
     }

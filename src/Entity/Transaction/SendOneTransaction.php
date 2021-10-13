@@ -22,7 +22,7 @@
 namespace Adshares\Ads\Entity\Transaction;
 
 use Adshares\Ads\Util\AdsConverter;
-use DateTime;
+use DateTimeInterface;
 use ReflectionClass;
 
 /**
@@ -83,7 +83,7 @@ class SendOneTransaction extends AbstractTransaction
     protected $targetUser;
 
     /**
-     * @var DateTime
+     * @var DateTimeInterface
      */
     protected $time;
 
@@ -173,9 +173,9 @@ class SendOneTransaction extends AbstractTransaction
     }
 
     /**
-     * @return DateTime
+     * @return DateTimeInterface
      */
-    public function getTime(): DateTime
+    public function getTime(): DateTimeInterface
     {
         return $this->time;
     }
