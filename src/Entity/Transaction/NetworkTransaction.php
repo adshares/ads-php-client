@@ -21,7 +21,7 @@
 
 namespace Adshares\Ads\Entity\Transaction;
 
-use DateTime;
+use DateTimeInterface;
 
 /**
  * Transaction type=<'create_account', 'create_node', 'retrieve_funds'>.
@@ -59,7 +59,7 @@ class NetworkTransaction extends AbstractTransaction
     protected $targetUser;
 
     /**
-     * @var DateTime
+     * @var DateTimeInterface
      */
     protected $time;
 
@@ -117,9 +117,9 @@ class NetworkTransaction extends AbstractTransaction
     }
 
     /**
-     * @return DateTime
+     * @return DateTimeInterface
      */
-    public function getTime(): DateTime
+    public function getTime(): DateTimeInterface
     {
         return $this->time;
     }

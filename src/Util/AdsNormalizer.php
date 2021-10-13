@@ -40,7 +40,13 @@ class AdsNormalizer
         if (strlen($x) != 16) {
             throw new AdsException('Invalid address');
         }
-        return sprintf("%s-%s-%s", substr($x, 0, 4), substr($x, 4, 8), substr($x, 12, 4));
+        $nodeId = substr($x, 0, 4);
+        $userId = substr($x, 4, 8);
+        $checksum = substr($x, 12, 4);
+        if ('XXXX' === $checksum) {
+            $checksum = AdsChecksumGenerator::getAccountChecksum((int)hexdec($nodeId), (int)hexdec($userId));
+        }
+        return sprintf("%s-%s-%s", $nodeId, $userId, $checksum);
     }
 
     /**

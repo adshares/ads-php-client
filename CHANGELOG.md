@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.3] - 2021-10-13
+### Changed
+- Replace DateTime by DateTimeInterface
+- Replacing XXXX during address normalization
+
 ## [1.2.2] - 2021-08-18
 ### Fixed
 - Round clicks in ads conversion
@@ -57,8 +62,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Changelog
 - Contributing
  
-[Unreleased]: https://github.com/adshares/ads-php-client/compare/v1.2.2...HEAD
+[Unreleased]: https://github.com/adshares/ads-php-client/compare/v1.2.3...HEAD
 
+[1.2.3]: https://github.com/adshares/ads-php-client/compare/v1.2.2...v1.2.3
 [1.2.2]: https://github.com/adshares/ads-php-client/compare/v1.2.1...v1.2.2
 [1.2.1]: https://github.com/adshares/ads-php-client/compare/v1.2.0...v1.2.1
 [1.2.0]: https://github.com/adshares/ads-php-client/compare/v1.1.0...v1.2.0

@@ -51,7 +51,7 @@ use Adshares\Ads\Response\GetMessageIdsResponse;
 use Adshares\Ads\Response\GetMessageResponse;
 use Adshares\Ads\Response\GetTransactionResponse;
 use Adshares\Ads\Response\TransactionResponse;
-use DateTime;
+use DateTimeInterface;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 use Psr\Log\LoggerInterface;
@@ -261,13 +261,13 @@ class AdsClient implements LoggerAwareInterface
     /**
      * Returns available log event.
      *
-     * @param null|DateTime $from start date of event log
+     * @param null|DateTimeInterface $from start date of event log
      *
      * @return GetLogResponse
      *
      * @throws CommandException
      */
-    public function getLog(?DateTime $from = null): GetLogResponse
+    public function getLog(?DateTimeInterface $from = null): GetLogResponse
     {
         $command = new GetLogCommand($from);
         $response = $this->driver->executeCommand($command);

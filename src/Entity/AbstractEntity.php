@@ -74,8 +74,8 @@ abstract class AbstractEntity implements EntityInterface
                 break;
             case 'string':
                 break;
-            case '\DateTime':
-            case 'DateTime':
+            case '\DateTimeInterface':
+            case 'DateTimeInterface':
                 if (is_numeric($value)) { // unix timestamp
                     $date = new DateTime();
                     $date->setTimestamp((int)$value);

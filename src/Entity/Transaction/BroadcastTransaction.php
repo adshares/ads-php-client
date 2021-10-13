@@ -21,7 +21,7 @@
 
 namespace Adshares\Ads\Entity\Transaction;
 
-use DateTime;
+use DateTimeInterface;
 
 /**
  * Transaction type=<'broadcast'>.
@@ -58,7 +58,7 @@ class BroadcastTransaction extends AbstractTransaction
     protected $signature;
 
     /**
-     * @var DateTime
+     * @var DateTimeInterface
      */
     protected $time;
 
@@ -108,9 +108,9 @@ class BroadcastTransaction extends AbstractTransaction
     }
 
     /**
-     * @return DateTime
+     * @return DateTimeInterface
      */
-    public function getTime(): DateTime
+    public function getTime(): DateTimeInterface
     {
         return $this->time;
     }

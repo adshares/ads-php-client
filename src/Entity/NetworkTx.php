@@ -21,7 +21,7 @@
 
 namespace Adshares\Ads\Entity;
 
-use DateTime;
+use DateTimeInterface;
 
 /**
  * NetworkTx from getTransaction.
@@ -40,7 +40,7 @@ class NetworkTx extends AbstractEntity
     /**
      * Block time
      *
-     * @var DateTime
+     * @var DateTimeInterface
      */
     protected $blockTime;
 
@@ -109,9 +109,9 @@ class NetworkTx extends AbstractEntity
     }
 
     /**
-     * @return DateTime Block time
+     * @return DateTimeInterface Block time
      */
-    public function getBlockTime(): DateTime
+    public function getBlockTime(): DateTimeInterface
     {
         return $this->blockTime;
     }

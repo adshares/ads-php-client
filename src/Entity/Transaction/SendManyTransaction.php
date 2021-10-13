@@ -22,7 +22,7 @@
 namespace Adshares\Ads\Entity\Transaction;
 
 use Adshares\Ads\Util\AdsConverter;
-use DateTime;
+use DateTimeInterface;
 use ReflectionClass;
 
 /**
@@ -58,7 +58,7 @@ class SendManyTransaction extends AbstractTransaction
     protected $signature;
 
     /**
-     * @var DateTime
+     * @var DateTimeInterface
      */
     protected $time;
 
@@ -120,9 +120,9 @@ class SendManyTransaction extends AbstractTransaction
     }
 
     /**
-     * @return DateTime
+     * @return DateTimeInterface
      */
-    public function getTime(): DateTime
+    public function getTime(): DateTimeInterface
     {
         return $this->time;
     }

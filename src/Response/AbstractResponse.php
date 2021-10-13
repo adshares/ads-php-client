@@ -43,14 +43,14 @@ abstract class AbstractResponse implements ResponseInterface
     /**
      * Time of current block
      *
-     * @var DateTime
+     * @var DateTimeInterface
      */
     protected $currentBlockTime;
 
     /**
      * Time of previous block
      *
-     * @var DateTime
+     * @var DateTimeInterface
      */
     protected $previousBlockTime;
 
