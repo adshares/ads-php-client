@@ -14,7 +14,7 @@
 
 <br>
 
-ADS PHP Client is an object oriented **PHP 7.4** client for the [ADS blockchain](https://github.com/adshares/ads) API.
+ADS PHP Client is an object oriented **PHP 7.4/8.0** client for the [ADS blockchain](https://github.com/adshares/ads) API.
 
 This library depends on [Symfony Process](http://symfony.com/doc/current/components/process.html).
 
@@ -55,9 +55,9 @@ $response = $client->getMe();
 
 ### Documentation
 
-- [Installation](https://github.com/adshares/php-ads-client/wiki#installation)
-- [Usage](https://github.com/adshares/php-ads-client/wiki#usage)
-- [Tests](https://github.com/adshares/php-ads-client/wiki#tests)
+- [Installation](https://github.com/adshares/ads-php-client/wiki#installation)
+- [Usage](https://github.com/adshares/ads-php-client/wiki#usage)
+- [Tests](https://github.com/adshares/ads-php-client/wiki#tests)
 
 ### Contributing
 
