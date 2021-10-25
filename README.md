@@ -82,3 +82,4 @@ This project is licensed under the GNU General Public License v3.0 - see the [LI
 ## More info
 
 - [ADS Blockchain Wiki](https://github.com/adshares/ads/wiki)
+- [ADS JS Client](https://github.com/adshares/ads-js-client)
