@@ -1,4 +1,4 @@
-<p align="center">
+<div align="center">
   <a href="https://adshares.net/">
     <img src="https://adshares.net/logos/ads.svg" alt="Adshares" width=72 height=72>
   </a>
@@ -10,11 +10,11 @@
     ·
     <a href="https://github.com/adshares/ads-php-client/wiki">Wiki</a>
   </p>
-</p>
+</div>
 
 <br>
 
-ADS PHP Client is an object oriented **PHP 7.4/8.0** client for the [ADS blockchain](https://github.com/adshares/ads) API.
+ADS PHP Client is an object-oriented **PHP 7.4/8.0** client for the [ADS blockchain](https://github.com/adshares/ads) API.
 
 This library depends on [Symfony Process](http://symfony.com/doc/current/components/process.html).
 
