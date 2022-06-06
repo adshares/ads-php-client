@@ -347,12 +347,13 @@ class CliDriver implements DriverInterface, LoggerAwareInterface
         }
 
         try {
-            $messages = $this->prepareOutput($command, $process->getOutput());
+            $output = $process->getOutput();
+            $messages = $this->prepareOutput($command, $output);
             $message = array_shift($messages);
         } catch (Throwable $e) {
             throw new CommandException(
                 $command,
-                sprintf("%s\n%s", $process->getOutput(), $process->getErrorOutput()),
+                sprintf("%s\n%s", $output ?? '', $process->getErrorOutput()),
                 $e->getCode(),
                 $e
             );
