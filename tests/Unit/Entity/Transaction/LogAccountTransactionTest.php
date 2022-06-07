@@ -78,7 +78,7 @@ class LogAccountTransactionTest extends TestCase
     }
 
     /**
-     * @return string[][]
+     * @return array<int|string, array<int|string, string>|string>
      */
     private function getRawLogAccount(): array
     {

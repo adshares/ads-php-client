@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2021 Adshares sp. z o.o.
+ * Copyright (c) 2018-2022 Adshares sp. z o.o.
  *
  * This file is part of ADS PHP Client
  *
@@ -24,17 +24,18 @@ namespace Adshares\Ads\Tests\E2E;
 use Adshares\Ads\AdsClient;
 use Adshares\Ads\Driver\CliDriver;
 use Psr\Log\LoggerInterface;
+use RuntimeException;
 
 class TestAdsClient extends AdsClient
 {
-    /**
-     * @var string|null
-     */
-    private $address;
+    private string $address;
 
     public function __construct(LoggerInterface $logger = null)
     {
-        $this->address = self::getenv('ADS_ADDRESS');
+        if (null === ($address = self::getenv('ADS_ADDRESS'))) {
+            throw new RuntimeException('Set up env variable ADS_ADDRESS');
+        }
+        $this->address = $address;
         $port = self::getenv('ADS_PORT');
         $driver = new CliDriver(
             $this->address,

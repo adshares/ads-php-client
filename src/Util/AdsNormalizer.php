@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2021 Adshares sp. z o.o.
+ * Copyright (c) 2018-2022 Adshares sp. z o.o.
  *
  * This file is part of ADS PHP Client
  *
@@ -36,6 +36,7 @@ class AdsNormalizer
      */
     public static function normalizeAddress(string $address): string
     {
+        /** @var string $x */
         $x = preg_replace('/[^0-9A-FX]+/', '', strtoupper($address));
         if (strlen($x) != 16) {
             throw new AdsException('Invalid address');
@@ -55,6 +56,7 @@ class AdsNormalizer
      */
     public static function normalizeTxid(string $txid): string
     {
+        /** @var string $x */
         $x = preg_replace('/[^0-9A-F]+/', '', strtoupper($txid));
         if (strlen($x) != 16) {
             throw new AdsException('Invalid transaction id');

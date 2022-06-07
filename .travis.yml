@@ -4,7 +4,7 @@ sudo: false
 
 # PHP version
 php:
-  - 8.0
+  - 8.1
 
 # Cache composer packages so "composer install" is faster
 cache:

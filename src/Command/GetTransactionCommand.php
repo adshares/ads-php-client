@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2021 Adshares sp. z o.o.
+ * Copyright (c) 2018-2022 Adshares sp. z o.o.
  *
  * This file is part of ADS PHP Client
  *
@@ -24,15 +24,11 @@ namespace Adshares\Ads\Command;
 class GetTransactionCommand extends AbstractCommand
 {
     /**
-     *
-     * @var string
+     * Transaction ID
      */
-    private $txid;
+    private string $txid;
 
-    /**
-     * @param string|null $txid
-     */
-    public function __construct(?string $txid)
+    public function __construct(string $txid)
     {
         $this->txid = $txid;
     }
