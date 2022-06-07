@@ -55,7 +55,7 @@
         ],
         "qa-check": [
             "parallel-lint --no-colors --blame --exclude vendor .",
-            "phpcs",
+            "phpcs src tests",
             "phpstan --no-ansi --no-progress"
         ]
     },
