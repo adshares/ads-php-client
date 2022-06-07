@@ -68,7 +68,7 @@ class GetMessageIdsResponseTest extends TestCase
     }
 
     /**
-     * @return string[][]
+     * @return array<string, array<int|string, string>|string>
      */
     private function getRawDataEmpty(): array
     {
