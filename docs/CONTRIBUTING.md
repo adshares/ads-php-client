@@ -10,7 +10,7 @@ it asks for helps us resolve issues faster.
 ### Security Issues
 
 If you think that you have found a security issue in code, don't use the bug
-report and don't publish it publicly. Instead, send an email to the security
+report and don't publish it publicly. Instead, email the security
 reports list ([security@adshares.net](mailto:security@adshares.net)).
 
 ## Submitting a Patch

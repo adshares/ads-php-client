@@ -48,7 +48,7 @@ class SendManyTransactionWireTest extends TestCase
     }
 
     /**
-     * @return string[][][]
+     * @return array<string, array<int|string, array<int|string, string>|string>|string>
      */
     private function getRawSendMany(): array
     {

@@ -1,4 +1,4 @@
-<p align="center">
+<div align="center">
   <a href="https://adshares.net/">
     <img src="https://adshares.net/logos/ads.svg" alt="Adshares" width=72 height=72>
   </a>
@@ -10,11 +10,11 @@
     ·
     <a href="https://github.com/adshares/ads-php-client/wiki">Wiki</a>
   </p>
-</p>
+</div>
 
 <br>
 
-ADS PHP Client is an object oriented **PHP 7.4** client for the [ADS blockchain](https://github.com/adshares/ads) API.
+ADS PHP Client is an object-oriented **PHP 7.4/8.0** client for the [ADS blockchain](https://github.com/adshares/ads) API.
 
 This library depends on [Symfony Process](http://symfony.com/doc/current/components/process.html).
 
@@ -55,9 +55,9 @@ $response = $client->getMe();
 
 ### Documentation
 
-- [Installation](https://github.com/adshares/php-ads-client/wiki#installation)
-- [Usage](https://github.com/adshares/php-ads-client/wiki#usage)
-- [Tests](https://github.com/adshares/php-ads-client/wiki#tests)
+- [Installation](https://github.com/adshares/ads-php-client/wiki#installation)
+- [Usage](https://github.com/adshares/ads-php-client/wiki#usage)
+- [Tests](https://github.com/adshares/ads-php-client/wiki#tests)
 
 ### Contributing
 
@@ -82,3 +82,4 @@ This project is licensed under the GNU General Public License v3.0 - see the [LI
 ## More info
 
 - [ADS Blockchain Wiki](https://github.com/adshares/ads/wiki)
+- [ADS JS Client](https://github.com/adshares/ads-js-client)

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2018-2021 Adshares sp. z o.o.
+ * Copyright (c) 2018-2022 Adshares sp. z o.o.
  *
  * This file is part of ADS PHP Client
  *
@@ -25,7 +25,6 @@ use Adshares\Ads\Util\AdsConverter;
 
 class SendManyCommand extends AbstractTransactionCommand
 {
-
     /**
      * Array of wires. Each entry is pair: account address => amount in clicks.
      *                     Example: ['0001-00000000-XXXX'=>200,'0001-00000001-XXXX'=>10]

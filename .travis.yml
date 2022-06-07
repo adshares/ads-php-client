@@ -4,8 +4,7 @@ sudo: false
 
 # PHP version
 php:
-  - 7.4
-  - 8.0
+  - 8.1
 
 # Cache composer packages so "composer install" is faster
 cache:
@@ -23,7 +22,6 @@ addons:
 # Install composer dependencies
 install:
   - composer install --no-ansi --no-scripts --no-interaction --no-progress --no-suggest
-  - composer run-script install-codestandards
   - mkdir var
 
 script:
@@ -33,6 +31,6 @@ script:
   # QA check
   - composer qa-check
   # PHP unit tests
-  - php -dzend_extension=xdebug.so -dxdebug.mode=coverage ./vendor/bin/phpunit --log-junit=.phpunit.logfile.xml --coverage-clover=.phpunit.coverage.xml --testsuit Unit
+  - composer test-ci
   # SonarQube
   - sonar-scanner
