@@ -8,7 +8,7 @@
     ·
     <a href="https://github.com/adshares/ads-php-client/issues/new?template=feature_request.md&labels=New%20Feature">Request feature</a>
     ·
-    <a href="https://github.com/adshares/ads-php-client/wiki">Wiki</a>
+    <a href="https://docs.adshares.net/ads-php-client/index.html">Docs</a>
   </p>
 </div>
 
@@ -55,9 +55,9 @@ $response = $client->getMe();
 
 ### Documentation
 
-- [Installation](https://github.com/adshares/ads-php-client/wiki#installation)
-- [Usage](https://github.com/adshares/ads-php-client/wiki#usage)
-- [Tests](https://github.com/adshares/ads-php-client/wiki#tests)
+- [Installation](https://docs.adshares.net/ads-php-client/installation.html)
+- [Usage](https://docs.adshares.net/ads-php-client/usage.html)
+- [Tests](https://docs.adshares.net/ads-php-client/tests.html)
 
 ### Contributing
 
@@ -81,5 +81,5 @@ This project is licensed under the GNU General Public License v3.0 - see the [LI
 
 ## More info
 
-- [ADS Blockchain Wiki](https://github.com/adshares/ads/wiki)
+- [ADS Blockchain docs](https://docs.adshares.net/ads/)
 - [ADS JS Client](https://github.com/adshares/ads-js-client)
